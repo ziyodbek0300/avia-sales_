@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.card-filter-courses {
+  top: 5rem !important;
+  grid-row: 1 / 3;
+}
+
+/*main courses */
+.main-courses {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 10rem 10rem;
+  grid-gap: 1rem;
+}
+
+.main-courses div:first-child {
+  grid-row: 1 / 3;
+}
+
+.main-courses div {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
+  color: #fff;
+}
+
+.bg-custom {
+  background: #f4f8fa !important;
+}
