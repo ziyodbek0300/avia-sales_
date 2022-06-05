@@ -5,8 +5,8 @@ import Logo from '../../static/images/logo.png'
 
 function Navbar() {
     return (
-        <div className='border-b border-b-slate-300 py-3'>
-            <nav className=' flex justify-between items-center max-w-7xl mx-auto'>
+        <div className='py-3'>
+            <nav className='flex justify-between items-center max-w-5xl mx-auto'>
                 <div className="logo">
                     <NavLink to='/'>
                         <img src={Logo} className="w-40" alt="logo" />
