@@ -4,9 +4,15 @@
 // font by google fonts
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-* {
-  font-family: 'Montserrat', sans-serif;
+@font-face {
+  font-family: Idealist;
+  src: url('./static/fonts/Idealist\ Sans.otf') type-of($value: 'otf');
 }
+
+* {
+  font-family: 'Idealist', sans-serif;
+}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -51,17 +57,35 @@ code {
   background-image: url('./static/images/bg_1.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: bottom;
 }
 
 .header:last-child {
   background-image: url('./static/images/bg_2.jpg');
 }
 
+.second {
+  background-position: center !important;
+}
+
 .header:nth-child(2) {
   background-image: url('./static/images/bg_3.jpg');
 }
 
+.third {
+  background-position: top !important;
+  background-image: url('./static/images/bg_2.jpg');
+}
+
+.fourth {
+  background-position: center !important;
+  background-image: url('./static/images/bg_4.jpg') !important;
+}
+
 .bg-example {
   background-position: center;
+}
+
+.w-custom {
+  width: 650px !important;
 }

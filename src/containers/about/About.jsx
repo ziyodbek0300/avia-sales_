@@ -2,7 +2,7 @@ import React from 'react'
 
 function About() {
     return (
-        <div className='max-w-7xl mx-auto'>
+        <div className='max-w-5xl mx-auto'>
             <div className='my-3'>
                 <p className='text-4xl font-bold mb-3'>О нас</p>
                 <p className='text-xl mb-2'>

@@ -14,14 +14,18 @@ function Navbar() {
                 </div>
                 <ul className='flex gap-4'>
                     <li>
-                        <NavLink to='/about-us'>Biz haqimizda</NavLink>
+                        <NavLink to='/about-us'>О нас</NavLink>
                     </li>
-                    <li>Biletlar</li>
-                    <li>Hamkorlarga</li>
+                    <li className='cursor-pointer'>
+                        <NavLink to='/where-are-we'>
+                            Где мы находимся
+                        </NavLink>
+                    </li>
+                    <li className='cursor-pointer'>Агентствам</li>
                 </ul>
                 <ul className='flex gap-2'>
                     <li className='flex items-center border-r pr-3'>
-                        <FaUser />&nbsp;Kirish
+                        <FaUser />&nbsp;Войти
                     </li>
                     <li>
                         <select name="lang" id="lang" className='border-slate-500'>
