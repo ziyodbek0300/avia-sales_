@@ -1,13 +1,13 @@
 import React from 'react'
-import bgImg from '../../static/images/1.jpg';
-// import bgImg2 from '../../static/images/2.jpg';
-import bgImg3 from '../../static/images/3.jpg';
-import bgImg5 from '../../static/images/5.jpg';
-import bgImg6 from '../../static/images/6.jpg';
-import bgImg7 from '../../static/images/7.jpg';
-import bgImg8 from '../../static/images/8.jpg';
-import bgImg9 from '../../static/images/9.jpg';
-import bgImg11 from '../../static/images/11.jpg';
+import bgImg from '../../static/images/1-min.jpg';
+// import bgImg2 from '../../static/images/2-min.jpg';
+import bgImg3 from '../../static/images/3-min.jpg';
+import bgImg5 from '../../static/images/5-min.jpg';
+import bgImg6 from '../../static/images/6-min.jpg';
+import bgImg7 from '../../static/images/7-min.jpg';
+import bgImg8 from '../../static/images/8-min.jpg';
+import bgImg9 from '../../static/images/9-min.jpg';
+import bgImg11 from '../../static/images/11-min.jpg';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FiGrid } from 'react-icons/fi'
