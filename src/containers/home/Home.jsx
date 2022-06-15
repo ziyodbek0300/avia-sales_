@@ -49,7 +49,7 @@ function Home() {
 
                     <TabPanel className="header">
                         <div className="max-w-5xl mx-auto py-44">
-                            <div className="bg-blue-900 border-4 border-red-400 rounded-lg shadow-xl text-white font-medium p-5">
+                            <div className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
                                 <div className='flex items-center gap-3'>
                                     <div className='flex items-center gap-1'>
                                         <input type="radio" name="t1" id="t1" />
@@ -59,28 +59,28 @@ function Home() {
                                 <div className='flex gap-2 items-center py-4 text-gray-600'>
                                     <div className='w-full'>
                                         <label htmlFor="from" className='block text-white text-sm'>Откуда</label>
-                                        <input className='p-2 rounded w-full' type="text" name='from' placeholder='Из Ташкента' id='from' />
+                                        <input className='p-2 rounded border-4 border-red-600 w-full' type="text" name='from' placeholder='Из Ташкента' id='from' />
                                     </div>
                                     <RiSendPlane2Line className='text-white w-10' />
                                     <div className='w-full'>
                                         <label htmlFor="from" className='block text-white text-sm'>Направление</label>
-                                        <input className='p-2 rounded w-full' type="text" name='from' placeholder='- выбрать -' id='from' />
+                                        <input className='p-2 rounded border-4 border-red-600 w-full' type="text" name='from' placeholder='- выбрать -' id='from' />
                                     </div>
                                     <div className='w-full'>
                                         <label htmlFor="from" className='block text-white text-sm'>Туда</label>
-                                        <input className='p-2 rounded w-full' type="date" name='from' placeholder='- выбрать -' id='from' />
+                                        <input className='p-2 rounded border-4 border-red-600 w-full' type="date" name='from' placeholder='- выбрать -' id='from' />
                                     </div>
                                     <div className='w-full'>
                                         <label htmlFor="from" className='block text-white text-sm'>Обратно</label>
-                                        <input className='p-2 rounded w-full' type="date" name='from' placeholder='- выбрать -' id='from' />
+                                        <input className='p-2 rounded border-4 border-red-600 w-full' type="date" name='from' placeholder='- выбрать -' id='from' />
                                     </div>
                                     <div className='w-full'>
                                         <label htmlFor="from" className='block text-white text-sm'>Туристы</label>
-                                        <input className='p-2 rounded w-full' type="text" name='from' placeholder='2, Эконом' id='from' />
+                                        <input className='p-2 rounded border-4 border-red-600 w-full' type="text" name='from' placeholder='2, Эконом' id='from' />
                                     </div>
                                     <div className='w-full'>
                                         <label htmlFor="from" className='block text-white text-sm'>Трансфер</label>
-                                        <select name="" className='p-2 rounded w-full' id="">
+                                        <select name="" className='p-2 rounded border-4 border-red-600 w-full' id="">
                                             <option value="">Групповой</option>
                                             <option value="">Индивидуальный</option>
                                         </select>
@@ -96,7 +96,7 @@ function Home() {
                     </TabPanel>
                     <TabPanel className="header second">
                         <div className="max-w-5xl mx-auto py-44">
-                            <div className="bg-blue-900 border-4 border-red-400 rounded-lg shadow-xl text-white font-medium p-5">
+                            <div className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
                                 <div className='flex items-center gap-4'>
                                     <div className='flex items-center gap-1'>
                                         <input type="radio" name="t1" id="t1" />
@@ -114,24 +114,24 @@ function Home() {
                                 <div className='flex gap-2 items-center py-4 text-gray-600'>
                                     <div className='w-custom'>
                                         <label htmlFor="from" className='block text-white text-xs'>Откуда</label>
-                                        <input className='p-2 rounded w-full' type="text" name='from' placeholder='Из Ташкента' id='from' />
+                                        <input className='p-2 rounded border-4 border-red-600 w-full' type="text" name='from' placeholder='Из Ташкента' id='from' />
                                     </div>
                                     <RiSendPlane2Line className='text-white w-10' />
                                     <div className='w-custom'>
                                         <label htmlFor="from" className='block text-white text-xs'>Направление</label>
-                                        <input className='p-2 rounded w-full' type="text" name='from' placeholder='- выбрать -' id='from' />
+                                        <input className='p-2 rounded border-4 border-red-600 w-full' type="text" name='from' placeholder='- выбрать -' id='from' />
                                     </div>
                                     <div className='w-36'>
                                         <label htmlFor="from" className='block text-white text-xs'>Туда</label>
-                                        <input className='p-2 rounded w-full' type="date" name='from' placeholder='- выбрать -' id='from' />
+                                        <input className='p-2 rounded border-4 border-red-600 w-full' type="date" name='from' placeholder='- выбрать -' id='from' />
                                     </div>
                                     <div className='w-36'>
                                         <label htmlFor="from" className='block text-white text-xs'>Обратно</label>
-                                        <input className='p-2 rounded w-full' type="date" name='from' placeholder='- выбрать -' id='from' />
+                                        <input className='p-2 rounded border-4 border-red-600 w-full' type="date" name='from' placeholder='- выбрать -' id='from' />
                                     </div>
                                     <div className='w-full'>
                                         <label htmlFor="from" className='block text-white text-xs'>Класс обслуживания и пассажиры</label>
-                                        <input className='p-2 rounded w-full' type="text" name='from' placeholder='2, Эконом' id='from' />
+                                        <input className='p-2 rounded border-4 border-red-600 w-full' type="text" name='from' placeholder='2, Эконом' id='from' />
                                     </div>
                                 </div>
                                 <div className='flex items-center justify-end'>
@@ -144,7 +144,7 @@ function Home() {
                     </TabPanel>
                     <TabPanel className="header third">
                         <div className="max-w-5xl mx-auto py-44">
-                            <div className="bg-blue-900 border-4 border-red-400 rounded-lg shadow-xl text-white font-medium p-5">
+                            <div className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
                                 <div className='flex items-center gap-3'>
                                     <div className='flex items-center gap-1'>
                                         <input type="radio" name="t1" id="t1" />
@@ -154,28 +154,28 @@ function Home() {
                                 <div className='flex gap-2 items-center py-4 text-gray-600'>
                                     <div className='w-full'>
                                         <label htmlFor="from" className='block text-white text-sm'>Откуда</label>
-                                        <input className='p-2 rounded w-full' type="text" name='from' placeholder='Из Ташкента' id='from' />
+                                        <input className='p-2 rounded border-4 border-red-600 w-full' type="text" name='from' placeholder='Из Ташкента' id='from' />
                                     </div>
                                     <RiSendPlane2Line className='text-white w-10' />
                                     <div className='w-full'>
                                         <label htmlFor="from" className='block text-white text-sm'>Направление</label>
-                                        <input className='p-2 rounded w-full' type="text" name='from' placeholder='- выбрать -' id='from' />
+                                        <input className='p-2 rounded border-4 border-red-600 w-full' type="text" name='from' placeholder='- выбрать -' id='from' />
                                     </div>
                                     <div className='w-full'>
                                         <label htmlFor="from" className='block text-white text-sm'>Туда</label>
-                                        <input className='p-2 rounded w-full' type="date" name='from' placeholder='- выбрать -' id='from' />
+                                        <input className='p-2 rounded border-4 border-red-600 w-full' type="date" name='from' placeholder='- выбрать -' id='from' />
                                     </div>
                                     <div className='w-full'>
                                         <label htmlFor="from" className='block text-white text-sm'>Обратно</label>
-                                        <input className='p-2 rounded w-full' type="date" name='from' placeholder='- выбрать -' id='from' />
+                                        <input className='p-2 rounded border-4 border-red-600 w-full' type="date" name='from' placeholder='- выбрать -' id='from' />
                                     </div>
                                     <div className='w-full'>
                                         <label htmlFor="from" className='block text-white text-sm'>Туристы</label>
-                                        <input className='p-2 rounded w-full' type="text" name='from' placeholder='2, Эконом' id='from' />
+                                        <input className='p-2 rounded border-4 border-red-600 w-full' type="text" name='from' placeholder='2, Эконом' id='from' />
                                     </div>
                                     <div className='w-full'>
                                         <label htmlFor="from" className='block text-white text-sm'>Трансфер</label>
-                                        <select name="" className='p-2 rounded w-full' id="">
+                                        <select name="" className='p-2 rounded border-4 border-red-600 w-full' id="">
                                             <option value="">Групповой</option>
                                             <option value="">Индивидуальный</option>
                                         </select>
@@ -191,24 +191,24 @@ function Home() {
                     </TabPanel>
                     <TabPanel className="header fourth">
                         <div className="max-w-5xl mx-auto py-44">
-                            <div className="bg-blue-900 border-4 border-red-400 rounded-lg shadow-xl text-white font-medium p-5">
+                            <div className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
                                 <div className='flex gap-2 items-center py-4 text-gray-600'>
                                     <div className='w-full'>
                                         <label htmlFor="from" className='block text-white text-sm'>Направление</label>
-                                        <input className='p-2 rounded w-full' type="text" name='from' placeholder='- выбрать -' id='from' />
+                                        <input className='p-2 rounded border-4 border-red-600 w-full' type="text" name='from' placeholder='- выбрать -' id='from' />
                                     </div>
                                     <RiSendPlane2Line className='text-white w-10' />
                                     <div className='w-full'>
                                         <label htmlFor="date" className='block text-white text-sm'>Дата заезда</label>
-                                        <input type="date" className='p-2 rounded w-full' name='date' id='date' />
+                                        <input type="date" className='p-2 rounded border-4 border-red-600 w-full' name='date' id='date' />
                                     </div>
                                     <div className='w-full'>
                                         <label htmlFor="date" className='block text-white text-sm'>Дата выезда</label>
-                                        <input type="date" className='p-2 rounded w-full' name='date' id='date' />
+                                        <input type="date" className='p-2 rounded border-4 border-red-600 w-full' name='date' id='date' />
                                     </div>
                                     <div className='w-full'>
                                         <label htmlFor="date" className='block text-white text-sm'>Гости и номера</label>
-                                        <input type="text" className='p-2 rounded w-full' placeholder='Взрослых: 2, Номеров: 1' name='date' id='date' />
+                                        <input type="text" className='p-2 rounded border-4 border-red-600 w-full' placeholder='Взрослых: 2, Номеров: 1' name='date' id='date' />
                                     </div>
                                 </div>
                                 <div className='flex items-center justify-end'>
@@ -221,28 +221,28 @@ function Home() {
                     </TabPanel>
                     <TabPanel className="header fifth">
                         <div className="max-w-5xl mx-auto py-44">
-                            <div className="bg-blue-900 border-4 border-red-400 rounded-lg shadow-xl text-white font-medium p-5">
+                            <div className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
                                 <div className='flex gap-2 items-center py-4 text-gray-600'>
                                     <div className='w-full'>
                                         <label htmlFor="from" className='block text-white text-sm'>Страна</label>
-                                        <input className='p-2 rounded w-full' type="text" name='from' placeholder='- выбрать -' id='from' />
+                                        <input className='p-2 rounded border-4 border-red-600 w-full' type="text" name='from' placeholder='- выбрать -' id='from' />
                                     </div>
                                     <RiSendPlane2Line className='text-white w-10' />
                                     <div className='w-full'>
                                         <label htmlFor="from" className='block text-white text-sm'>Тип визы</label>
-                                        <input className='p-2 rounded w-full' type="text" name='from' placeholder='- выбрать -' id='from' />
+                                        <input className='p-2 rounded border-4 border-red-600 w-full' type="text" name='from' placeholder='- выбрать -' id='from' />
                                     </div>
                                     <div className='w-full'>
                                         <label htmlFor="date" className='block text-white text-sm'>Дата заезда</label>
-                                        <input type="date" className='p-2 rounded w-full' name='date' id='date' />
+                                        <input type="date" className='p-2 rounded border-4 border-red-600 w-full' name='date' id='date' />
                                     </div>
                                     <div className='w-full'>
                                         <label htmlFor="date" className='block text-white text-sm'>Дата выезда</label>
-                                        <input type="date" className='p-2 rounded w-full' name='date' id='date' />
+                                        <input type="date" className='p-2 rounded border-4 border-red-600 w-full' name='date' id='date' />
                                     </div>
                                     <div className='w-full'>
                                         <label htmlFor="from" className='block text-white text-sm'>Количество туристов</label>
-                                        <input className='p-2 rounded w-full' type="text" name='from' placeholder='- выбрать -' id='from' />
+                                        <input className='p-2 rounded border-4 border-red-600 w-full' type="text" name='from' placeholder='- выбрать -' id='from' />
                                     </div>
                                 </div>
                                 <div className='flex items-center justify-end'>
