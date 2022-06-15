@@ -1,9 +1,13 @@
 import React from 'react'
 import bgImg from '../../static/images/1.jpg';
-import bgImg2 from '../../static/images/2.jpg';
+// import bgImg2 from '../../static/images/2.jpg';
 import bgImg3 from '../../static/images/3.jpg';
 import bgImg5 from '../../static/images/5.jpg';
 import bgImg6 from '../../static/images/6.jpg';
+import bgImg7 from '../../static/images/7.jpg';
+import bgImg8 from '../../static/images/8.jpg';
+import bgImg9 from '../../static/images/9.jpg';
+import bgImg11 from '../../static/images/11.jpg';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FiGrid } from 'react-icons/fi'
@@ -45,7 +49,7 @@ function Home() {
 
                     <TabPanel className="header">
                         <div className="max-w-5xl mx-auto py-44">
-                            <div className="bg-blue-900 rounded-lg shadow-xl text-white font-medium p-5">
+                            <div className="bg-blue-900 border-4 border-red-400 rounded-lg shadow-xl text-white font-medium p-5">
                                 <div className='flex items-center gap-3'>
                                     <div className='flex items-center gap-1'>
                                         <input type="radio" name="t1" id="t1" />
@@ -92,7 +96,7 @@ function Home() {
                     </TabPanel>
                     <TabPanel className="header second">
                         <div className="max-w-5xl mx-auto py-44">
-                            <div className="bg-blue-900 rounded-lg shadow-xl text-white font-medium p-5">
+                            <div className="bg-blue-900 border-4 border-red-400 rounded-lg shadow-xl text-white font-medium p-5">
                                 <div className='flex items-center gap-4'>
                                     <div className='flex items-center gap-1'>
                                         <input type="radio" name="t1" id="t1" />
@@ -140,7 +144,7 @@ function Home() {
                     </TabPanel>
                     <TabPanel className="header third">
                         <div className="max-w-5xl mx-auto py-44">
-                            <div className="bg-blue-900 rounded-lg shadow-xl text-white font-medium p-5">
+                            <div className="bg-blue-900 border-4 border-red-400 rounded-lg shadow-xl text-white font-medium p-5">
                                 <div className='flex items-center gap-3'>
                                     <div className='flex items-center gap-1'>
                                         <input type="radio" name="t1" id="t1" />
@@ -187,7 +191,7 @@ function Home() {
                     </TabPanel>
                     <TabPanel className="header fourth">
                         <div className="max-w-5xl mx-auto py-44">
-                            <div className="bg-blue-900 rounded-lg shadow-xl text-white font-medium p-5">
+                            <div className="bg-blue-900 border-4 border-red-400 rounded-lg shadow-xl text-white font-medium p-5">
                                 <div className='flex gap-2 items-center py-4 text-gray-600'>
                                     <div className='w-full'>
                                         <label htmlFor="from" className='block text-white text-sm'>Направление</label>
@@ -215,15 +219,19 @@ function Home() {
                             </div>
                         </div>
                     </TabPanel>
-                    <TabPanel className="header fourth">
+                    <TabPanel className="header fifth">
                         <div className="max-w-5xl mx-auto py-44">
-                            <div className="bg-blue-900 rounded-lg shadow-xl text-white font-medium p-5">
+                            <div className="bg-blue-900 border-4 border-red-400 rounded-lg shadow-xl text-white font-medium p-5">
                                 <div className='flex gap-2 items-center py-4 text-gray-600'>
                                     <div className='w-full'>
-                                        <label htmlFor="from" className='block text-white text-sm'>Направление</label>
+                                        <label htmlFor="from" className='block text-white text-sm'>Страна</label>
                                         <input className='p-2 rounded w-full' type="text" name='from' placeholder='- выбрать -' id='from' />
                                     </div>
                                     <RiSendPlane2Line className='text-white w-10' />
+                                    <div className='w-full'>
+                                        <label htmlFor="from" className='block text-white text-sm'>Тип визы</label>
+                                        <input className='p-2 rounded w-full' type="text" name='from' placeholder='- выбрать -' id='from' />
+                                    </div>
                                     <div className='w-full'>
                                         <label htmlFor="date" className='block text-white text-sm'>Дата заезда</label>
                                         <input type="date" className='p-2 rounded w-full' name='date' id='date' />
@@ -233,8 +241,8 @@ function Home() {
                                         <input type="date" className='p-2 rounded w-full' name='date' id='date' />
                                     </div>
                                     <div className='w-full'>
-                                        <label htmlFor="date" className='block text-white text-sm'>Гости и номера</label>
-                                        <input type="text" className='p-2 rounded w-full' placeholder='Взрослых: 2, Номеров: 1' name='date' id='date' />
+                                        <label htmlFor="from" className='block text-white text-sm'>Количество туристов</label>
+                                        <input className='p-2 rounded w-full' type="text" name='from' placeholder='- выбрать -' id='from' />
                                     </div>
                                 </div>
                                 <div className='flex items-center justify-end'>
@@ -277,15 +285,15 @@ function Home() {
             <div className={"pb-5 max-w-5xl mx-auto mt-5 text-2xl"}>
                 <p className='text-3xl text-gray-500 font-bold mb-3'>Все страны</p>
                 <div className={"h-80 gap-3 fw-bold fs-4 grid grid-cols-3"}>
-                    <div style={{ backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.2049194677871149) 56%, rgba(216,49,53,0.6194852941176471) 100%), url(${bgImg})`, textShadow: "1px 1px 15px rgba(0,0,0,1)" }}
+                    <div style={{ backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.2049194677871149) 56%, rgba(216,49,53,0.6194852941176471) 100%), url(${bgImg7})`, textShadow: "1px 1px 15px rgba(0,0,0,1)" }}
                         className={"rounded-2xl card p-3 border-0 shadow-sm text-orange-400 font-bold relative"}>
                         <Link className="text-decoration-none text-white absolute bottom-3 text-2xl right-3" to="/video/1">ОАЭ</Link>
                     </div>
-                    <div style={{ backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.2049194677871149) 56%, rgba(216,49,53,0.6194852941176471) 100%), url(${bgImg2})`, textShadow: "1px 1px 15px rgba(0,0,0,1)" }}
+                    <div style={{ backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.2049194677871149) 56%, rgba(216,49,53,0.6194852941176471) 100%), url(${bgImg8})`, textShadow: "1px 1px 15px rgba(0,0,0,1)" }}
                         className={"rounded-2xl card p-3 border-0 shadow-sm text-orange-400 font-bold relative"}>
                         <Link className="text-decoration-none text-white absolute bottom-3 text-2xl right-3" to="/video/1">Мекка</Link>
                     </div>
-                    <div style={{ backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.2049194677871149) 56%, rgba(216,49,53,0.6194852941176471) 100%), url(${bgImg})`, textShadow: "1px 1px 15px rgba(0,0,0,1)" }}
+                    <div style={{ backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.2049194677871149) 56%, rgba(216,49,53,0.6194852941176471) 100%), url(${bgImg9})`, textShadow: "1px 1px 15px rgba(0,0,0,1)" }}
                         className={"rounded-2xl card p-3 border-0 shadow-sm text-orange-400 font-bold relative"}>
                         <Link className="text-decoration-none text-white absolute bottom-3 text-2xl right-3" to="/video/1">Саудовская Аравия</Link>
                     </div>
@@ -294,7 +302,7 @@ function Home() {
             <Container className={"max-w-5xl py-10 mx-auto mt-5 text-2xl"}>
                 <p className='text-3xl text-gray-500 font-bold mb-3'>Все страны</p>
                 <div className={"h-80 gap-3 fw-bold fs-4 flex"}>
-                    <div style={{ backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.2049194677871149) 56%, rgba(216,49,53,0.6194852941176471) 100%), url(${bgImg3})`, textShadow: "1px 1px 15px rgba(0,0,0,1)" }}
+                    <div style={{ backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.2049194677871149) 56%, rgba(216,49,53,0.6194852941176471) 100%), url(${bgImg11})`, textShadow: "1px 1px 15px rgba(0,0,0,1)" }}
                         className={"rounded-2xl card p-3 border-0 shadow-sm text-orange-400 font-bold relative w-full"}>
                     </div>
                     <div className='border border-slate-200 rounded-2xl shadow-sm p-4'>
