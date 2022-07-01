@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from 'js-cookie';
 
 export const MainApi = "http://26.130.72.194";
 
@@ -12,6 +13,7 @@ instance.interceptors.request.use(
         config.meta.requestStartedAt = new Date().getTime();
         config.headers = {
             ...config.headers,
+            "Authorization":`Bearer ${Cookies.get("token")}`
         };
         return config;
     },

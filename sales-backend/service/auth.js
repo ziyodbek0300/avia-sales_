@@ -5,7 +5,7 @@ const models = require("../models")
 const userRole = require("../constants/UserRole")
 
 const TokenVerify = (req, res, next) => {
-    const authHeader = req.headers['authorization']
+    const authHeader = req?.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
     try {
         jwt.verify(token, privateKey, {}, async (e, d) => {

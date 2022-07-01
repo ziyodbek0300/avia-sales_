@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import Logo from '../../static/images/logo.png'
 import { useTranslation } from "react-i18next";
 import { langCons } from "../../constants/langCons";
+import LoginModal from "../modal/LoginModal";
 
 function Navbar() {
     const { t, i18n } = useTranslation();
@@ -31,9 +32,7 @@ function Navbar() {
                     </li>
                 </ul>
                 <ul className='flex gap-2'>
-                    <li className='flex items-center border-r pr-3'>
-                        <FaUser />&nbsp;{t('enter')}
-                    </li>
+                    <LoginModal/>
                     <li>
                         <select
                             onChange={(e) => i18n.changeLanguage(e.target.value)}

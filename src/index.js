@@ -7,7 +7,9 @@ import Store from './redux';
 import {initializeApp} from "firebase/app";
 import {Provider} from "react-redux";
 import {PersistGate} from "redux-persist/integration/react";
+import {CookiesProvider} from 'react-cookie';
 import "./lang"
+
 const {store, persistor} = Store();
 
 const firebaseConfig = {
@@ -24,12 +26,14 @@ export const app = initializeApp(firebaseConfig);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-                <BrowserRouter>
-                    <App/>
-                </BrowserRouter>
-            </PersistGate>
-        </Provider>
+        <CookiesProvider>
+            <Provider store={store}>
+                <PersistGate loading={null} persistor={persistor}>
+                    <BrowserRouter>
+                        <App/>
+                    </BrowserRouter>
+                </PersistGate>
+            </Provider>
+        </CookiesProvider>
     </React.StrictMode>
 )

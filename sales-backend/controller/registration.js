@@ -45,7 +45,16 @@ const loginUser = async (req, res) => {
     }
 }
 
+const getMe = async (req, res) => {
+    if (req.user) {
+        res.status(200).send(Success(200, req.user, "ok"))
+    } else {
+        res.status(401).send(ErrorSend(401, {}, "not found"))
+    }
+}
+
 module.exports = {
     registrationUser,
-    loginUser
+    loginUser,
+    getMe
 }
