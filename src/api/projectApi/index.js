@@ -1,7 +1,6 @@
 import axios from "axios";
 
-export const MainApi = "http://localhost";
-// export const MainApi = "http://localhost:5001/roofing-fb362/us-central1";
+export const MainApi = "http://26.130.72.194";
 
 const instance = axios.create({
     baseURL: `${MainApi}/`,
@@ -13,7 +12,6 @@ instance.interceptors.request.use(
         config.meta.requestStartedAt = new Date().getTime();
         config.headers = {
             ...config.headers,
-            // "Authtori"
         };
         return config;
     },
@@ -23,8 +21,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
     (response) => {
         console.log(
-            `Execution time for: ${response.config.url} - ${
-                new Date().getTime() - response.config.meta.requestStartedAt
+            `Execution time for: ${response.config.url} - ${new Date().getTime() - response.config.meta.requestStartedAt
             } ms`,
         );
         return response;
