@@ -18,7 +18,17 @@ const style = {
 const UserModal = ({open, handleClose, type, values}) => {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
-    const [data, setData] = useState(values)
+    const [data, setData] = useState({
+        doc:'',
+        city:'',
+        nameCompany:'',
+        fullName:'',
+        phone:'',
+        email:'',
+        ...values,
+        correctPassword:'',
+        password:'',
+    })
 
     useEffect(() => {
         if (open) {
@@ -27,8 +37,8 @@ const UserModal = ({open, handleClose, type, values}) => {
     }, [values])
 
     const handlePressSubmit = () => {
+            console.log(data)
         if (type==="create"){
-
         } else {
 
         }
@@ -47,7 +57,96 @@ const UserModal = ({open, handleClose, type, values}) => {
                         {type === "create" ? `Create ${userRole.admin===data.role ? "Admin" : "Agent"}` : `Update ${userRole.admin===data.role ? "Admin" : "Agent"}`}
                     </Typography>
                     <Box style={{marginTop: 8}}>
-
+                        <Box style={{marginTop:4}}>
+                            <TextField
+                                value={values.city}
+                                style={{width: "100%"}}
+                                variant={"outlined"}
+                                placeholder={"city"}
+                                // error={error.email}
+                                onChange={(event) => setData({...values, email: event.target.value})}
+                                // onFocus={() => setError({...error, email: false})}
+                            />
+                        </Box>
+                        <Box style={{marginTop:4}}>
+                            <TextField
+                                value={values.nameCompany}
+                                style={{width: "100%"}}
+                                variant={"outlined"}
+                                placeholder={"company name"}
+                                // error={error.email}
+                                onChange={(event) => setData({...values, email: event.target.value})}
+                                // onFocus={() => setError({...error, email: false})}
+                            />
+                        </Box>
+                        <Box style={{marginTop:4}}>
+                            <TextField
+                                value={values.fullName}
+                                style={{width: "100%"}}
+                                variant={"outlined"}
+                                placeholder={"full name"}
+                                // error={error.email}
+                                onChange={(event) => setData({...values, email: event.target.value})}
+                                // onFocus={() => setError({...error, email: false})}
+                            />
+                        </Box>
+                        <Box style={{marginTop:4}}>
+                            <TextField
+                                value={values.phone}
+                                style={{width: "100%"}}
+                                variant={"outlined"}
+                                placeholder={"phone"}
+                                // error={error.email}
+                                onChange={(event) => setData({...values, email: event.target.value})}
+                                // onFocus={() => setError({...error, email: false})}
+                            />
+                        </Box>
+                        <Box style={{marginTop:4}}>
+                            <TextField
+                                value={values.email}
+                                style={{width: "100%"}}
+                                variant={"outlined"}
+                                placeholder={"email"}
+                                // error={error.email}
+                                onChange={(event) => setData({...values, email: event.target.value})}
+                                // onFocus={() => setError({...error, email: false})}
+                            />
+                        </Box>
+                        <Box style={{marginTop:4}}>
+                            <TextField
+                                value={values.email}
+                                style={{width: "100%"}}
+                                variant={"outlined"}
+                                placeholder={"email"}
+                                // error={error.email}
+                                onChange={(event) => setData({...values, email: event.target.value})}
+                                // onFocus={() => setError({...error, email: false})}
+                            />
+                        </Box>
+                        <Box style={{marginTop:4}}>
+                            <TextField
+                                value={values.password}
+                                style={{width: "100%"}}
+                                variant={"outlined"}
+                                type={"password"}
+                                placeholder={"password"}
+                                // error={error.email}
+                                onChange={(event) => setData({...values, email: event.target.value})}
+                                // onFocus={() => setError({...error, email: false})}
+                            />
+                        </Box>
+                        <Box style={{marginTop:4}}>
+                            <TextField
+                                value={values.correctPassword}
+                                style={{width: "100%"}}
+                                variant={"outlined"}
+                                type={"password"}
+                                placeholder={"reenter password"}
+                                // error={error.email}
+                                onChange={(event) => setData({...values, email: event.target.value})}
+                                // onFocus={() => setError({...error, email: false})}
+                            />
+                        </Box>
                     </Box>
                     <Button
                         onClick={handlePressSubmit}
@@ -55,7 +154,7 @@ const UserModal = ({open, handleClose, type, values}) => {
                         variant={"outlined"}
                     >
                         <Typography>
-                            Login
+                            Save
                         </Typography>
                     </Button>
                 </Box>
