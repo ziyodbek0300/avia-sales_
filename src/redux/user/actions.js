@@ -74,3 +74,35 @@ export const getAllUser = (callBack = () => ({})) => dispatch => {
         })
 
 };
+
+export const acceptAgent = (id,callBack = () => ({})) => dispatch => {
+    user.acceptUser(id)
+        .then(r => {
+            dispatch(getAllUser())
+            callBack()
+        })
+        .catch(e => {
+            // toast(<div>No</div>, {type: "warning", autoClose: 500})
+            // dispatch({
+            //     type: constants.getAllUser,
+            //     payload: [],
+            // });
+        })
+
+};
+
+export const deleteUser = (id,callBack = () => ({})) => dispatch => {
+    user.deleteUser(id)
+        .then(r => {
+            dispatch(getAllUser())
+            callBack()
+        })
+        .catch(e => {
+            // toast(<div>No</div>, {type: "warning", autoClose: 500})
+            // dispatch({
+            //     type: constants.getAllUser,
+            //     payload: [],
+            // });
+        })
+
+};
