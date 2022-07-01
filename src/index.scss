@@ -114,3 +114,9 @@ code {
 .w-custom {
   width: 650px !important;
 }
+
+.li::before {
+  content: '\25A0';
+  color: crimson;
+  margin-right: 5px;
+}

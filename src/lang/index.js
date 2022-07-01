@@ -1,6 +1,6 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import {langCons} from "../constants/langCons";
+import { langCons } from "../constants/langCons";
 import langs from "../constants/langs.json"
 const resources = {
     en: {

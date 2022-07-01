@@ -4,11 +4,10 @@ import About from "./containers/about/About";
 import ForPartners from "./containers/forPartners";
 import Home from "./containers/home/Home";
 import Where from "./containers/where";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 function App() {
-    const { t, i18n } = useTranslation();
-    console.log(t("uz"))
+
   return (
     <div>
       <Navbar />
