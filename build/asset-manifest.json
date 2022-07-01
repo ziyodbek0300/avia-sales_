@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/static/css/main.069c96d9.css",
+    "main.js": "/static/js/main.eff57868.js",
+    "static/media/bg_4.jpg": "/static/media/bg_4.639e678540c715d9f0d6.jpg",
+    "static/media/bg_3.jpg": "/static/media/bg_3.f9693b2771ed630808ef.jpg",
+    "static/media/bg_5.jpg": "/static/media/bg_5.10ce760e125c34ff6ad2.jpg",
+    "static/media/contract.pdf": "/static/media/contract.162627cdc9e6b36865b4.pdf",
+    "static/media/7-min.jpg": "/static/media/7-min.cad42f981744b635f5cc.jpg",
+    "static/media/5-min.jpg": "/static/media/5-min.dad643c2f8f10c535578.jpg",
+    "static/media/bg_1.jpg": "/static/media/bg_1.027a8bd91b9fd1f01548.jpg",
+    "static/media/9-min.jpg": "/static/media/9-min.0e0a3dda74c2f0fd2386.jpg",
+    "static/media/1-min.jpg": "/static/media/1-min.b53e91f31952ed578750.jpg",
+    "static/media/6-min.jpg": "/static/media/6-min.9332927c22a99d1d50e2.jpg",
+    "static/media/8-min.jpg": "/static/media/8-min.6e0d51e6357ffd5822ef.jpg",
+    "static/media/bg_2.jpg": "/static/media/bg_2.deabb8fbcdb51f0a4bb4.jpg",
+    "static/media/3-min.jpg": "/static/media/3-min.21f0157f6ef4990d2b76.jpg",
+    "static/media/11-min.jpg": "/static/media/11-min.97723e4d36e8d963995f.jpg",
+    "static/media/Idealist Sans.otf": "/static/media/Idealist Sans.bb07e5e25d859168a7ec.otf",
+    "static/media/logo.png": "/static/media/logo.a4cb626f16c4632f5510.png",
+    "index.html": "/index.html",
+    "main.069c96d9.css.map": "/static/css/main.069c96d9.css.map",
+    "main.eff57868.js.map": "/static/js/main.eff57868.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.069c96d9.css",
+    "static/js/main.eff57868.js"
+  ]
+}
