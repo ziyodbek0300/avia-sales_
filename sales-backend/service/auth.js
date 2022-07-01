@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const fs = require("fs")
 const privateKey = fs.readFileSync('private.key', "utf8");
 const models = require("../models")
-const userRole = require("../constants/UserRole")
+const userRole = require("../constants/userRole")
 
 const TokenVerify = (req, res, next) => {
     const authHeader = req?.headers['authorization']
