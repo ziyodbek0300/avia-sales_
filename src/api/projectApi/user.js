@@ -1,5 +1,5 @@
 import axios from ".";
 
 export default {
-    register: (body) => axios.post("register",body),
+    register: (body) => axios.post("register", body),
 };

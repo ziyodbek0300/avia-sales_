@@ -1,8 +1,9 @@
 import React, { useRef } from 'react'
 import { useState } from 'react'
-import base from '../../axios'
+import user from '../../api/projectApi/user'
 import { userRole } from '../../constants/userRole'
 import Contract from '../../static/docs/contract.pdf'
+import {ToastCom} from '../../components/toast/Toast'
 
 function ForPartners() {
     const password1Ref = useRef()
@@ -14,25 +15,22 @@ function ForPartners() {
         e.preventDefault();
         const { target } = e;
         const formData = new FormData();
-        formData.append('fullName', target[0]);
-        formData.append('city', target[1]);
-        formData.append('nameCompany', target[2]);
-        formData.append('phone', target[3]);
-        formData.append('email', target[4]);
+        formData.append('fullName', target[0].value);
+        formData.append('city', target[1].value);
+        formData.append('nameCompany', target[2].value);
+        formData.append('phone', target[3].value);
+        formData.append('email', target[4].value);
         formData.append('role', userRole.agent);
         if (isStable) {
-            formData.append('password', target[6]);
+            formData.append('password', target[6].value);
         } else {
             alert("Password not match.")
         }
         formData.append('doc', target[7].files[0]);
-
-        base.post('/register', formData).then(res => {
-            console.log(res);
-        }).catch(e => console.log(e))
+        user.register(formData).then(r => ToastCom("User Requested!")).catch(e => console.log(e))
     }
 
-    const handlePassword2 = (e) => {
+    const handlePassword2 = () => {
         const pass1 = password1Ref.current.value;
         const pass2 = password2Ref.current.value;
         if (pass1 === pass2) {
