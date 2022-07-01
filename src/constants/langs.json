@@ -2,16 +2,28 @@
   "uz": {
     "langUz": "O'zb",
     "langRu": "Rus",
-    "langEn": "Ing"
+    "langEn": "Ing",
+    "aboutUs": "Biz haqimizda",
+    "whereWe": "Biz qayerdamiz?",
+    "partners": "Hamkorlar uchun",
+    "enter": "Kirish"
   },
   "ru": {
     "langUz": "Узб",
     "langRu": "Рус",
-    "langEn": "Инг"
+    "langEn": "Анг",
+    "aboutUs": "О нас",
+    "whereWe": "Где мы находимся?",
+    "partners": "Агентствам",
+    "enter": "Войти"
   },
   "en": {
     "langUz": "Uzb",
     "langRu": "Rus",
-    "langEn": "Ing"
+    "langEn": "Eng",
+    "aboutUs": "About Us",
+    "whereWe": "Where we are?",
+    "partners": "Partners",
+    "enter": "Login"
   }
 }
