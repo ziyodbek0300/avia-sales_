@@ -2038,7 +2038,7 @@
 
 "@mui/utils@^5.8.6":
   version "5.8.6"
-  resolved "https://registry.npmjs.org/@mui/utils/-/utils-5.8.6.tgz"
+  resolved "https://registry.yarnpkg.com/@mui/utils/-/utils-5.8.6.tgz#543de64a64bb9135316ecfd91d75a8740544d79f"
   integrity sha512-QM2Sd1xZo2jOt2Vz5Rmro+pi2FLJyiv4+OjxkUwXR3oUM65KSMAMLl/KNYU55s3W3DLRFP5MVwE4FhAbHseHAg==
   dependencies:
     "@babel/runtime" "^7.17.2"

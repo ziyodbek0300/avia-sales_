@@ -37,8 +37,7 @@ export const getMe = () => dispatch => {
 };
 
 let sourceLogin = CancelToken.source();
-export const loginUser = (email, password, callBack = () => {
-}) => dispatch => {
+export const loginUser = (email, password, callBack = () => ({})) => dispatch => {
     sourceLogin?.cancel()
     sourceLogin = CancelToken.source();
     user.login(email, password, sourceLogin.token)
@@ -48,11 +47,30 @@ export const loginUser = (email, password, callBack = () => {
             dispatch(getMe())
         })
         .catch(e => {
-            toast(<div>asdsa</div>,{type:"warning",autoClose:500})
+            toast(<div>User not found</div>, {type: "warning", autoClose: 500})
             dispatch({
                 type: constants.getMe,
                 payload: {},
             });
+        })
+
+};
+
+export const getAllUser = (callBack = () => ({})) => dispatch => {
+    user.getAll()
+        .then(r => {
+            dispatch({
+                type:constants.getAllUser,
+                payload:r.data.result
+            })
+            callBack()
+        })
+        .catch(e => {
+            // toast(<div>No</div>, {type: "warning", autoClose: 500})
+            // dispatch({
+            //     type: constants.getAllUser,
+            //     payload: [],
+            // });
         })
 
 };

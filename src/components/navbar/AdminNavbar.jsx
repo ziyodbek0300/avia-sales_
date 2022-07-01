@@ -13,12 +13,13 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import {Outlet, useNavigate} from "react-router-dom"
+import {Outlet, useLocation, useNavigate} from "react-router-dom"
 import {GoDashboard} from "react-icons/go";
 import Cookies from "js-cookie";
 import {logOut} from "../../redux/user/actions";
 import {useDispatch} from "react-redux";
 import {Button} from "@mui/material";
+import {FaUser} from "react-icons/fa";
 
 const drawerWidth = 240;
 
@@ -26,53 +27,64 @@ const routes = [
     {
         name: "Dashboard",
         icon: <GoDashboard/>,
-        link: 'dashboard'
+        link: '/dashboard'
+    },
+    {
+        name: "User",
+        icon: <FaUser/>,
+        link: '/users'
+    },
+    {
+        name: "Dashboard",
+        icon: <GoDashboard/>,
+        link: '/dashboard1'
     }
 ]
 
 function AdminNavbar(props) {
     const {window} = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
-
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
+    const handlePress = (link) => {
+        navigate(link)
+    }
 
+    const route = useLocation()
     const drawer = (
         <div>
-            <Toolbar/>
-            <Divider/>
+            <Toolbar>
+                <Typography fontSize={24} style={{fontWeight: "700"}}>
+                    Logo
+                </Typography>
+            </Toolbar>
             <List>
                 {routes.map((item, index) => (
-                    <ListItem key={Math.random()} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                {item.icon}
-                            </ListItemIcon>
-                            <ListItemText primary={item.name}/>
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-            <Divider/>
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                iCon
-                            </ListItemIcon>
-                            <ListItemText primary={text}/>
-                        </ListItemButton>
-                    </ListItem>
+                    <div key={Math.random()}>
+                        {index === 0 && <Divider/>}
+                        <ListItem
+                            onClick={() => handlePress(item.link)} key={Math.random()}
+                            sx={{backgroundColor: route.pathname === item.link ? "rgba(142,221,239,0.38)" : "transparent"}}
+                            disablePadding
+                        >
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    {item.icon}
+                                </ListItemIcon>
+                                <ListItemText primary={item.name}/>
+                            </ListItemButton>
+                        </ListItem>
+                        <Divider/>
+                    </div>
                 ))}
             </List>
         </div>
     );
 
     const container = window !== undefined ? () => window().document.body : undefined;
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
 
     const handlePressLogOut = () => {
         Cookies.remove("token")
@@ -104,7 +116,7 @@ function AdminNavbar(props) {
                         Avia sales
                     </Typography>
                     <div style={{display: 'flex', flex: 1, justifyContent: 'flex-end'}}>
-                        <Button onClick={handlePressLogOut} style={{color:'white',textTransform:'capitalize'}}>
+                        <Button onClick={handlePressLogOut} style={{color: 'white', textTransform: 'capitalize'}}>
                             Logout
                         </Button>
                     </div>

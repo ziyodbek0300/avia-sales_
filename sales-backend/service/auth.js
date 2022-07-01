@@ -28,7 +28,6 @@ const TokenVerify = (req, res, next) => {
                             }
                             return next()
                         } catch (e) {
-                            console.log("asasassdasdasd")
                             return next(e)
                         }
                     }
