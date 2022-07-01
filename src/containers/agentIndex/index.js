@@ -4,6 +4,7 @@ import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom"
 import Cookies from "js-cookie"
 import {logOut} from "../../redux/user/actions";
+import AgentPage from "./AgentPage";
 
 const AgentIndex = () => {
     const dispatch = useDispatch()
@@ -15,7 +16,7 @@ const AgentIndex = () => {
     }
     return (
         <div>
-            asdasd
+            <AgentPage />
             <Button onClick={handlePressLogout}>
                 <Typography>
                     Log out
