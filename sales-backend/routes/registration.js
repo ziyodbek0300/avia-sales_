@@ -6,6 +6,5 @@ const upload = multer({dest: './public/pdf/'})
 
 router.post('/', upload.single('doc'), registrationUser);
 router.post('/login', loginUser);
-router.get('/getMe', getMe);
 
 module.exports = router;

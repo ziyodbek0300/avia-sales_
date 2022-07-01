@@ -8,7 +8,9 @@ function AgentPage() {
         <div className='lg:max-w-5xl mx-auto lg:px-0 px-8'>
             <Tabs>
                 <TabList>
-                    <Tab>Title 1</Tab>
+                    <Tab>
+                        
+                    </Tab>
                     <Tab>Title 2</Tab>
                 </TabList>
 

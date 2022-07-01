@@ -8,7 +8,6 @@ const privateKey = fs.readFileSync('private.key', "utf8");
 const registrationUser = async (req, res, next) => {
     try {
         const file = req.file
-        console.log(file)
         if (file.mimetype !== "application/pdf") {
             return res.status(404).send({code: 404, error: {}, message: "File not pdf"})
         }
@@ -16,7 +15,6 @@ const registrationUser = async (req, res, next) => {
             Promise.all([model.User.create({...req.body, isChecked: false, doc: file.path + ".pdf"})]).then(r => {
                 return res.status(200).send({code: 200, user: r[0]})
             }).catch(e => {
-                console.log(e)
                 return res.status(404).send({code: 404, error: e, message: e.message})
             })
         });
@@ -45,16 +43,7 @@ const loginUser = async (req, res) => {
     }
 }
 
-const getMe = async (req, res) => {
-    if (req.user) {
-        res.status(200).send(Success(200, req.user, "ok"))
-    } else {
-        res.status(401).send(ErrorSend(401, {}, "not found"))
-    }
-}
-
 module.exports = {
     registrationUser,
-    loginUser,
-    getMe
+    loginUser
 }

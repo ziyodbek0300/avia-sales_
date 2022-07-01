@@ -13,6 +13,7 @@ import AdminDashboard from "./containers/adminDashboard";
 import AgentIndex from "./containers/agentIndex";
 import 'react-toastify/dist/ReactToastify.css';
 import AdminNavbar from "./components/navbar/AdminNavbar";
+import AdminUsers from "./containers/adminUsers";
 
 function App() {
     const dispatch = useDispatch()
@@ -22,8 +23,6 @@ function App() {
     useLayoutEffect(() => {
         dispatch(getMe())
     }, [])
-
-    console.log(user)
 
     return (
         <div>
@@ -58,12 +57,12 @@ function App() {
                                 <>
                                     <Routes>
                                         <Route path={"/"} element={<AdminNavbar/>}>
-                                            <Route path={""} element={<Navigate  to={"/dashboard"}/>}/>
+                                            <Route path={"/"} element={<Navigate  to={"/dashboard"}/>}/>
                                             <Route path="dashboard" element={<AdminDashboard/>}/>
-                                            <Route path="about-us" element={<About/>}/>
+                                            <Route path="users" element={<AdminUsers/>}/>
                                             <Route path="where-are-we" element={<Where/>}/>
                                             <Route path="for-partners" element={<ForPartners/>}/>
-                                            <Route path={"*"} element={<Navigate  to={"/dashboard"}/>}/>
+                                            <Route path={"*"} element={<div>Not found</div>}/>
                                         </Route>
                                     </Routes>
                                 </>
