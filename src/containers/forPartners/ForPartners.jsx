@@ -26,10 +26,6 @@ function ForPartners() {
             alert("Password not match.")
         }
         formData.append('doc', target[7].files[0]);
-
-        base.post('/register', formData).then(res => {
-            console.log(res);
-        }).catch(e => console.log(e))
     }
 
     const handlePassword2 = (e) => {
