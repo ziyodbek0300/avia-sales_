@@ -13,20 +13,25 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import {Outlet} from "react-router-dom"
+import {Outlet, useNavigate} from "react-router-dom"
 import {GoDashboard} from "react-icons/go";
+import Cookies from "js-cookie";
+import {logOut} from "../../redux/user/actions";
+import {useDispatch} from "react-redux";
+import {Button} from "@mui/material";
+
 const drawerWidth = 240;
 
 const routes = [
     {
-        name:"Dashboard",
-        icon:<GoDashboard/>,
-        link:'dashboard'
+        name: "Dashboard",
+        icon: <GoDashboard/>,
+        link: 'dashboard'
     }
 ]
 
 function AdminNavbar(props) {
-    const { window } = props;
+    const {window} = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
     const handleDrawerToggle = () => {
@@ -35,8 +40,8 @@ function AdminNavbar(props) {
 
     const drawer = (
         <div>
-            <Toolbar />
-            <Divider />
+            <Toolbar/>
+            <Divider/>
             <List>
                 {routes.map((item, index) => (
                     <ListItem key={Math.random()} disablePadding>
@@ -44,12 +49,12 @@ function AdminNavbar(props) {
                             <ListItemIcon>
                                 {item.icon}
                             </ListItemIcon>
-                            <ListItemText primary={item.name} />
+                            <ListItemText primary={item.name}/>
                         </ListItemButton>
                     </ListItem>
                 ))}
             </List>
-            <Divider />
+            <Divider/>
             <List>
                 {['All mail', 'Trash', 'Spam'].map((text, index) => (
                     <ListItem key={text} disablePadding>
@@ -57,7 +62,7 @@ function AdminNavbar(props) {
                             <ListItemIcon>
                                 iCon
                             </ListItemIcon>
-                            <ListItemText primary={text} />
+                            <ListItemText primary={text}/>
                         </ListItemButton>
                     </ListItem>
                 ))}
@@ -66,15 +71,23 @@ function AdminNavbar(props) {
     );
 
     const container = window !== undefined ? () => window().document.body : undefined;
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const handlePressLogOut = () => {
+        Cookies.remove("token")
+        dispatch(logOut())
+        navigate("/")
+    }
 
     return (
-        <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
+        <Box sx={{display: 'flex'}}>
+            <CssBaseline/>
             <AppBar
                 position="fixed"
                 sx={{
-                    width: { sm: `calc(100% - ${drawerWidth}px)` },
-                    ml: { sm: `${drawerWidth}px` },
+                    width: {sm: `calc(100% - ${drawerWidth}px)`},
+                    ml: {sm: `${drawerWidth}px`},
                 }}
             >
                 <Toolbar>
@@ -83,21 +96,23 @@ function AdminNavbar(props) {
                         aria-label="open drawer"
                         edge="start"
                         onClick={handleDrawerToggle}
-                        sx={{ mr: 2, display: { sm: 'none' } }}
+                        sx={{mr: 2, display: {sm: 'none'}}}
                     >
                         Logo
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
                         Avia sales
                     </Typography>
-                    <div style={{display:'flex',flex:1,justifyContent:'flex-end'}}>
-                        Logout
+                    <div style={{display: 'flex', flex: 1, justifyContent: 'flex-end'}}>
+                        <Button onClick={handlePressLogOut} style={{color:'white',textTransform:'capitalize'}}>
+                            Logout
+                        </Button>
                     </div>
                 </Toolbar>
             </AppBar>
             <Box
                 component="nav"
-                sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+                sx={{width: {sm: drawerWidth}, flexShrink: {sm: 0}}}
                 aria-label="mailbox folders"
             >
                 <Drawer
@@ -109,8 +124,8 @@ function AdminNavbar(props) {
                         keepMounted: true,
                     }}
                     sx={{
-                        display: { xs: 'block', sm: 'none' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                        display: {xs: 'block', sm: 'none'},
+                        '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
                     }}
                 >
                     {drawer}
@@ -118,8 +133,8 @@ function AdminNavbar(props) {
                 <Drawer
                     variant="permanent"
                     sx={{
-                        display: { xs: 'none', sm: 'block' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                        display: {xs: 'none', sm: 'block'},
+                        '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
                     }}
                     open
                 >
@@ -128,9 +143,9 @@ function AdminNavbar(props) {
             </Box>
             <Box
                 component="main"
-                sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+                sx={{flexGrow: 1, p: 3, width: {sm: `calc(100% - ${drawerWidth}px)`}}}
             >
-                <Toolbar />
+                <Toolbar/>
                 <Outlet/>
             </Box>
         </Box>
