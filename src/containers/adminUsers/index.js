@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getAllUser} from "../../redux/user/actions";
 import MuiTable from "../../components/table";
 import TableCell from '@mui/material/TableCell';
+import {Button} from "@mui/material";
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -124,22 +125,33 @@ export default function AdminUsers() {
                     rows={users.admin.map(r => {
                         return {
                             ...r,
-                            edit:(item)=> <div>{JSON.stringify(item)}</div>
+                            edit: (item) => <div>{JSON.stringify(item)}</div>
                         }
                     })}
                     headCells={headCells}
                 />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <MuiTable rows={users.agent} headCells={headCells}/>
+                <MuiTable
+                    rows={users.agent.map(r => {
+                        return {
+                            ...r,
+                            edit: (item) => <div><Button>ok</Button></div>
+                        }
+                    })}
+                    headCells={headCells}
+                />
             </TabPanel>
             <TabPanel value={value} index={2}>
-                <MuiTable rows={users.newAgent.map(r => {
-                    return {
-                        ...r,
-                        edit: (item)=> <div>{JSON.stringify(item)}</div>
-                    }
-                })} headCells={headCells}/>
+                <MuiTable
+                    rows={users.newAgent.map(r => {
+                        return {
+                            ...r,
+                            edit: (item) => <div><Button onClick={()=>alert(item.id)}>ok</Button></div>
+                        }
+                    })}
+                    headCells={headCells}
+                />
             </TabPanel>
         </Box>
     );
