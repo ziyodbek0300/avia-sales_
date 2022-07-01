@@ -8,9 +8,11 @@ import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllUser} from "../../redux/user/actions";
 import MuiTable from "../../components/table";
+import TableCell from '@mui/material/TableCell';
+import {Button} from "@mui/material";
 
 function TabPanel(props) {
-    const { children, value, index, ...other } = props;
+    const {children, value, index, ...other} = props;
 
     return (
         <div
@@ -21,7 +23,7 @@ function TabPanel(props) {
             {...other}
         >
             {value === index && (
-                <Box sx={{ p: 3 }}>
+                <Box sx={{p: 3}}>
                     <Typography>{children}</Typography>
                 </Box>
             )}
@@ -42,6 +44,59 @@ function a11yProps(index) {
     };
 }
 
+
+const headCells = [
+    {
+        id: 'email',
+        numeric: false,
+        disablePadding: true,
+        label: 'Email',
+        isTime: false
+    },
+    {
+        id: 'fullName',
+        numeric: true,
+        disablePadding: false,
+        label: 'Fullname',
+        isTime: false
+    },
+    {
+        id: 'city',
+        numeric: true,
+        disablePadding: false,
+        label: 'City',
+        isTime: false
+    },
+    {
+        id: 'phone',
+        numeric: true,
+        disablePadding: false,
+        label: 'Phone',
+        isTime: false
+    },
+    {
+        id: 'nameCompany',
+        numeric: true,
+        disablePadding: false,
+        label: 'Company name',
+        isTime: false
+    },
+    {
+        id: 'createdAt',
+        numeric: true,
+        disablePadding: false,
+        label: 'Created time',
+        isTime: true
+    },
+    {
+        id: 'edit',
+        numeric: true,
+        disablePadding: false,
+        label: 'Actions',
+        isTime: false
+    },
+];
+
 export default function AdminUsers() {
     const dispatch = useDispatch();
     const [value, setValue] = React.useState(0);
@@ -50,15 +105,15 @@ export default function AdminUsers() {
         setValue(newValue);
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getAllUser())
-    },[])
+    }, [])
 
     const users = useSelector(state => state.user.users)
     console.log(users)
     return (
-        <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Box sx={{width: '100%'}}>
+            <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="Admins" {...a11yProps(0)} />
                     <Tab label="Agents" {...a11yProps(1)} />
@@ -66,13 +121,37 @@ export default function AdminUsers() {
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-                <MuiTable/>
+                <MuiTable
+                    rows={users.admin.map(r => {
+                        return {
+                            ...r,
+                            edit: (item) => <div>{JSON.stringify(item)}</div>
+                        }
+                    })}
+                    headCells={headCells}
+                />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <MuiTable/>
+                <MuiTable
+                    rows={users.agent.map(r => {
+                        return {
+                            ...r,
+                            edit: (item) => <div><Button>ok</Button></div>
+                        }
+                    })}
+                    headCells={headCells}
+                />
             </TabPanel>
             <TabPanel value={value} index={2}>
-                <MuiTable/>
+                <MuiTable
+                    rows={users.newAgent.map(r => {
+                        return {
+                            ...r,
+                            edit: (item) => <div><Button onClick={()=>alert(item.id)}>ok</Button></div>
+                        }
+                    })}
+                    headCells={headCells}
+                />
             </TabPanel>
         </Box>
     );

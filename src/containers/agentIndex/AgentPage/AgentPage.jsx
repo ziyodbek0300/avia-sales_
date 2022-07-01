@@ -1,6 +1,7 @@
 import React from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import MuiTable from '../../../components/table';
 
 function AgentPage() {
 
@@ -9,13 +10,15 @@ function AgentPage() {
             <Tabs>
                 <TabList>
                     <Tab>
-                        
+                        Aviabileti
                     </Tab>
                     <Tab>Title 2</Tab>
                 </TabList>
 
                 <TabPanel>
-                    <h2>Any content 1</h2>
+                    <MuiTable >
+
+                    </MuiTable>
                 </TabPanel>
                 <TabPanel>
                     <h2>Any content 2</h2>
