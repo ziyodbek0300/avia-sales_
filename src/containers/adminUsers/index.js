@@ -12,6 +12,7 @@ import {Button} from "@mui/material";
 import {GrView, GrTrash, GrCheckmark, GrEdit} from "react-icons/gr";
 import {MainApi} from "../../api/projectApi";
 import UserModal from "../../components/modal/UserModal";
+import {userRole} from "../../constants/userRole";
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -121,25 +122,25 @@ export default function AdminUsers() {
         dispatch(deleteUser(id))
     }
 
-    const [userModal,setUserModal] = useState({
-        typeModal:"create",
-        openModal:false,
-        values:{}
+    const [userModal, setUserModal] = useState({
+        typeModal: "create",
+        openModal: false,
+        values: {}
     })
 
-    const handleClose = ()=>{
+    const handleClose = () => {
         setUserModal({
-            typeModal:"create",
-            openModal:false,
-            values:{}
+            typeModal: "create",
+            openModal: false,
+            values: {}
         })
     }
 
-    const handlePressItemEdit = (type,item)=>{
+    const handlePressItemEdit = (type, item) => {
         setUserModal({
-            typeModal:type,
-            openModal:true,
-            values:item
+            typeModal: type,
+            openModal: true,
+            values: item
         })
     }
 
@@ -153,11 +154,13 @@ export default function AdminUsers() {
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-                <Button >
-                    <Typography>
-                        Create Admin
-                    </Typography>
-                </Button>
+                <Box style={{display: 'flex', justifyContent: 'flex-end', height: 56, alignItems: 'center'}}>
+                    <Button onClick={()=>handlePressItemEdit("create",{role:userRole.admin})}>
+                        <Typography>
+                            Create Admin
+                        </Typography>
+                    </Button>
+                </Box>
                 <MuiTable
                     tableName={"Admins"}
                     rows={users.admin?.map(r => {
@@ -168,7 +171,7 @@ export default function AdminUsers() {
                                     <Button variant={"outlined"} onClick={() => handlePressDelete(item.id)}>
                                         <GrTrash color="blue" fontSize="1.5em"/>
                                     </Button>
-                                    <Button variant={"outlined"} onClick={()=>handlePressItemEdit("update",item)}>
+                                    <Button variant={"outlined"} onClick={() => handlePressItemEdit("update", item)}>
                                         <GrEdit fontSize="1.5em"/>
                                     </Button>
                                 </div>
@@ -179,8 +182,8 @@ export default function AdminUsers() {
                 />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <Box style={{display:'flex',justifyContent:'flex-end',height:56,alignItems:'center'}}>
-                    <Button>
+                <Box style={{display: 'flex', justifyContent: 'flex-end', height: 56, alignItems: 'center'}}>
+                    <Button onClick={()=>handlePressItemEdit("create",{role:userRole.agent})}>
                         <Typography>
                             Create Agent
                         </Typography>
@@ -196,7 +199,7 @@ export default function AdminUsers() {
                                     <Button variant={"outlined"} onClick={() => handlePressDelete(item.id)}>
                                         <GrTrash color="blue" fontSize="1.5em"/>
                                     </Button>
-                                    <Button variant={"outlined"} onClick={()=>handlePressItemEdit("update",item)}>
+                                    <Button variant={"outlined"} onClick={() => handlePressItemEdit("update", item)}>
                                         <GrEdit fontSize="1.5em"/>
                                     </Button>
                                 </div>
