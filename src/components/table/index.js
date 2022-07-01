@@ -23,6 +23,7 @@ import Switch from '@mui/material/Switch';
 import {visuallyHidden} from '@mui/utils';
 import {AiFillDelete} from "react-icons/ai";
 import moment from "moment";
+import {FiFilter} from "react-icons/fi";
 
 
 function descendingComparator(a, b, orderBy) {
@@ -110,7 +111,7 @@ EnhancedTableHead.propTypes = {
 };
 
 const EnhancedTableToolbar = (props) => {
-    const {numSelected} = props;
+    const {numSelected,tableName} = props;
 
     return (
         <Toolbar
@@ -139,7 +140,7 @@ const EnhancedTableToolbar = (props) => {
                     id="tableTitle"
                     component="div"
                 >
-                    Nutrition
+                    {tableName}
                 </Typography>
             )}
 
@@ -153,6 +154,7 @@ const EnhancedTableToolbar = (props) => {
                 <Tooltip title="Filter list">
                     <IconButton>
                         {/*<FilterListIcon />*/}
+                        <FiFilter/>
                     </IconButton>
                 </Tooltip>
             )}
@@ -164,7 +166,7 @@ EnhancedTableToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired,
 };
 
-export default function MuiTable({headCells, rows}) {
+export default function MuiTable({headCells, rows,tableName}) {
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
     const [selected, setSelected] = React.useState([]);
@@ -229,7 +231,7 @@ export default function MuiTable({headCells, rows}) {
     return (
         <Box sx={{width: '100%'}}>
             <Paper sx={{width: '100%', mb: 2}}>
-                <EnhancedTableToolbar numSelected={selected.length}/>
+                <EnhancedTableToolbar numSelected={selected.length} tableName={tableName}/>
                 <TableContainer>
                     <Table
                         sx={{minWidth: 750}}

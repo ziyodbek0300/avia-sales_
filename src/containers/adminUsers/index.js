@@ -4,11 +4,14 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getAllUser} from "../../redux/user/actions";
+import {acceptAgent, deleteUser, getAllUser} from "../../redux/user/actions";
 import MuiTable from "../../components/table";
 import {Button} from "@mui/material";
+import {GrView, GrTrash, GrCheckmark, GrEdit} from "react-icons/gr";
+import {MainApi} from "../../api/projectApi";
+import UserModal from "../../components/modal/UserModal";
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -109,7 +112,37 @@ export default function AdminUsers() {
     }, [])
 
     const users = useSelector(state => state.user.users)
-    console.log(users)
+
+    const handlePressAccept = (id) => {
+        dispatch(acceptAgent(id))
+    }
+
+    const handlePressDelete = (id) => {
+        dispatch(deleteUser(id))
+    }
+
+    const [userModal,setUserModal] = useState({
+        typeModal:"create",
+        openModal:false,
+        values:{}
+    })
+
+    const handleClose = ()=>{
+        setUserModal({
+            typeModal:"create",
+            openModal:false,
+            values:{}
+        })
+    }
+
+    const handlePressItemEdit = (type,item)=>{
+        setUserModal({
+            typeModal:type,
+            openModal:true,
+            values:item
+        })
+    }
+
     return (
         <Box sx={{width: '100%'}}>
             <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
@@ -120,22 +153,54 @@ export default function AdminUsers() {
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
+                <Button >
+                    <Typography>
+                        Create Admin
+                    </Typography>
+                </Button>
                 <MuiTable
-                    rows={users.admin.map(r => {
+                    tableName={"Admins"}
+                    rows={users.admin?.map(r => {
                         return {
                             ...r,
-                            edit: (item) => <div>{JSON.stringify(item)}</div>
+                            edit: (item) => (
+                                <div>
+                                    <Button variant={"outlined"} onClick={() => handlePressDelete(item.id)}>
+                                        <GrTrash color="blue" fontSize="1.5em"/>
+                                    </Button>
+                                    <Button variant={"outlined"} onClick={()=>handlePressItemEdit("update",item)}>
+                                        <GrEdit fontSize="1.5em"/>
+                                    </Button>
+                                </div>
+                            )
                         }
                     })}
                     headCells={headCells}
                 />
             </TabPanel>
             <TabPanel value={value} index={1}>
+                <Box style={{display:'flex',justifyContent:'flex-end',height:56,alignItems:'center'}}>
+                    <Button>
+                        <Typography>
+                            Create Agent
+                        </Typography>
+                    </Button>
+                </Box>
                 <MuiTable
-                    rows={users.agent.map(r => {
+                    tableName={"Agents"}
+                    rows={users.agent?.map(r => {
                         return {
                             ...r,
-                            edit: (item) => <div><Button>ok</Button></div>
+                            edit: (item) => (
+                                <div>
+                                    <Button variant={"outlined"} onClick={() => handlePressDelete(item.id)}>
+                                        <GrTrash color="blue" fontSize="1.5em"/>
+                                    </Button>
+                                    <Button variant={"outlined"} onClick={()=>handlePressItemEdit("update",item)}>
+                                        <GrEdit fontSize="1.5em"/>
+                                    </Button>
+                                </div>
+                            )
                         }
                     })}
                     headCells={headCells}
@@ -143,15 +208,47 @@ export default function AdminUsers() {
             </TabPanel>
             <TabPanel value={value} index={2}>
                 <MuiTable
-                    rows={users.newAgent.map(r => {
+                    tableName={"New Agents"}
+                    rows={users.newAgent?.map(r => {
                         return {
                             ...r,
-                            edit: (item) => <div><Button onClick={()=>alert(item.id)}>Accept</Button></div>
+                            edit: (item) => (
+                                <div>
+                                    <Button
+                                        variant={"outlined"}
+                                        onClick={() => window.open(
+                                            `${MainApi}/${item.doc}`,
+                                            '_blank',
+                                            'noopener,noreferrer')
+                                        }
+                                    >
+                                        <GrView fontSize="1.5em"/>
+                                    </Button>
+                                    <Button
+                                        variant={"outlined"}
+                                        onClick={() => handlePressAccept(item.id)}
+                                    >
+                                        <GrCheckmark fontSize="1.5em"/>
+                                    </Button>
+                                    <Button
+                                        variant={"outlined"}
+                                        onClick={() => handlePressDelete(item.id)}
+                                    >
+                                        <GrTrash fontSize="1.5em"/>
+                                    </Button>
+                                </div>
+                            )
                         }
                     })}
                     headCells={headCells}
                 />
             </TabPanel>
+            <UserModal
+                type={userModal.typeModal}
+                open={userModal.openModal}
+                handleClose={handleClose}
+                values={userModal.values}
+            />
         </Box>
     );
 }
