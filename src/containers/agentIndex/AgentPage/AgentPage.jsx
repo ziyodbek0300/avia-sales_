@@ -3,8 +3,8 @@ import { Button } from "@mui/material";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import MuiTable from '../../../components/table';
-import { FiGrid } from 'react-icons/fi';
-import { GiAirplaneDeparture } from 'react-icons/gi';
+import { FiCast, FiGrid } from 'react-icons/fi';
+import { GiAirplaneDeparture, GiCoinflip, GiCoins, GiCoinsPile } from 'react-icons/gi';
 
 function AgentPage() {
 
@@ -42,6 +42,20 @@ function AgentPage() {
     ]
 
     const data2 = []
+
+    const data3 = [
+        {
+            order: new Date(),
+            order_num: "742",
+            status: 'Забронирован',
+            payment: 'Оплачен',
+            direction: 'TAS-SSH-TAS',
+            date1: new Date(),
+            date2: new Date(),
+            price: 1599,
+            tourists: 'AVAZKHON / AVAZKHON UMID / UMID'
+        }
+    ]
 
     const headCells = [
         {
@@ -117,13 +131,27 @@ function AgentPage() {
                         <FiGrid />
                         Турпакеты
                     </Tab>
+                    <Tab className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm' selectedClassName='bg-red-600'>
+                        <GiCoins />
+                        Финансы
+                    </Tab>
+                    <Tab className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm' selectedClassName='bg-red-600'>
+                        <FiGrid />
+                        Блок-места
+                    </Tab>
+                    <Tab className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm' selectedClassName='bg-red-600'>
+                        <FiCast />
+                        Партнер
+                    </Tab>
                 </TabList>
 
                 <TabPanel>
                     <MuiTable
+                        tableName={"Balance: 1000$"}
                         rows={data.map(r => {
                             return {
                                 ...r,
+                                total: r.total + "$"
                             }
                         })}
                         headCells={headCells}
@@ -132,17 +160,35 @@ function AgentPage() {
                 <TabPanel>
                     <MuiTable
                         rows={data2.map(r => {
-                            if(data2.length !== 0) {
-                                return {
-                                    ...r,
-                                }
-                            } else {
-                                return (
-                                    <p>No Data</p>
-                                )
+                            return {
+                                ...r,
                             }
                         })}
                         headCells={headCells2}
+                    />
+                </TabPanel>
+                <TabPanel>
+                    <MuiTable
+                        tableName={"Balance: 1000$"}
+                        rows={data.map(r => {
+                            return {
+                                ...r,
+                                total: r.total + "$"
+                            }
+                        })}
+                        headCells={headCells}
+                    />
+                </TabPanel>
+                <TabPanel>
+                    <MuiTable
+                        tableName={"Balance: 1000$"}
+                        rows={data.map(r => {
+                            return {
+                                ...r,
+                                total: r.total + "$"
+                            }
+                        })}
+                        headCells={headCells}
                     />
                 </TabPanel>
             </Tabs>
