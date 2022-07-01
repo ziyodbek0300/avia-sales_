@@ -3,7 +3,7 @@ import { useState } from 'react'
 import user from '../../api/projectApi/user'
 import { userRole } from '../../constants/userRole'
 import Contract from '../../static/docs/contract.pdf'
-import {ToastCom} from '../../components/toast/Toast'
+import { toast } from 'react-toastify'
 
 function ForPartners() {
     const password1Ref = useRef()
@@ -27,7 +27,10 @@ function ForPartners() {
             alert("Password not match.")
         }
         formData.append('doc', target[7].files[0]);
-        user.register(formData).then(r => ToastCom("User Requested!")).catch(e => console.log(e))
+        user.register(formData).then(r => {
+            toast('User requested!\nAdminstator will connect with you!', { type: 'success' })
+            e.target.reset()
+        }).catch(e => console.log(e))
     }
 
     const handlePassword2 = () => {
