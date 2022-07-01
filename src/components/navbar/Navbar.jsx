@@ -21,7 +21,11 @@ function Navbar() {
                             Где мы находимся
                         </NavLink>
                     </li>
-                    <li className='cursor-pointer'>Агентствам</li>
+                    <li className='cursor-pointer'>
+                        <NavLink to='/for-partners'>
+                            Агентствам
+                        </NavLink>
+                    </li>
                 </ul>
                 <ul className='flex gap-2'>
                     <li className='flex items-center border-r pr-3'>
