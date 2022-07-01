@@ -1,6 +1,9 @@
 const model = require("../models")
-const fs = require("fs")
+const {Success, ErrorSend} = require("../service/SuccessAndError");
 const file1 = require('path').resolve(__dirname, '..')
+const jwt = require('jsonwebtoken');
+const fs = require("fs")
+const privateKey = fs.readFileSync('private.key', "utf8");
 
 const registrationUser = async (req, res, next) => {
     try {
@@ -22,11 +25,23 @@ const registrationUser = async (req, res, next) => {
     }
 }
 
-const loginUser = async (req, res, next) => {
-    try {
 
+const loginUser = async (req, res) => {
+    try {
+        let {email, password} = req.body
+        model.User.findOne({where: {email: email, password: password}}).then(r => {
+            const token = jwt.sign({
+                User: r.dataValues.id,
+                email: r.dataValues.email,
+                role: r.dataValues.role,
+                date: new Date(),
+            }, privateKey, {});
+            res.status(200).send(Success(200, {token: token, date: new Date()}, "Ok"))
+        }).catch(e => {
+            res.status(404).send(ErrorSend(404, e, e.message))
+        })
     } catch (e) {
-        return res.status(404).send({code: 404, error: e, message: e.message})
+        res.status(400).send(ErrorSend(400, e, e.message))
     }
 }
 
