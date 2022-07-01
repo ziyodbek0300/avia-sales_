@@ -8,7 +8,6 @@ import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllUser} from "../../redux/user/actions";
 import MuiTable from "../../components/table";
-import TableCell from '@mui/material/TableCell';
 import {Button} from "@mui/material";
 
 function TabPanel(props) {
@@ -147,7 +146,7 @@ export default function AdminUsers() {
                     rows={users.newAgent.map(r => {
                         return {
                             ...r,
-                            edit: (item) => <div><Button onClick={()=>alert(item.id)}>ok</Button></div>
+                            edit: (item) => <div><Button onClick={()=>alert(item.id)}>Accept</Button></div>
                         }
                     })}
                     headCells={headCells}
