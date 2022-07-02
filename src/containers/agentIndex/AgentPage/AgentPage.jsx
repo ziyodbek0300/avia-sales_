@@ -54,6 +54,39 @@ function AgentPage() {
             date2: new Date(),
             price: 1599,
             tourists: 'AVAZKHON / AVAZKHON UMID / UMID'
+        },
+        {
+            order: new Date(),
+            order_num: "742",
+            status: 'Забронирован',
+            payment: 'Оплачен',
+            direction: 'TAS-SSH-TAS',
+            date1: new Date(),
+            date2: new Date(),
+            price: 1599,
+            tourists: 'AVAZKHON / AVAZKHON UMID / UMID'
+        },
+        {
+            order: new Date(),
+            order_num: "742",
+            status: 'Забронирован',
+            payment: 'Оплачен',
+            direction: 'TAS-SSH-TAS',
+            date1: new Date(),
+            date2: new Date(),
+            price: 1599,
+            tourists: 'AVAZKHON / AVAZKHON UMID / UMID'
+        },
+        {
+            order: new Date(),
+            order_num: "742",
+            status: 'Забронирован',
+            payment: 'Оплачен',
+            direction: 'TAS-SSH-TAS',
+            date1: new Date(),
+            date2: new Date(),
+            price: 1599,
+            tourists: 'AVAZKHON / AVAZKHON UMID / UMID'
         }
     ]
 
@@ -119,6 +152,65 @@ function AgentPage() {
         }
     ];
 
+    const headCells3 = [
+        {
+            id: 'order',
+            numeric: true,
+            disablePadding: false,
+            label: 'Order',
+            isTime: true
+        },
+        {
+            id: 'status',
+            numeric: true,
+            disablePadding: false,
+            label: 'Status',
+            isTime: false
+        },
+        {
+            id: 'payment',
+            numeric: true,
+            disablePadding: false,
+            label: 'Payment',
+            isTime: false
+        },
+        {
+            id: 'direction',
+            numeric: true,
+            disablePadding: false,
+            label: 'Direction',
+            isTime: false
+        },
+        {
+            id: 'date1',
+            numeric: true,
+            disablePadding: false,
+            label: 'Date 1',
+            isTime: true
+        },
+        {
+            id: 'date2',
+            numeric: true,
+            disablePadding: false,
+            label: 'Date 2',
+            isTime: true
+        },
+        {
+            id: 'price',
+            numeric: true,
+            disablePadding: false,
+            label: 'Price',
+            isTime: false
+        },
+        {
+            id: 'tourists',
+            numeric: true,
+            disablePadding: false,
+            label: 'Tourists',
+            isTime: false
+        },
+    ]
+
     return (
         <div className='lg:max-w-5xl mx-auto lg:px-0 px-8'>
             <Tabs>
@@ -159,9 +251,34 @@ function AgentPage() {
                 </TabPanel>
                 <TabPanel>
                     <MuiTable
+                        title={""}
+                        rows={data3.map(r => {
+                            return {
+                                ...r,
+                            }
+                        })}
+                        headCells={headCells3}
+                    />
+                </TabPanel>
+                <TabPanel>
+                    <MuiTable
+                        tableName={"Balance: 1000$"}
+                        rows={data.map(r => {
+                            return {
+                                ...r,
+                                total: r.total + "$"
+                            }
+                        })}
+                        headCells={headCells}
+                    />
+                </TabPanel>
+                <TabPanel>
+                    <MuiTable
+                        tableName={"Balance: 1000$"}
                         rows={data2.map(r => {
                             return {
                                 ...r,
+                                total: r.total + "$"
                             }
                         })}
                         headCells={headCells2}
@@ -170,25 +287,13 @@ function AgentPage() {
                 <TabPanel>
                     <MuiTable
                         tableName={"Balance: 1000$"}
-                        rows={data.map(r => {
+                        rows={data2.map(r => {
                             return {
                                 ...r,
                                 total: r.total + "$"
                             }
                         })}
-                        headCells={headCells}
-                    />
-                </TabPanel>
-                <TabPanel>
-                    <MuiTable
-                        tableName={"Balance: 1000$"}
-                        rows={data.map(r => {
-                            return {
-                                ...r,
-                                total: r.total + "$"
-                            }
-                        })}
-                        headCells={headCells}
+                        headCells={headCells2}
                     />
                 </TabPanel>
             </Tabs>

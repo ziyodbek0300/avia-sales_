@@ -14,6 +14,7 @@ import AgentIndex from "./containers/agentIndex";
 import 'react-toastify/dist/ReactToastify.css';
 import AdminNavbar from "./components/navbar/AdminNavbar";
 import AdminUsers from "./containers/adminUsers";
+import Footer from "./components/footer";
 
 function App() {
     const dispatch = useDispatch()
@@ -50,6 +51,7 @@ function App() {
                                     </>
                                 ) : null}
                             </Routes>
+                            <Footer />
                         </>
                     )
                     : user?.role === userRole.admin ? (
