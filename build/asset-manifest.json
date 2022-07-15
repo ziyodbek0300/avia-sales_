@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.069c96d9.css",
-    "main.js": "/static/js/main.eff57868.js",
+    "main.css": "/static/css/main.f212a69b.css",
+    "main.js": "/static/js/main.0d7507b8.js",
     "static/media/bg_4.jpg": "/static/media/bg_4.639e678540c715d9f0d6.jpg",
     "static/media/bg_3.jpg": "/static/media/bg_3.f9693b2771ed630808ef.jpg",
     "static/media/bg_5.jpg": "/static/media/bg_5.10ce760e125c34ff6ad2.jpg",
@@ -16,14 +16,18 @@
     "static/media/bg_2.jpg": "/static/media/bg_2.deabb8fbcdb51f0a4bb4.jpg",
     "static/media/3-min.jpg": "/static/media/3-min.21f0157f6ef4990d2b76.jpg",
     "static/media/11-min.jpg": "/static/media/11-min.97723e4d36e8d963995f.jpg",
+    "static/media/qr.png": "/static/media/qr.a210386f208edfb7bd60.png",
     "static/media/Idealist Sans.otf": "/static/media/Idealist Sans.bb07e5e25d859168a7ec.otf",
     "static/media/logo.png": "/static/media/logo.a4cb626f16c4632f5510.png",
+    "static/media/uzcard.jpg": "/static/media/uzcard.2ee0683cc08e59196e57.jpg",
+    "static/media/master.jpg": "/static/media/master.e49046629e8b8bc4dd30.jpg",
+    "static/media/visa.jpg": "/static/media/visa.857a8a1141430989e8e6.jpg",
     "index.html": "/index.html",
-    "main.069c96d9.css.map": "/static/css/main.069c96d9.css.map",
-    "main.eff57868.js.map": "/static/js/main.eff57868.js.map"
+    "main.f212a69b.css.map": "/static/css/main.f212a69b.css.map",
+    "main.0d7507b8.js.map": "/static/js/main.0d7507b8.js.map"
   },
   "entrypoints": [
-    "static/css/main.069c96d9.css",
-    "static/js/main.eff57868.js"
+    "static/css/main.f212a69b.css",
+    "static/js/main.0d7507b8.js"
   ]
 }
