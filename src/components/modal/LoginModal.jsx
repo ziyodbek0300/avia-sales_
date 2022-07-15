@@ -72,7 +72,7 @@ const LoginModal = () => {
     }
     return (
         <>
-            {!user.role ? (
+            {!user?.role ? (
                 <li onClick={() => setOpen(true)} className='flex items-center border-r pr-3'>
                     <FaUser/>&nbsp;{t('enter')}
                 </li>
@@ -86,7 +86,7 @@ const LoginModal = () => {
                             <Box style={{display: 'flex', flexDirection: 'row'}}>
                                 {t('enter')}
                                 <Typography fontSize={14}>
-                                    {user.fullName}
+                                    {user?.fullName}
                                 </Typography>
                             </Box>
                             <Box style={{
