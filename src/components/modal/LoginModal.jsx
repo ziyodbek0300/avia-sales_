@@ -5,6 +5,7 @@ import {Box, Button, Modal, TextField, Typography, useMediaQuery, useTheme} from
 import {useNavigate} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux";
 import {loginUser} from "../../redux/user/actions";
+import {userRole} from "../../constants/userRole";
 
 const style = {
     position: 'absolute',
@@ -19,13 +20,13 @@ const style = {
     borderRadius: 8
 };
 
-const validateEmail = (email) => {
-    return String(email)
-        .toLowerCase()
-        .match(
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        );
-};
+// const validateEmail = (email) => {
+//     return String(email)
+//         .toLowerCase()
+//         .match(
+//             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+//         );
+// };
 
 const LoginModal = () => {
     const navigate = useNavigate()
@@ -38,6 +39,7 @@ const LoginModal = () => {
         setOpen(false)
     }
 
+    // const role
     const user = useSelector(state => state.user.currentUser)
 
     const [values, setValues] = useState({
@@ -65,7 +67,7 @@ const LoginModal = () => {
         // } else if (!values.password || values.password.length < 8) {
         //     setError({...error, email: true})
         // } else {
-        dispatch(loginUser(values.email, values.password,()=>{
+        dispatch(loginUser(values.email, values.password, () => {
             setOpen(false)
         }))
         // }
@@ -77,7 +79,8 @@ const LoginModal = () => {
                     <FaUser/>&nbsp;{t('enter')}
                 </li>
             ) : (
-                <li onClick={() => navigate('/my')} className='flex items-center border-r pr-3'>
+                <li onClick={() => navigate(user?.role === userRole.admin ? "/dashboard" : '/my')}
+                    className='flex items-center border-r pr-3'>
                     <Box style={{display: 'flex'}}>
                         <Box style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                             <FaUser style={{width: 24, height: "100%"}}/>&nbsp;

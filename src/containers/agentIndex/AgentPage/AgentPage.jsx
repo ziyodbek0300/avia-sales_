@@ -1,10 +1,25 @@
 import React from 'react'
-import { Button } from "@mui/material";
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import {Button} from "@mui/material";
+import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import MuiTable from '../../../components/table';
-import { FiCast, FiGrid } from 'react-icons/fi';
-import { GiAirplaneDeparture, GiCoinflip, GiCoins, GiCoinsPile } from 'react-icons/gi';
+import {FiCast, FiGrid} from 'react-icons/fi';
+import {GiAirplaneDeparture, GiCoins} from 'react-icons/gi';
+import styled from "@emotion/styled";
+import Theme from "../../../constants/theme";
+import {AiOutlineLogout} from "react-icons/ai";
+import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import Cookies from "js-cookie";
+import {logOut} from "../../../redux/user/actions";
+
+export const SignOut = styled(Button)`
+  color:red;
+  border: 1px solid ${Theme.primaryColor};
+  padding: 4px 16px;
+  text-transform: unset;
+  border-radius:.5rem
+`
 
 function AgentPage() {
 
@@ -211,91 +226,121 @@ function AgentPage() {
         },
     ]
 
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const handlePressLogout = () => {
+        Cookies.remove("token")
+        dispatch(logOut())
+        navigate("/")
+    }
+
     return (
         <div className='lg:max-w-5xl mx-auto lg:px-0 px-8'>
             <Tabs>
-                <TabList className='flex gap-2 max-w-5xl mx-auto'>
-                    <Tab className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm' selectedClassName='bg-red-600'>
-                        <GiAirplaneDeparture />
-                        Авиабилеты
-                    </Tab>
-                    <Tab className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm' selectedClassName='bg-red-600'>
-                        <FiGrid />
-                        Турпакеты
-                    </Tab>
-                    <Tab className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm' selectedClassName='bg-red-600'>
-                        <GiCoins />
-                        Финансы
-                    </Tab>
-                    <Tab className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm' selectedClassName='bg-red-600'>
-                        <FiGrid />
-                        Блок-места
-                    </Tab>
-                    <Tab className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm' selectedClassName='bg-red-600'>
-                        <FiCast />
-                        Партнер
-                    </Tab>
+                <TabList className='flex flex-wrap'>
+                   <div className='flex flex-wrap gap-2 max-w-5xl mx-auto'>
+                       <Tab
+                           className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm'
+                           selectedClassName='bg-red-600'>
+                           <GiAirplaneDeparture/>
+                           Авиабилеты
+                       </Tab>
+                       <Tab
+                           className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm'
+                           selectedClassName='bg-red-600'>
+                           <FiGrid/>
+                           Турпакеты
+                       </Tab>
+                       <Tab
+                           className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm'
+                           selectedClassName='bg-red-600'>
+                           <GiCoins/>
+                           Финансы
+                       </Tab>
+                       <Tab
+                           className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm'
+                           selectedClassName='bg-red-600'>
+                           <FiGrid/>
+                           Блок-места
+                       </Tab>
+                       {/*<Tab*/}
+                       {/*    className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm'*/}
+                       {/*    selectedClassName='bg-red-600'>*/}
+                       {/*    <FiCast/>*/}
+                       {/*    Партнер*/}
+                       {/*</Tab>*/}
+                   </div>
+                    <div className={"flex flex-1 justify-end my-4"}>
+                        <div>
+                            <SignOut onClick={handlePressLogout}>
+                                <div className={"mx-2"}>
+                                    <AiOutlineLogout/>
+                                </div>
+                                Log out
+                            </SignOut>
+                        </div>
+                    </div>
                 </TabList>
 
-                <TabPanel>
-                    <MuiTable
-                        tableName={"Balance: 1000$"}
-                        rows={data.map(r => {
-                            return {
-                                ...r,
-                                total: r.total + "$"
-                            }
-                        })}
-                        headCells={headCells}
-                    />
-                </TabPanel>
-                <TabPanel>
-                    <MuiTable
-                        title={""}
-                        rows={data3.map(r => {
-                            return {
-                                ...r,
-                            }
-                        })}
-                        headCells={headCells3}
-                    />
-                </TabPanel>
-                <TabPanel>
-                    <MuiTable
-                        tableName={"Balance: 1000$"}
-                        rows={data.map(r => {
-                            return {
-                                ...r,
-                                total: r.total + "$"
-                            }
-                        })}
-                        headCells={headCells}
-                    />
-                </TabPanel>
-                <TabPanel>
-                    <MuiTable
-                        tableName={"Balance: 1000$"}
-                        rows={data2.map(r => {
-                            return {
-                                ...r,
-                                total: r.total + "$"
-                            }
-                        })}
-                        headCells={headCells2}
-                    />
-                </TabPanel>
-                <TabPanel>
-                    <MuiTable
-                        tableName={"Balance: 1000$"}
-                        rows={data2.map(r => {
-                            return {
-                                ...r,
-                                total: r.total + "$"
-                            }
-                        })}
-                        headCells={headCells2}
-                    />
-                </TabPanel>
+                    <TabPanel className={"min-h-full"}>
+                        <MuiTable
+                            tableName={"Balance: 1000$"}
+                            rows={data.map(r => {
+                                return {
+                                    ...r,
+                                    total: r.total + "$"
+                                }
+                            })}
+                            headCells={headCells}
+                        />
+                    </TabPanel>
+                    <TabPanel>
+                        <MuiTable
+                            title={""}
+                            rows={data3.map(r => {
+                                return {
+                                    ...r,
+                                }
+                            })}
+                            headCells={headCells3}
+                        />
+                    </TabPanel>
+                    <TabPanel>
+                        <MuiTable
+                            tableName={"Balance: 1000$"}
+                            rows={data.map(r => {
+                                return {
+                                    ...r,
+                                    total: r.total + "$"
+                                }
+                            })}
+                            headCells={headCells}
+                        />
+                    </TabPanel>
+                    <TabPanel>
+                        <MuiTable
+                            tableName={"Balance: 1000$"}
+                            rows={data2.map(r => {
+                                return {
+                                    ...r,
+                                    total: r.total + "$"
+                                }
+                            })}
+                            headCells={headCells2}
+                        />
+                    </TabPanel>
+                    {/*<TabPanel>*/}
+                    {/*    <MuiTable*/}
+                    {/*        tableName={"Balance: 1000$"}*/}
+                    {/*        rows={data2.map(r => {*/}
+                    {/*            return {*/}
+                    {/*                ...r,*/}
+                    {/*                total: r.total + "$"*/}
+                    {/*            }*/}
+                    {/*        })}*/}
+                    {/*        headCells={headCells2}*/}
+                    {/*    />*/}
+                    {/*</TabPanel>*/}
             </Tabs>
         </div>
     )

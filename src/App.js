@@ -1,4 +1,4 @@
-import {Route, Routes,Navigate} from "react-router-dom";
+import {Route, Routes, Navigate} from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
 import About from "./containers/about/About";
 import ForPartners from "./containers/forPartners";
@@ -32,7 +32,7 @@ function App() {
                         loading...
                     </div>
                 ) :
-                (user?.role === userRole.client || !user?.role || user.role===userRole.agent) ? (
+                (user?.role === userRole.client || !user?.role || user.role === userRole.agent) ? (
                         <>
                             <Navbar/>
                             <Routes>
@@ -51,23 +51,28 @@ function App() {
                                     </>
                                 ) : null}
                             </Routes>
-                            <Footer />
+                            <Footer/>
                         </>
                     )
                     : user?.role === userRole.admin ? (
                             <>
-                                <>
-                                    <Routes>
-                                        <Route path={"/"} element={<AdminNavbar/>}>
-                                            <Route path={"/"} element={<Navigate  to={"/dashboard"}/>}/>
-                                            <Route path="dashboard" element={<AdminDashboard/>}/>
-                                            <Route path="users" element={<AdminUsers/>}/>
-                                            <Route path="where-are-we" element={<Where/>}/>
-                                            <Route path="for-partners" element={<ForPartners/>}/>
-                                            <Route path={"*"} element={<div>Not found</div>}/>
-                                        </Route>
-                                    </Routes>
-                                </>
+                                <Navbar/>
+                                <Routes>
+                                    <Route index element={<Home/>}/>
+                                    <Route path="/about-us" element={<About/>}/>
+                                    <Route path="/where-are-we" element={<Where/>}/>
+                                    <Route path="/for-partners" element={<ForPartners/>}/>
+                                    <Route path={"/"} element={<AdminNavbar/>}>
+                                        <Route path={"/"} element={<Navigate to={"/dashboard"}/>}/>
+                                        <Route path="dashboard" element={<AdminDashboard/>}/>
+                                        <Route path="users" element={<AdminUsers/>}/>
+                                        <Route path="avia-tickets" element={<AdminUsers/>}/>
+                                        <Route path="where-are-we" element={<Where/>}/>
+                                        <Route path="for-partners" element={<ForPartners/>}/>
+                                        <Route path={"*"} element={<div>Not found</div>}/>
+                                    </Route>
+                                </Routes>
+                                <Footer/>
                             </>
                         )
                         : null

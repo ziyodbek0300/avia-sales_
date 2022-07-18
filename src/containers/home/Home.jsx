@@ -27,7 +27,7 @@ function Home() {
                     <TabList className='flex gap-2 max-w-5xl mx-auto'>
                         <Tab className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm' selectedClassName='bg-red-600'>
                             <FiGrid />
-                            Турпакеты
+                            Экскурсионные туры
                         </Tab>
                         <Tab className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm' selectedClassName='bg-red-600'>
                             <GiAirplaneDeparture />
@@ -35,7 +35,7 @@ function Home() {
                         </Tab>
                         <Tab className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm' selectedClassName='bg-red-600'>
                             <FiGrid />
-                            Экскурсионные туры
+                            Турпакеты
                         </Tab>
                         <Tab className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm' selectedClassName='bg-red-600'>
                             <FaHotel />
@@ -45,8 +45,11 @@ function Home() {
                             <GrVisa />
                             Визы
                         </Tab>
+                        <Tab className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm' selectedClassName='bg-red-600'>
+                            <GrVisa />
+                            Трансферы
+                        </Tab>
                     </TabList>
-
                     <TabPanel className="header">
                         <div className="max-w-5xl mx-auto py-44">
                             <div className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">

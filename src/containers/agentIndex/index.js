@@ -7,21 +7,15 @@ import {logOut} from "../../redux/user/actions";
 import AgentPage from "./AgentPage";
 
 const AgentIndex = () => {
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const handlePressLogout = () => {
-        Cookies.remove("token")
-        dispatch(logOut())
-        navigate("/")
-    }
+
     return (
         <div>
             <AgentPage />
-            <Button onClick={handlePressLogout}>
-                <Typography>
-                    Log out
-                </Typography>
-            </Button>
+            {/*<Button onClick={handlePressLogout}>*/}
+            {/*    <Typography>*/}
+            {/*        Log out*/}
+            {/*    </Typography>*/}
+            {/*</Button>*/}
         </div>
     )
 }

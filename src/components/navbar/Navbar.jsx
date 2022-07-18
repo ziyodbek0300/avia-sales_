@@ -1,5 +1,4 @@
 import React from 'react'
-import { FaFlag, FaUser } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import Logo from '../../static/images/logo.png'
 import { useTranslation } from "react-i18next";
@@ -10,7 +9,7 @@ function Navbar() {
     const { t, i18n } = useTranslation();
     return (
         <div className='py-3'>
-            <nav className='flex justify-between items-center max-w-5xl mx-auto'>
+            <nav className='flex flex-wrap justify-between items-center max-w-5xl mx-auto'>
                 <div className="logo">
                     <NavLink to='/'>
                         <img src={Logo} className="w-40" alt="logo" />
