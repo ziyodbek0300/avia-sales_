@@ -15,6 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AdminNavbar from "./components/navbar/AdminNavbar";
 import AdminUsers from "./containers/adminUsers";
 import Footer from "./components/footer";
+import auth from "./api/samo/auth";
 
 function App() {
     const dispatch = useDispatch()
@@ -23,6 +24,9 @@ function App() {
 
     useLayoutEffect(() => {
         dispatch(getMe())
+        auth.register().then(r=>{
+            console.log(r)
+        })
     }, [])
 
     return (
