@@ -3,7 +3,7 @@ import {Button} from "@mui/material";
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import MuiTable from '../../../components/table';
-import {FiCast, FiGrid} from 'react-icons/fi';
+import {FiGrid} from 'react-icons/fi';
 import {GiAirplaneDeparture, GiCoins} from 'react-icons/gi';
 import styled from "@emotion/styled";
 import Theme from "../../../constants/theme";
