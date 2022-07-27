@@ -1,0 +1,32 @@
+{
+  "uz": {
+    "langUz": "O'zb",
+    "langRu": "Rus",
+    "langEn": "Ing",
+    "aboutUs": "Biz haqimizda",
+    "whereWe": "Biz qayerdamiz?",
+    "partners": "Hamkorlar uchun",
+    "enter": "Kirish",
+    "fromTashkent": "Toshkentdan"
+  },
+  "ru": {
+    "langUz": "Узб",
+    "langRu": "Рус",
+    "langEn": "Анг",
+    "aboutUs": "О нас",
+    "whereWe": "Где мы находимся?",
+    "partners": "Агентствам",
+    "enter": "Войти",
+    "fromTashkent": "Из Ташкента"
+  },
+  "en": {
+    "langUz": "Uzb",
+    "langRu": "Rus",
+    "langEn": "Eng",
+    "aboutUs": "About Us",
+    "whereWe": "Where we are?",
+    "partners": "Partners",
+    "enter": "Login",
+    "fromTashkent": "From Tashkent"
+  }
+}
