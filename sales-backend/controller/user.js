@@ -15,7 +15,7 @@ const deleteUser = async (req, res, next) => {
         }
         Promise.all([model.User.destroy({where: {id: req.params.id}})])
             .then(r => {
-                if (r[0]===1) {
+                if (r[0] === 1) {
                     return res.status(200).send(Success(200, true, "ok"))
                 } else {
                     return res.status(404).send(ErrorSend(404, {}, "not found"))
@@ -60,18 +60,16 @@ const getAllUser = async (req, res, next) => {
         if (!req.user || req.user.role === userRole.client || req.user.role === userRole.agent) {
             if (req.user && req.user.role === userRole.agent) {
                 return res.status(404).send(ErrorSend(404, {}, "no user"))
-                // return next()
             } else {
                 return res.status(404).send(ErrorSend(404, {}, "no user"))
             }
         }
-        Promise.all([model.User.findAll()])
+        Promise.all([model.User.findAll({})])
             .then(r => {
                 let result = {
                     [userRole.admin]: [], [userRole.agent]: [], newAgent: [],
                 }
                 r[0].map(item => {
-                    console.log(item.dataValues)
                     if (item.dataValues.role === userRole.admin) {
                         result = {
                             ...result, [userRole.admin]: [...result[userRole.admin], item.dataValues]
@@ -99,6 +97,29 @@ const getAllUser = async (req, res, next) => {
     }
 }
 
+const update = async (req, res, next) => {
+    try {
+        if (!req.user || req.user.role === userRole.client || req.user.role === userRole.agent) {
+            if (req.user && req.user.role === userRole.agent) {
+                return res.status(404).send(ErrorSend(404, {}, "no user"))
+            } else {
+                return res.status(404).send(ErrorSend(404, {}, "no user"))
+            }
+        }
+        model.User.update({...req.body}, {where: {id: req.params.id}}).then(r => {
+            if (r[0] === 1) {
+                res.status(200).send(Success(200, 1, "ok"))
+            } else {
+                res.status(404).send(ErrorSend(404, {}, "error"))
+            }
+        }).catch(e => {
+            res.status(404).send(ErrorSend(404, e, e.message))
+        })
+    } catch (e) {
+        res.status(500).send(ErrorSend(500, e, e.message))
+    }
+}
+
 const getMe = async (req, res) => {
     if (req.user) {
         res.status(200).send(Success(200, req.user, "ok"))
@@ -109,5 +130,5 @@ const getMe = async (req, res) => {
 
 
 module.exports = {
-    getAllUser, getMe, acceptAgent, deleteUser
+    getAllUser, getMe, acceptAgent, deleteUser, update
 }

@@ -14,17 +14,23 @@ instance.interceptors.request.use(
         config.meta.requestStartedAt = new Date().getTime();
         config.headers = {
             ...config.headers,
-            "Authorization": `Bearer ${Cookies.get("token")}`,
-            "Access-Control-Allow-Origin":"http://samo.travel",
-            "Access-Control-Allow-Credentials":'true',
-            "Referer":"http://samo.travel"
+            // // "Authorization": `Bearer ${Cookies.get("token")}`,
+            // "Access-Control-Allow-Origin":"*",
+            // "Access-Control-Allow-Credentials":'true',
+            // "Referer":"http://samo.travel",
+            // "partner_token": localStorage.getItem("partner_token"),
+            "Access-Control-Allow-Origin" : "",
+            "Allow": "GET",
+            "Content-type": "application/x-www-form-urlencoded",
+            "content-type": "application/x-www-form-urlencoded",
+            "Content-Type": "Application/x-www-form-urlencoded",
+            "asdads": "application/x-www-form-urlencoded",
         };
         config.params = {
             ...config.params,
             form: "http://samo.travel",
             samo_action: "reference",
             partner_token: localStorage.getItem("partner_token"),
-
         }
         return config;
     },

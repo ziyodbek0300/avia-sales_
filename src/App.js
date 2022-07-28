@@ -15,6 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AdminNavbar from "./components/navbar/AdminNavbar";
 import AdminUsers from "./containers/adminUsers";
 import Footer from "./components/footer";
+import auth from "./api/samo/auth";
 
 function App() {
     const dispatch = useDispatch()
@@ -23,6 +24,19 @@ function App() {
 
     useLayoutEffect(() => {
         dispatch(getMe())
+        fetch({
+            method: "GET",
+            url: "http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&form=http://samo.travel&type=currentstamp",
+            headers: {"Content-Type": "application/x-www-form-urlencoded"}
+        }).then(r => {
+            console.log(r)
+        })
+        auth
+            .currentStamp()
+            .then(r => {
+            })
+            .catch(e => {
+            })
     }, [])
 
     return (

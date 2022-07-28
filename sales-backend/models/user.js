@@ -20,6 +20,14 @@ module.exports = (sequelize, DataTypes) => {
         unique:true,
       allowNull: false,
     },
+    adminId:{
+      type:DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'User',
+        key: 'id'
+      },
+    },
     fullName:DataTypes.STRING,
     city:DataTypes.STRING,
     password:DataTypes.STRING,
