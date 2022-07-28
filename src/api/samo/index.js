@@ -25,6 +25,11 @@ instance.interceptors.request.use(
             "content-type": "application/x-www-form-urlencoded",
             "Content-Type": "Application/x-www-form-urlencoded",
             "asdads": "application/x-www-form-urlencoded",
+            "Host":"smartsys.intouch.ae",
+            "host":"smartsys.intouch.ae",
+            "Origin":"http://travelcontinent.uz",
+            "Cache-Control":"max-age=0",
+            "Accept":"application/json, text/plain, */*"
         };
         config.params = {
             ...config.params,

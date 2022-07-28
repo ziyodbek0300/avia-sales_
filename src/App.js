@@ -15,28 +15,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import AdminNavbar from "./components/navbar/AdminNavbar";
 import AdminUsers from "./containers/adminUsers";
 import Footer from "./components/footer";
-import auth from "./api/samo/auth";
-
+// import user from "./api/projectApi/user"
 function App() {
     const dispatch = useDispatch()
-    const user = useSelector(state => state.user.currentUser)
+    const users = useSelector(state => state.user.currentUser)
     const loading = useSelector(state => state.user.loading)
 
     useLayoutEffect(() => {
         dispatch(getMe())
-        fetch({
-            method: "GET",
-            url: "http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&form=http://samo.travel&type=currentstamp",
-            headers: {"Content-Type": "application/x-www-form-urlencoded"}
-        }).then(r => {
-            console.log(r)
-        })
-        auth
-            .currentStamp()
-            .then(r => {
-            })
-            .catch(e => {
-            })
     }, [])
 
     return (
@@ -46,7 +32,7 @@ function App() {
                         loading...
                     </div>
                 ) :
-                (user?.role === userRole.client || !user?.role || user.role === userRole.agent) ? (
+                (users?.role === userRole.client || !users?.role || users.role === userRole.agent) ? (
                         <>
                             <Navbar/>
                             <Routes>
@@ -54,7 +40,7 @@ function App() {
                                 <Route path="/about-us" element={<About/>}/>
                                 <Route path="/where-are-we" element={<Where/>}/>
                                 <Route path="/for-partners" element={<ForPartners/>}/>
-                                {(user?.role === userRole.agent) ? (
+                                {(users?.role === userRole.agent) ? (
                                     <>
                                         <Route path={'/my'}>
                                             <Route index element={<AgentIndex/>}/>
@@ -68,7 +54,7 @@ function App() {
                             <Footer/>
                         </>
                     )
-                    : user?.role === userRole.admin ? (
+                    : users?.role === userRole.admin ? (
                             <>
                                 <Navbar/>
                                 <Routes>
