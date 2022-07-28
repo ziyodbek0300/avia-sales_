@@ -18,6 +18,11 @@ import { BsArrowRightShort } from 'react-icons/bs';
 import { RiSendPlane2Line } from 'react-icons/ri';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import { useTranslation } from 'react-i18next';
+import { VISAS, VISA_STATE } from '../../constants/visas';
+import { DateRangePicker } from 'rsuite';
+import { DatePicker } from 'rsuite';
+import 'rsuite/dist/rsuite.css';
+import { isBefore } from 'rsuite/esm/utils/dateUtils';
 
 function Home() {
     const { t, i18n } = useTranslation();
@@ -133,11 +138,19 @@ function Home() {
                                     </div>
                                     <div className='w-36'>
                                         <label htmlFor="from" className='block text-white text-xs'>Туда</label>
-                                        <input className='p-2 rounded border-4 border-red-600 w-full' type="date" name='from' placeholder='- выбрать -' id='from' />
+                                        <DatePicker
+                                            disabledDate={date => date.getDay() === 1 || date.getDay() === 2 || date.getDay() === 4 || date.getDay() === 5 || date.getDay() === 6}
+                                            format="yyyy-MM-dd"
+                                            style={{ width: '100%', border: '4px solid rgb(220 38 38)', borderRadius: '4px' }}
+                                        />
                                     </div>
                                     <div className='w-36'>
                                         <label htmlFor="from" className='block text-white text-xs'>Обратно</label>
-                                        <input className='p-2 rounded border-4 border-red-600 w-full' type="date" name='from' placeholder='- выбрать -' id='from' />
+                                        <DatePicker
+                                            disabledDate={date => date.getDay() === 0 || date.getDay() === 1 || date.getDay() === 4 || date.getDay() === 5 || date.getDay() === 3}
+                                            format="yyyy-MM-dd"
+                                            style={{ width: '100%', border: '4px solid rgb(220 38 38)', borderRadius: '4px' }}
+                                        />
                                     </div>
                                     <div className='w-full'>
                                         <label htmlFor="from" className='block text-white text-xs'>Класс обслуживания и пассажиры</label>
@@ -235,12 +248,18 @@ function Home() {
                                 <div className='flex gap-2 items-center py-4 text-gray-600'>
                                     <div className='w-full'>
                                         <label htmlFor="from" className='block text-white text-sm'>Страна</label>
-                                        <input className='p-2 rounded border-4 border-red-600 w-full' type="text" name='from' placeholder='- выбрать -' id='from' />
+                                        <select className='p-3 rounded border-4 border-red-600 w-full' name="state_from" id="state_from">
+                                            <option defaultValue="">Выбрать</option>
+                                            {VISA_STATE.map(visa => <option key={visa} value={visa}>{visa}</option>)}
+                                        </select>
                                     </div>
                                     <RiSendPlane2Line className='text-white w-10' />
                                     <div className='w-full'>
                                         <label htmlFor="from" className='block text-white text-sm'>Тип визы</label>
-                                        <input className='p-2 rounded border-4 border-red-600 w-full' type="text" name='from' placeholder='- выбрать -' id='from' />
+                                        <select className='p-3 rounded border-4 border-red-600 w-full' name="state_from" id="state_from">
+                                            <option defaultValue="">Выбрать</option>
+                                            {VISAS.map(visa => <option key={visa} value={visa}>{visa}</option>)}
+                                        </select>
                                     </div>
                                     <div className='w-full'>
                                         <label htmlFor="date" className='block text-white text-sm'>Дата заезда</label>
@@ -248,7 +267,15 @@ function Home() {
                                     </div>
                                     <div className='w-full'>
                                         <label htmlFor="date" className='block text-white text-sm'>Дата выезда</label>
-                                        <input type="date" className='p-2 rounded border-4 border-red-600 w-full' name='date' id='date' />
+                                        <input type="date" className='p-2 rounded border-4 border-red-600 w-full' name='datepicker' id='datepicker' />
+                                        <div className='control-pane'>
+                                            <div className='control-section'>
+                                                <div className='daterangepicker-control-section'>
+                                                    <DateRangePicker></DateRangePicker>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <DateRangePicker></DateRangePicker>
                                     </div>
                                     <div className='w-full'>
                                         <label htmlFor="from" className='block text-white text-sm'>Количество туристов</label>
