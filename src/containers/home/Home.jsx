@@ -9,25 +9,46 @@ import bgImg8 from "../../static/images/8.jpg";
 import bgImg9 from "../../static/images/9.jpg";
 import bgImg11 from "../../static/images/11-min.jpg";
 import logo1 from "../../static/images/logo1.png";
-import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { FiGrid } from "react-icons/fi";
-import { FaHotel } from "react-icons/fa";
-import { GrVisa } from "react-icons/gr";
-import { GiAirplaneDeparture } from "react-icons/gi";
-import { BsArrowRightShort } from "react-icons/bs";
-import { RiSendPlane2Line } from "react-icons/ri";
-import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
-import { useTranslation } from "react-i18next";
-import { VISA_STATE } from "../../constants/visas";
-import { DatePicker, DateRangePicker } from "rsuite";
+import {Container} from "react-bootstrap";
+import {Link} from "react-router-dom";
+import {FiGrid} from "react-icons/fi";
+import {FaHotel} from "react-icons/fa";
+import {GrVisa} from "react-icons/gr";
+import {GiAirplaneDeparture} from "react-icons/gi";
+import {BsArrowRightShort} from "react-icons/bs";
+import {RiSendPlane2Line} from "react-icons/ri";
+import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
+import {useTranslation} from "react-i18next";
+import {VISA_STATE} from "../../constants/visas";
+import {DatePicker, DateRangePicker} from "rsuite";
 import "rsuite/dist/rsuite.css";
+import hotelsTownLists from "../../constants/hotelsTownLists";
+import hotel from "../../api/projectApi/hotel";
 
 function Home() {
     const { t, i18n } = useTranslation();
     const [adults, setAdults] = useState(1);
     const [infant, setInfant] = useState(0);
     const [children, setChildren] = useState(0);
+
+    const [values, setValues] = useState({
+        town: null,
+        datebeg: null,
+        dateend: null
+    })
+
+    const [hotels, setHotels] = useState([])
+
+    const handlePressFind = () => {
+        console.log("asdasd")
+        hotel.getHotels(values.town)
+            .then(r => {
+                setHotels(r.data?.Response?.Data[0]?.hotel)
+            })
+            .catch(e=>{
+                setHotels([])
+            })
+    }
 
     return (
         <div>
@@ -38,51 +59,52 @@ function Home() {
                             className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm"
                             selectedClassName="bg-red-600"
                         >
-                            <FiGrid />
+                            <FiGrid/>
                             Турпакеты
                         </Tab>
                         <Tab
                             className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm"
                             selectedClassName="bg-red-600"
                         >
-                            <GiAirplaneDeparture />
+                            <GiAirplaneDeparture/>
                             Авиабилеты
                         </Tab>
                         <Tab
                             className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm"
                             selectedClassName="bg-red-600"
                         >
-                            <FiGrid />
+                            <FiGrid/>
                             Экскурсионные туры
                         </Tab>
                         <Tab
                             className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm"
                             selectedClassName="bg-red-600"
                         >
-                            <FaHotel />
+                            <FaHotel/>
                             Отели
                         </Tab>
                         <Tab
                             className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm"
                             selectedClassName="bg-red-600"
                         >
-                            <GrVisa />
+                            <GrVisa/>
                             Визы
                         </Tab>
                         <Tab
                             className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm"
                             selectedClassName="bg-red-600"
                         >
-                            <GrVisa />
+                            <GrVisa/>
                             Трансферы
                         </Tab>
                     </TabList>
                     <TabPanel className="header">
                         <div className="max-w-5xl mx-auto py-44">
-                            <div className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
+                            <div
+                                className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
                                 <div className="flex items-center gap-3">
                                     <div className="flex items-center gap-1">
-                                        <input type="radio" name="t1" id="t1" />
+                                        <input type="radio" name="t1" id="t1"/>
                                         <label htmlFor="t1">Сложный маршрут</label>
                                     </div>
                                 </div>
@@ -105,7 +127,7 @@ function Home() {
                                             </optgroup>
                                         </select>
                                     </div>
-                                    <RiSendPlane2Line className="text-white w-10" />
+                                    <RiSendPlane2Line className="text-white w-10"/>
                                     <div className="w-full">
                                         <label htmlFor="from" className="block text-white text-sm">
                                             Направление
@@ -131,7 +153,12 @@ function Home() {
                                         <DatePicker
                                             disabledDate={date => date.getDay() === 1 || date.getDay() === 2 || date.getDay() === 4 || date.getDay() === 5 || date.getDay() === 6}
                                             format="yyyy-MM-dd"
-                                            style={{ width: '100%', border: '4px solid rgb(220 38 38)', borderRadius: '4px', backgroundColor: 'white' }}
+                                            style={{
+                                                width: '100%',
+                                                border: '4px solid rgb(220 38 38)',
+                                                borderRadius: '4px',
+                                                backgroundColor: 'white'
+                                            }}
                                         />
                                     </div>
                                     <div className="w-full">
@@ -141,7 +168,12 @@ function Home() {
                                         <DatePicker
                                             disabledDate={date => date.getDay() === 0 || date.getDay() === 1 || date.getDay() === 4 || date.getDay() === 5 || date.getDay() === 3}
                                             format="yyyy-MM-dd"
-                                            style={{ width: '100%', border: '4px solid rgb(220 38 38)', borderRadius: '4px', backgroundColor: 'white' }}
+                                            style={{
+                                                width: '100%',
+                                                border: '4px solid rgb(220 38 38)',
+                                                borderRadius: '4px',
+                                                backgroundColor: 'white'
+                                            }}
                                         />
                                     </div>
                                     <div className="w-full relative">
@@ -210,8 +242,9 @@ function Home() {
                                     </div>
                                 </div>
                                 <div className="flex items-center justify-end">
-                                    <button className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-800 text-white text-sm">
-                                        Найти <BsArrowRightShort className="lh-0 text-2xl" />
+                                    <button
+                                        className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-800 text-white text-sm">
+                                        Найти <BsArrowRightShort className="lh-0 text-2xl"/>
                                     </button>
                                 </div>
                             </div>
@@ -220,22 +253,25 @@ function Home() {
                     <TabPanel>
                         <div className="header second">
                             <div className="max-w-5xl mx-auto py-44">
-                                <div className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
+                                <div
+                                    className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
                                     <div className="flex items-center gap-4">
                                         <div className="flex items-center gap-1">
-                                            <input type="radio" name="t1" id="t1" />
+                                            <input type="radio" name="t1" id="t1"/>
                                             <label htmlFor="t1">Туда-обратно</label>
                                         </div>
                                         <div className="flex items-center gap-1">
-                                            <input type="radio" name="t2" id="t2" />
+                                            <input type="radio" name="t2" id="t2"/>
                                             <label htmlFor="t2">В одну сторону</label>
-                                            <select className='p-3 rounded border-4 border-red-600 w-full' name="state_from" id="state_from">
+                                            <select className='p-3 rounded border-4 border-red-600 w-full'
+                                                    name="state_from" id="state_from">
                                                 <option defaultValue="">Выбрать</option>
-                                                {VISA_STATE.map(visa => <option key={visa} value={visa}>{visa}</option>)}
+                                                {VISA_STATE.map(visa => <option key={visa}
+                                                                                value={visa}>{visa}</option>)}
                                             </select>
                                         </div>
                                         <div className="flex items-center gap-1">
-                                            <input type="radio" name="t3" id="t3" />
+                                            <input type="radio" name="t3" id="t3"/>
                                             <label htmlFor="t3">Сложный маршрут</label>
                                         </div>
                                     </div>
@@ -256,7 +292,7 @@ function Home() {
                                             />
                                             <DateRangePicker></DateRangePicker>
                                         </div>
-                                        <RiSendPlane2Line className="text-white w-10" />
+                                        <RiSendPlane2Line className="text-white w-10"/>
                                         <div className="w-custom">
                                             <label
                                                 htmlFor="from"
@@ -319,8 +355,9 @@ function Home() {
                                         </div>
                                     </div>
                                     <div className="flex items-center justify-end">
-                                        <button className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-500 text-white text-sm">
-                                            Найти <BsArrowRightShort className="lh-0 text-2xl" />
+                                        <button
+                                            className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-500 text-white text-sm">
+                                            Найти <BsArrowRightShort className="lh-0 text-2xl"/>
                                         </button>
                                     </div>
                                 </div>
@@ -343,7 +380,7 @@ function Home() {
                                         justifyContent: "space-between",
                                     }}
                                 >
-                                    <img src={logo1} alt="" style={{ height: "48px" }} />
+                                    <img src={logo1} alt="" style={{height: "48px"}}/>
                                     <span>Эконом (B)</span>
                                 </div>
                                 03:30 TOSHKENT 05:40 DA SHARJA
@@ -352,10 +389,11 @@ function Home() {
                     </TabPanel>
                     <TabPanel className="header third">
                         <div className="max-w-5xl mx-auto py-44">
-                            <div className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
+                            <div
+                                className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
                                 <div className="flex items-center gap-3">
                                     <div className="flex items-center gap-1">
-                                        <input type="radio" name="t1" id="t1" />
+                                        <input type="radio" name="t1" id="t1"/>
                                         <label htmlFor="t1">Сложный маршрут</label>
                                     </div>
                                 </div>
@@ -372,7 +410,7 @@ function Home() {
                                             id="from"
                                         />
                                     </div>
-                                    <RiSendPlane2Line className="text-white w-10" />
+                                    <RiSendPlane2Line className="text-white w-10"/>
                                     <div className="w-full">
                                         <label htmlFor="from" className="block text-white text-sm">
                                             Направление
@@ -436,76 +474,99 @@ function Home() {
                                     </div>
                                 </div>
                                 <div className="flex items-center justify-end">
-                                    <button className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-500 text-white text-sm">
-                                        Найти <BsArrowRightShort className="lh-0 text-2xl" />
+                                    <button
+                                        className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-500 text-white text-sm">
+                                        Найти <BsArrowRightShort className="lh-0 text-2xl"/>
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </TabPanel>
-                    <TabPanel className="header fourth">
-                        <div className="max-w-5xl mx-auto py-44">
-                            <div className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
-                                <div className="flex gap-2 items-center py-4 text-gray-600">
-                                    <div className="w-full">
-                                        <label htmlFor="from" className="block text-white text-sm">
-                                            Направление
-                                        </label>
-                                        <input
-                                            className="p-2 rounded border-4 border-red-600 w-full"
-                                            type="text"
-                                            name="from"
-                                            placeholder="- выбрать -"
-                                            id="from"
-                                        />
+                    <TabPanel className="">
+                        <div className={'header fourth'}>
+                            <div className="max-w-5xl mx-auto py-44">
+                                <div
+                                    className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
+                                    <div className="flex gap-2 items-center py-4 text-gray-600">
+                                        <div className="w-full">
+                                            <label htmlFor="from" className="block text-white text-sm">
+                                                Направление
+                                            </label>
+                                            <select
+                                                className="p-2 rounded border-4 border-red-600 w-full"
+                                                // type="text"
+                                                name="from"
+                                                placeholder="- выбрать -"
+                                                id="from"
+                                                onChange={e => {
+                                                    setValues({...values, town: e.target.value})
+                                                }}
+                                            >
+                                                {hotelsTownLists.map(e => {
+                                                    return (
+                                                        <option value={e.id}>{e.title}</option>
+                                                    )
+                                                })}
+                                            </select>
+                                        </div>
+                                        <RiSendPlane2Line className="text-white w-10"/>
+                                        <div className="w-full">
+                                            <label htmlFor="date" className="block text-white text-sm">
+                                                Дата заезда
+                                            </label>
+                                            <input
+                                                type="date"
+                                                className="p-2 rounded border-4 border-red-600 w-full"
+                                                name="date"
+                                                id="date"
+                                            />
+                                        </div>
+                                        <div className="w-full">
+                                            <label htmlFor="date" className="block text-white text-sm">
+                                                Дата выезда
+                                            </label>
+                                            <input
+                                                type="date"
+                                                className="p-2 rounded border-4 border-red-600 w-full"
+                                                name="date"
+                                                id="date"
+                                            />
+                                        </div>
+                                        <div className="w-full">
+                                            <label htmlFor="date" className="block text-white text-sm">
+                                                Гости и номера
+                                            </label>
+                                            <input
+                                                type="text"
+                                                className="p-2 rounded border-4 border-red-600 w-full"
+                                                placeholder="Взрослых: 2, Номеров: 1"
+                                                name="date"
+                                                id="date"
+                                            />
+                                        </div>
                                     </div>
-                                    <RiSendPlane2Line className="text-white w-10" />
-                                    <div className="w-full">
-                                        <label htmlFor="date" className="block text-white text-sm">
-                                            Дата заезда
-                                        </label>
-                                        <input
-                                            type="date"
-                                            className="p-2 rounded border-4 border-red-600 w-full"
-                                            name="date"
-                                            id="date"
-                                        />
+                                    <div className="flex items-center justify-end">
+                                        <button
+                                            onClick={handlePressFind}
+                                            className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-500 text-white text-sm">
+                                            Найти <BsArrowRightShort className="lh-0 text-2xl"/>
+                                        </button>
                                     </div>
-                                    <div className="w-full">
-                                        <label htmlFor="date" className="block text-white text-sm">
-                                            Дата выезда
-                                        </label>
-                                        <input
-                                            type="date"
-                                            className="p-2 rounded border-4 border-red-600 w-full"
-                                            name="date"
-                                            id="date"
-                                        />
-                                    </div>
-                                    <div className="w-full">
-                                        <label htmlFor="date" className="block text-white text-sm">
-                                            Гости и номера
-                                        </label>
-                                        <input
-                                            type="text"
-                                            className="p-2 rounded border-4 border-red-600 w-full"
-                                            placeholder="Взрослых: 2, Номеров: 1"
-                                            name="date"
-                                            id="date"
-                                        />
-                                    </div>
-                                </div>
-                                <div className="flex items-center justify-end">
-                                    <button className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-500 text-white text-sm">
-                                        Найти <BsArrowRightShort className="lh-0 text-2xl" />
-                                    </button>
                                 </div>
                             </div>
                         </div>
+                        {hotels.map(e=>{
+                            return (
+                                <div>
+                                    {e['$'].name}
+                                </div>
+                            )
+                        })}
                     </TabPanel>
                     <TabPanel className="header fifth">
                         <div className="max-w-5xl mx-auto py-44">
-                            <div className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
+                            <div
+                                className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
                                 <div className="flex gap-2 items-center py-4 text-gray-600">
                                     <div className="w-full">
                                         <label htmlFor="from" className="block text-white text-sm">
@@ -519,7 +580,7 @@ function Home() {
                                             id="from"
                                         />
                                     </div>
-                                    <RiSendPlane2Line className="text-white w-10" />
+                                    <RiSendPlane2Line className="text-white w-10"/>
                                     <div className="w-full">
                                         <label htmlFor="from" className="block text-white text-sm">
                                             Тип визы
@@ -568,8 +629,9 @@ function Home() {
                                     </div>
                                 </div>
                                 <div className="flex items-center justify-end">
-                                    <button className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-500 text-white text-sm">
-                                        Найти <BsArrowRightShort className="lh-0 text-2xl" />
+                                    <button
+                                        className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-500 text-white text-sm">
+                                        Найти <BsArrowRightShort className="lh-0 text-2xl"/>
                                     </button>
                                 </div>
                             </div>
@@ -731,7 +793,7 @@ function Home() {
                             className="border-2 w-full rounded-lg p-2 mt-5"
                             placeholder="Email"
                         />
-                        <br />
+                        <br/>
                         <button className="border-2 mt-2 border-gray-400 rounded-md p-1">
                             Отправлять
                         </button>
