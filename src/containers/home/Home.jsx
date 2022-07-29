@@ -93,7 +93,8 @@ function Home() {
                                             id="from"
                                             className="p-2 rounded border-4 border-red-600 w-full"
                                         >
-                                            <option defaultValue={"fromTashkent"}>
+                                            <option value="">- выбрать -</option>
+                                            <option value={"Tashkent"}>
                                                 {t("fromTashkent")}
                                             </option>
                                         </select>
@@ -103,13 +104,16 @@ function Home() {
                                         <label htmlFor="from" className="block text-white text-sm">
                                             Направление
                                         </label>
-                                        <input
+                                        <select
+                                            name="to"
+                                            id="to"
                                             className="p-2 rounded border-4 border-red-600 w-full"
-                                            type="text"
-                                            name="from"
-                                            placeholder="- выбрать -"
-                                            id="from"
-                                        />
+                                        >
+                                            <option value="">- выбрать -</option>
+                                            <option value={"Sharja"}>
+                                                {t("toSharja")}
+                                            </option>
+                                        </select>
                                     </div>
                                     <div className="w-full">
                                         <label htmlFor="from" className="block text-white text-sm">

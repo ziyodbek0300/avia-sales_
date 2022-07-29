@@ -7,7 +7,8 @@
     "whereWe": "Biz qayerdamiz?",
     "partners": "Hamkorlar uchun",
     "enter": "Kirish",
-    "fromTashkent": "Toshkentdan"
+    "fromTashkent": "Toshkentdan",
+    "toSharja": "Sharjaga"
   },
   "ru": {
     "langUz": "Узб",
@@ -17,7 +18,8 @@
     "whereWe": "Где мы находимся?",
     "partners": "Агентствам",
     "enter": "Войти",
-    "fromTashkent": "Из Ташкента"
+    "fromTashkent": "Из Ташкента",
+    "toSharja": "В Шарья"
   },
   "en": {
     "langUz": "Uzb",
@@ -27,6 +29,7 @@
     "whereWe": "Where we are?",
     "partners": "Partners",
     "enter": "Login",
-    "fromTashkent": "From Tashkent"
+    "fromTashkent": "From Tashkent",
+    "toSharja": "To Sharja"
   }
 }
