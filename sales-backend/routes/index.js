@@ -1,5 +1,6 @@
 const express = require('express');
 const axios = require("axios");
+const {ErrorSend} = require("../service/SuccessAndError");
 const router = express.Router();
 const parseString = require('xml2js').parseString;
 
@@ -15,8 +16,56 @@ router.post('/', function (req, res, next) {
                 res.send(result)
             });
         })
-        .catch(r => {
+        .catch(e => {
+            res.status(404).send(ErrorSend(404, e, e.message))
+        })
+});
 
+router.post('/', function (req, res, next) {
+    Promise.all([axios.get("http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&form=http://samo.travel&type=currentstamp")])
+        .then(r => {
+            parseString(r[0].data, function (err, result) {
+                res.send(result)
+            });
+        })
+        .catch(e => {
+            res.status(404).send(ErrorSend(404, e, e.message))
+        })
+});
+
+router.post('/', function (req, res, next) {
+    Promise.all([axios.get("http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&form=http://samo.travel&type=currentstamp")])
+        .then(r => {
+            parseString(r[0].data, function (err, result) {
+                res.send(result)
+            });
+        })
+        .catch(e => {
+            res.status(404).send(ErrorSend(404, e, e.message))
+        })
+});
+
+router.post('/', function (req, res, next) {
+    Promise.all([axios.get("http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&form=http://samo.travel&type=currentstamp")])
+        .then(r => {
+            parseString(r[0].data, function (err, result) {
+                res.send(result)
+            });
+        })
+        .catch(r => {
+            res.status(404).send(ErrorSend(404, e, e.message))
+        })
+});
+
+router.post('/', function (req, res, next) {
+    Promise.all([axios.get("http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&form=http://samo.travel&type=currentstamp")])
+        .then(r => {
+            parseString(r[0].data, function (err, result) {
+                res.send(result)
+            });
+        })
+        .catch(r => {
+            res.status(404).send(ErrorSend(404, e, e.message))
         })
 });
 

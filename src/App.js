@@ -15,7 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AdminNavbar from "./components/navbar/AdminNavbar";
 import AdminUsers from "./containers/adminUsers";
 import Footer from "./components/footer";
-// import user from "./api/projectApi/user"
+
 function App() {
     const dispatch = useDispatch()
     const users = useSelector(state => state.user.currentUser)
