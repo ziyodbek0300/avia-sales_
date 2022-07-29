@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.706cae71.css",
-    "main.js": "/static/js/main.d2561d79.js",
+    "main.js": "/static/js/main.abbfb8a9.js",
     "static/media/contract.pdf": "/static/media/contract.162627cdc9e6b36865b4.pdf",
     "static/media/bg_2.jpg": "/static/media/bg_2.deabb8fbcdb51f0a4bb4.jpg",
     "static/media/6-min-min.jpg": "/static/media/6-min-min.6bd99dc7e73a20f57e90.jpg",
@@ -24,10 +24,10 @@
     "static/media/visa.jpg": "/static/media/visa.857a8a1141430989e8e6.jpg",
     "index.html": "/index.html",
     "main.706cae71.css.map": "/static/css/main.706cae71.css.map",
-    "main.d2561d79.js.map": "/static/js/main.d2561d79.js.map"
+    "main.abbfb8a9.js.map": "/static/js/main.abbfb8a9.js.map"
   },
   "entrypoints": [
     "static/css/main.706cae71.css",
-    "static/js/main.d2561d79.js"
+    "static/js/main.abbfb8a9.js"
   ]
 }
