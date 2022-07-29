@@ -15,6 +15,7 @@
     "flowbite-datepicker": "^1.2.1",
     "i18next": "^21.8.11",
     "js-cookie": "^3.0.1",
+    "litepicker": "^2.0.12",
     "moment": "^2.29.3",
     "node-sass": "^7.0.1",
     "prop-types": "^15.8.1",
@@ -34,6 +35,7 @@
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
+    "rsuite": "^5.16.2",
     "web-vitals": "^2.1.4",
     "xml2js": "^0.4.23"
   },
