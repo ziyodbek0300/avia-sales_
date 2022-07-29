@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import bgImg from "../../static/images/1.jpg";
 // import bgImg2 from '../../static/images/2-min.jpg';
 import bgImg3 from "../../static/images/3.jpg";
@@ -25,6 +25,9 @@ import "rsuite/dist/rsuite.css";
 
 function Home() {
     const { t, i18n } = useTranslation();
+    const [adults, setAdults] = useState(1);
+    const [infant, setInfant] = useState(0);
+    const [children, setChildren] = useState(0);
 
     return (
         <div>
@@ -93,10 +96,13 @@ function Home() {
                                             id="from"
                                             className="p-2 rounded border-4 border-red-600 w-full"
                                         >
-                                            <option value="">- выбрать -</option>
-                                            <option value={"Tashkent"}>
-                                                {t("fromTashkent")}
-                                            </option>
+                                            <option disabled value="">- выбрать -</option>
+                                            <optgroup label="Dubai" className="font-bold">
+                                                <option value={"Sharja"}>Шаржах</option>
+                                            </optgroup>
+                                            <optgroup label="Uzbekistan" className="font-bold">
+                                                <option value={"tashkent"}>Ташкент</option>
+                                            </optgroup>
                                         </select>
                                     </div>
                                     <RiSendPlane2Line className="text-white w-10" />
@@ -109,10 +115,13 @@ function Home() {
                                             id="to"
                                             className="p-2 rounded border-4 border-red-600 w-full"
                                         >
-                                            <option value="">- выбрать -</option>
-                                            <option value={"Sharja"}>
-                                                {t("toSharja")}
-                                            </option>
+                                            <option disabled value="">- выбрать -</option>
+                                            <optgroup label="Dubai" className="font-bold">
+                                                <option value={"Sharja"}>Шаржах</option>
+                                            </optgroup>
+                                            <optgroup label="Uzbekistan" className="font-bold">
+                                                <option value={"tashkent"}>Ташкент</option>
+                                            </optgroup>
                                         </select>
                                     </div>
                                     <div className="w-full">
@@ -135,7 +144,7 @@ function Home() {
                                             style={{ width: '100%', border: '4px solid rgb(220 38 38)', borderRadius: '4px', backgroundColor: 'white' }}
                                         />
                                     </div>
-                                    <div className="w-full">
+                                    <div className="w-full relative">
                                         <label htmlFor="from" className="block text-white text-sm">
                                             Туристы
                                         </label>
@@ -146,6 +155,45 @@ function Home() {
                                             placeholder="2, Эконом"
                                             id="from"
                                         />
+                                        <div className="absolute top-full -left-20">
+                                            <div className="bg-white rounded-lg p-1 tooltip-in relative mt-5 w-80 shadow">
+                                                <div className="flex p-3">
+                                                    <div className="w-full">
+                                                        <p>Взрослые <br />
+                                                            Старше 12 лет</p>
+                                                    </div>
+                                                    <div className="flex w-full">
+                                                        <button onClick={() => setAdults(prev => prev -= 1)} className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">-</button>
+                                                        <input type="number" value={adults} onInput={(e) => setAdults(+e.target.value)} className="border-0 text-center p-2 w-1/2 outline-none bg-transparent" />
+                                                        <button onClick={() => setAdults(prev => prev += 1)} className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">+</button>
+                                                    </div>
+                                                </div>
+                                                <div className="flex p-3">
+                                                    <div className="w-full">
+                                                        <p>Дети <br />
+                                                            От 2 до 12 лет</p>
+                                                    </div>
+                                                    <div className="flex w-full">
+                                                        <button onClick={() => setChildren(prev => prev -= 1)} className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">-</button>
+                                                        <input type="number" value={children} onInput={(e) => setChildren(prev => +e.target.value)} className="text-center border-0 p-2 w-1/2 outline-none bg-transparent" />
+                                                        <button onClick={() => setChildren(prev => prev += 1)} className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">+</button>
+                                                    </div>
+                                                </div>
+                                                <div className="flex p-3">
+                                                    <div className="w-full">
+                                                        <p>Младенцы <br />
+                                                            До 2 лет </p>
+                                                    </div>
+                                                    <div className="flex w-full">
+                                                        <button onClick={() => setInfant(prev => prev -= 1)} className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">-</button>
+                                                        <input type="number" value={infant} onInput={(e) => setInfant(prev => +e.target.value)} className="text-center border-0 p-2 w-1/2 outline-none bg-transparent" />
+                                                        <button onClick={() => setInfant(prev => prev += 1)} className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">+</button>
+                                                    </div>
+                                                </div>
+                                                <div></div>
+                                                <div></div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div className="w-full">
                                         <label htmlFor="from" className="block text-white text-sm">
