@@ -14,6 +14,14 @@ module.exports = {
                 unique: true,
                 allowNull: false,
             },
+            adminId:{
+                type:Sequelize.INTEGER,
+                // allowNull: true,
+                // references: {
+                //     model: 'Users',
+                //     key: 'id'
+                // },
+            },
             fullName: Sequelize.STRING,
             city: Sequelize.STRING,
             password: Sequelize.STRING,
