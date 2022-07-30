@@ -65,9 +65,9 @@ function TabsL() {
                 <TabPanel className="header">
                     <Flights />
                 </TabPanel>
-                <ExcursionTours className="header">
-                    <TourPack />
-                </ExcursionTours>
+                <TabPanel className="header">
+                    <ExcursionTours />
+                </TabPanel>
                 <TabPanel className="header third">
                     <Hotels />
                 </TabPanel>
