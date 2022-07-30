@@ -79,7 +79,7 @@ const LoginModal = () => {
                     <FaUser/>&nbsp;{t('enter')}
                 </li>
             ) : (
-                <li onClick={() => navigate(user?.role === userRole.admin ? "/dashboard" : '/my')}
+                <li onClick={() => navigate(user?.role === userRole.admin ? "/users" : '/my')}
                     className='flex items-center border-r pr-3'>
                     <Box style={{display: 'flex'}}>
                         <Box style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>

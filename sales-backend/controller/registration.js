@@ -23,7 +23,6 @@ const registrationUser = async (req, res, next) => {
     }
 }
 
-
 const loginUser = async (req, res) => {
     try {
         let {email, password} = req.body

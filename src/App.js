@@ -10,6 +10,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLayoutEffect } from "react";
 import { getMe } from "./redux/user/actions";
 import AdminDashboard from "./containers/adminDashboard";
+import {userRole} from "./constants/userRole";
+import {ToastContainer} from "react-toastify";
+import {useDispatch, useSelector} from "react-redux";
+import {useLayoutEffect} from "react";
+import {getMe} from "./redux/user/actions";
 import AgentIndex from "./containers/agentIndex";
 import 'react-toastify/dist/ReactToastify.css';
 import AdminNavbar from "./components/navbar/AdminNavbar";
@@ -61,18 +66,18 @@ function App() {
                             <div>
                                 <Navbar />
                                 <Routes>
-                                    <Route index element={<Home />} />
-                                    <Route path="/about-us" element={<About />} />
-                                    <Route path="/where-are-we" element={<Where />} />
-                                    <Route path="/for-partners" element={<ForPartners />} />
-                                    <Route path={"/"} element={<AdminNavbar />}>
-                                        <Route path={"/"} element={<Navigate to={"/dashboard"} />} />
-                                        <Route path="dashboard" element={<AdminDashboard />} />
-                                        <Route path="users" element={<AdminUsers />} />
-                                        <Route path="avia-tickets" element={<AdminUsers />} />
-                                        <Route path="where-are-we" element={<Where />} />
-                                        <Route path="for-partners" element={<ForPartners />} />
-                                        <Route path={"*"} element={<div>Not found</div>} />
+                                    <Route index element={<Home/>}/>
+                                    <Route path="/about-us" element={<About/>}/>
+                                    <Route path="/where-are-we" element={<Where/>}/>
+                                    <Route path="/for-partners" element={<ForPartners/>}/>
+                                    <Route path={"/"} element={<AdminNavbar/>}>
+                                        <Route path={"/"} element={<Navigate to={"/users"}/>}/>
+                                        {/*<Route path="dashboard" element={<AdminDashboard/>}/>*/}
+                                        <Route path="users" element={<AdminUsers/>}/>
+                                        <Route path="avia-tickets" element={<AdminUsers/>}/>
+                                        <Route path="where-are-we" element={<Where/>}/>
+                                        <Route path="for-partners" element={<ForPartners/>}/>
+                                        <Route path={"*"} element={<div>Not found</div>}/>
                                     </Route>
                                 </Routes>
                             </div>
