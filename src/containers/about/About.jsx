@@ -5,6 +5,25 @@ function About() {
         <div className='max-w-5xl mx-auto'>
             <div className='my-3'>
                 <p className='text-4xl font-bold mb-3'>О нас</p>
+                <p className='text-xl'>
+                    Наше Туристическая компания - Travelcontinent была основана в сентябре 2019 года. Мы оказываем туристические услуги по всему миру.
+                    Ставим акцент на арабские страны как Арабские Эмираты и Саудовская Аравия.
+                    Наше компания даёт нашим клиентам возможность путешествовать со своими семьями в соответствии с их религиозными убеждениями.
+                </p>
+
+                <p className='text-xl'>
+                    Компания предоставляет услуги B2B напрямую туристическим агентствам и услуги B2C клиентам.
+                    Дружелюбный и квалифицированный персонал компании будет обслуживать вас 24/7 и постарается сделать ваши путешествия безопасными, веселыми и по-настоящему бескомпромиссными.
+                </p>
+
+                <p className="text-xl">
+                    Мы рады создавать удобство для вас!
+                </p>
+
+                <p className="text-xl">
+                    Отбирая отели, сотрудники ALT* лично проверяют качество предоставляемого сервиса и уровень безопасности.
+                    Компания ALT*, сотрудничая только с надежными проверенными партнерами-авиакомпаниями, гарантирует своим клиентам высокую степень безопасности, комфорта и четкости выполнения полетов.
+                </p>
                 <p className='text-xl mb-2'>
                     Travelcontinent – национальный туроператор, специализирующийся на международном выездном, въездном и внутреннем туризме.
                 </p>
@@ -35,7 +54,7 @@ function About() {
             <div className='my-3 grid grid-cols-3 gap-4'>
                 <div className='flex flex-col gap-4 col-start-1 col-end-2'>
                     <p className='text-2xl font-bold'>Главный офис</p>
-                    <p className='text-lg'>Ташкент, Ўзбекистон, ул. Ўрикзор 140</p>
+                    <p className='text-lg'>Яккасарой тумани Бобур кўчаси 10</p>
                     <p className='text-lg'><a href="mailto:infotravelcontinent@gmail.com">infotravelcontinent@gmail.com</a></p>
                     <p className='text-lg'><a href="tel:+99891 003 88 88">+99891 003 88 88</a></p>
                     <p className='text-lg'><a href="tel:+99890 134 18 18">+99890 134 18 18</a></p>
@@ -43,7 +62,7 @@ function About() {
                         Компания приглашает к сотрудничеству авиакассы, туристические агентства и туроператоров. Предлагаем выгодные тарифы на авиабилеты, отели, туры, повышенную комиссию, технологические решения для туристической отрасли.
                     </p>
                 </div>
-                <div className='w-full col-start-2 col-end-5' style={{ position: "relative", overflow: "hidden" }}><a className='w-full' href="https://yandex.com/maps/10335/tashkent/?utm_medium=mapframe&utm_source=maps" style={{ color: "#eee", fontSize: "12px", position: "absolute", top: "0px" }}>Toshkent</a><a href="https://yandex.com/maps/10335/tashkent/house/YkAYdANoT0UGQFprfX54c3RqYA==/?ll=69.249133%2C41.292657&utm_medium=mapframe&utm_source=maps&z=18.68" style={{ color: "#eee", fontSize: "12px", position: "absolute", top: "14px" }}>Oʻrikzor koʻchasi, 140 — Yandex Xarita</a><iframe src="https://yandex.com/map-widget/v1/-/CCUJb-v~LC" width="560" height="400" frameBorder="1" allowFullScreen={true} style={{ position: "relative" }} title="yandex"></iframe></div>
+                <div className='w-full col-start-2 col-end-5' style={{ position: "relative", overflow: "hidden" }}><a className='w-full' href="https://yandex.com/maps/10335/tashkent/?utm_medium=mapframe&utm_source=maps" style={{ color: "#eee", fontSize: "12px", position: "absolute", top: "0px" }}>Toshkent</a><a href="https://yandex.com/maps/10335/tashkent/house/YkAYdAJgSU0EQFprfX54dHlgZA==/?ll=69.249879%2C41.295359&utm_medium=mapframe&utm_source=maps&z=17" style={{ color: "#eee", fontSize: "12px", position: "absolute", top: "14px" }}>Oʻrikzor koʻchasi, 140 — Yandex Xarita</a><iframe src="https://yandex.com/map-widget/v1/-/CCUR4BFzxA" width="560" height="400" frameBorder="1" allowFullScreen={true} style={{ position: "relative" }} title="yandex"></iframe></div>
             </div>
         </div>
     )
