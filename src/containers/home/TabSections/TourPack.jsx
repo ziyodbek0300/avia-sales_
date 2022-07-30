@@ -13,7 +13,7 @@ function TourPack() {
     return (
         <div className="max-w-5xl mx-auto py-44">
             <div
-                className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
+                className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5 p-0">
                 <div className="flex items-center gap-3">
                     <div className="flex items-center gap-1">
                         <input type="radio" name="t1" id="t1" />
