@@ -8,7 +8,6 @@ import bgImg7 from "../../static/images/7.jpg";
 import bgImg8 from "../../static/images/8.jpg";
 import bgImg9 from "../../static/images/9.jpg";
 import bgImg11 from "../../static/images/11-min.jpg";
-import logo1 from "../../static/images/logo1.png";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FiGrid } from "react-icons/fi";
