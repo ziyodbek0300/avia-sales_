@@ -9,31 +9,32 @@ const headCells = [
         id: 'id',
         numeric: false,
         disablePadding: true,
-        label: 'Дата',
+        label: 'Название компании',
         isTime: false
     },
     {
         id: 'date',
         numeric: true,
         disablePadding: false,
-        label: 'Основание',
+        label: 'Финансовый статус',
         isTime: false
     },
     {
         id: 'type',
         numeric: true,
         disablePadding: false,
-        label: 'Сумма',
+        label: 'Дата создания.',
         isTime: false
     },
 ];
-const TourPackage = ()=>{
+
+const AdminPartners = ()=>{
     const [data,setData] = useState([])
     useEffect(()=>{},[])
     return (
         <div>
             <MuiTable
-                tableName={"Баланс: -302$"}
+                tableName={"Партнеры"}
                 rows={[]?.map(r => {
                     return {
                         ...r,
@@ -70,4 +71,4 @@ const TourPackage = ()=>{
         </div>
     )
 }
-export default TourPackage
+export default AdminPartners
