@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { RiSendPlane2Line } from "react-icons/ri";
 import { BsArrowRightShort } from "react-icons/bs";
 import { DatePicker } from 'rsuite'
+import ReactSelect from 'react-select';
 
 function TourPack() {
     const [adults, setAdults] = useState(1);
@@ -24,38 +25,42 @@ function TourPack() {
                         <label htmlFor="from" className="block text-white text-sm">
                             Откуда
                         </label>
-                        <select
+                        <ReactSelect
+                            style={{ border: '1px solid red' }}
+                            options={[
+                                { value: '', label: '- выбрать -' },
+                                { value: 'Ташкент', label: 'Ташкент' },
+                                { value: 'Шаржах', label: 'Шаржах' },
+                            ]}
+                            placeholder="- выбрать -"
+                        />
+                        {/* <select
                             name="from"
                             id="from"
                             className="p-2 rounded border-4 border-red-600 w-full"
                         >
-                            <option disabled selected value="">- выбрать -</option>
+                            <option disabled selected value=""></option>
                             <optgroup label="Dubai" className="font-bold">
                                 <option value={"Sharja"}>Шаржах</option>
                             </optgroup>
                             <optgroup label="Uzbekistan" className="font-bold">
                                 <option value={"tashkent"}>Ташкент</option>
                             </optgroup>
-                        </select>
+                        </select> */}
                     </div>
                     <RiSendPlane2Line className="text-white w-10" />
                     <div className="w-full">
                         <label htmlFor="from" className="block text-white text-sm">
                             Направление
                         </label>
-                        <select
-                            name="to"
-                            id="to"
-                            className="p-2 rounded border-4 border-red-600 w-full"
-                        >
-                            <option disabled selected value="">- выбрать -</option>
-                            <optgroup label="Dubai" className="font-bold">
-                                <option value={"Sharja"}>Шаржах</option>
-                            </optgroup>
-                            <optgroup label="Uzbekistan" className="font-bold">
-                                <option value={"tashkent"}>Ташкент</option>
-                            </optgroup>
-                        </select>
+                        <ReactSelect
+                            options={[
+                                { value: '', label: '- выбрать -' },
+                                { value: 'Ташкент', label: 'Ташкент' },
+                                { value: 'Шаржах', label: 'Шаржах' },
+                            ]}
+                            placeholder="- выбрать -"
+                        />
                     </div>
                     <div className="w-full">
                         <label htmlFor="from" className="block text-white text-sm">
