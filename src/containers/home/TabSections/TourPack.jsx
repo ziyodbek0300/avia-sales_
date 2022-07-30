@@ -29,7 +29,7 @@ function TourPack() {
                             id="from"
                             className="p-2 rounded border-4 border-red-600 w-full"
                         >
-                            <option disabled value="">- выбрать -</option>
+                            <option disabled selected value="">- выбрать -</option>
                             <optgroup label="Dubai" className="font-bold">
                                 <option value={"Sharja"}>Шаржах</option>
                             </optgroup>
