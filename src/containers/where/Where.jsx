@@ -6,7 +6,7 @@ function Where() {
             <div className='my-3 grid grid-cols-3 gap-4'>
                 <div className='flex flex-col gap-4 col-start-1 col-end-2'>
                     <p className='text-2xl font-bold'>Главный офис</p>
-                    <p className='text-lg'>Ташкент, Ўзбекистон, ул. Ўрикзор 140</p>
+                    <p className='text-lg'>Яккасарой тумани Бобур кўчаси 10</p>
                     <p className='text-lg'><a href="mailto:infotravelcontinent@gmail.com">infotravelcontinent@gmail.com</a></p>
                     <p className='text-lg'><a href="tel:+99891 003 88 88">+99891 003 88 88</a></p>
                     <p className='text-lg'><a href="tel:+99890 134 18 18">+99890 134 18 18</a></p>
