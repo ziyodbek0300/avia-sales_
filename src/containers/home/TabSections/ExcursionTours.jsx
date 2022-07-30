@@ -3,7 +3,7 @@ import { RiSendPlane2Line } from "react-icons/ri";
 import { BsArrowRightShort } from "react-icons/bs";
 import { DatePicker } from 'rsuite'
 
-function TourPack() {
+function ExcursionTours() {
     const [adults, setAdults] = useState(1);
     const [infant, setInfant] = useState(0);
     const [children, setChildren] = useState(0);
@@ -166,4 +166,4 @@ function TourPack() {
     )
 }
 
-export default TourPack
+export default ExcursionTours
