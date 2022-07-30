@@ -65,16 +65,16 @@ function TabsL() {
                 <TabPanel className="header">
                     <Flights />
                 </TabPanel>
-                <TabPanel className="header">
+                <TabPanel className="header third">
                     <ExcursionTours />
                 </TabPanel>
-                <TabPanel className="header third">
+                <TabPanel className="header ">
                     <Hotels />
                 </TabPanel>
-                <TabPanel className="">
+                <TabPanel className="header fifth">
                     <Visas />
                 </TabPanel>
-                <TabPanel className="header fifth">
+                <TabPanel className="header ">
                     <Transfers />
                 </TabPanel>
                 <TabPanel className="header sixth">ok</TabPanel>
