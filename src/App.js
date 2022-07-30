@@ -15,6 +15,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import AdminNavbar from "./components/navbar/AdminNavbar";
 import AdminUsers from "./containers/adminUsers";
 import Footer from "./components/footer";
+import Aviaticket from "./containers/aviaticket";
+import TourPackage from "./containers/tourPackage";
+import Finnance from "./containers/finnance";
+import AdminParners from "./containers/adminParners";
 
 function App() {
     const dispatch = useDispatch()
@@ -67,9 +71,11 @@ function App() {
                                     <Route path="/for-partners" element={<ForPartners/>}/>
                                     <Route path={"/"} element={<AdminNavbar/>}>
                                         <Route path={"/"} element={<Navigate to={"/users"}/>}/>
-                                        {/*<Route path="dashboard" element={<AdminDashboard/>}/>*/}
                                         <Route path="users" element={<AdminUsers/>}/>
-                                        <Route path="avia-tickets" element={<AdminUsers/>}/>
+                                        <Route path="tour-package" element={<TourPackage/>}/>
+                                        <Route path="finance" element={<Finnance/>}/>
+                                        <Route path="partners" element={<AdminParners/>}/>
+                                        <Route path="avia-tickets" element={<Aviaticket/>}/>
                                         <Route path="where-are-we" element={<Where/>}/>
                                         <Route path="for-partners" element={<ForPartners/>}/>
                                         <Route path={"*"} element={<div>Not found</div>}/>
