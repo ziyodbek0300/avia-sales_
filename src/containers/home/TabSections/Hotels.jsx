@@ -49,7 +49,7 @@ function Hotels() {
                                 >
                                     {hotelsTownLists.map(e => {
                                         return (
-                                            <option value={e.id}>{e.title}</option>
+                                            <option key={e.id} value={e.id}>{e.title}</option>
                                         )
                                     })}
                                 </select>
@@ -102,9 +102,8 @@ function Hotels() {
             </div>
             <div className="max-w-5xl mx-auto flex flex-col gap-3">
                 {hotels.map(e => {
-                    console.log(e);
                     return e['$'].status !== 'D' && e['$'].name !== "" && e['$'].name?.toLowerCase() !== "unknown hotel" && e['$'].name !== undefined && (
-                        <div className="shadow rounded-lg p-2 flex gap-5">
+                        <div className="shadow border rounded-lg bg-white p-2 flex gap-5" key={`${e['$'].inc}`}>
                             <img className="rounded" width="200" src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e['$'].inc}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`} alt="" />
                             <div>
                                 <h1 className="text-xl font-bold">{e['$'].name}</h1>

@@ -68,7 +68,7 @@ function TabsL() {
                 <TabPanel className="header third">
                     <ExcursionTours />
                 </TabPanel>
-                <TabPanel className="header ">
+                <TabPanel>
                     <Hotels />
                 </TabPanel>
                 <TabPanel className="header fifth">
@@ -77,7 +77,6 @@ function TabsL() {
                 <TabPanel className="header ">
                     <Transfers />
                 </TabPanel>
-                <TabPanel className="header sixth">ok</TabPanel>
             </Tabs>
         </div>
     )
