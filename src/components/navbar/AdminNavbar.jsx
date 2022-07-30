@@ -38,29 +38,26 @@ function AdminNavbar(props) {
                         onClick={() => navigate("/avia-tickets")}
                         className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${route.pathname === "/avia-tickets" ? "bg-red-600" : ""}`}
                     >
-                        <GiTicket/>
-                        Avia tickets
-                    </Tab>
-                    <Tab
-                        className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm'
-                        selectedClassName='bg-red-600'>
                         <GiAirplaneDeparture/>
                         Авиабилеты
                     </Tab>
                     <Tab
-                        className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm'
+                        onClick={() => navigate("/tour-package")}
+                        className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${route.pathname === "/tour-package" ? "bg-red-600" : ""}`}
                         selectedClassName='bg-red-600'>
                         <FiGrid/>
                         Турпакеты
                     </Tab>
                     <Tab
-                        className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm'
+                        onClick={() => navigate("/finance")}
+                        className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${route.pathname === "/finance" ? "bg-red-600" : ""}`}
                         selectedClassName='bg-red-600'>
                         <GiCoins/>
                         Финансы
                     </Tab>
                     <Tab
-                        className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm'
+                        onClick={() => navigate("/avia-tickets")}
+                        className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${route.pathname === "/avia-tickets" ? "bg-red-600" : ""}`}
                         selectedClassName='bg-red-600'>
                         <FiGrid/>
                         Партнеры
