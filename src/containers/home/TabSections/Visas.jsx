@@ -1,6 +1,8 @@
 import React from 'react'
 import { BsArrowRightShort } from 'react-icons/bs'
 import { RiSendPlane2Line } from 'react-icons/ri'
+import { VISAS, VISA_STATE } from '../../../constants/visas'
+import { DateRangePicker } from 'rsuite'
 
 function Visas() {
     return (
@@ -12,37 +14,32 @@ function Visas() {
                         <label htmlFor="from" className="block text-white text-sm">
                             Страна
                         </label>
-                        <input
-                            className="p-2 rounded border-4 border-red-600 w-full"
-                            type="text"
-                            name="from"
-                            placeholder="- выбрать -"
-                            id="from"
-                        />
+                        <select className='p-3 rounded border-4 border-red-600 w-full' name="state_from" id="state_from">
+                            <option defaultValue="">Выбрать</option>
+                            {VISA_STATE.map(visa => <option key={visa} value={visa}>{visa}</option>)}
+                        </select>
                     </div>
                     <RiSendPlane2Line className="text-white w-10" />
                     <div className="w-full">
                         <label htmlFor="from" className="block text-white text-sm">
                             Тип визы
                         </label>
-                        <input
-                            className="p-2 rounded border-4 border-red-600 w-full"
-                            type="text"
-                            name="from"
-                            placeholder="- выбрать -"
-                            id="from"
-                        />
+                        <select className='p-3 rounded border-4 border-red-600 w-full' name="state_from" id="state_from">
+                            <option defaultValue="">Выбрать</option>
+                            {VISAS.map(visa => <option key={visa} value={visa}>{visa}</option>)}
+                        </select>
                     </div>
                     <div className="w-full">
                         <label htmlFor="date" className="block text-white text-sm">
                             Дата заезда
                         </label>
-                        <input
-                            type="date"
-                            className="p-2 rounded border-4 border-red-600 w-full"
-                            name="date"
-                            id="date"
-                        />
+                        <div className='control-pane'>
+                            <div className='control-section'>
+                                <div className='daterangepicker-control-section'>
+                                    <DateRangePicker></DateRangePicker>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div className="w-full">
                         <label htmlFor="date" className="block text-white text-sm">

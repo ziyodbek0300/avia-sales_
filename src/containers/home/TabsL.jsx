@@ -59,7 +59,7 @@ function TabsL() {
                         Трансферы
                     </Tab>
                 </TabList>
-                <TabPanel className="header">
+                <TabPanel>
                     <TourPack />
                 </TabPanel>
                 <TabPanel className="header">

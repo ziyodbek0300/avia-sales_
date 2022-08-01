@@ -1,23 +1,19 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-// font by google fonts
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
 @font-face {
   font-family: Idealist;
-  src: url('./static/fonts/Idealist\ Sans.otf') type-of($value: 'otf');
+  src: url("./static/fonts/Idealist Sans.otf") string;
 }
-
 * {
-  font-family: 'Idealist', sans-serif;
+  font-family: "Idealist", sans-serif;
   box-sizing: border-box !important;
 }
 
-
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 .card-filter-courses {
@@ -25,7 +21,7 @@ code {
 }
 
 .card {
-  grid-row: 1 / 3;
+  grid-row: 1/3;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -39,7 +35,7 @@ code {
 }
 
 .main-courses div:first-child {
-  grid-row: 1 / 3;
+  grid-row: 1/3;
 }
 
 .main-courses div {
@@ -54,48 +50,44 @@ code {
 }
 
 .header {
-  clip-path: polygon(0% 0%, 100% 0%, 100% 94%, 53% 94%, 50% 100%, 45% 94%, 0 94%);
-  background-image: url('./static/images/bg_1-min.jpg');
+  -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 94%, 53% 94%, 50% 100%, 45% 94%, 0 94%);
+          clip-path: polygon(0% 0%, 100% 0%, 100% 94%, 53% 94%, 50% 100%, 45% 94%, 0 94%);
+  background-image: url("./static/images/bg_1-min.jpg");
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: 0% 100%;
 }
 
 .header:last-child {
-  background-image: url('./static/images/bg_2.jpg');
+  background-image: url("./static/images/bg_2.jpg");
 }
 
 .second {
-  // background-repeat: repeat-y !important;
   background-position: 20% 25% !important;
 }
-
 
 @media (max-width: 1400px) {
   .second {
     background-position: 25% 0% !important;
   }
 }
-
 @media (min-width: 1700px) {
   .second {
     background-position: 25% 100% !important;
   }
 }
-
 .header:nth-child(2) {
-  background-image: url('./static/images/bg_2.jpg');
+  background-image: url("./static/images/bg_2.jpg");
 }
 
 .third {
   background-position: 10% 60% !important;
-  background-image: url('./static/images/bg_3.jpg');
+  background-image: url("./static/images/bg_3.jpg");
 }
-
 
 .fourth {
   background-position: center !important;
-  background-image: url('./static/images/bg_4.jpg') !important;
+  background-image: url("./static/images/bg_4.jpg") !important;
 }
 
 @media (min-width: 1700px) {
@@ -103,10 +95,9 @@ code {
     background-position: 10% 40% !important;
   }
 }
-
 .fifth {
   background-position: center !important;
-  background-image: url('./static/images/bg_5.jpg') !important;
+  background-image: url("./static/images/bg_5.jpg") !important;
 }
 
 .bg-example {
@@ -118,7 +109,7 @@ code {
 }
 
 .li::before {
-  content: '\25A0';
+  content: "■";
   color: crimson;
   margin-right: 5px;
 }
@@ -136,7 +127,7 @@ input[type=number] {
 }
 
 .tooltip-in::before {
-  content: '';
+  content: "";
   position: absolute;
   display: inline-block;
   height: 0;
@@ -147,4 +138,4 @@ input[type=number] {
   border-bottom: 1rem solid white;
   top: -2rem;
   left: calc(50% - 1rem);
-}
+}/*# sourceMappingURL=index.css.map */

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { RiSendPlane2Line } from "react-icons/ri";
 import { BsArrowRightShort } from "react-icons/bs";
 import { DatePicker } from 'rsuite'
+import ReactSelect from 'react-select';
 
 function ExcursionTours() {
     const [adults, setAdults] = useState(1);
@@ -24,12 +25,14 @@ function ExcursionTours() {
                         <label htmlFor="from" className="block text-white text-sm">
                             Откуда
                         </label>
-                        <input
-                            className="p-2 rounded border-4 border-red-600 w-full"
-                            type="text"
-                            name="from"
-                            placeholder="Из Ташкента"
-                            id="from"
+                        <ReactSelect
+                            style={{ border: '1px solid red' }}
+                            options={[
+                                { value: '', label: '- выбрать -' },
+                                { value: 'Ташкент', label: 'Ташкент' },
+                                { value: 'Шаржах', label: 'Шаржах' },
+                            ]}
+                            placeholder="- выбрать -"
                         />
                     </div>
                     <RiSendPlane2Line className="text-white w-10" />
@@ -37,12 +40,14 @@ function ExcursionTours() {
                         <label htmlFor="from" className="block text-white text-sm">
                             Направление
                         </label>
-                        <input
-                            className="p-2 rounded border-4 border-red-600 w-full"
-                            type="text"
-                            name="from"
+                        <ReactSelect
+                            style={{ border: '1px solid red' }}
+                            options={[
+                                { value: '', label: '- выбрать -' },
+                                { value: 'Ташкент', label: 'Ташкент' },
+                                { value: 'Шаржах', label: 'Шаржах' },
+                            ]}
                             placeholder="- выбрать -"
-                            id="from"
                         />
                     </div>
                     <div className="w-full">
