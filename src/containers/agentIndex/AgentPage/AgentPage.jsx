@@ -257,12 +257,6 @@ function AgentPage() {
                            <GiCoins/>
                            Финансы
                        </Tab>
-                       <Tab
-                           className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm'
-                           selectedClassName='bg-red-600'>
-                           <FiGrid/>
-                           Блок-места
-                       </Tab>
                        {/*<Tab*/}
                        {/*    className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm'*/}
                        {/*    selectedClassName='bg-red-600'>*/}

@@ -56,8 +56,8 @@ function AdminNavbar(props) {
                         Финансы
                     </Tab>
                     <Tab
-                        onClick={() => navigate("/avia-tickets")}
-                        className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${route.pathname === "/avia-tickets" ? "bg-red-600" : ""}`}
+                        onClick={() => navigate("/partners")}
+                        className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${route.pathname === "/partners" ? "bg-red-600" : ""}`}
                         selectedClassName='bg-red-600'>
                         <FiGrid/>
                         Партнеры

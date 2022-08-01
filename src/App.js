@@ -9,7 +9,6 @@ import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useLayoutEffect } from "react";
 import { getMe } from "./redux/user/actions";
-import AdminDashboard from "./containers/adminDashboard";
 import AgentIndex from "./containers/agentIndex";
 import 'react-toastify/dist/ReactToastify.css';
 import AdminNavbar from "./components/navbar/AdminNavbar";
