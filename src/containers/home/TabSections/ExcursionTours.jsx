@@ -30,7 +30,7 @@ function ExcursionTours() {
                             options={[
                                 { value: '', label: '- выбрать -' },
                                 { value: 'Ташкент', label: 'Ташкент' },
-                                { value: 'Шаржах', label: 'Шаржах' },
+                                { value: 'Шарджа', label: 'Шарджа' },
                             ]}
                             placeholder="- выбрать -"
                         />
@@ -45,7 +45,7 @@ function ExcursionTours() {
                             options={[
                                 { value: '', label: '- выбрать -' },
                                 { value: 'Ташкент', label: 'Ташкент' },
-                                { value: 'Шаржах', label: 'Шаржах' },
+                                { value: 'Шарджа', label: 'Шарджа' },
                             ]}
                             placeholder="- выбрать -"
                         />
