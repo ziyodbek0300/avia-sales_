@@ -34,8 +34,8 @@ function Flights() {
                             <ReactSelect
                                 style={{border: '1px solid red'}}
                                 options={[{value: '', label: '- выбрать -'}, {
-                                    value: 'Ташкент', label: 'Ташкент'
-                                }, {value: 'Шарджа', label: 'Шарджа'},]}
+                                    value: 'tashkent', label: 'Ташкент'
+                                }, {value: 'sharja', label: 'Шарджа'},]}
                                 placeholder="- выбрать -"
                             />
                         </div>
@@ -47,8 +47,8 @@ function Flights() {
                             <ReactSelect
                                 style={{border: '1px solid red'}}
                                 options={[{value: '', label: '- выбрать -'}, {
-                                    value: 'Ташкент', label: 'Ташкент'
-                                }, {value: 'Шарджа', label: 'Шарджа'},]}
+                                    value: 'sharja', label: 'Шарджа'
+                                }, {value: 'tashkent', label: 'Ташкент'},]}
                                 placeholder="- выбрать -"
                             />
                         </div>
