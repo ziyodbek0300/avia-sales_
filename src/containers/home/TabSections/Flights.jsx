@@ -1,18 +1,38 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {RiSendPlane2Line} from "react-icons/ri";
 import {BsArrowRightShort} from "react-icons/bs";
 import {DatePicker} from 'rsuite'
 import ReactSelect from 'react-select';
 import {FaPlaneArrival, FaPlaneDeparture} from "react-icons/fa";
+import {sharja_tashkent, tashkent_sharja} from "../../../constants/flights";
+import QanotSharq from "../../../static/images/qanot-sharq.jpg";
+import Moment from 'moment';
+import {extendMoment} from 'moment-range';
 
 function Flights() {
+    const moment = extendMoment(Moment);
     const [adults, setAdults] = useState(1);
     const [infant, setInfant] = useState(0);
     const [children, setChildren] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
+    const [from, setFrom] = useState("");
+    const [to, setTo] = useState("");
+    const [tickets, setTickets] = useState([]);
+    const [day1, setDay1] = useState("");
+    const [day2, setDay2] = useState("");
 
     const showTickets = () => {
-        console.log("asd")
+        const range = moment.range(day1, day2);
+        const ranges = Array.from(range.by('day', {excludeEnd: true, step: 1}))
+        ranges.map(a => console.log(a))
+        Array(9).fill(null).map(s => {
+            setTickets([...tickets, {
+                direction: [from, to],
+                departureTime: from + "_" + to.startsWith("tashkent") ? tashkent_sharja.departureTime : sharja_tashkent.departureTime,
+                arrivingTime: from + "_" + to.startsWith("tashkent") ? tashkent_sharja.arrivingTime : sharja_tashkent.arrivingTime,
+                price: 310 * (+adults + +infant + +children)
+            }]);
+        })
     }
 
     return (<div>
@@ -32,6 +52,9 @@ function Flights() {
                                 Откуда
                             </label>
                             <ReactSelect
+                                onChange={(e) => {
+                                    setFrom(e.value)
+                                }}
                                 style={{border: '1px solid red'}}
                                 options={[{value: '', label: '- выбрать -'}, {
                                     value: 'tashkent', label: 'Ташкент'
@@ -46,6 +69,9 @@ function Flights() {
                             </label>
                             <ReactSelect
                                 style={{border: '1px solid red'}}
+                                onChange={(e) => {
+                                    setTo(e.value)
+                                }}
                                 options={[{value: '', label: '- выбрать -'}, {
                                     value: 'sharja', label: 'Шарджа'
                                 }, {value: 'tashkent', label: 'Ташкент'},]}
@@ -58,6 +84,7 @@ function Flights() {
                             </label>
                             <DatePicker
                                 disabledDate={date => date.getDay() === 1 || date.getDay() === 2 || date.getDay() === 4 || date.getDay() === 5 || date.getDay() === 6}
+                                onChange={(e) => setDay1(new Date(e))}
                                 format="yyyy-MM-dd"
                                 style={{
                                     width: '100%',
@@ -74,6 +101,9 @@ function Flights() {
                             <DatePicker
                                 disabledDate={date => date.getDay() === 0 || date.getDay() === 1 || date.getDay() === 4 || date.getDay() === 5 || date.getDay() === 3}
                                 format="yyyy-MM-dd"
+                                onChange={(e) => {
+                                    setDay2(new Date(e));
+                                }}
                                 style={{
                                     width: '100%',
                                     border: '4px solid rgb(220 38 38)',
@@ -178,22 +208,33 @@ function Flights() {
             </div>
         </div>
         <div className={"grid grid-cols-2 gap-3 py-3 max-w-5xl m-auto"}>
-            {Array(10).fill(null).map((a, b) => <div className={"flex p-3 shadow-sm rounded-lg border justify-between"}>
-                <span className={"text-lg font-bold"}>
-                    <span className={"text-sm font-normal"}>05:30</span><br />
-                    <span className={"text-xs"}>12.12.2002</span><br />
-                    Tash
-                </span>
-                <div className={"flex w-full justify-between px-6 border-b-2 border-gray-500 h-14 p-3"}>
-                    <FaPlaneDeparture className={"text-2xl text-gray-700 mb-3"}/>
-                    <FaPlaneArrival className={"text-2xl text-gray-700 mb-3"}/>
+            {tickets.map((a, b) => (<div className={"p-3 shadow-sm rounded-lg border flex"}>
+                <div className={""}>
+                    <div className={"flex items-center justify-between"}>
+                        <img src={QanotSharq} alt="asd" width={150} className={"mb-3"}/>
+                        <p className={"font-bold mb-3"}>Ekonom</p>
+                    </div>
+                    <div className={"flex justify-between"}>
+                    <span className={"text-lg"} style={{lineHeight: 1.2}}>
+                        <span className={"text-xl font-normal"} style={{lineHeight: 0}}>{a.departureTime}</span><br/>
+                        <span className={"text-xs"} style={{lineHeight: 0}}>12.12.2002</span><br/>
+                        {a.direction[0]}
+                    </span>
+                        <div
+                            className={"flex w-full bg-red-500 text-white mx-3 justify-between px-6 rounded border-b-2 border-dotted border-gray-500 h-10 align-bottom p-3"}>
+                            <FaPlaneDeparture className={"text-2xl text-white"}/>
+                            <p className={"text-xs p-0 m-0"}>В пути: 3 часа 10 минут</p>
+                            <FaPlaneArrival className={"text-2xl text-white"}/>
+                        </div>
+                        <span className={"text-lg"} style={{lineHeight: 1.2}}>
+                        <span className={"text-xl font-normal"} style={{lineHeight: 0}}>{a.arrivingTime}</span><br/>
+                        <span className={"text-xs"} style={{lineHeight: 0}}>12.12.2002</span><br/>
+                            {a.direction[1]}
+                    </span>
+                    </div>
                 </div>
-                <span className={"text-lg font-bold"}>
-                    <span className={"text-sm font-normal"}>05:30</span><br />
-                    <span className={"text-xs"}>12.12.2002</span><br />
-                    SHj
-                </span>
-            </div>)}
+                <div className={"border-l p-3"}>{a.price}</div>
+            </div>))}
         </div>
     </div>);
 }
