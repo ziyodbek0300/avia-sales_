@@ -3,6 +3,7 @@ import {RiSendPlane2Line} from "react-icons/ri";
 import {BsArrowRightShort} from "react-icons/bs";
 import {DatePicker} from 'rsuite'
 import ReactSelect from 'react-select';
+import {FaPlaneArrival, FaPlaneDeparture} from "react-icons/fa";
 
 function Flights() {
     const [adults, setAdults] = useState(1);
@@ -176,8 +177,25 @@ function Flights() {
                 </div>
             </div>
         </div>
-        {Array(10).fill(null).map((a, b) => <div>{b}</div>)}
-    </div>)
+        <div className={"grid grid-cols-2 gap-3 py-3 max-w-5xl m-auto"}>
+            {Array(10).fill(null).map((a, b) => <div className={"flex p-3 shadow-sm rounded-lg border justify-between"}>
+                <span className={"text-lg font-bold"}>
+                    <span className={"text-sm font-normal"}>05:30</span><br />
+                    <span className={"text-xs"}>12.12.2002</span><br />
+                    Tash
+                </span>
+                <div className={"flex w-full justify-between px-6 border-b-2 border-gray-500 h-14 p-3"}>
+                    <FaPlaneDeparture className={"text-2xl text-gray-700 mb-3"}/>
+                    <FaPlaneArrival className={"text-2xl text-gray-700 mb-3"}/>
+                </div>
+                <span className={"text-lg font-bold"}>
+                    <span className={"text-sm font-normal"}>05:30</span><br />
+                    <span className={"text-xs"}>12.12.2002</span><br />
+                    SHj
+                </span>
+            </div>)}
+        </div>
+    </div>);
 }
 
 export default Flights
