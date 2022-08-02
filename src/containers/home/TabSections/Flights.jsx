@@ -14,8 +14,8 @@ function Flights() {
         console.log("asd")
     }
 
-    return (
-        <div>
+    return (<div>
+        <div className="header">
             <div className="max-w-5xl mx-auto py-44">
                 <div
                     className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
@@ -32,11 +32,9 @@ function Flights() {
                             </label>
                             <ReactSelect
                                 style={{border: '1px solid red'}}
-                                options={[
-                                    {value: '', label: '- выбрать -'},
-                                    {value: 'Ташкент', label: 'Ташкент'},
-                                    {value: 'Шарджа', label: 'Шарджа'},
-                                ]}
+                                options={[{value: '', label: '- выбрать -'}, {
+                                    value: 'Ташкент', label: 'Ташкент'
+                                }, {value: 'Шарджа', label: 'Шарджа'},]}
                                 placeholder="- выбрать -"
                             />
                         </div>
@@ -47,11 +45,9 @@ function Flights() {
                             </label>
                             <ReactSelect
                                 style={{border: '1px solid red'}}
-                                options={[
-                                    {value: '', label: '- выбрать -'},
-                                    {value: 'Ташкент', label: 'Ташкент'},
-                                    {value: 'Шарджа', label: 'Шарджа'},
-                                ]}
+                                options={[{value: '', label: '- выбрать -'}, {
+                                    value: 'Ташкент', label: 'Ташкент'
+                                }, {value: 'Шарджа', label: 'Шарджа'},]}
                                 placeholder="- выбрать -"
                             />
                         </div>
@@ -100,63 +96,61 @@ function Flights() {
                                 placeholder="2, Эконом"
                                 id="from"
                             />
-                            {isOpen ? (
-                                <div className="absolute top-full -left-20">
-                                    <div className="bg-white rounded-lg p-1 tooltip-in relative mt-5 w-80 shadow">
-                                        <div className="flex p-3">
-                                            <div className="w-full">
-                                                <p>Взрослые <br/>
-                                                    Старше 12 лет</p>
-                                            </div>
-                                            <div className="flex w-full">
-                                                <button onClick={() => setAdults(prev => prev -= 1)}
-                                                        className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">-
-                                                </button>
-                                                <input type="number" value={adults}
-                                                       onInput={(e) => setAdults(+e.target.value)}
-                                                       className="border-0 text-center p-2 w-1/2 outline-none bg-transparent"/>
-                                                <button onClick={() => setAdults(prev => prev += 1)}
-                                                        className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">+
-                                                </button>
-                                            </div>
+                            {isOpen ? (<div className="absolute top-full -left-20">
+                                <div className="bg-white rounded-lg p-1 tooltip-in relative mt-5 w-80 shadow">
+                                    <div className="flex p-3">
+                                        <div className="w-full">
+                                            <p>Взрослые <br/>
+                                                Старше 12 лет</p>
                                         </div>
-                                        <div className="flex p-3">
-                                            <div className="w-full">
-                                                <p>Дети <br/>
-                                                    От 2 до 12 лет</p>
-                                            </div>
-                                            <div className="flex w-full">
-                                                <button onClick={() => setChildren(prev => prev -= 1)}
-                                                        className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">-
-                                                </button>
-                                                <input type="number" value={children}
-                                                       onInput={(e) => setChildren(prev => +e.target.value)}
-                                                       className="text-center border-0 p-2 w-1/2 outline-none bg-transparent"/>
-                                                <button onClick={() => setChildren(prev => prev += 1)}
-                                                        className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">+
-                                                </button>
-                                            </div>
+                                        <div className="flex w-full">
+                                            <button onClick={() => setAdults(prev => prev -= 1)}
+                                                    className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">-
+                                            </button>
+                                            <input type="number" value={adults}
+                                                   onInput={(e) => setAdults(+e.target.value)}
+                                                   className="border-0 text-center p-2 w-1/2 outline-none bg-transparent"/>
+                                            <button onClick={() => setAdults(prev => prev += 1)}
+                                                    className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">+
+                                            </button>
                                         </div>
-                                        <div className="flex p-3">
-                                            <div className="w-full">
-                                                <p>Младенцы <br/>
-                                                    До 2 лет </p>
-                                            </div>
-                                            <div className="flex w-full">
-                                                <button onClick={() => setInfant(prev => prev -= 1)}
-                                                        className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">-
-                                                </button>
-                                                <input type="number" value={infant}
-                                                       onInput={(e) => setInfant(prev => +e.target.value)}
-                                                       className="text-center border-0 p-2 w-1/2 outline-none bg-transparent"/>
-                                                <button onClick={() => setInfant(prev => prev += 1)}
-                                                        className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">+
-                                                </button>
-                                            </div>
+                                    </div>
+                                    <div className="flex p-3">
+                                        <div className="w-full">
+                                            <p>Дети <br/>
+                                                От 2 до 12 лет</p>
+                                        </div>
+                                        <div className="flex w-full">
+                                            <button onClick={() => setChildren(prev => prev -= 1)}
+                                                    className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">-
+                                            </button>
+                                            <input type="number" value={children}
+                                                   onInput={(e) => setChildren(prev => +e.target.value)}
+                                                   className="text-center border-0 p-2 w-1/2 outline-none bg-transparent"/>
+                                            <button onClick={() => setChildren(prev => prev += 1)}
+                                                    className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">+
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="flex p-3">
+                                        <div className="w-full">
+                                            <p>Младенцы <br/>
+                                                До 2 лет </p>
+                                        </div>
+                                        <div className="flex w-full">
+                                            <button onClick={() => setInfant(prev => prev -= 1)}
+                                                    className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">-
+                                            </button>
+                                            <input type="number" value={infant}
+                                                   onInput={(e) => setInfant(prev => +e.target.value)}
+                                                   className="text-center border-0 p-2 w-1/2 outline-none bg-transparent"/>
+                                            <button onClick={() => setInfant(prev => prev += 1)}
+                                                    className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">+
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                            ) : ""}
+                            </div>) : ""}
                         </div>
                         <div className="w-full">
                             <label htmlFor="from" className="block text-white text-sm">
@@ -182,7 +176,8 @@ function Flights() {
                 </div>
             </div>
         </div>
-    )
+        {Array(10).fill(null).map((a, b) => <div>{b}</div>)}
+    </div>)
 }
 
 export default Flights
