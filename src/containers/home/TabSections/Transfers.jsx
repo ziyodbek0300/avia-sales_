@@ -16,7 +16,7 @@ function Transfers() {
                 <div className="flex gap-2 items-center py-4 text-gray-600">
                     <div className="w-full">
                         <label htmlFor="from" className="block text-white text-sm">
-                            Страна
+                            Откуда
                         </label>
                         <input
                             className="p-2 rounded border-4 border-red-600 w-full"
@@ -29,7 +29,7 @@ function Transfers() {
                     <RiSendPlane2Line className="text-white w-10"/>
                     <div className="w-full">
                         <label htmlFor="from" className="block text-white text-sm">
-                            Тип визы
+                            Куда
                         </label>
                         <input
                             className="p-2 rounded border-4 border-red-600 w-full"
