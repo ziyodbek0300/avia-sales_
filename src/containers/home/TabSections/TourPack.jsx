@@ -28,11 +28,10 @@ function TourPack() {
                             </label>
                             <ReactSelect
                                 style={{border: '1px solid red'}}
-                                options={[
-                                    {value: '', label: '- выбрать -'},
-                                    {value: 'Ташкент', label: 'Ташкент'},
-                                    {value: 'Шарджа', label: 'Шарджа'},
-                                ]}
+                                options={[{value: '', label: '- выбрать -'}, {
+                                    value: 'tashkent',
+                                    label: 'Ташкент (TAS)'
+                                }, {value: 'dubai', label: 'Дубай (DXB)'},]}
                                 placeholder="- выбрать -"
                             />
                         </div>
@@ -44,8 +43,8 @@ function TourPack() {
                             <ReactSelect
                                 options={[
                                     {value: '', label: '- выбрать -'},
-                                    {value: 'Ташкент', label: 'Ташкент'},
-                                    {value: 'Шарджа', label: 'Шарджа'},
+                                    {value: 'tashkent', label: 'Ташкент (TAS)'},
+                                    {value: 'dubai', label: 'Дубай (DXB)'},
                                 ]}
                                 placeholder="- выбрать -"
                             />

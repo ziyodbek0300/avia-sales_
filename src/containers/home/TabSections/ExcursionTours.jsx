@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { RiSendPlane2Line } from "react-icons/ri";
-import { BsArrowRightShort } from "react-icons/bs";
-import { DatePicker } from 'rsuite'
+import React, {useState} from 'react';
+import {RiSendPlane2Line} from "react-icons/ri";
+import {BsArrowRightShort} from "react-icons/bs";
 import ReactSelect from 'react-select';
 
 function ExcursionTours() {
@@ -16,7 +15,7 @@ function ExcursionTours() {
                 className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
                 <div className="flex items-center gap-3">
                     <div className="flex items-center gap-1">
-                        <input type="radio" name="t1" id="t1" />
+                        <input type="radio" name="t1" id="t1"/>
                         <label htmlFor="t1">Сложный маршрут</label>
                     </div>
                 </div>
@@ -26,26 +25,26 @@ function ExcursionTours() {
                             Откуда
                         </label>
                         <ReactSelect
-                            style={{ border: '1px solid red' }}
+                            style={{border: '1px solid red'}}
                             options={[
-                                { value: '', label: '- выбрать -' },
-                                { value: 'Ташкент', label: 'Ташкент' },
-                                { value: 'Шарджа', label: 'Шарджа' },
+                                {value: '', label: '- выбрать -'},
+                                {value: 'tashkent', label: 'Ташкент (TAS)'},
+                                {value: 'dubai', label: 'Дубай (DXB)'},
                             ]}
                             placeholder="- выбрать -"
                         />
                     </div>
-                    <RiSendPlane2Line className="text-white w-10" />
+                    <RiSendPlane2Line className="text-white w-10"/>
                     <div className="w-full">
                         <label htmlFor="from" className="block text-white text-sm">
                             Направление
                         </label>
                         <ReactSelect
-                            style={{ border: '1px solid red' }}
+                            style={{border: '1px solid red'}}
                             options={[
-                                { value: '', label: '- выбрать -' },
-                                { value: 'Ташкент', label: 'Ташкент' },
-                                { value: 'Шарджа', label: 'Шарджа' },
+                                {value: '', label: '- выбрать -'},
+                                {value: 'tashkent', label: 'Ташкент (TAS)'},
+                                {value: 'dubai', label: 'Дубай (DXB)'},
                             ]}
                             placeholder="- выбрать -"
                         />
@@ -162,7 +161,7 @@ function ExcursionTours() {
                 <div className="flex items-center justify-end">
                     <button
                         className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-500 text-white text-sm">
-                        Найти <BsArrowRightShort className="lh-0 text-2xl" />
+                        Найти <BsArrowRightShort className="lh-0 text-2xl"/>
                     </button>
                 </div>
             </div>
