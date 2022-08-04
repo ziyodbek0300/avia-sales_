@@ -4,7 +4,7 @@ import {BsArrowRightShort} from "react-icons/bs";
 import {DatePicker} from 'rsuite'
 import ReactSelect from 'react-select';
 import {FaPlaneArrival, FaPlaneDeparture} from "react-icons/fa";
-import {sharja_tashkent, tashkent_sharja} from "../../../constants/flights";
+import {dubai_tashkent, tashkent_dubai} from "../../../constants/flights";
 import QanotSharq from "../../../static/images/qanot-sharq.jpg";
 import Moment from 'moment';
 import {extendMoment} from 'moment-range';
@@ -23,16 +23,38 @@ function Flights() {
 
     const showTickets = () => {
         const range = moment.range(day1, day2);
-        const ranges = Array.from(range.by('day', {excludeEnd: true, step: 1}))
-        ranges.map(a => console.log(a))
+        const ranges = Array.from(range.by('day', {excludeEnd: true, step: 1}));
+        console.log(ranges);
+        // ranges.map(a => console.log(a))
         Array(9).fill(null).map(s => {
             setTickets([...tickets, {
                 direction: [from, to],
-                departureTime: from + "_" + to.startsWith("tashkent") ? tashkent_sharja.departureTime : sharja_tashkent.departureTime,
-                arrivingTime: from + "_" + to.startsWith("tashkent") ? tashkent_sharja.arrivingTime : sharja_tashkent.arrivingTime,
+                departureTime: from + "_" + to.startsWith("tashkent") ? tashkent_dubai.departureTime : dubai_tashkent.departureTime,
+                arrivingTime: from + "_" + to.startsWith("tashkent") ? tashkent_dubai.arrivingTime : dubai_tashkent.arrivingTime,
                 price: 310 * (+adults + +infant + +children)
             }]);
         })
+    }
+
+    const customStyles = {
+        menu: (provided, state) => ({
+            ...provided,
+            width: state.selectProps.width,
+            borderBottom: '1px dotted pink',
+            color: state.selectProps.menuColor,
+            padding: 20,
+        }),
+
+        control: (_, {selectProps: {width}}) => ({
+            width: width
+        }),
+
+        singleValue: (provided, state) => {
+            const opacity = state.isDisabled ? 0.5 : 1;
+            const transition = 'opacity 300ms';
+
+            return {...provided, opacity, transition};
+        }
     }
 
     return (<div>
@@ -57,8 +79,8 @@ function Flights() {
                                 }}
                                 style={{border: '1px solid red'}}
                                 options={[{value: '', label: '- выбрать -'}, {
-                                    value: 'tashkent', label: 'Ташкент'
-                                }, {value: 'sharja', label: 'Шарджа'},]}
+                                    value: 'tashkent', label: 'Ташкент (TAS)'
+                                }, {value: 'dubai', label: 'Дубай (DXB)'},]}
                                 placeholder="- выбрать -"
                             />
                         </div>
@@ -73,8 +95,8 @@ function Flights() {
                                     setTo(e.value)
                                 }}
                                 options={[{value: '', label: '- выбрать -'}, {
-                                    value: 'sharja', label: 'Шарджа'
-                                }, {value: 'tashkent', label: 'Ташкент'},]}
+                                    value: 'dubai', label: 'Дубай (DXB)'
+                                }, {value: 'tashkent', label: 'Ташкент (TAS)'},]}
                                 placeholder="- выбрать -"
                             />
                         </div>
@@ -207,34 +229,37 @@ function Flights() {
                 </div>
             </div>
         </div>
-        <div className={"grid grid-cols-2 gap-3 py-3 max-w-5xl m-auto"}>
-            {tickets.map((a, b) => (<div className={"p-3 shadow-sm rounded-lg border flex"}>
-                <div className={""}>
-                    <div className={"flex items-center justify-between"}>
-                        <img src={QanotSharq} alt="asd" width={150} className={"mb-3"}/>
-                        <p className={"font-bold mb-3"}>Ekonom</p>
-                    </div>
-                    <div className={"flex justify-between"}>
+        <div className={"py-3 max-w-5xl m-auto"}>
+            {tickets.map((a, b) => (
+                <div className={"p-3 mb-3 shadow hover:shadow-md cursor-pointer transition-all rounded-lg border flex"}>
+                    <div className={"w-full px-2 pr-5"}>
+                        <div className={"flex items-center justify-between"}>
+                            <img src={QanotSharq} alt="asd" width={150} className={"mb-3"}/>
+                            <p className={"font-bold mb-3"}>Ekonom</p>
+                        </div>
+                        <div className={"flex justify-between"}>
                     <span className={"text-lg"} style={{lineHeight: 1.2}}>
                         <span className={"text-xl font-normal"} style={{lineHeight: 0}}>{a.departureTime}</span><br/>
                         <span className={"text-xs"} style={{lineHeight: 0}}>12.12.2002</span><br/>
-                        {a.direction[0]}
+                        <span className={"capitalize"}>{a.direction[0]}</span>
                     </span>
-                        <div
-                            className={"flex w-full bg-red-500 text-white mx-3 justify-between px-6 rounded border-b-2 border-dotted border-gray-500 h-10 align-bottom p-3"}>
-                            <FaPlaneDeparture className={"text-2xl text-white"}/>
-                            <p className={"text-xs p-0 m-0"}>В пути: 3 часа 10 минут</p>
-                            <FaPlaneArrival className={"text-2xl text-white"}/>
-                        </div>
-                        <span className={"text-lg"} style={{lineHeight: 1.2}}>
+                            <div
+                                className={"flex w-full bg-red-500 text-white mx-3 justify-between px-6 rounded border-b-2 border-dotted border-gray-500 h-10 align-bottom p-3"}>
+                                <FaPlaneDeparture className={"text-2xl text-white"}/>
+                                <p className={"text-xs p-0 m-0"}>В пути: 3 часа 10 минут</p>
+                                <FaPlaneArrival className={"text-2xl text-white"}/>
+                            </div>
+                            <span className={"text-lg"} style={{lineHeight: 1.2}}>
                         <span className={"text-xl font-normal"} style={{lineHeight: 0}}>{a.arrivingTime}</span><br/>
                         <span className={"text-xs"} style={{lineHeight: 0}}>12.12.2002</span><br/>
-                            {a.direction[1]}
+                            <span className={"capitalize"}>{a.direction[1]}</span>
                     </span>
+                        </div>
                     </div>
-                </div>
-                <div className={"border-l p-3"}>{a.price}</div>
-            </div>))}
+                    <div className={"border-l p-3 flex justify-center items-center w-60"}>
+                        <p className={"text-2xl font-bold text-red-500"}>{a.price}$</p>
+                    </div>
+                </div>))}
         </div>
     </div>);
 }
