@@ -62,7 +62,7 @@ function TabsL() {
                 <TabPanel>
                     <TourPack />
                 </TabPanel>
-                <TabPanel className="header">
+                <TabPanel>
                     <Flights />
                 </TabPanel>
                 <TabPanel className="header third">
