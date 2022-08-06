@@ -1,6 +1,7 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
+
     await queryInterface.createTable('Flights', {
       id: {
         allowNull: false,
@@ -9,9 +10,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       fromId: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       toId: {
+        type: Sequelize.INTEGER
+      },
+      price: {
         type: Sequelize.NUMBER
       },
       startTime: {
@@ -22,6 +26,9 @@ module.exports = {
       },
       duration: {
         type: Sequelize.NUMBER
+      },
+      description: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

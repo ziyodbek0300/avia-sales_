@@ -12,7 +12,7 @@ const del = async (req, res, next) => {
                 return res.status(401).send(ErrorSend(401, {}, "no user"))
             }
         }
-        model.Region.destroy({where: {id: req.params.id}})
+        Promise.all([model.Flight.destroy({where: {id: req.params.id}})])
             .then(r => {
                 if (r[0] === 1) {
                     return res.status(200).send(Success(200, true, "ok"))
@@ -38,7 +38,7 @@ const getOne = async (req, res, next) => {
                 return res.status(401).send(ErrorSend(401, {}, "no user"))
             }
         }
-        model.Region.findOne({where: {id: req.params.id}})
+        model.Flight.findOne({where: {id: req.params.id}})
             .then(r => {
                 if (r[0][0] === 1) {
                     return res.status(200).send(Success(200, true, "ok"))
@@ -63,11 +63,12 @@ const getAll = async (req, res, next) => {
                 return res.status(404).send(ErrorSend(404, {}, "no user"))
             }
         }
-        Promise.all([model.Region.findAll({})])
+        model.Flight.findAll({})
             .then(r => {
                 return res.status(200).send(Success(200, r, "ok"))
             })
             .catch(e => {
+                console.log(e)
                 return res.status(404).send({code: 404, error: e, message: e.message})
             })
     } catch (e) {
@@ -84,7 +85,7 @@ const update = async (req, res, next) => {
                 return res.status(404).send(ErrorSend(404, {}, "no user"))
             }
         }
-        model.Region.update({...req.body}, {where: {id: req.params.id}}).then(r => {
+        model.Flight.update({...req.body}, {where: {id: req.params.id}}).then(r => {
             if (r[0] === 1) {
                 res.status(200).send(Success(200, 1, "ok"))
             } else {
@@ -108,7 +109,7 @@ const addNew = async (req, res, next) => {
             }
         }
         console.log(req.body)
-        model.Region.create({...req.body}).then(r => {
+        model.Flight.create({...req.body}).then(r => {
             res.status(200).send(Success(200, r, "ok"))
         }).catch(e => {
             res.status(404).send(ErrorSend(404, e, e.message))

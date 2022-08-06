@@ -1,5 +1,5 @@
 const express = require('express');
-const {getAll, getOne, del, update, addNew} = require("../controller/region");
+const {getAll, getOne, del, update, addNew} = require("../controller/flight");
 const router = express.Router();
 
 router.get('/getAll', getAll);
