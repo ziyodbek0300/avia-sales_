@@ -3,7 +3,6 @@ import {BsArrowRightShort} from 'react-icons/bs'
 import {RiSendPlane2Line} from 'react-icons/ri'
 
 function Transfers() {
-
     const [adults, setAdults] = useState(1);
     const [infant, setInfant] = useState(0);
     const [children, setChildren] = useState(0);
