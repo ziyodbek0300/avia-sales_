@@ -18,6 +18,7 @@ import Aviaticket from "./containers/aviaticket";
 import TourPackage from "./containers/tourPackage";
 import Finnance from "./containers/finnance";
 import AdminParners from "./containers/adminParners";
+import Regions from "./containers/regions";
 
 function App() {
     const dispatch = useDispatch()
@@ -78,6 +79,7 @@ function App() {
                                         <Route path="avia-tickets" element={<Aviaticket/>}/>
                                         <Route path="where-are-we" element={<Where/>}/>
                                         <Route path="for-partners" element={<ForPartners/>}/>
+                                        <Route path="regions" element={<Regions />}/>
                                         <Route path={"*"} element={<div>Not found</div>}/>
                                     </Route>
                                 </Routes>

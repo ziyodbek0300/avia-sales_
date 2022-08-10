@@ -7,7 +7,7 @@ import {
 } from "react-router-dom"
 import {Tab} from "react-tabs";
 import {GiAirplaneDeparture, GiCoins, GiTicket} from "react-icons/gi";
-import {FiGrid, FiUsers} from "react-icons/fi"
+import {FiGrid, FiLock, FiUsers} from "react-icons/fi"
 import {AiOutlineLogout} from "react-icons/ai";
 import {SignOut} from "../../containers/agentIndex/AgentPage/AgentPage";
 import {useDispatch} from "react-redux";
@@ -61,6 +61,13 @@ function AdminNavbar(props) {
                         selectedClassName='bg-red-600'>
                         <FiGrid/>
                         Партнеры
+                    </Tab>
+                    <Tab
+                        onClick={() => navigate("/regions")}
+                        className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${route.pathname === "/regions" ? "bg-red-600" : ""}`}
+                        selectedClassName='bg-red-600'>
+                        <FiLock/>
+                        Региони
                     </Tab>
                 </div>
                 <div className={"flex flex-1 justify-end my-4"}>

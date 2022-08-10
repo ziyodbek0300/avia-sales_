@@ -156,7 +156,7 @@ export default function AdminUsers() {
             </Box>
             <TabPanel value={value} index={0}>
                 <Box style={{display: 'flex', justifyContent: 'flex-end', height: 56, alignItems: 'center'}}>
-                    <Button onClick={()=>handlePressItemEdit("create",{role:userRole.admin})}>
+                    <Button onClick={() => handlePressItemEdit("create", {role: userRole.admin})}>
                         <Typography>
                             Create Admin
                         </Typography>
@@ -184,7 +184,7 @@ export default function AdminUsers() {
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <Box style={{display: 'flex', justifyContent: 'flex-end', height: 56, alignItems: 'center'}}>
-                    <Button onClick={()=>handlePressItemEdit("create",{role:userRole.agent})}>
+                    <Button onClick={() => handlePressItemEdit("create", {role: userRole.agent})}>
                         <Typography>
                             Create Agent
                         </Typography>
