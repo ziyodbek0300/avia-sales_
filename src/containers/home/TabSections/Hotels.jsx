@@ -3,11 +3,55 @@ import {BsArrowRightShort} from 'react-icons/bs';
 import {RiSendPlane2Line} from 'react-icons/ri';
 import hotel from '../../../api/projectApi/hotel';
 import hotelsTownLists from '../../../constants/hotelsTownLists';
+import {toast} from "react-toastify";
+
+
+const RenderItem = ({e}) => {
+    const [values,setValues]=useState({
+        loading:false,
+        data:[]
+    })
+    const handlePress = async () => {
+        setValues({
+            data: [],
+            loading: true
+        })
+        const data = await hotel.getPrice(477)
+        if (data.status===200){
+            setValues({
+                loading: false,
+                data: data.data
+            })
+        } else {
+            toast("Get error",{type:'warning'})
+        }
+        console.log(data)
+    }
+    return (
+        <div onClick={handlePress} className="shadow border rounded-lg cursor-pointer bg-white p-2 flex gap-5"
+             key={`${e['$'].inc}`}>
+            <img className="rounded" width="200"
+                 src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e['$'].inc}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}
+                 alt=""/>
+            <div>
+                <h1 className="text-xl font-bold">{e['$'].name}</h1>
+                {hotelsTownLists.map(a => {
+                    return a.id === e['$'].town && (
+                        <p className="text-sm">{a.title}</p>
+                    )
+                })}
+                start count {e["$"].star}
+                <br/>
+                {JSON.stringify(values)}
+            </div>
+        </div>
+    )
+}
 
 function Hotels() {
     const [hotels, setHotels] = useState([]);
     const [values, setValues] = useState({
-        town: null,
+        town: hotelsTownLists[0].id,
         datebeg: null,
         dateend: null
     })
@@ -166,19 +210,7 @@ function Hotels() {
             <div className="max-w-5xl mx-auto flex flex-col gap-3">
                 {hotels.map(e => {
                     return e['$'].status !== 'D' && e['$'].name !== "" && e['$'].name?.toLowerCase() !== "unknown hotel" && e['$'].name !== undefined && (
-                        <div className="shadow border rounded-lg bg-white p-2 flex gap-5" key={`${e['$'].inc}`}>
-                            <img className="rounded" width="200"
-                                 src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e['$'].inc}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}
-                                 alt=""/>
-                            <div>
-                                <h1 className="text-xl font-bold">{e['$'].name}</h1>
-                                {hotelsTownLists.map(a => {
-                                    return a.id === e['$'].town && (
-                                        <p className="text-sm">{a.title}</p>
-                                    )
-                                })}
-                            </div>
-                        </div>
+                        <RenderItem e={e}/>
                     )
                 })}
             </div>
