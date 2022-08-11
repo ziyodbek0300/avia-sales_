@@ -15,6 +15,7 @@ const persistedReducer = persistReducer(persistConfig, reducer);
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 // const sagaMiddleware = createSagaMiddleware();
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
   let store = createStore(
     persistedReducer,

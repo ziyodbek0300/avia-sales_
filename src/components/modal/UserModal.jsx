@@ -44,14 +44,14 @@ const UserModal = ({open, handleClose, type, values}) => {
     const handlePressSubmit = () => {
         if (type === "create") {
         } else {
-            user.updateUser(data.id,data)
-                .then(r=>{
-                    toast("Success",{type:"info"})
+            user.updateUser(data.id, data)
+                .then(r => {
+                    toast("Success", {type: "info"})
                     getAllUser()
                     handleClose()
                 })
-                .catch(e=>{
-                    toast("Error",{type:"warning"})
+                .catch(e => {
+                    toast("Error", {type: "warning"})
                 })
         }
     }
@@ -115,7 +115,7 @@ const UserModal = ({open, handleClose, type, values}) => {
                             />
                         </Box>
                         <Box style={{marginTop: 4}}>
-                            <AssignAdmin value={values.adminId} setValue={(e)=>setData({...values, adminId: e})}/>
+                            <AssignAdmin value={values.adminId} setValue={(e) => setData({...values, adminId: e})}/>
                         </Box>
                         <Box style={{marginTop: 4}}>
                             <TextField
