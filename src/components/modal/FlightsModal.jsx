@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, Modal, TextField, Typography, useMediaQuery, useTheme} from "@mui/material";
+import {Box, Button, InputLabel, Modal, Select, TextField, Typography, useMediaQuery, useTheme} from "@mui/material";
 import regions from "../../api/projectApi/regions";
 import {toast} from "react-toastify";
 
@@ -13,7 +13,7 @@ const style = {
     boxShadow: 24,
     border: 0,
     p: 4,
-    borderRadius: 8
+    borderRadius: 5
 };
 
 function FlightsModal({open, handleClose, type, values, setRegions}) {
@@ -48,6 +48,26 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
                         {type === "create" ? `Create region` : ''}
                     </Typography>
                     <Box style={{marginTop: 8}}>
+                        <Box style={{marginBottom: 8}}>
+                            <InputLabel>From</InputLabel>
+                            <Select
+                                options={[{value: "asd", label: "asd"}]}
+                                style={{width: "100%", padding: 0}}
+                                variant={"outlined"}
+                                placeholder={"Name and short name"}
+                            />
+                        </Box>
+                        <Box style={{marginBottom: 8}}>
+                            <TextField
+                                value={values.name}
+                                style={{width: "100%"}}
+                                className={"p-5"}
+                                variant={"outlined"}
+                                placeholder={"Name and short name"}
+                                label="Name"
+                                onChange={(event) => setData({...values, name: event.target.value})}
+                            />
+                        </Box>
                         <Box style={{marginTop: 4}}>
                             <TextField
                                 value={values.name}
