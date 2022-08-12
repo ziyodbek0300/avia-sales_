@@ -40,11 +40,7 @@ const getOne = async (req, res, next) => {
         }
         model.Flight.findOne({where: {id: req.params.id}})
             .then(r => {
-                if (r[0][0] === 1) {
-                    return res.status(200).send(Success(200, true, "ok"))
-                } else {
-                    return res.status(404).send(ErrorSend(404, {}, "not found"))
-                }
+                return res.status(200).send(Success(200, r, "ok"))
             })
             .catch(e => {
                 return res.status(404).send(ErrorSend(404, e, e.message))

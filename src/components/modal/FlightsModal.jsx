@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react"
+import React, {useEffect, useState} from 'react';
 import {Box, Button, Modal, TextField, Typography, useMediaQuery, useTheme} from "@mui/material";
-import {toast} from "react-toastify";
 import regions from "../../api/projectApi/regions";
+import {toast} from "react-toastify";
 
 const style = {
     position: 'absolute',
@@ -16,7 +16,7 @@ const style = {
     borderRadius: 8
 };
 
-const RegionModal = ({open, handleClose, type, values, setRegions}) => {
+function FlightsModal({open, handleClose, type, values, setRegions}) {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
     const [data, setData] = useState({
@@ -71,7 +71,7 @@ const RegionModal = ({open, handleClose, type, values, setRegions}) => {
                 </Box>
             </Modal>
         </div>
-    )
+    );
 }
 
-export default RegionModal
+export default FlightsModal;
