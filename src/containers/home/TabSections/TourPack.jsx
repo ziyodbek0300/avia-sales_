@@ -15,10 +15,15 @@ function TourPack() {
     useEffect(() => {
         regions.getAllRegions().then(res => {
             setRegionsList(res.data.result[0].map(reg => {
+                console.log(reg)
                 return {value: reg.name, label: reg.name}
             }));
         })
     }, []);
+
+    const handleSearch = () => {
+        console.log("search")
+    }
 
     return (<div className="header second">
         <div className="max-w-5xl mx-auto py-52">
@@ -168,6 +173,7 @@ function TourPack() {
                 </div>
                 <div className="flex items-center justify-end">
                     <button
+                        onClick={handleSearch}
                         className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-800 text-white text-sm">
                         Найти <BsArrowRightShort className="lh-0 text-2xl"/>
                     </button>
