@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+      id    Int     @default(autoincrement()) @id
+      createdAt DateTime @default(now())
+      updatedAt DateTime @updatedAt
+      email String?
+      adminId String?
+      fullName String?
+      city String?
+      password String?
+      phone String?
+      nameCompany String?
+      doc String?
+      isChecked Boolean @default(false)
+      role Role @default(admin)
+}
+
+model Ticket {
+      id    Int     @default(autoincrement()) @id
+      createdAt DateTime @default(now())
+      updatedAt DateTime @updatedAt
+      date DateTime?
+      type String?
+      chartRegular String?
+      detail String?
+      bookingStatus String?
+      paymentStatus String?
+      price Float?
+      passengers String?
+      comment String?
+}
+
+model Region {
+      id    Int     @default(autoincrement()) @id
+      createdAt DateTime @default(now())
+      updatedAt DateTime @updatedAt
+      modelName String
+}
+
+model Passenger {
+    id    Int     @default(autoincrement()) @id
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    lastname String
+    firtname String
+    nationality String
+    gender Gender
+    birthday DateTime
+    passportNumber String
+    endDate DateTime
+}
+
+enum Role {
+    admin
+    agent
+    client
+}
+
+enum Gender {
+    MALE
+    FEMALE
+}

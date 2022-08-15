@@ -5,9 +5,11 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
-    "migrate": "sequelize db:migrate"
+    "migrate": "npx sequelize db:migrate",
+    "undo": "npx sequelize-cli db:migrate:undo:all"
   },
   "dependencies": {
+    "@prisma/client": "^4.2.1",
     "axios": "^0.27.2",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
@@ -24,6 +26,7 @@
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
-    "nodemon": "^2.0.18"
+    "nodemon": "^2.0.18",
+    "prisma": "^4.2.1"
   }
 }
