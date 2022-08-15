@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getAllFlights} from "../../redux/flights/actions";
 import regions from "../../api/projectApi/regions";
 import {v4} from "uuid";
+import FlightsModal from "../../components/modal/FlightsModal";
 
 function Flights() {
     const dispatch = useDispatch();
@@ -53,20 +54,19 @@ function Flights() {
         // }
     };
 
-    const [userModal, setUserModal] = useState({
+    const [flightModal, setFlightModal] = useState({
         typeModal: "create", openModal: false, values: {}
     })
 
 
     const handleClose = () => {
-        setUserModal({
+        setFlightModal({
             typeModal: "create", openModal: false, values: {}
         })
     }
 
     const handlePressItemEdit = (type, item) => {
-        console.log(item)
-        setUserModal({
+        setFlightModal({
             typeModal: type, openModal: true, values: item
         })
     }
@@ -83,6 +83,7 @@ function Flights() {
                 <thead>
                 <tr className={"border border-red-200"}>
                     <th className={"p-2 border border-red-200"}>Name</th>
+                    <th className={"p-2 border border-red-200"}>Price</th>
                     <th className={"p-2 border border-red-200"}>Duration</th>
                     <th className={"p-2 border border-red-200"}>Start time</th>
                     <th className={"p-2 border border-red-200"}>End time</th>
@@ -94,8 +95,9 @@ function Flights() {
                 {flights.length === 0 ? <tr className={"border border-red-200"}>
                     <td colSpan={3} className={"border border-red-200 p-2 text-center"}>No Data</td>
                 </tr> : flights.map(a => {
-                    return (<tr key={v4()} className={"border border-red-200"}>
+                    return (<tr key={v4()}>
                         <td className={"border border-red-200 p-2"}>{a?.fromName} - {a?.toName}</td>
+                        <td className={"border border-red-200 p-2"}>{a.price} $</td>
                         <td className={"border border-red-200 p-2"}>{Math.floor(a.duration / 60) + ':' + a.duration % 60}</td>
                         <td className={"border border-red-200 p-2"}>{moment(a.startTime).format("HH:MM")}</td>
                         <td className={"border border-red-200 p-2"}>{moment(a.endTime).format("HH:MM")}</td>
@@ -109,11 +111,11 @@ function Flights() {
                 </tbody>
             </table>
         </div>
-        <RegionModal
-            type={userModal.typeModal}
-            open={userModal.openModal}
+        <FlightsModal
+            type={flightModal.typeModal}
+            open={flightModal.openModal}
             handleClose={handleClose}
-            values={userModal.values}
+            values={flightModal.values}
             // setFlights={setFlights}
         />
     </div>);
