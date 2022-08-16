@@ -3,43 +3,23 @@ import moment from "moment";
 import {GrTrash} from "react-icons/gr";
 import {userRole} from "../../constants/userRole";
 import RegionModal from "../../components/modal/RegionModal";
+// eslint-disable-next-line no-unused-vars
 import flights from "../../api/projectApi/flights";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllFlights} from "../../redux/flights/actions";
-import regions from "../../api/projectApi/regions";
 import {v4} from "uuid";
 import FlightsModal from "../../components/modal/FlightsModal";
 
 function Flights() {
     const dispatch = useDispatch();
-    const flights_list = useSelector(state => state.flights.flights);
-    const [flights, setFlights] = useState([]);
+    const flights = useSelector(state => state.flights.flights);
     useEffect(() => {
-        let all = [];
-        let arr = [];
-        regions.getAllRegions().then(regions => {
-            regions.data.result[0].forEach(reg => {
-                flights_list.forEach(item => {
-                    if (item.fromId === reg.id) {
-                        arr.push({...item, fromName: reg.name});
-                    }
-                })
-            })
-            regions.data.result[0].forEach(reg => {
-                arr.forEach(item => {
-                    if (item.toId === reg.id) {
-                        all.push({...item, toName: reg.name});
-                    }
-                })
-            })
-        });
-        setFlights(all);
+        dispatch(getAllFlights())
     }, [])
 
-    console.log("flights", flights_list)
     useEffect(() => {
         dispatch(getAllFlights());
-    }, []);
+    }, [dispatch]);
 
     const handleDelete = (id) => {
         // const confirmation = window.confirm("Are you sure to delete this region?");

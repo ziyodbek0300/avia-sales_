@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {RiSendPlane2Line} from "react-icons/ri";
 import {BsArrowRightShort} from "react-icons/bs";
 import {DatePicker} from 'rsuite'
@@ -8,6 +8,9 @@ import {dubai_tashkent, tashkent_dubai} from "../../../constants/flights";
 import QanotSharq from "../../../static/images/qanot-sharq.jpg";
 import Moment from 'moment';
 import {extendMoment} from 'moment-range';
+import regions from "../../../api/projectApi/regions";
+import {useDispatch, useSelector} from "react-redux";
+import {getAllFlights} from "../../../redux/flights/actions";
 
 function Flights() {
     const moment = extendMoment(Moment);
@@ -20,20 +23,30 @@ function Flights() {
     const [tickets, setTickets] = useState([]);
     const [day1, setDay1] = useState("");
     const [day2, setDay2] = useState("");
+    const [regionsList, setRegionsList] = useState([]);
+    const flights = useSelector(state => state.flights.flights)
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        regions.getAllRegions().then(res => {
+            setRegionsList(res.data.result[0].map(r => {
+                return {value: r.name, label: r.name}
+            }))
+        })
+        dispatch(getAllFlights())
+    }, []);
 
     const showTickets = () => {
-        const range = moment.range(day1, day2);
-        const ranges = Array.from(range.by('day', {excludeEnd: true, step: 1}));
-        console.log(ranges);
-        // ranges.map(a => console.log(a))
-        Array(9).fill(null).map(s => {
-            setTickets([...tickets, {
-                direction: [from, to],
-                departureTime: from + "_" + to.startsWith("tashkent") ? tashkent_dubai.departureTime : dubai_tashkent.departureTime,
-                arrivingTime: from + "_" + to.startsWith("tashkent") ? tashkent_dubai.arrivingTime : dubai_tashkent.arrivingTime,
-                price: 310 * (+adults + +infant + +children)
-            }]);
-        })
+        console.log(flights);
+        // eslint-disable-next-line array-callback-return
+        // Array(9).fill(null).map(s => {
+        //     setTickets([...tickets, {
+        //         direction: [from, to],
+        //         departureTime: from + "_" + to.startsWith("tashkent") ? tashkent_dubai.departureTime : dubai_tashkent.departureTime,
+        //         arrivingTime: from + "_" + to.startsWith("tashkent") ? tashkent_dubai.arrivingTime : dubai_tashkent.arrivingTime,
+        //         price: 310 * (+adults + +infant + +children)
+        //     }]);
+        // })
     }
 
     const customStyles = {
@@ -78,9 +91,8 @@ function Flights() {
                                     setFrom(e.value)
                                 }}
                                 style={{border: '1px solid red'}}
-                                options={[{value: '', label: '- выбрать -'}, {
-                                    value: 'tashkent', label: 'Ташкент (TAS)'
-                                }, {value: 'dubai', label: 'Дубай (DXB)'},]}
+                                options={[{value: '', label: '- выбрать -'},
+                                    ...regionsList]}
                                 placeholder="- выбрать -"
                             />
                         </div>
@@ -94,9 +106,8 @@ function Flights() {
                                 onChange={(e) => {
                                     setTo(e.value)
                                 }}
-                                options={[{value: '', label: '- выбрать -'}, {
-                                    value: 'dubai', label: 'Дубай (DXB)'
-                                }, {value: 'tashkent', label: 'Ташкент (TAS)'},]}
+                                options={[{value: '', label: '- выбрать -'},
+                                    ...regionsList]}
                                 placeholder="- выбрать -"
                             />
                         </div>
