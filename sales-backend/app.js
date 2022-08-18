@@ -8,6 +8,7 @@ const usersRouter = require('./routes/users');
 const ticket = require('./routes/ticket');
 const region = require('./routes/region');
 const flight = require('./routes/flight');
+const order = require('./routes/order');
 const registration = require('./routes/registration');
 const auth = require("./service/auth")
 const app = express();
@@ -28,5 +29,6 @@ app.use('/register', registration);
 app.use('/ticket', ticket);
 app.use('/region', region);
 app.use('/flight', flight);
+app.use('/order', order);
 
 module.exports = app;

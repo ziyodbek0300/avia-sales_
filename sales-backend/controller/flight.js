@@ -1,6 +1,7 @@
-const model = require("../models");
 const {Success, ErrorSend} = require("../service/SuccessAndError");
 const userRole = require("../constants/userRole");
+const {PrismaClient} = require("@prisma/client")
+const prisma = new PrismaClient()
 
 const del = async (req, res, next) => {
     try {
@@ -12,9 +13,10 @@ const del = async (req, res, next) => {
                 return res.status(401).send(ErrorSend(401, {}, "no user"))
             }
         }
-        Promise.all([model.Flight.destroy({where: {id: req.params.id}})])
+        Promise.all([prisma.flight.deleteMany({where: {id: +req.params.id}})])
             .then(r => {
-                if (r[0] === 1) {
+                console.log(r[0]?.count)
+                if (r[0]?.count >0) {
                     return res.status(200).send(Success(200, true, "ok"))
                 } else {
                     return res.status(404).send(ErrorSend(404, {}, "not found"))
@@ -38,7 +40,7 @@ const getOne = async (req, res, next) => {
                 return res.status(401).send(ErrorSend(401, {}, "no user"))
             }
         }
-        model.Flight.findOne({where: {id: req.params.id}})
+        prisma.flight.findUnique({where: {id: req.params.id}})
             .then(r => {
                 return res.status(200).send(Success(200, r, "ok"))
             })
@@ -59,7 +61,7 @@ const getAll = async (req, res, next) => {
                 return res.status(404).send(ErrorSend(404, {}, "no user"))
             }
         }
-        model.Flight.findAll({})
+        prisma.flight.findMany({})
             .then(r => {
                 return res.status(200).send(Success(200, r, "ok"))
             })
@@ -81,13 +83,10 @@ const update = async (req, res, next) => {
                 return res.status(404).send(ErrorSend(404, {}, "no user"))
             }
         }
-        model.Flight.update({...req.body}, {where: {id: req.params.id}}).then(r => {
-            if (r[0] === 1) {
-                res.status(200).send(Success(200, 1, "ok"))
-            } else {
-                res.status(404).send(ErrorSend(404, {}, "error"))
-            }
+        prisma.flight.update({where: {id: +req.params.id}, data: req.body}).then(r => {
+                res.status(200).send(Success(200, r, "ok"))
         }).catch(e => {
+            console.log(e)
             res.status(404).send(ErrorSend(404, e, e.message))
         })
     } catch (e) {
@@ -104,8 +103,7 @@ const addNew = async (req, res, next) => {
                 return res.status(404).send(ErrorSend(404, {}, "no user"))
             }
         }
-        console.log(req.body)
-        model.Flight.create({...req.body}).then(r => {
+        prisma.flight.create({data: req.body}).then(r => {
             res.status(200).send(Success(200, r, "ok"))
         }).catch(e => {
             res.status(404).send(ErrorSend(404, e, e.message))
