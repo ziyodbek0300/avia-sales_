@@ -8,6 +8,7 @@ const persistConfig = {
   key: 'root',
   storage,
   blacklist: ['timeSheet',"user"],
+  whitelist: ['orders']
 };
 
 const persistedReducer = persistReducer(persistConfig, reducer);

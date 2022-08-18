@@ -11,14 +11,36 @@ function TourPack() {
     const [children, setChildren] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
     const [regionsList, setRegionsList] = useState([]);
+    const [flightsList, setFlightsList] = useState([]);
 
     useEffect(() => {
-        regions.getAllRegions().then(res => {
-            setRegionsList(res.data.result[0].map(reg => {
-                return {value: reg.name, label: reg.name}
-            }));
-        })
+        let arr = [];
+        let all = [];
+        // regions.getAllRegions().then(regions => {
+        //     setRegionsList(regions.data.result[0].map(reg => {
+        //         return {value: reg.name, label: reg.name}
+        //     }));
+        //     regions.data.result[0].forEach(reg => {
+        //         flightsList.forEach(item => {
+        //             if (item.fromId === reg.id) {
+        //                 arr.push({...item, fromName: reg.name});
+        //             }
+        //         })
+        //     })
+        //     regions.data.result[0].forEach(reg => {
+        //         arr.forEach(item => {
+        //             if (item.toId === reg.id) {
+        //                 all.push({...item, toName: reg.name});
+        //             }
+        //         })
+        //     })
+        // });
+        setFlightsList(all);
     }, []);
+
+    const handleSearch = () => {
+        console.log("search")
+    }
 
     return (<div className="header second">
         <div className="max-w-5xl mx-auto py-52">
@@ -168,6 +190,7 @@ function TourPack() {
                 </div>
                 <div className="flex items-center justify-end">
                     <button
+                        onClick={handleSearch}
                         className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-800 text-white text-sm">
                         Найти <BsArrowRightShort className="lh-0 text-2xl"/>
                     </button>

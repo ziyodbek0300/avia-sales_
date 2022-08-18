@@ -2,7 +2,8 @@ import axios from "axios";
 import Cookies from 'js-cookie';
 
 // export const MainApi = "http://travelcontinent.uz/api";
-export const MainApi = "http://localhost";
+// export const MainApi = "http://localhost";
+export const MainApi = "http://192.168.31.177";
 
 const instance = axios.create({
     baseURL: `${MainApi}/`,
@@ -14,7 +15,7 @@ instance.interceptors.request.use(
         config.meta.requestStartedAt = new Date().getTime();
         config.headers = {
             ...config.headers,
-            "Authorization":`Bearer ${Cookies.get("token")}`
+            "Authorization": `Bearer ${Cookies.get("token")}`
         };
         return config;
     },
