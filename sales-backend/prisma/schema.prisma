@@ -11,63 +11,97 @@ datasource db {
 }
 
 model User {
-      id    Int     @default(autoincrement()) @id
-      createdAt DateTime @default(now())
-      updatedAt DateTime @updatedAt
-      email String?
-      adminId String?
-      fullName String?
-      city String?
-      password String?
-      phone String?
-      nameCompany String?
-      doc String?
-      isChecked Boolean @default(false)
-      role Role @default(admin)
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  email       String?
+  adminId     String?
+  fullName    String?
+  city        String?
+  password    String?
+  phone       String?
+  nameCompany String?
+  doc         String?
+  isChecked   Boolean  @default(false)
+  role        Role     @default(admin)
 }
 
 model Ticket {
-      id    Int     @default(autoincrement()) @id
-      createdAt DateTime @default(now())
-      updatedAt DateTime @updatedAt
-      date DateTime?
-      type String?
-      chartRegular String?
-      detail String?
-      bookingStatus String?
-      paymentStatus String?
-      price Float?
-      passengers String?
-      comment String?
+  id            Int       @id @default(autoincrement())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  date          DateTime?
+  type          String?
+  chartRegular  String?
+  detail        String?
+  bookingStatus String?
+  paymentStatus String?
+  price         Float?
+  passengers    String?
+  comment       String?
 }
 
 model Region {
-      id    Int     @default(autoincrement()) @id
-      createdAt DateTime @default(now())
-      updatedAt DateTime @updatedAt
-      modelName String
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+}
+
+model Flight {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  fromId      Float
+  toId        Float
+  startTime   DateTime
+  endTime     DateTime
+  duration    Float
+  price       Float
+  description String
+  Order       Order[]
 }
 
 model Passenger {
-    id    Int     @default(autoincrement()) @id
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    lastname String
-    firtname String
-    nationality String
-    gender Gender
-    birthday DateTime
-    passportNumber String
-    endDate DateTime
+  id             Int      @id @default(autoincrement())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  lastname       String
+  firtname       String
+  nationality    String
+  gender         Gender
+  birthday       DateTime
+  passportNumber String
+  endDate        DateTime
+  Order          Order?   @relation(fields: [orderId], references: [id])
+  orderId        Int?
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  flightId    Int?
+  passagersId Int[]
+  contactName String
+  email       String
+  phone       String
+  comment     String
+  price       Float
+  orderType   String
+  startDate   DateTime
+  endDate     DateTime
+  flight      Flight      @relation(fields: [flightId], references: [id])
+  passager    Passenger[]
 }
 
 enum Role {
-    admin
-    agent
-    client
+  admin
+  agent
+  client
 }
 
 enum Gender {
-    MALE
-    FEMALE
+  MALE
+  FEMALE
 }
