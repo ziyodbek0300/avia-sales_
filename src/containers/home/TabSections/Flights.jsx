@@ -32,7 +32,7 @@ function Flights() {
 
     useEffect(() => {
         regions.getAllRegions().then(res => {
-            setRegs(res.data.result[0]);
+            setRegs(res.data.result);
             setRegionsList(res.data.result.map(r => {
                 return {value: r.name, label: r.name}
             }))
@@ -41,7 +41,6 @@ function Flights() {
     }, []);
 
     const showTickets = () => {
-        console.log(flights);
         // eslint-disable-next-line array-callback-return
         // Array(9).fill(null).map(s => {
         //     setTickets([...tickets, {
@@ -75,12 +74,10 @@ function Flights() {
     }
 
     const getDays = (val) => {
-        console.log(val, flights)
         // eslint-disable-next-line array-callback-return
         flights.map(reg => {
             if (reg.fromName === from && reg.toName === val) {
                 setAvailable([...available, reg]);
-                console.log([...available, reg])
             }
         })
     }
@@ -131,7 +128,7 @@ function Flights() {
                             </label>
                             <DatePicker
                                 disabledDate={date => {
-                                    console.log(available[0].startTime)
+                                    // console.log(available[0].startTime)
                                     // console.log(moment(date).format("MM DD YYYY"), moment(available[0].startTime).format("MM DD YYYY"))
                                     return moment(date).format("MM DD YYYY") !== moment(available[0].startTime).format("MM DD YYYY");
                                     // return date.getDay() === 1 || date.getDay() === 2 || date.getDay() === 4 || date.getDay() === 5 || date.getDay() === 6

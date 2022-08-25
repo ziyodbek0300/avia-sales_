@@ -15,7 +15,6 @@ const del = async (req, res, next) => {
         }
         Promise.all([prisma.order.deleteMany({where: {id: +req.params.id}})])
             .then(r => {
-                console.log(r[0]?.count)
                 if (r[0]?.count > 0) {
                     return res.status(200).send(Success(200, true, "ok"))
                 } else {
@@ -69,7 +68,6 @@ const getAll = async (req, res, next) => {
                 return res.status(200).send(Success(200, r, "ok"))
             })
             .catch(e => {
-                console.log(e)
                 return res.status(404).send({code: 404, error: e, message: e.message})
             })
     } catch (e) {
@@ -89,7 +87,6 @@ const update = async (req, res, next) => {
         prisma.order.update({where: {id: +req.params.id}, data: req.body}).then(r => {
             res.status(200).send(Success(200, r, "ok"))
         }).catch(e => {
-            console.log(e)
             res.status(404).send(ErrorSend(404, e, e.message))
         })
     } catch (e) {
@@ -107,12 +104,27 @@ const addNew = async (req, res, next) => {
             }
         }
         const orderBody = req.body
+        const passagers = orderBody?.passagers
         delete orderBody?.passagers
-        const order = await prisma.order.create({data: orderBody})
-        const [posts, totalPosts] = await prisma.$transaction(req.body.passagers?.map(r=>{
-            return prisma.passenger.create({data:r})
-        }))
-        res.status(200).send(Success(200, {order,posts,totalPosts}, "ok"))
+        let order = await prisma.order.create({data: orderBody})
+        const passenger = await prisma.$transaction(
+            passagers?.map(r => {
+                return prisma.passenger.create({
+                    data: {
+                        ...r,
+                        orderId: order.id,
+                    }
+                })
+            }),
+        );
+        order = await prisma.order.update({
+            data: {
+                passagersId: passenger.map(r => {
+                    return r.id
+                })
+            }, where: {id: order.id}
+        })
+        res.status(200).send(Success(200, {order, passenger}, "ok"))
     } catch (e) {
         res.status(500).send(ErrorSend(500, e, e.message))
     }

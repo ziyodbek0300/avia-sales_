@@ -2,33 +2,25 @@ import React, {useEffect, useState} from 'react';
 import moment from "moment";
 import {GrTrash} from "react-icons/gr";
 import {userRole} from "../../constants/userRole";
-import RegionModal from "../../components/modal/RegionModal";
-// eslint-disable-next-line no-unused-vars
-import flights from "../../api/projectApi/flights";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllFlights} from "../../redux/flights/actions";
 import {v4} from "uuid";
 import FlightsModal from "../../components/modal/FlightsModal";
+import flights from "../../api/projectApi/flights";
 
 function Flights() {
     const dispatch = useDispatch();
-    const flights = useSelector(state => state.flights.flights);
-
+    const selector = useSelector(state => state.flights.flights);
     useEffect(() => {
         dispatch(getAllFlights())
     }, [])
 
-    const handleDelete = (id) => {
-        // const confirmation = window.confirm("Are you sure to delete this region?");
-        // if (confirmation) {
-        //     flights.deleteOne(id)
-        //         .then(() => flights_list.filter(a => a.id !== id))
-        //         .catch((err) => console.log(err))
-        //     flights.getAll().then(res => {
-        //         setFlights(res.data.result[0]);
-        //         console.log(res.data)
-        //     })
-        // }
+    const handleDelete = async (id) => {
+        const confirmation = window.confirm("Are you sure to delete this region?");
+        if (confirmation) {
+            await flights.deleteOne(id)
+            dispatch(getAllFlights())
+        }
     };
 
     const [flightModal, setFlightModal] = useState({
@@ -47,7 +39,6 @@ function Flights() {
             typeModal: type, openModal: true, values: item
         })
     }
-
     return (<div>
         <div className="max-w-5xl m-auto p-5">
             <div className={"text-right py-3"}>
@@ -69,9 +60,9 @@ function Flights() {
                 </tr>
                 </thead>
                 <tbody>
-                {flights.length === 0 ? <tr className={"border border-red-200"}>
+                {selector?.length === 0 ? <tr className={"border border-red-200"}>
                     <td colSpan={3} className={"border border-red-200 p-2 text-center"}>No Data</td>
-                </tr> : flights.map(a => {
+                </tr> : selector?.map(a => {
                     return (<tr key={v4()}>
                         <td className={"border border-red-200 p-2"}>{a?.fromName} - {a?.toName}</td>
                         <td className={"border border-red-200 p-2"}>{a.price} $</td>

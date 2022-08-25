@@ -15,7 +15,6 @@ const del = async (req, res, next) => {
         }
         Promise.all([prisma.flight.deleteMany({where: {id: +req.params.id}})])
             .then(r => {
-                console.log(r[0]?.count)
                 if (r[0]?.count >0) {
                     return res.status(200).send(Success(200, true, "ok"))
                 } else {
@@ -52,7 +51,6 @@ const getAll = async (req, res, next) => {
                 return res.status(200).send(Success(200, r, "ok"))
             })
             .catch(e => {
-                console.log(e)
                 return res.status(404).send({code: 404, error: e, message: e.message})
             })
     } catch (e) {
@@ -72,7 +70,6 @@ const update = async (req, res, next) => {
         prisma.flight.update({where: {id: +req.params.id}, data: req.body}).then(r => {
                 res.status(200).send(Success(200, r, "ok"))
         }).catch(e => {
-            console.log(e)
             res.status(404).send(ErrorSend(404, e, e.message))
         })
     } catch (e) {

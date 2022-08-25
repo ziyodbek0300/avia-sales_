@@ -17,6 +17,7 @@
     "i18next": "^21.8.11",
     "js-cookie": "^3.0.1",
     "litepicker": "^2.0.12",
+    "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "moment-range": "^4.0.2",
     "node-sass": "^7.0.1",

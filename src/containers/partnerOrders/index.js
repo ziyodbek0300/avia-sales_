@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import MuiTable from "../../components/table";
 import {Button} from "@mui/material";
 import {MainApi} from "../../api/projectApi";
@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getAllUser} from "../../redux/user/actions";
 import Store from "../../redux"
 import {useNavigate} from "react-router-dom";
+import {getAllOrder} from "../../redux/orders/actions";
 
 const headCells = [
     {
@@ -39,12 +40,10 @@ const sortAgents = state => {
     })
 }
 
-const AdminPartners = () => {
-    const [data, setData] = useState([])
+const PartnerOrder = () => {
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getAllUser())
-        // alert("asdsad")
+        dispatch(getAllOrder())
     }, [])
     const navigate = useNavigate()
 
@@ -92,4 +91,4 @@ const AdminPartners = () => {
         </div>
     )
 }
-export default AdminPartners
+export default PartnerOrder

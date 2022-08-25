@@ -20,6 +20,7 @@ import Finnance from "./containers/finnance";
 import AdminParners from "./containers/adminParners";
 import Regions from "./containers/regions";
 import Flights from "./containers/flights";
+import PartnerOrders from "./containers/partnerOrders";
 
 function App() {
     const dispatch = useDispatch()
@@ -77,6 +78,7 @@ function App() {
                                             <Route path="tour-package" element={<TourPackage/>}/>
                                             <Route path="finance" element={<Finnance/>}/>
                                             <Route path="partners" element={<AdminParners/>}/>
+                                            <Route path="partners/orders/:id" element={<PartnerOrders/>}/>
                                             <Route path="avia-tickets" element={<Aviaticket/>}/>
                                             <Route path="where-are-we" element={<Where/>}/>
                                             <Route path="for-partners" element={<ForPartners/>}/>

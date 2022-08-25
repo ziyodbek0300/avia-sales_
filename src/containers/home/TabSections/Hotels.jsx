@@ -25,7 +25,6 @@ const RenderItem = ({e}) => {
         } else {
             toast("Get error",{type:'warning'})
         }
-        console.log(data)
     }
     return (
         <div onClick={handlePress} className="shadow border rounded-lg cursor-pointer bg-white p-2 flex gap-5"
@@ -61,7 +60,6 @@ function Hotels() {
     const [isOpen, setIsOpen] = useState(false);
 
     const handlePressFind = () => {
-        console.log("asdasd")
         hotel.getHotels(values.town)
             .then(r => {
                 setHotels(r.data?.Response?.Data[0]?.hotel)
