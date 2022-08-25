@@ -33,7 +33,7 @@ function Flights() {
     useEffect(() => {
         regions.getAllRegions().then(res => {
             setRegs(res.data.result[0]);
-            setRegionsList(res.data.result[0].map(r => {
+            setRegionsList(res.data.result.map(r => {
                 return {value: r.name, label: r.name}
             }))
         })
