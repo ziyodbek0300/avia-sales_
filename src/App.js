@@ -20,6 +20,7 @@ import Finnance from "./containers/finnance";
 import AdminParners from "./containers/adminParners";
 import Regions from "./containers/regions";
 import Flights from "./containers/flights";
+import Details from "./containers/details";
 
 function App() {
     const dispatch = useDispatch()
@@ -71,6 +72,7 @@ function App() {
                                         <Route path="/about-us" element={<About/>}/>
                                         <Route path="/where-are-we" element={<Where/>}/>
                                         <Route path="/for-partners" element={<ForPartners/>}/>
+                                        <Route path="/details/:id" element={<Details/>}/>
                                         <Route path={"/"} element={<AdminNavbar/>}>
                                             <Route path={"/"} element={<Navigate to={"/users"}/>}/>
                                             <Route path="users" element={<AdminUsers/>}/>
