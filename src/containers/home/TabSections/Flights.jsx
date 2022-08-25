@@ -11,6 +11,7 @@ import {extendMoment} from 'moment-range';
 import regions from "../../../api/projectApi/regions";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllFlights} from "../../../redux/flights/actions";
+import log from "tailwindcss/lib/util/log";
 
 function Flights() {
     const moment = extendMoment(Moment);
@@ -25,10 +26,13 @@ function Flights() {
     const [day2, setDay2] = useState("");
     const [regionsList, setRegionsList] = useState([]);
     const flights = useSelector(state => state.flights.flights)
+    const [regs, setRegs] = useState([]);
     const dispatch = useDispatch();
+    const [available, setAvailable] = useState([]);
 
     useEffect(() => {
         regions.getAllRegions().then(res => {
+            setRegs(res.data.result[0]);
             setRegionsList(res.data.result[0].map(r => {
                 return {value: r.name, label: r.name}
             }))
@@ -70,6 +74,17 @@ function Flights() {
         }
     }
 
+    const getDays = (val) => {
+        console.log(val, flights)
+        // eslint-disable-next-line array-callback-return
+        flights.map(reg => {
+            if (reg.fromName === from && reg.toName === val) {
+                setAvailable([...available, reg]);
+                console.log([...available, reg])
+            }
+        })
+    }
+
     return (<div>
         <div className="header">
             <div className="max-w-5xl mx-auto py-44">
@@ -91,8 +106,7 @@ function Flights() {
                                     setFrom(e.value)
                                 }}
                                 style={{border: '1px solid red'}}
-                                options={[{value: '', label: '- выбрать -'},
-                                    ...regionsList]}
+                                options={[{value: '', label: '- выбрать -'}, ...regionsList]}
                                 placeholder="- выбрать -"
                             />
                         </div>
@@ -104,10 +118,10 @@ function Flights() {
                             <ReactSelect
                                 style={{border: '1px solid red'}}
                                 onChange={(e) => {
-                                    setTo(e.value)
+                                    setTo(() => e.value)
+                                    getDays(e.value);
                                 }}
-                                options={[{value: '', label: '- выбрать -'},
-                                    ...regionsList]}
+                                options={[{value: '', label: '- выбрать -'}, ...regionsList]}
                                 placeholder="- выбрать -"
                             />
                         </div>
@@ -116,7 +130,12 @@ function Flights() {
                                 Туда
                             </label>
                             <DatePicker
-                                disabledDate={date => date.getDay() === 1 || date.getDay() === 2 || date.getDay() === 4 || date.getDay() === 5 || date.getDay() === 6}
+                                disabledDate={date => {
+                                    console.log(available[0].startTime)
+                                    // console.log(moment(date).format("MM DD YYYY"), moment(available[0].startTime).format("MM DD YYYY"))
+                                    return moment(date).format("MM DD YYYY") !== moment(available[0].startTime).format("MM DD YYYY");
+                                    // return date.getDay() === 1 || date.getDay() === 2 || date.getDay() === 4 || date.getDay() === 5 || date.getDay() === 6
+                                }}
                                 onChange={(e) => setDay1(new Date(e))}
                                 format="yyyy-MM-dd"
                                 style={{

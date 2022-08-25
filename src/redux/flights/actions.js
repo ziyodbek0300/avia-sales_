@@ -8,15 +8,14 @@ export const getAllFlights = (callBack = () => ({})) => dispatch => {
             let arr = [];
             let all = [];
             regions.getAllRegions().then(region => {
-                console.log("region", region)
                 r.data.result.forEach(flight => {
-                    console.log("flight", region)
                     region.data.result[0].forEach(reg => {
                         if (flight.fromId === reg.id) {
                             arr.push({...flight, fromName: reg.name});
                         }
                     })
                 })
+            console.log(arr)
                 arr.forEach(flight => {
                     region.data.result[0].forEach(reg => {
                         if (flight.toId === reg.id) {

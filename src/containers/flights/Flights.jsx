@@ -13,13 +13,10 @@ import FlightsModal from "../../components/modal/FlightsModal";
 function Flights() {
     const dispatch = useDispatch();
     const flights = useSelector(state => state.flights.flights);
+
     useEffect(() => {
         dispatch(getAllFlights())
     }, [])
-
-    useEffect(() => {
-        dispatch(getAllFlights());
-    }, [dispatch]);
 
     const handleDelete = (id) => {
         // const confirmation = window.confirm("Are you sure to delete this region?");

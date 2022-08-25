@@ -1,7 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, InputLabel, Modal, Select, TextField, Typography, useMediaQuery, useTheme} from "@mui/material";
+import {Box, Button, InputLabel, Modal, TextField, Typography, useMediaQuery, useTheme} from "@mui/material";
 import regions from "../../api/projectApi/regions";
 import {toast} from "react-toastify";
+import Select from "react-select";
+import DateInput from "react-date-range/dist/components/DateInput";
+import {DatePicker} from "@mui/x-date-pickers";
+import {InputNumber} from "rsuite";
 
 const style = {
     position: 'absolute',
@@ -19,6 +23,7 @@ const style = {
 function FlightsModal({open, handleClose, type, values, setRegions}) {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
+    const [regionsList, setRegionsList] = useState([]);
     const [data, setData] = useState({
         name: '',
         ...values,
@@ -28,6 +33,12 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
         if (open) {
             setData(values)
         }
+
+        regions.getAllRegions().then(res => {
+            setRegionsList(res.data.result[0].map(r => {
+                return {value: r.id, label: r.name}
+            }))
+        })
     }, [values])
 
     const handlePressSubmit = () => {
@@ -51,24 +62,48 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
                         <Box style={{marginBottom: 8}}>
                             <InputLabel>From</InputLabel>
                             <Select
-                                options={[{value: "asd", label: "asd"}]}
+                                options={regionsList}
                                 style={{width: "100%", padding: 0}}
                                 variant={"outlined"}
-                                placeholder={"Name and short name"}
                             />
                         </Box>
                         <Box style={{marginBottom: 8}}>
-                            <TextField
-                                value={values.name}
-                                style={{width: "100%"}}
-                                className={"p-5"}
+                            <InputLabel>To</InputLabel>
+                            <Select
+                                options={regionsList}
+                                style={{width: "100%", padding: 0}}
                                 variant={"outlined"}
-                                placeholder={"Name and short name"}
-                                label="Name"
+                            />
+                        </Box>
+                        <Box style={{marginBottom: 8}}>
+                            <InputLabel>Start Time</InputLabel>
+                            <input
+                                style={{width: "100%"}}
+                                className={"px-2 py-[0.4rem] border-[.122rem] border-gray-300 rounded-md"}
+                                type={"datetime-local"}
                                 onChange={(event) => setData({...values, name: event.target.value})}
                             />
                         </Box>
+                        <Box style={{marginBottom: 8}}>
+                            <InputLabel>End Time</InputLabel>
+                            <input
+                                style={{width: "100%"}}
+                                className={"px-2 py-[0.4rem] border-2 border-gray-300 rounded-md"}
+                                type={"datetime-local"}
+                                onChange={(event) => setData({...values, name: event.target.value})}
+                            />
+                        </Box>
+                        <Box style={{marginBottom: 8}}>
+                            <InputLabel>Duration</InputLabel>
+                            <InputNumber
+                                style={{width: "100%"}}
+                                className={"px-0 py-0 border-2 border-gray-300 rounded-md"}
+                                type={"datetime-local"}
+                                onChange={(event) => console.log(event)}
+                            />
+                        </Box>
                         <Box style={{marginTop: 4}}>
+                            <InputLabel>Price</InputLabel>
                             <TextField
                                 value={values.name}
                                 style={{width: "100%"}}
