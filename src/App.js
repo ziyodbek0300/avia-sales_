@@ -20,11 +20,8 @@ import Finnance from "./containers/finnance";
 import AdminParners from "./containers/adminParners";
 import Regions from "./containers/regions";
 import Flights from "./containers/flights";
-<<<<<<< HEAD
 import Details from "./containers/details";
-=======
 import PartnerOrders from "./containers/partnerOrders";
->>>>>>> 9d74f8fa1ea163979bee86ee69dff9134d11770c
 
 function App() {
     const dispatch = useDispatch()
