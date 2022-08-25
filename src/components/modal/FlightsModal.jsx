@@ -35,7 +35,7 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
         }
 
         regions.getAllRegions().then(res => {
-            setRegionsList(res.data.result[0].map(r => {
+            setRegionsList(res.data.result.map(r => {
                 return {value: r.id, label: r.name}
             }))
         })
@@ -97,7 +97,7 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
                             <InputLabel>Duration</InputLabel>
                             <InputNumber
                                 style={{width: "100%"}}
-                                className={"px-0 py-0 border-2 border-gray-300 rounded-md"}
+                                className={"px-0 py-0 border-2 border-gray-300 rounded-md z-0"}
                                 type={"datetime-local"}
                                 onChange={(event) => console.log(event)}
                             />
@@ -109,7 +109,6 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
                                 style={{width: "100%"}}
                                 className={"p-3"}
                                 variant={"outlined"}
-                                placeholder={"Name and short name"}
                                 onChange={(event) => setData({...values, name: event.target.value})}
                             />
                         </Box>

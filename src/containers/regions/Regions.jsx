@@ -9,7 +9,7 @@ function Regions() {
     const [regions_list, setRegions] = useState([]);
 
     useEffect(() => {
-        regions.getAllRegions().then(res => setRegions(res.data.result[0]))
+        regions.getAllRegions().then(res => setRegions(res.data.result))
     }, []);
 
     const handleDelete = (id) => {
@@ -60,9 +60,9 @@ function Regions() {
                 </tr>
                 </thead>
                 <tbody>
-                {regions_list.length === 0 ? <tr className={"border border-red-200"}>
+                {regions_list?.length === 0 ? <tr className={"border border-red-200"}>
                     <td colSpan={3} className={"border border-red-200 p-2 text-center"}>No Data</td>
-                </tr> : regions_list.map(a => {
+                </tr> : regions_list?.map(a => {
                     return (<tr key={a.id} className={"border border-red-200"}>
                         <td className={"border border-red-200 p-2"}>{a.name}</td>
                         <td className={"border border-red-200 p-2"}>{moment(a.createdAt).format("MMMM DD YYYY HH:MM")}</td>
