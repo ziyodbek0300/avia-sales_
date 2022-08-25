@@ -41,7 +41,6 @@ function Flights() {
     }, []);
 
     const showTickets = () => {
-        console.log(flights);
         setTickets([...tickets, {
             departureTime: "", fromName: "", toName: "", arrivingTime: "", price: ""
         }]);
@@ -78,12 +77,10 @@ function Flights() {
     }
 
     const getDays = (val) => {
-        console.log(val, flights)
         // eslint-disable-next-line array-callback-return
         flights.map(reg => {
             if (reg.fromName === from && reg.toName === val) {
                 setAvailable([...available, reg]);
-                console.log([...available, reg])
             }
         })
     }
@@ -263,7 +260,8 @@ function Flights() {
             </div>
         </div>
         <div className={"py-3 max-w-5xl m-auto"}>
-            {tickets.length === 0 ? <><h4>Позвоните по этим номерам, если вы хотите узнать больше об информации</h4><a>+998941079990</a></> : tickets.map((a, b) => {
+            {tickets.length === 0 ? <><h4>Позвоните по этим номерам, если вы хотите узнать больше об информации</h4>
+                <a>+998941079990</a></> : tickets.map((a, b) => {
                 return (<div
                     className={"p-3 mb-3 shadow hover:shadow-md cursor-pointer transition-all rounded-lg border flex"}>
                     <div className={"w-full px-2 pr-5"}>

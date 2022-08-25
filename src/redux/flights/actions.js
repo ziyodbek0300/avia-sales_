@@ -1,7 +1,9 @@
 import {constants} from "./constants";
 import flights from "../../api/projectApi/flights";
 import regions from "../../api/projectApi/regions";
+import {forEach} from "lodash";
 
+<<<<<<< HEAD
 export const getAllFlights = (callBack = () => ({})) => dispatch => {
     flights.getAll()
         .then(r => {
@@ -26,7 +28,28 @@ export const getAllFlights = (callBack = () => ({})) => dispatch => {
             })
             dispatch({type: constants.getAll, payload: all})
             callBack()
+=======
+export const getAllFlights = (callBack = () => ({})) => async (dispatch) => {
+    let all = [];
+    const res = await flights.getAll()
+    const region = await regions.getAllRegions()
+    forEach(res.data.result, e => {
+        let result = {
+            fromName: "",
+            toName: ""
+        }
+        forEach(region.data.result, r => {
+            if (r.id === e.fromId) {
+                result.fromName = r.name
+            } else if (r.id === e.toId) {
+                result.toName = r.name
+            }
+>>>>>>> 9d74f8fa1ea163979bee86ee69dff9134d11770c
         })
-        .catch(e => {
-        });
+        all.push({
+            ...e,
+            ...result
+        })
+    })
+    dispatch({type: constants.getAll, payload: all, all})
 };

@@ -40,7 +40,6 @@ const acceptAgent = async (req, res, next) => {
         }
         Promise.all([prisma.user.updateMany({where: {id: +req.params.id}, data: {isChecked: true}})])
             .then(r => {
-                console.log(r)
                 if (r[0].count > 0) {
                     return res.status(200).send(Success(200, true, "ok"))
                 } else {
@@ -48,7 +47,6 @@ const acceptAgent = async (req, res, next) => {
                 }
             })
             .catch(e => {
-                console.log(e)
                 return res.status(404).send(ErrorSend(404, e, e.message))
             })
     } catch (e) {
@@ -67,7 +65,6 @@ const getAllUser = async (req, res, next) => {
         }
         Promise.all([prisma.user.findMany({})])
             .then(r => {
-                console.log(r)
                 let result = {
                     [userRole.admin]: [], [userRole.agent]: [], newAgent: [],
                 }

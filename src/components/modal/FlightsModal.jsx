@@ -6,6 +6,10 @@ import Select from "react-select";
 import DateInput from "react-date-range/dist/components/DateInput";
 import {DatePicker} from "@mui/x-date-pickers";
 import {InputNumber} from "rsuite";
+import flights from "../../api/projectApi/flights";
+import {getAllFlights} from "../../redux/flights/actions";
+import {useDispatch} from "react-redux";
+import moment from "moment";
 
 const style = {
     position: 'absolute',
@@ -22,27 +26,51 @@ const style = {
 
 function FlightsModal({open, handleClose, type, values, setRegions}) {
     const theme = useTheme();
+    const dispatch = useDispatch();
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
     const [regionsList, setRegionsList] = useState([]);
     const [data, setData] = useState({
-        name: '',
-        ...values,
+        // name: '',
+        // ...values,
+        fromId: null,
+        toId: null,
+        startTime: null,
+        endTime: null,
+        duration: null,
+        price: null,
+        description: null
     })
 
     useEffect(() => {
         if (open) {
-            setData(values)
+            // setData(values)
+
+            regions.getAllRegions().then(res => {
+                setRegionsList(res.data.result.map(r => {
+                    return {value: r.id, label: r.name}
+                }))
+            })
         }
 
-        regions.getAllRegions().then(res => {
-            setRegionsList(res.data.result.map(r => {
-                return {value: r.id, label: r.name}
-            }))
-        })
-    }, [values])
+
+    }, [open])
 
     const handlePressSubmit = () => {
-        regions.addNew({name: data.name}).then(res => setRegions(prev => [...prev, res.data.result]))
+        flights.addNew({
+            ...data,
+            startTime:moment(data.startTime).toDate(),
+            endTime:moment(data.endTime).toDate(),
+            description:data+"",
+            price:+data.price,
+            duration:+data.duration,
+            name:undefined
+        })
+            .then(r => {
+                dispatch(getAllFlights())
+            })
+            .catch(e => {
+                toast(`${e.message}`, {type: "error"})
+            })
         handleClose();
     }
 
@@ -65,6 +93,9 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
                                 options={regionsList}
                                 style={{width: "100%", padding: 0}}
                                 variant={"outlined"}
+                                onChange={e => {
+                                    setData({...data, fromId: e.value})
+                                }}
                             />
                         </Box>
                         <Box style={{marginBottom: 8}}>
@@ -73,6 +104,9 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
                                 options={regionsList}
                                 style={{width: "100%", padding: 0}}
                                 variant={"outlined"}
+                                onChange={e => {
+                                    setData({...data, toId: e.value})
+                                }}
                             />
                         </Box>
                         <Box style={{marginBottom: 8}}>
@@ -81,7 +115,7 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
                                 style={{width: "100%"}}
                                 className={"px-2 py-[0.4rem] border-[.122rem] border-gray-300 rounded-md"}
                                 type={"datetime-local"}
-                                onChange={(event) => setData({...values, name: event.target.value})}
+                                onChange={(event) => setData({...data, startTime: event.target.value})}
                             />
                         </Box>
                         <Box style={{marginBottom: 8}}>
@@ -90,7 +124,7 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
                                 style={{width: "100%"}}
                                 className={"px-2 py-[0.4rem] border-2 border-gray-300 rounded-md"}
                                 type={"datetime-local"}
-                                onChange={(event) => setData({...values, name: event.target.value})}
+                                onChange={(event) => setData({...data, endTime: event.target.value})}
                             />
                         </Box>
                         <Box style={{marginBottom: 8}}>
@@ -99,7 +133,7 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
                                 style={{width: "100%"}}
                                 className={"px-0 py-0 border-2 border-gray-300 rounded-md z-0"}
                                 type={"datetime-local"}
-                                onChange={(event) => console.log(event)}
+                                onChange={(event) => setData({...data, duration: event})}
                             />
                         </Box>
                         <Box style={{marginTop: 4}}>
@@ -109,7 +143,7 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
                                 style={{width: "100%"}}
                                 className={"p-3"}
                                 variant={"outlined"}
-                                onChange={(event) => setData({...values, name: event.target.value})}
+                                onChange={(event) => setData({...data, name: event.target.value})}
                             />
                         </Box>
                     </Box>

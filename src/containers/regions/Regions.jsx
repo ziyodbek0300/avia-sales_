@@ -20,7 +20,6 @@ function Regions() {
                 .catch(() => regions_list.filter(a => a.id !== id))
             regions.getAllRegions().then(res => {
                 setRegions(res.data.result[0]);
-                console.log(res.data.result[0])
             })
         }
     };
@@ -37,7 +36,6 @@ function Regions() {
     }
 
     const handlePressItemEdit = (type, item) => {
-        console.log(item)
         setUserModal({
             typeModal: type, openModal: true, values: item
         })

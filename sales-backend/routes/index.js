@@ -108,7 +108,6 @@ router.post('/getPrice/:hotelId', function (req, res, next) {
                 Promise.all([axios.get(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&partner_token=${token}&form=http://samo.travel&type=hotelsalepr&hotel=${req.params.hotelId}`)])
                     .then(res1 => {
                         parseString(res1[0].data, function (err, result) {
-                            console.log(result)
                             const newData = result.Response.Data[0].hprice.filter(e=>{
                                 return e['$'].status!=='D'
                             }).map(r=>r['$'])

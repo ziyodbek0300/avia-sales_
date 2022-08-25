@@ -42,7 +42,6 @@ const getOne = async (req, res, next) => {
                 }
             })
             .catch(e => {
-                console.log(e)
                 return res.status(404).send(ErrorSend(404, e, e.message))
             })
     } catch (e) {
@@ -92,7 +91,6 @@ const update = async (req, res, next) => {
 
 const addNew = async (req, res, next) => {
     try {
-        console.log(req.user)
         if (!req.user || req.user.role === userRole.client || req.user.role === userRole.agent) {
             if (req.user && req.user.role === userRole.agent) {
                 return res.status(404).send(ErrorSend(404, {}, "no user"))

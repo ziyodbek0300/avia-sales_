@@ -111,7 +111,7 @@ EnhancedTableHead.propTypes = {
 };
 
 const EnhancedTableToolbar = (props) => {
-    const {numSelected,tableName} = props;
+    const {numSelected, tableName} = props;
 
     return (
         <Toolbar
@@ -166,7 +166,7 @@ EnhancedTableToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired,
 };
 
-export default function MuiTable({headCells, rows,tableName}) {
+export default function MuiTable({headCells, rows, tableName,onClickRow}) {
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
     const [selected, setSelected] = React.useState([]);
@@ -189,7 +189,7 @@ export default function MuiTable({headCells, rows,tableName}) {
         setSelected([]);
     };
 
-    const handleClick = (event, name) => {
+    const handleClick = (event, name, row, callBack = () => ({})) => {
         const selectedIndex = selected.indexOf(name);
         let newSelected = [];
 
@@ -207,6 +207,7 @@ export default function MuiTable({headCells, rows,tableName}) {
         }
 
         setSelected(newSelected);
+        onClickRow(row)
     };
 
     const handleChangePage = (event, newPage) => {
@@ -259,7 +260,7 @@ export default function MuiTable({headCells, rows,tableName}) {
                                     return (
                                         <TableRow
                                             hover
-                                            onClick={(event) => handleClick(event, row.id)}
+                                            onClick={(event) => handleClick(event, row.id, row)}
                                             role="checkbox"
                                             aria-checked={isItemSelected}
                                             tabIndex={-1}
