@@ -34,13 +34,16 @@ function Flights() {
         regions.getAllRegions().then(res => {
             setRegs(res.data.result);
             setRegionsList(res.data.result.map(r => {
-                return {value: r.name, label: r.name}
+                return {value: r.id, label: r.name}
             }))
         })
         dispatch(getAllFlights())
     }, []);
 
     const showTickets = () => {
+        setTickets([...tickets, {
+            departureTime: "", fromName: "", toName: "", arrivingTime: "", price: ""
+        }]);
         // eslint-disable-next-line array-callback-return
         // Array(9).fill(null).map(s => {
         //     setTickets([...tickets, {
@@ -130,7 +133,7 @@ function Flights() {
                                 disabledDate={date => {
                                     // console.log(available[0].startTime)
                                     // console.log(moment(date).format("MM DD YYYY"), moment(available[0].startTime).format("MM DD YYYY"))
-                                    return moment(date).format("MM DD YYYY") !== moment(available[0].startTime).format("MM DD YYYY");
+                                    // return moment(date).format("MM DD YYYY") !== moment(available[0].startTime).format("MM DD YYYY");
                                     // return date.getDay() === 1 || date.getDay() === 2 || date.getDay() === 4 || date.getDay() === 5 || date.getDay() === 6
                                 }}
                                 onChange={(e) => setDay1(new Date(e))}
@@ -257,19 +260,21 @@ function Flights() {
             </div>
         </div>
         <div className={"py-3 max-w-5xl m-auto"}>
-            {tickets.map((a, b) => (
-                <div className={"p-3 mb-3 shadow hover:shadow-md cursor-pointer transition-all rounded-lg border flex"}>
+            {tickets.length === 0 ? <><h4>Позвоните по этим номерам, если вы хотите узнать больше об информации</h4>
+                <a>+998941079990</a></> : tickets.map((a, b) => {
+                return (<div
+                    className={"p-3 mb-3 shadow hover:shadow-md cursor-pointer transition-all rounded-lg border flex"}>
                     <div className={"w-full px-2 pr-5"}>
                         <div className={"flex items-center justify-between"}>
                             <img src={QanotSharq} alt="asd" width={150} className={"mb-3"}/>
                             <p className={"font-bold mb-3"}>Ekonom</p>
                         </div>
                         <div className={"flex justify-between"}>
-                    <span className={"text-lg"} style={{lineHeight: 1.2}}>
-                        <span className={"text-xl font-normal"} style={{lineHeight: 0}}>{a.departureTime}</span><br/>
-                        <span className={"text-xs"} style={{lineHeight: 0}}>12.12.2002</span><br/>
-                        <span className={"capitalize"}>{a.direction[0]}</span>
-                    </span>
+                <span className={"text-lg"} style={{lineHeight: 1.2}}>
+                <span className={"text-xl font-normal"} style={{lineHeight: 0}}>{a.departureTime}</span><br/>
+                <span className={"text-xs"} style={{lineHeight: 0}}>12.12.2002</span><br/>
+                <span className={"capitalize"}>{a.fromName}</span>
+                </span>
                             <div
                                 className={"flex w-full bg-red-500 text-white mx-3 justify-between px-6 rounded border-b-2 border-dotted border-gray-500 h-10 align-bottom p-3"}>
                                 <FaPlaneDeparture className={"text-2xl text-white"}/>
@@ -277,16 +282,17 @@ function Flights() {
                                 <FaPlaneArrival className={"text-2xl text-white"}/>
                             </div>
                             <span className={"text-lg"} style={{lineHeight: 1.2}}>
-                        <span className={"text-xl font-normal"} style={{lineHeight: 0}}>{a.arrivingTime}</span><br/>
-                        <span className={"text-xs"} style={{lineHeight: 0}}>12.12.2002</span><br/>
-                            <span className={"capitalize"}>{a.direction[1]}</span>
-                    </span>
+                <span className={"text-xl font-normal"} style={{lineHeight: 0}}>{a.arrivingTime}</span><br/>
+                <span className={"text-xs"} style={{lineHeight: 0}}>12.12.2002</span><br/>
+                <span className={"capitalize"}>{a.toName}</span>
+                </span>
                         </div>
                     </div>
                     <div className={"border-l p-3 flex justify-center items-center w-60"}>
                         <p className={"text-2xl font-bold text-red-500"}>{a.price}$</p>
                     </div>
-                </div>))}
+                </div>)
+            })}
         </div>
     </div>);
 }

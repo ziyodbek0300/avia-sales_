@@ -128,7 +128,7 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
                             />
                         </Box>
                         <Box style={{marginBottom: 8}}>
-                            <InputLabel>Duration</InputLabel>
+                            <InputLabel>Durat   ion</InputLabel>
                             <InputNumber
                                 style={{width: "100%"}}
                                 className={"px-0 py-0 border-2 border-gray-300 rounded-md z-0"}
