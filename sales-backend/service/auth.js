@@ -3,6 +3,8 @@ const fs = require("fs")
 const privateKey = fs.readFileSync('private.key', "utf8");
 const models = require("../models")
 const userRole = require("../constants/userRole")
+const {PrismaClient} = require("@prisma/client")
+const prisma = new PrismaClient()
 
 const TokenVerify = (req, res, next) => {
     const authHeader = req?.headers['authorization']
@@ -17,13 +19,13 @@ const TokenVerify = (req, res, next) => {
                     case userRole.client: {
                         try {
                             if (a["role"]) {
-                                let findUser = await models.User.findOne({
+                                let findUser = await prisma.user.findMany({
                                     where: {
                                         email: a && a.email,
                                         role: a && a.role
                                     }
                                 })
-                                req.user = findUser && findUser.dataValues
+                                req.user = findUser.length > 0 && findUser[0]
                                 return next()
                             }
                             return next()

@@ -106,7 +106,10 @@ const addNew = async (req, res, next) => {
         const orderBody = req.body
         const passagers = orderBody?.passagers
         delete orderBody?.passagers
-        let order = await prisma.order.create({data: orderBody})
+        let order = await prisma.order.create({data: orderBody}).catch(e=>{
+            console.log(e)
+        })
+        console.log(order,req.body)
         const passenger = await prisma.$transaction(
             passagers?.map(r => {
                 return prisma.passenger.create({
@@ -123,9 +126,12 @@ const addNew = async (req, res, next) => {
                     return r.id
                 })
             }, where: {id: order.id}
+        }).catch(e=>{
+            console.log("asdasdad",e)
         })
         res.status(200).send(Success(200, {order, passenger}, "ok"))
     } catch (e) {
+        console.log(e)
         res.status(500).send(ErrorSend(500, e, e.message))
     }
 }
