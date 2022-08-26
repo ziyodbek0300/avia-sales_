@@ -32,13 +32,7 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
     const [data, setData] = useState({
         // name: '',
         // ...values,
-        fromId: null,
-        toId: null,
-        startTime: null,
-        endTime: null,
-        duration: null,
-        price: null,
-        description: null
+        fromId: null, toId: null, startTime: null, endTime: null, duration: null, price: null, description: null
     })
 
     useEffect(() => {
@@ -56,14 +50,15 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
     }, [open])
 
     const handlePressSubmit = () => {
+        console.log(data)
         flights.addNew({
             ...data,
-            startTime:moment(data.startTime).toDate(),
-            endTime:moment(data.endTime).toDate(),
-            description:data+"",
-            price:+data.price,
-            duration:+data.duration,
-            name:undefined
+            startTime: moment(data.startTime).toDate(),
+            endTime: moment(data.endTime).toDate(),
+            description: data + "",
+            price: +data.price,
+            duration: +data.duration,
+            name: undefined
         })
             .then(r => {
                 dispatch(getAllFlights())
@@ -74,92 +69,90 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
         handleClose();
     }
 
-    return (
-        <div>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={{...style, width: matches ? '50%' : "70%"}}>
-                    <Typography fontSize={24}>
-                        {type === "create" ? `Create region` : ''}
-                    </Typography>
-                    <Box style={{marginTop: 8}}>
-                        <Box style={{marginBottom: 8}}>
-                            <InputLabel>From</InputLabel>
-                            <Select
-                                options={regionsList}
-                                style={{width: "100%", padding: 0}}
-                                variant={"outlined"}
-                                onChange={e => {
-                                    setData({...data, fromId: e.value})
-                                }}
-                            />
-                        </Box>
-                        <Box style={{marginBottom: 8}}>
-                            <InputLabel>To</InputLabel>
-                            <Select
-                                options={regionsList}
-                                style={{width: "100%", padding: 0}}
-                                variant={"outlined"}
-                                onChange={e => {
-                                    setData({...data, toId: e.value})
-                                }}
-                            />
-                        </Box>
-                        <Box style={{marginBottom: 8}}>
-                            <InputLabel>Start Time</InputLabel>
-                            <input
-                                style={{width: "100%"}}
-                                className={"px-2 py-[0.4rem] border-[.122rem] border-gray-300 rounded-md"}
-                                type={"datetime-local"}
-                                onChange={(event) => setData({...data, startTime: event.target.value})}
-                            />
-                        </Box>
-                        <Box style={{marginBottom: 8}}>
-                            <InputLabel>End Time</InputLabel>
-                            <input
-                                style={{width: "100%"}}
-                                className={"px-2 py-[0.4rem] border-2 border-gray-300 rounded-md"}
-                                type={"datetime-local"}
-                                onChange={(event) => setData({...data, endTime: event.target.value})}
-                            />
-                        </Box>
-                        <Box style={{marginBottom: 8}}>
-                            <InputLabel>Durat   ion</InputLabel>
-                            <InputNumber
-                                style={{width: "100%"}}
-                                className={"px-0 py-0 border-2 border-gray-300 rounded-md z-0"}
-                                type={"datetime-local"}
-                                onChange={(event) => setData({...data, duration: event})}
-                            />
-                        </Box>
-                        <Box style={{marginTop: 4}}>
-                            <InputLabel>Price</InputLabel>
-                            <TextField
-                                value={values.name}
-                                style={{width: "100%"}}
-                                className={"p-3"}
-                                variant={"outlined"}
-                                onChange={(event) => setData({...data, name: event.target.value})}
-                            />
-                        </Box>
+    return (<div>
+        <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+        >
+            <Box sx={{...style, width: matches ? '50%' : "70%"}}>
+                <Typography fontSize={24}>
+                    {type === "create" ? `Create region` : ''}
+                </Typography>
+                <Box style={{marginTop: 8}}>
+                    <Box style={{marginBottom: 8}}>
+                        <InputLabel>From</InputLabel>
+                        <Select
+                            options={regionsList}
+                            style={{width: "100%", padding: 0}}
+                            variant={"outlined"}
+                            onChange={e => {
+                                setData({...data, fromId: e.value})
+                            }}
+                        />
                     </Box>
-                    <Button
-                        onClick={handlePressSubmit}
-                        style={{width: '100%', borderRadius: 10, height: 35, marginTop: 16}}
-                        variant={"outlined"}
-                    >
-                        <Typography>
-                            Save
-                        </Typography>
-                    </Button>
+                    <Box style={{marginBottom: 8}}>
+                        <InputLabel>To</InputLabel>
+                        <Select
+                            options={regionsList}
+                            style={{width: "100%", padding: 0}}
+                            variant={"outlined"}
+                            onChange={e => {
+                                setData({...data, toId: e.value})
+                            }}
+                        />
+                    </Box>
+                    <Box style={{marginBottom: 8}}>
+                        <InputLabel>Start Time</InputLabel>
+                        <input
+                            style={{width: "100%"}}
+                            className={"px-2 py-[0.4rem] border-[.122rem] border-gray-300 rounded-md"}
+                            type={"datetime-local"}
+                            onChange={(event) => setData({...data, startTime: event.target.value})}
+                        />
+                    </Box>
+                    <Box style={{marginBottom: 8}}>
+                        <InputLabel>End Time</InputLabel>
+                        <input
+                            style={{width: "100%"}}
+                            className={"px-2 py-[0.4rem] border-2 border-gray-300 rounded-md"}
+                            type={"datetime-local"}
+                            onChange={(event) => setData({...data, endTime: event.target.value})}
+                        />
+                    </Box>
+                    <Box style={{marginBottom: 8}}>
+                        <InputLabel>Duration</InputLabel>
+                        <InputNumber
+                            style={{width: "100%"}}
+                            className={"px-0 py-0 border-2 border-gray-300 rounded-md z-0"}
+                            type={"datetime-local"}
+                            onChange={(event) => setData({...data, duration: event})}
+                        />
+                    </Box>
+                    <Box style={{marginTop: 4}}>
+                        <InputLabel>Price</InputLabel>
+                        <TextField
+                            value={values.price}
+                            style={{width: "100%"}}
+                            className={"p-3"}
+                            variant={"outlined"}
+                            onChange={(event) => setData({...data, price: event.target.value})}
+                        />
+                    </Box>
                 </Box>
-            </Modal>
-        </div>
-    );
+                <Button
+                    onClick={handlePressSubmit}
+                    style={{width: '100%', borderRadius: 10, height: 35, marginTop: 16}}
+                    variant={"outlined"}
+                >
+                    <Typography>
+                        Save
+                    </Typography>
+                </Button>
+            </Box>
+        </Modal>
+    </div>);
 }
 
 export default FlightsModal;

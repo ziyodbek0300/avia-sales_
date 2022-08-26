@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import ReactSelect from "react-select";
+import {gender} from "../../constants/userRole";
 
 function FormExample({setPassagers, passagers, index}) {
     console.log(passagers)
-    return (<div className={"py-5 border-b"}>
+    return (<div className={"py-5 border-b-2 border-red-300"}>
         <p className={"text-lg"}>Пассажир {index + 1}</p>
         <div className={"pt-2 flex justify-between lg:flex-row flex-col"}>
             <div className={"py-3 w-full lg:pr-10"}>
@@ -44,12 +45,12 @@ function FormExample({setPassagers, passagers, index}) {
             <div className={"py-3 w-full lg:pr-10"}>
                 <label htmlFor="name" className={"w-full block"}>Пол</label>
                 <ReactSelect
-                    options={[{value: "мужской", label: "Мужской"}, {
-                        value: "женский", label: "Женский"
+                    options={[{value: gender.male, label: "Мужской"}, {
+                        value: gender.female, label: "Женский"
                     }]}
                     onChange={(e) => {
                         let a = passagers
-                        a[index].gender = e.target.value
+                        a[index].gender = e.value
                         setPassagers(a)
                     }}
                 />

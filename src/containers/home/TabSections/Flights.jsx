@@ -12,6 +12,7 @@ import regions from "../../../api/projectApi/regions";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllFlights} from "../../../redux/flights/actions";
 import log from "tailwindcss/lib/util/log";
+import {NavLink} from "react-router-dom";
 
 function Flights() {
     const moment = extendMoment(Moment);
@@ -41,39 +42,17 @@ function Flights() {
     }, []);
 
     const showTickets = () => {
-        setTickets([...tickets, {
-            departureTime: "", fromName: "", toName: "", arrivingTime: "", price: ""
-        }]);
+        // setTickets([]);
+        let d1 = moment(day1).format("MM DD YYYY");
+        // let d2 = moment(day2).format("MM DD YYYY");
+        // let d11, d22;
         // eslint-disable-next-line array-callback-return
-        // Array(9).fill(null).map(s => {
-        //     setTickets([...tickets, {
-        //         direction: [from, to],
-        //         departureTime: from + "_" + to.startsWith("tashkent") ? tashkent_dubai.departureTime : dubai_tashkent.departureTime,
-        //         arrivingTime: from + "_" + to.startsWith("tashkent") ? tashkent_dubai.arrivingTime : dubai_tashkent.arrivingTime,
-        //         price: 310 * (+adults + +infant + +children)
-        //     }]);
-        // })
-    }
-
-    const customStyles = {
-        menu: (provided, state) => ({
-            ...provided,
-            width: state.selectProps.width,
-            borderBottom: '1px dotted pink',
-            color: state.selectProps.menuColor,
-            padding: 20,
-        }),
-
-        control: (_, {selectProps: {width}}) => ({
-            width: width
-        }),
-
-        singleValue: (provided, state) => {
-            const opacity = state.isDisabled ? 0.5 : 1;
-            const transition = 'opacity 300ms';
-
-            return {...provided, opacity, transition};
-        }
+        flights.map(flight => {
+            let startT = moment(flight.startTime).format("MM DD YYYY");
+            if (d1 === startT) {
+                setTickets([...tickets, flight]);
+            }
+        })
     }
 
     const getDays = (val) => {
@@ -262,36 +241,42 @@ function Flights() {
         <div className={"py-3 max-w-5xl m-auto"}>
             {tickets.length === 0 ? <><h4>Позвоните по этим номерам, если вы хотите узнать больше об информации</h4>
                 <a>+998941079990</a></> : tickets.map((a, b) => {
-                return (<div
-                    className={"p-3 mb-3 shadow hover:shadow-md cursor-pointer transition-all rounded-lg border flex"}>
-                    <div className={"w-full px-2 pr-5"}>
-                        <div className={"flex items-center justify-between"}>
-                            <img src={QanotSharq} alt="asd" width={150} className={"mb-3"}/>
-                            <p className={"font-bold mb-3"}>Ekonom</p>
-                        </div>
-                        <div className={"flex justify-between"}>
+                var totalTimeInMin = a.duration;
+                let aaa = Math.floor(totalTimeInMin / 60) + ':' + totalTimeInMin % 60;
+                return (<NavLink onClick={() => localStorage.setItem("flight", JSON.stringify(a))}
+                                 to={`/details/${adults + '_' + children + '_' + infant}`}>
+                    <div
+                        className={"p-3 mb-3 shadow hover:shadow-md cursor-pointer transition-all rounded-lg border flex"}>
+                        <div className={"w-full px-2 pr-5"}>
+                            <div className={"flex items-center justify-between"}>
+                                <img src={QanotSharq} alt="asd" width={150} className={"mb-3"}/>
+                                <p className={"font-bold mb-3"}>Ekonom</p>
+                            </div>
+                            <div className={"flex justify-between"}>
                 <span className={"text-lg"} style={{lineHeight: 1.2}}>
                 <span className={"text-xl font-normal"} style={{lineHeight: 0}}>{a.departureTime}</span><br/>
-                <span className={"text-xs"} style={{lineHeight: 0}}>12.12.2002</span><br/>
+                <span className={"text-xs"}
+                      style={{lineHeight: 0}}>{moment(a.startTime).format("DD:MM:YYYY")}</span><br/>
                 <span className={"capitalize"}>{a.fromName}</span>
                 </span>
-                            <div
-                                className={"flex w-full bg-red-500 text-white mx-3 justify-between px-6 rounded border-b-2 border-dotted border-gray-500 h-10 align-bottom p-3"}>
-                                <FaPlaneDeparture className={"text-2xl text-white"}/>
-                                <p className={"text-xs p-0 m-0"}>В пути: 3 часа 10 минут</p>
-                                <FaPlaneArrival className={"text-2xl text-white"}/>
-                            </div>
-                            <span className={"text-lg"} style={{lineHeight: 1.2}}>
+                                <div
+                                    className={"flex w-full bg-red-500 text-white mx-3 justify-between px-6 rounded border-b-2 border-dotted border-gray-500 h-10 align-bottom p-3"}>
+                                    <FaPlaneDeparture className={"text-2xl text-white"}/>
+                                    <p className={"text-xs p-0 m-0"}>В пути: {aaa}</p>
+                                    <FaPlaneArrival className={"text-2xl text-white"}/>
+                                </div>
+                                <span className={"text-lg"} style={{lineHeight: 1.2}}>
                 <span className={"text-xl font-normal"} style={{lineHeight: 0}}>{a.arrivingTime}</span><br/>
-                <span className={"text-xs"} style={{lineHeight: 0}}>12.12.2002</span><br/>
+                <span className={"text-xs"} style={{lineHeight: 0}}>{moment(a.endTime).format("DD:MM:YYYY")}</span><br/>
                 <span className={"capitalize"}>{a.toName}</span>
                 </span>
+                            </div>
+                        </div>
+                        <div className={"border-l p-3 flex justify-center items-center w-60"}>
+                            <p className={"text-2xl font-bold text-red-500"}>{a.price * (+adults + +children)}$</p>
                         </div>
                     </div>
-                    <div className={"border-l p-3 flex justify-center items-center w-60"}>
-                        <p className={"text-2xl font-bold text-red-500"}>{a.price}$</p>
-                    </div>
-                </div>)
+                </NavLink>)
             })}
         </div>
     </div>);
