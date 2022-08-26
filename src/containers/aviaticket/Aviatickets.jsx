@@ -4,7 +4,6 @@ import {Button} from "@mui/material";
 import {MainApi} from "../../api/projectApi";
 import {GrCheckmark, GrTrash, GrView} from "react-icons/gr";
 import {useDispatch, useSelector} from "react-redux";
-import Store from "../../redux"
 import {useNavigate} from "react-router-dom";
 import {getAllOrder} from "../../redux/orders/actions";
 
@@ -59,13 +58,6 @@ const headCells = [
     },
 ];
 
-const sortAgents = state => {
-    const user = Store().store.getState().user
-    return state.user.users.agent.filter(r => {
-        return r.partnerId = user
-    })
-}
-
 const PartnerOrder = () => {
     const dispatch = useDispatch()
     useEffect(() => {
@@ -74,7 +66,6 @@ const PartnerOrder = () => {
     const navigate = useNavigate()
 
     const orders = useSelector(state => state.orders.order)
-    console.log(orders);
     return (
         <div>
             <MuiTable
