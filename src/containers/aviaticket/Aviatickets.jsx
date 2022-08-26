@@ -1,72 +1,34 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import MuiTable from "../../components/table";
 import {Button} from "@mui/material";
 import {MainApi} from "../../api/projectApi";
 import {GrCheckmark, GrTrash, GrView} from "react-icons/gr";
+import {useDispatch, useSelector} from "react-redux";
+import Store from "../../redux"
+import {useNavigate} from "react-router-dom";
+import {getAllOrder} from "../../redux/orders/actions";
 
 const headCells = [
-    {
-        id: 'id',
-        numeric: false,
-        disablePadding: true,
-        label: 'Id',
-        isTime: false
-    },
-    {
-        id: 'date',
-        numeric: true,
-        disablePadding: false,
-        label: 'Date',
-        isTime: false
-    },
-    {
-        id: 'type',
-        numeric: true,
-        disablePadding: false,
-        label: 'Type',
-        isTime: false
-    },
-    {
-        id: 'charterRegular',
-        numeric: true,
-        disablePadding: false,
-        label: 'Charter/Regular',
-        isTime: false
-    },
-    {
-        id: 'detail',
-        numeric: true,
-        disablePadding: false,
-        label: 'Detail',
-        isTime: false
-    },
-    {
-        id: 'bookingStatus',
-        numeric: true,
-        disablePadding: false,
-        label: 'Booking status',
-        isTime: true
-    },
-    {
-        id: 'paymentStatus',
-        numeric: true,
-        disablePadding: false,
-        label: 'Payment status',
-        isTime: false
-    },
     {
         id: 'price',
         numeric: true,
         disablePadding: false,
-        label: 'Price',
+        label: 'price',
         isTime: false
     },
     {
-        id: 'passengers',
+        id: 'startDate',
         numeric: true,
         disablePadding: false,
-        label: 'Passengers',
-        isTime: false
+        label: 'startDate',
+        isTime: true
+    },
+    {
+        id: 'endDate',
+        numeric: true,
+        disablePadding: false,
+        label: 'endDate',
+        isTime: true
     },
     {
         id: 'comment',
@@ -75,15 +37,49 @@ const headCells = [
         label: 'Comment',
         isTime: false
     },
+    {
+        id: 'contactName',
+        numeric: true,
+        disablePadding: false,
+        label: 'contactName',
+        isTime: false
+    }, {
+        id: 'phone',
+        numeric: true,
+        disablePadding: false,
+        label: 'phone',
+        isTime: false
+    },
+    {
+        id: 'createdAt',
+        numeric: true,
+        disablePadding: false,
+        label: 'Дата создания.',
+        isTime: true
+    },
 ];
-const Aviaticket = ()=>{
-    const [data,setData] = useState([])
-    useEffect(()=>{},[])
+
+const sortAgents = state => {
+    const user = Store().store.getState().user
+    return state.user.users.agent.filter(r => {
+        return r.partnerId = user
+    })
+}
+
+const PartnerOrder = () => {
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getAllOrder())
+    }, [])
+    const navigate = useNavigate()
+
+    const orders = useSelector(state => state.orders.order)
+    console.log(orders);
     return (
         <div>
             <MuiTable
-                tableName={"Avia tickets"}
-                rows={[]?.map(r => {
+                tableName={"Партнеры"}
+                rows={orders?.map(r => {
                     return {
                         ...r,
                         edit: (item) => (
@@ -115,8 +111,11 @@ const Aviaticket = ()=>{
                     }
                 })}
                 headCells={headCells}
+                onClickRow={() => {
+                    navigate(`/partners/orders/asasdad`)
+                }}
             />
         </div>
     )
 }
-export default Aviaticket
+export default PartnerOrder

@@ -1,4 +1,3 @@
-const model = require("../models");
 const {Success, ErrorSend} = require("../service/SuccessAndError");
 const userRole = require("../constants/userRole");
 const {PrismaClient} = require("@prisma/client")
@@ -15,11 +14,7 @@ const deleteUser = async (req, res, next) => {
         }
         Promise.all([prisma.user.deleteMany({where: {id: +req.params.id}})])
             .then(r => {
-                if (r[0] === 1) {
-                    return res.status(200).send(Success(200, true, "ok"))
-                } else {
-                    return res.status(404).send(ErrorSend(404, {}, "not found"))
-                }
+                return res.status(200).send(Success(200, r, "ok"))
             })
             .catch(e => {
                 return res.status(404).send(ErrorSend(404, e, e.message))
@@ -119,6 +114,26 @@ const update = async (req, res, next) => {
     }
 }
 
+const addNew = async (req, res, next) => {
+    try {
+        if (!req.user || req.user.role === userRole.client || req.user.role === userRole.agent) {
+            if (req.user && req.user.role === userRole.agent) {
+                return res.status(404).send(ErrorSend(404, {}, "no user"))
+            } else {
+                return res.status(404).send(ErrorSend(404, {}, "no user"))
+            }
+        }
+        prisma.user.create({data: {...req.body, isChecked: true}}).then(r => {
+            console.log(r)
+            res.status(200).send(Success(200, r, "ok"))
+        }).catch(e => {
+            res.status(404).send(ErrorSend(404, e, e.message))
+        })
+    } catch (e) {
+        res.status(500).send(ErrorSend(500, e, e.message))
+    }
+}
+
 const getMe = async (req, res) => {
     if (req.user) {
         res.status(200).send(Success(200, req.user, "ok"))
@@ -129,5 +144,5 @@ const getMe = async (req, res) => {
 
 
 module.exports = {
-    getAllUser, getMe, acceptAgent, deleteUser, update
+    getAllUser, getMe, acceptAgent, deleteUser, update, addNew
 }

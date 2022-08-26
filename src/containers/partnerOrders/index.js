@@ -4,24 +4,50 @@ import {Button} from "@mui/material";
 import {MainApi} from "../../api/projectApi";
 import {GrCheckmark, GrTrash, GrView} from "react-icons/gr";
 import {useDispatch, useSelector} from "react-redux";
-import {getAllUser} from "../../redux/user/actions";
 import Store from "../../redux"
 import {useNavigate} from "react-router-dom";
 import {getAllOrder} from "../../redux/orders/actions";
 
 const headCells = [
     {
-        id: 'nameCompany',
-        numeric: false,
-        disablePadding: true,
-        label: 'Название компании',
+        id: 'price',
+        numeric: true,
+        disablePadding: false,
+        label: 'price',
         isTime: false
     },
     {
-        id: 'date',
+        id: 'startDate',
         numeric: true,
         disablePadding: false,
-        label: 'Финансовый статус',
+        label: 'startDate',
+        isTime: true
+    },
+    {
+        id: 'endDate',
+        numeric: true,
+        disablePadding: false,
+        label: 'endDate',
+        isTime: true
+    },
+    {
+        id: 'comment',
+        numeric: true,
+        disablePadding: false,
+        label: 'Comment',
+        isTime: false
+    },
+    {
+        id: 'contactName',
+        numeric: true,
+        disablePadding: false,
+        label: 'contactName',
+        isTime: false
+    }, {
+        id: 'phone',
+        numeric: true,
+        disablePadding: false,
+        label: 'phone',
         isTime: false
     },
     {
@@ -47,12 +73,13 @@ const PartnerOrder = () => {
     }, [])
     const navigate = useNavigate()
 
-    const agents = useSelector(sortAgents)
+    const orders = useSelector(state => state.orders.order)
+
     return (
         <div>
             <MuiTable
                 tableName={"Партнеры"}
-                rows={agents?.map(r => {
+                rows={orders?.map(r => {
                     return {
                         ...r,
                         edit: (item) => (

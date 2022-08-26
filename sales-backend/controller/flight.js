@@ -5,14 +5,14 @@ const prisma = new PrismaClient()
 
 const del = async (req, res, next) => {
     try {
-        if (!req.user || req.user.role === userRole.client || req.user.role === userRole.agent) {
-            if (req.user && req.user.role === userRole.agent) {
-                return res.status(404).send(ErrorSend(404, {}, "no user"))
-                // return next()
-            } else {
-                return res.status(401).send(ErrorSend(401, {}, "no user"))
-            }
-        }
+        // if (!req.user || req.user.role === userRole.client || req.user.role === userRole.agent) {
+        //     if (req.user && req.user.role === userRole.agent) {
+        //         return res.status(404).send(ErrorSend(404, {}, "no user"))
+        //         // return next()
+        //     } else {
+        //         return res.status(401).send(ErrorSend(401, {}, "no user"))
+        //     }
+        // }
         Promise.all([prisma.flight.deleteMany({where: {id: +req.params.id}})])
             .then(r => {
                 if (r[0]?.count >0) {
@@ -22,6 +22,7 @@ const del = async (req, res, next) => {
                 }
             })
             .catch(e => {
+                console.log(e)
                 return res.status(404).send(ErrorSend(404, e, e.message))
             })
     } catch (e) {

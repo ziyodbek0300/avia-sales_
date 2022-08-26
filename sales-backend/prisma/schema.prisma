@@ -24,6 +24,7 @@ model User {
   doc         String?
   isChecked   Boolean  @default(false)
   role        Role     @default(admin)
+  Order       Order[]
 }
 
 model Ticket {
@@ -81,7 +82,8 @@ model Order {
   id          Int         @id @default(autoincrement())
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
-  flightId    Int?
+  flightId    Int
+  partnerId   Int
   passagersId Int[]
   contactName String
   email       String
@@ -91,7 +93,8 @@ model Order {
   orderType   String
   startDate   DateTime
   endDate     DateTime
-  flight      Flight      @relation(fields: [flightId], references: [id])
+  partner     User        @relation(fields: [partnerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  flight      Flight      @relation(fields: [flightId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   passager    Passenger[]
 }
 
