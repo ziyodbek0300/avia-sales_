@@ -11,7 +11,6 @@ import {extendMoment} from 'moment-range';
 import regions from "../../../api/projectApi/regions";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllFlights} from "../../../redux/flights/actions";
-import log from "tailwindcss/lib/util/log";
 import {NavLink} from "react-router-dom";
 
 function Flights() {
@@ -42,10 +41,8 @@ function Flights() {
     }, []);
 
     const showTickets = () => {
-        // setTickets([]);
         let d1 = moment(day1).format("MM DD YYYY");
-        // let d2 = moment(day2).format("MM DD YYYY");
-        // let d11, d22;
+
         // eslint-disable-next-line array-callback-return
         flights.map(flight => {
             let startT = moment(flight.startTime).format("MM DD YYYY");
@@ -71,8 +68,11 @@ function Flights() {
                     className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
                     <div className="flex items-center gap-3">
                         <div className="flex items-center gap-1">
-                            <input type="radio" name="t1" id="t1"/>
-                            <label htmlFor="t1">Сложный маршрут</label>
+                            <input type="checkbox"
+                                   className={"w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"}
+                                   name="t1" id="t1"/>
+                            <label htmlFor="t1" className={"ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"}>Сложный
+                                маршрут</label>
                         </div>
                     </div>
                     <div className="flex gap-2 items-center py-4 text-gray-600">
@@ -254,7 +254,8 @@ function Flights() {
                             </div>
                             <div className={"flex justify-between"}>
                 <span className={"text-lg"} style={{lineHeight: 1.2}}>
-                <span className={"text-xl font-normal"} style={{lineHeight: 0}}>{a.departureTime}</span><br/>
+                <span className={"text-xl font-normal"}
+                      style={{lineHeight: 0}}>{moment(a.startTime).format("HH:MM")}</span><br/>
                 <span className={"text-xs"}
                       style={{lineHeight: 0}}>{moment(a.startTime).format("DD:MM:YYYY")}</span><br/>
                 <span className={"capitalize"}>{a.fromName}</span>
@@ -266,7 +267,8 @@ function Flights() {
                                     <FaPlaneArrival className={"text-2xl text-white"}/>
                                 </div>
                                 <span className={"text-lg"} style={{lineHeight: 1.2}}>
-                <span className={"text-xl font-normal"} style={{lineHeight: 0}}>{a.arrivingTime}</span><br/>
+                <span className={"text-xl font-normal"}
+                      style={{lineHeight: 0}}>{moment(a.endTime).format("HH:MM")}</span><br/>
                 <span className={"text-xs"} style={{lineHeight: 0}}>{moment(a.endTime).format("DD:MM:YYYY")}</span><br/>
                 <span className={"capitalize"}>{a.toName}</span>
                 </span>
