@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import ReactSelect from "react-select";
 import {v4} from "uuid";
 import FormExample from "./FormExample";
 import {useParams} from "react-router-dom";

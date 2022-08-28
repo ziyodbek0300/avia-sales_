@@ -3,7 +3,6 @@ import ReactSelect from "react-select";
 import {gender} from "../../constants/userRole";
 
 function FormExample({setPassagers, passagers, index}) {
-    console.log(passagers)
     return (<div className={"py-5 border-b-2 border-red-300"}>
         <p className={"text-lg"}>Пассажир {index + 1}</p>
         <div className={"pt-2 flex justify-between lg:flex-row flex-col"}>
