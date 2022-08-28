@@ -10,6 +10,8 @@ import flights from "../../api/projectApi/flights";
 import {getAllFlights} from "../../redux/flights/actions";
 import {useDispatch} from "react-redux";
 import moment from "moment";
+import ReactSelect from "react-select";
+import weekdays from "../../constants/weekdays";
 
 const style = {
     position: 'absolute',
@@ -58,6 +60,7 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
             description: data + "",
             price: +data.price,
             duration: +data.duration,
+            weekDays: [],
             name: undefined
         })
             .then(r => {
@@ -68,6 +71,10 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
             })
         handleClose();
     }
+
+    const wds = weekdays.map((wd, ind) => {
+        return {value: ind, label: wd}
+    })
 
     return (<div>
         <Modal
@@ -113,12 +120,11 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
                         />
                     </Box>
                     <Box style={{marginBottom: 8}}>
-                        <InputLabel>End Time</InputLabel>
-                        <input
+                        <InputLabel>Week Days</InputLabel>
+                        <ReactSelect
+                            isMulti
                             style={{width: "100%"}}
-                            className={"px-2 py-[0.4rem] border-2 border-gray-300 rounded-md"}
-                            type={"datetime-local"}
-                            onChange={(event) => setData({...data, endTime: event.target.value})}
+                            options={wds}
                         />
                     </Box>
                     <Box style={{marginBottom: 8}}>
