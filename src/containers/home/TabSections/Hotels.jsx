@@ -4,85 +4,129 @@ import {RiSendPlane2Line} from 'react-icons/ri';
 import hotel from '../../../api/projectApi/hotel';
 import hotelsTownLists from '../../../constants/hotelsTownLists';
 import {toast} from "react-toastify";
+import {useNavigate} from "react-router-dom";
 
 
 const RenderItem = ({e}) => {
-    const [values,setValues]=useState({
-        loading:false,
-        data:[],
-        open:false
+    // console.log()
+    const hotelId = e?.inc
+    const [values, setValues] = useState({
+        loading: false,
+        data: [],
+        open: false,
+        tabIndex: 0
     })
     const handlePress = async () => {
         setValues({
+            ...values,
             data: [],
             loading: true,
-            open:!values.open
+            open: !values.open
         })
-        if (!values.open){
-            const data = await hotel.getPrice(477).catch(e=>{
+        if (!values.open) {
+            const data = await hotel.getPrice(hotelId).catch(e => {
                 setValues({
                     ...values,
                     loading: false,
                     open: true,
                 })
             })
-            if (data.status===200){
+            if (data.status === 200) {
                 setValues({
+                    ...values,
                     open: true,
                     loading: false,
                     data: data.data,
                 })
                 console.log(data.data)
             } else {
-                toast("Get error",{type:'warning'})
+                toast("Get error", {type: 'warning'})
             }
         }
     }
+    const navigate = useNavigate()
     return (
-        <div onClick={handlePress} className="shadow border rounded-lg cursor-pointer bg-white p-2 flex gap-5"
-             key={`${e['$'].inc}`}>
-            <img className="rounded" width="200" style={{maxHeight:'200px'}}
-                 src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e['$'].inc}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}
-                 alt=""/>
-            <div>
-                <h1 className="text-xl font-bold">{e['$'].name}</h1>
+        <div className={'bg-white p-2 gap-5 shadow border rounded-lg'}>
+            <div onClick={handlePress} className="cursor-pointer flex"
+                 key={`${hotelId}`}>
+                <img className="rounded" width="200" style={{maxHeight: '200px'}}
+                     src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${hotelId}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}
+                     alt=""/>
+                <h1 className="text-xl font-bold">{e.name}</h1>
                 {hotelsTownLists.map(a => {
-                    return a.id === e['$'].town && (
+                    return a.id === e.town && (
                         <p className="text-sm">{a.title}</p>
                     )
                 })}
-                start count {e["$"].star}
-                <br/>
-                {values.open?(
-                    <div>
-                        {
-                            values.loading?(
+                start count {e.starCount}
+            </div>
+
+            {values.open ? (
+                <>
+                    <div className={"flex justify-between"}>
+                        <div onClick={() => setValues({...values, tabIndex: 1})}
+                             className={"flex justify-center w-10 bg-orange-500"}>
+                            photo
+                        </div>
+                        <div onClick={() => setValues({...values, tabIndex: 0})} className={"w-10 bg-orange-500"}>
+                            rooms
+                        </div>
+                    </div>
+                    {values.tabIndex === 0 ? (
+                        <div className={"mt-16"}>
+                            <form action="">
                                 <div>
-                                    loading...
-                                </div>
-                            ):(
-                                <div>
-                                    asdasdasdasd
-                                    {JSON.stringify(values)}
                                     {
-                                        values.data.map(e=>{
-                                            console.log("asdas")
-                                            return (
-                                                <div>
-                                                    asdasd
-                                                </div>
-                                            )
-                                        })
+                                        values.loading ? (
+                                            <div>
+                                                loading...
+                                            </div>
+                                        ) : (
+                                            <div>
+                                                {
+                                                    values.data.map(e => {
+                                                        return e.status !== "D" && (
+                                                            <div style={{width: "100%", minHeight: 200}}
+                                                                 className={"bg-orange-500"}>
+                                                                <input name={"asd"} type="radio"/>
+                                                                name {e.name}
+                                                                <br/>
+                                                                price {e.price}
+                                                                <br/>
+                                                                data {e.dataa.name}
+                                                                <br/>
+                                                                <button className={"p-4 bg-blue-500"}
+                                                                        onClick={() => navigate(`hotel/order/${hotelId}/${e.inc}?name=${e.name}&adult=${1}&c=${2}&d=${3}`)}>
+                                                                    order
+                                                                </button>
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        )
                                     }
                                 </div>
-                            )
-                        }
-                asdasd
-                    </div>
-                ):null}
+                            </form>
 
-            </div>
+                        </div>
+                    ) : (
+                        <div className={"flex"}>
+                            <img className="rounded" width="150px" style={{maxHeight: '150px'}}
+                                 src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}
+                                 alt=""/>
+                            <img className="rounded" width="150px" style={{maxHeight: '150px'}}
+                                 src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=1&equilateral=1&width=200&height=200&stamp=72BE0B64`}
+                                 alt=""/>
+                            <img className="rounded" width="150px" style={{maxHeight: '150px'}}
+                                 src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=2&equilateral=1&width=200&height=200&stamp=72BE0B64`}
+                                 alt=""/>
+                        </div>
+                    )}
+                </>
+            ) : null}
         </div>
+
     )
 }
 
@@ -101,7 +145,8 @@ function Hotels() {
     const handlePressFind = () => {
         hotel.getHotels(values.town)
             .then(r => {
-                setHotels(r.data?.Response?.Data[0]?.hotel)
+                // setHotels(r.data?.Response?.Data[0]?.hotel)
+                setHotels(r.data)
             })
             .catch(e => {
                 setHotels([])
@@ -246,7 +291,7 @@ function Hotels() {
             </div>
             <div className="max-w-5xl mx-auto flex flex-col gap-3">
                 {hotels.map(e => {
-                    return e['$'].status !== 'D' && e['$'].name !== "" && e['$'].name?.toLowerCase() !== "unknown hotel" && e['$'].name !== undefined && (
+                    return e.status !== 'D' && e.name !== "" && e.name?.toLowerCase() !== "unknown hotel" && e.name !== undefined && (
                         <RenderItem e={e}/>
                     )
                 })}

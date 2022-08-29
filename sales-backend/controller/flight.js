@@ -90,6 +90,7 @@ const addNew = async (req, res, next) => {
         prisma.flight.create({data: req.body}).then(r => {
             res.status(200).send(Success(200, r, "ok"))
         }).catch(e => {
+            console.log(e)
             res.status(404).send(ErrorSend(404, e, e.message))
         })
     } catch (e) {

@@ -61,6 +61,7 @@ model Flight {
   price       Float
   description String
   Order       Order[]
+  weekDays    Int[]
 }
 
 model Passenger {
@@ -76,6 +77,49 @@ model Passenger {
   endDate        DateTime
   Order          Order?   @relation(fields: [orderId], references: [id])
   orderId        Int?
+}
+
+model HotelPassenger {
+  id             Int         @id @default(autoincrement())
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  lastname       String
+  firtname       String
+  nationality    String
+  gender         Gender
+  birthday       DateTime
+  passportNumber String
+  endDate        DateTime
+  hotelOrder     HotelOrder? @relation(fields: [hotelOrderId], references: [id])
+  hotelOrderId   Int?
+}
+
+model TransferPassenger {
+  id             Int         @id @default(autoincrement())
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  lastname       String
+  firtname       String
+  nationality    String
+  gender         Gender
+  birthday       DateTime
+  passportNumber String
+  endDate        DateTime
+  hotelOrder     HotelOrder? @relation(fields: [hotelOrderId], references: [id])
+  hotelOrderId   Int?
+}
+
+model Transfer {
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  tarnsferFrom String
+  tarnsferTo   String
+  time         DateTime
+  passengers   Int[]
+  price        Float
+  phone        String
+  name         String
 }
 
 model Order {
@@ -96,6 +140,16 @@ model Order {
   partner     User        @relation(fields: [partnerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   flight      Flight      @relation(fields: [flightId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   passager    Passenger[]
+}
+
+model HotelOrder {
+  id                Int                 @id @default(autoincrement())
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  //  partner     User        @relation(fields: [partnerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  //  passager    HotelPassenger[]
+  HotelPassenger    HotelPassenger[]
+  TransferPassenger TransferPassenger[]
 }
 
 enum Role {
