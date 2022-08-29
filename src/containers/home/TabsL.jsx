@@ -74,7 +74,7 @@ function TabsL() {
                 <TabPanel className="header fifth">
                     <Visas />
                 </TabPanel>
-                <TabPanel className="header ">
+                <TabPanel>
                     <Transfers />
                 </TabPanel>
             </Tabs>
