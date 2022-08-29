@@ -29,6 +29,7 @@ function Flights() {
     const [regs, setRegs] = useState([]);
     const dispatch = useDispatch();
     const [available, setAvailable] = useState([]);
+    const [wd, setWd] = useState([]);
 
     useEffect(() => {
         regions.getAllRegions().then(res => {
@@ -53,13 +54,14 @@ function Flights() {
     }
 
     const getDays = (val) => {
+        // console.log(val)
         // eslint-disable-next-line array-callback-return
         flights.map(reg => {
-            if (reg.fromName === from && reg.toName === val) {
-                setAvailable([...available, reg]);
+            if (reg.fromName === from.label && reg.toName === to.label) {
+                setWd(reg.weekDays)
             }
         })
-    }
+    };
 
     return (<div>
         <div className="header">
@@ -82,7 +84,7 @@ function Flights() {
                             </label>
                             <ReactSelect
                                 onChange={(e) => {
-                                    setFrom(e.value)
+                                    setFrom(e)
                                 }}
                                 style={{border: '1px solid red'}}
                                 options={[{value: '', label: '- выбрать -'}, ...regionsList]}
@@ -97,8 +99,8 @@ function Flights() {
                             <ReactSelect
                                 style={{border: '1px solid red'}}
                                 onChange={(e) => {
-                                    setTo(() => e.value)
-                                    getDays(e.value);
+                                    setTo(e)
+                                    getDays(e);
                                 }}
                                 options={[{value: '', label: '- выбрать -'}, ...regionsList]}
                                 placeholder="- выбрать -"
@@ -110,10 +112,7 @@ function Flights() {
                             </label>
                             <DatePicker
                                 disabledDate={date => {
-                                    // console.log(available[0].startTime)
-                                    // console.log(moment(date).format("MM DD YYYY"), moment(available[0].startTime).format("MM DD YYYY"))
-                                    // return moment(date).format("MM DD YYYY") !== moment(available[0].startTime).format("MM DD YYYY");
-                                    // return date.getDay() === 1 || date.getDay() === 2 || date.getDay() === 4 || date.getDay() === 5 || date.getDay() === 6
+                                    // return date.getDay() === 0 || date.getDay() === 1 || date.getDay() === 4 || date.getDay() === 5 || date.getDay() === 3
                                 }}
                                 onChange={(e) => setDay1(new Date(e))}
                                 format="yyyy-MM-dd"
@@ -130,7 +129,7 @@ function Flights() {
                                 Обратно
                             </label>
                             <DatePicker
-                                disabledDate={date => date.getDay() === 0 || date.getDay() === 1 || date.getDay() === 4 || date.getDay() === 5 || date.getDay() === 3}
+                                // disabledDate={date => date.getDay() === 0 || date.getDay() === 1 || date.getDay() === 4 || date.getDay() === 5 || date.getDay() === 3}
                                 format="yyyy-MM-dd"
                                 onChange={(e) => {
                                     setDay2(new Date(e));

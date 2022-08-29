@@ -31,6 +31,7 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
     const dispatch = useDispatch();
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
     const [regionsList, setRegionsList] = useState([]);
+    const [wDays, setWDays] = useState([]);
     const [data, setData] = useState({
         // name: '',
         // ...values,
@@ -52,7 +53,6 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
     }, [open])
 
     const handlePressSubmit = () => {
-        console.log(data)
         flights.addNew({
             ...data,
             startTime: moment(data.startTime).toDate(),
@@ -60,8 +60,7 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
             description: data + "",
             price: +data.price,
             duration: +data.duration,
-            weekDays: [],
-            name: undefined
+            weekDays: wDays
         })
             .then(r => {
                 dispatch(getAllFlights())
@@ -120,11 +119,25 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
                         />
                     </Box>
                     <Box style={{marginBottom: 8}}>
+                        <InputLabel>End Time</InputLabel>
+                        <input
+                            style={{width: "100%"}}
+                            className={"px-2 py-[0.4rem] border-[.122rem] border-gray-300 rounded-md"}
+                            type={"datetime-local"}
+                            onChange={(event) => setData({...data, endTime: event.target.value})}
+                        />
+                    </Box>
+                    <Box style={{marginBottom: 8}}>
                         <InputLabel>Week Days</InputLabel>
                         <ReactSelect
                             isMulti
                             style={{width: "100%"}}
                             options={wds}
+                            onChange={(e) => {
+                                let a = [];
+                                e.map(q => a.push(q.value));
+                                setWDays(a);
+                            }}
                         />
                     </Box>
                     <Box style={{marginBottom: 8}}>
