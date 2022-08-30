@@ -69,7 +69,7 @@ function TransfersDetail() {
 
     return (<div className={"max-w-5xl mx-auto lg:p-0 px-4"}>
         <div className={"py-3"}>
-            <h3>Бронирование авиабилета</h3>
+            <h3>Заказать трансфер</h3>
         </div>
         <div>
             <div className={"mb-3"}>

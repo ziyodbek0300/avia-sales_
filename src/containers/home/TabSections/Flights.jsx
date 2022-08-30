@@ -28,7 +28,6 @@ function Flights() {
     const flights = useSelector(state => state.flights.flights)
     const [regs, setRegs] = useState([]);
     const dispatch = useDispatch();
-    const [available, setAvailable] = useState([]);
     const [wd, setWd] = useState([]);
     const [wd1, setWd1] = useState([]);
     const [obratno, setObratno] = useState(false);

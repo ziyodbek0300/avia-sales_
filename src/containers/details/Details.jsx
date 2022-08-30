@@ -14,6 +14,7 @@ function Details() {
     const [adults, setAdults] = useState(id.split('_')[0])
     const [children, setChildren] = useState(id.split('_')[1])
     const [infants, setInfants] = useState(id.split('_')[2])
+    console.log(adults, children, infants)
     const [contactName, setContactName] = useState("")
     const [contactEmail, setContactEmail] = useState("")
     const [contactPhone, setContactPhone] = useState("")

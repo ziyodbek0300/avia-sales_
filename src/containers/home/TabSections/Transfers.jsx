@@ -4,6 +4,7 @@ import ReactSelect from "react-select";
 import hotelsTownLists from "../../../constants/hotelsTownLists";
 import regions from "../../../api/projectApi/regions";
 import moment from "moment";
+import {useNavigate} from "react-router-dom";
 
 function Transfers() {
     const [adults, setAdults] = useState(1);
@@ -15,6 +16,7 @@ function Transfers() {
     const [data, setData] = useState("")
     const [transfers, setTransfers] = useState([])
     const [regionsList, setRegionsList] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         regions.getAllRegions().then(res => {
@@ -53,7 +55,7 @@ function Transfers() {
     }
 
     const order = () => {
-
+        navigate(`/transferDetails/${adults + '_' + children + '_' + infant}`)
     }
 
     return (<>
