@@ -41,22 +41,19 @@ function TransfersDetail() {
                 passportNumber: p.sNum,
                 endDate: moment(p.date3).toDate()
             })
-        })
-        let end = moment(JSON.parse(localStorage.getItem("flight")).endTime).toDate();
-        let start = moment(JSON.parse(localStorage.getItem("flight")).startTime).toDate();
+        });
+
+        let time = moment(JSON.parse(localStorage.getItem("transfer")).time).toDate();
 
         let obj = {
-            flightId: JSON.parse(localStorage.getItem("flight")).id,
-            contactName: contactName,
-            email: contactEmail,
+            tarnsferFrom: "asdas",
+            tarnsferTo: "asdasd",
+            time: time,
+            price: JSON.parse(localStorage.getItem("transfer")).price,
             phone: contactPhone,
-            comment: comment,
-            partnerId: currentUser.id ? currentUser.id : null,
-            startDate: start,
-            endDate: end,
-            orderType: "asdasd",
-            price: +JSON.parse(localStorage.getItem("flight")).price * (+adults + +children),
-            passagers: pass
+            name: contactName,
+            description: comment,
+            passengers: pass,
         }
         order.addNew(obj).then(response => {
             console.log(response);
@@ -67,9 +64,11 @@ function TransfersDetail() {
 
     }
 
+    console.log("Hello World")
+
     return (<div className={"max-w-5xl mx-auto lg:p-0 px-4"}>
         <div className={"py-3"}>
-            <h3>Бронирование авиабилета</h3>
+            <h3>Заказать трансфер</h3>
         </div>
         <div>
             <div className={"mb-3"}>
@@ -84,12 +83,6 @@ function TransfersDetail() {
                             <label htmlFor="name" className={"w-full block"}>Имя</label>
                             <input type="text"
                                    onInput={(e) => setContactName(e.target.value)}
-                                   className={"border border-red-300 outline-red-300 w-full rounded-lg p-2"}/>
-                        </div>
-                        <div className={"py-3 w-full lg:pr-10"}>
-                            <label htmlFor="email" className={"w-full block"}>Электронная почта</label>
-                            <input type="text"
-                                   onInput={(e) => setContactEmail(e.target.value)}
                                    className={"border border-red-300 outline-red-300 w-full rounded-lg p-2"}/>
                         </div>
                         <div className={"py-3 w-full lg:pr-10"}>

@@ -47,7 +47,7 @@ function Visas() {
                     </div>
                 </div>
                 <div className="w-full relative">
-                    <label htmlFor="date" className="block text-white text-sm">
+                    <label htmlFor="sa" className="block text-white text-sm">
                         Гости и номера
                     </label>
                     <input

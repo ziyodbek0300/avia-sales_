@@ -28,8 +28,9 @@ function Flights() {
     const flights = useSelector(state => state.flights.flights)
     const [regs, setRegs] = useState([]);
     const dispatch = useDispatch();
-    const [available, setAvailable] = useState([]);
     const [wd, setWd] = useState([]);
+    const [wd1, setWd1] = useState([]);
+    const [obratno, setObratno] = useState(false);
 
     useEffect(() => {
         regions.getAllRegions().then(res => {
@@ -42,23 +43,22 @@ function Flights() {
     }, []);
 
     const showTickets = () => {
-        let d1 = moment(day1).format("MM DD YYYY");
-
+        console.log(from.label, flights[0].fromName);
         // eslint-disable-next-line array-callback-return
         flights.map(flight => {
-            let startT = moment(flight.startTime).format("MM DD YYYY");
-            if (d1 === startT) {
+            if (flight.fromName === from.label && flight.toName === to.label) {
                 setTickets([...tickets, flight]);
             }
         })
     }
 
-    const getDays = (val) => {
-        // console.log(val)
+    const getDays = () => {
         // eslint-disable-next-line array-callback-return
         flights.map(reg => {
             if (reg.fromName === from.label && reg.toName === to.label) {
-                setWd(reg.weekDays)
+                setWd(() => reg.weekDays);
+            } else if (reg.fromName === to.label && reg.toName === from.label) {
+                setWd1(() => reg.weekDays)
             }
         })
     };
@@ -71,10 +71,12 @@ function Flights() {
                     <div className="flex items-center gap-3">
                         <div className="flex items-center gap-1">
                             <input type="checkbox"
+                                   onChange={() => setObratno(!obratno)}
+                                   value={obratno}
                                    className={"w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"}
                                    name="t1" id="t1"/>
-                            <label htmlFor="t1" className={"ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"}>Сложный
-                                маршрут</label>
+                            <label htmlFor="t1"
+                                   className={"ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"}>Обратно</label>
                         </div>
                     </div>
                     <div className="flex gap-2 items-center py-4 text-gray-600">
@@ -84,7 +86,7 @@ function Flights() {
                             </label>
                             <ReactSelect
                                 onChange={(e) => {
-                                    setFrom(e)
+                                    setFrom(() => e)
                                 }}
                                 style={{border: '1px solid red'}}
                                 options={[{value: '', label: '- выбрать -'}, ...regionsList]}
@@ -99,20 +101,33 @@ function Flights() {
                             <ReactSelect
                                 style={{border: '1px solid red'}}
                                 onChange={(e) => {
-                                    setTo(e)
-                                    getDays(e);
+                                    setTo(() => e)
                                 }}
                                 options={[{value: '', label: '- выбрать -'}, ...regionsList]}
                                 placeholder="- выбрать -"
                             />
                         </div>
-                        <div className="w-full">
+                        <div className="w-full" onMouseEnter={() => getDays()}>
                             <label htmlFor="from" className="block text-white text-sm">
                                 Туда
                             </label>
                             <DatePicker
                                 disabledDate={date => {
-                                    // return date.getDay() === 0 || date.getDay() === 1 || date.getDay() === 4 || date.getDay() === 5 || date.getDay() === 3
+                                    if (wd.length === 2) {
+                                        return date.getDay() !== wd[0] && date.getDay() !== wd[1]
+                                    } else if (wd.length === 1) {
+                                        return date.getDay() !== wd[0]
+                                    } else if (wd.length === 3) {
+                                        return date.getDay() !== wd[0] && date.getDay() !== wd[1] && date.getDay() !== wd[2]
+                                    } else if (wd.length === 4) {
+                                        return date.getDay() !== wd[0] && date.getDay() !== wd[1] && date.getDay() !== wd[2] && date.getDay() !== wd[3]
+                                    } else if (wd.length === 5) {
+                                        return date.getDay() !== wd[0] && date.getDay() !== wd[1] && date.getDay() !== wd[2] && date.getDay() !== wd[3] && date.getDay() !== wd[4]
+                                    } else if (wd.length === 6) {
+                                        return date.getDay() !== wd[0] && date.getDay() !== wd[1] && date.getDay() !== wd[2] && date.getDay() !== wd[3] && date.getDay() !== wd[4] && date.getDay() !== wd[5]
+                                    } else if (wd.length === 7) {
+                                        return date.getDay() !== wd[0] && date.getDay() !== wd[1] && date.getDay() !== wd[2] && date.getDay() !== wd[3] && date.getDay() !== wd[4] && date.getDay() !== wd[5] && date.getDay() !== wd[6]
+                                    }
                                 }}
                                 onChange={(e) => setDay1(new Date(e))}
                                 format="yyyy-MM-dd"
@@ -124,12 +139,28 @@ function Flights() {
                                 }}
                             />
                         </div>
-                        <div className="w-full">
+                        {obratno ? <div className="w-full">
                             <label htmlFor="from" className="block text-white text-sm">
                                 Обратно
                             </label>
                             <DatePicker
-                                // disabledDate={date => date.getDay() === 0 || date.getDay() === 1 || date.getDay() === 4 || date.getDay() === 5 || date.getDay() === 3}
+                                disabledDate={date => {
+                                    if (wd1.length === 2) {
+                                        return date.getDay() !== wd1[0] && date.getDay() !== wd1[1]
+                                    } else if (wd1.length === 1) {
+                                        return date.getDay() !== wd1[0]
+                                    } else if (wd1.length === 3) {
+                                        return date.getDay() !== wd1[0] && date.getDay() !== wd1[1] && date.getDay() !== wd1[2]
+                                    } else if (wd1.length === 4) {
+                                        return date.getDay() !== wd1[0] && date.getDay() !== wd1[1] && date.getDay() !== wd1[2] && date.getDay() !== wd1[3]
+                                    } else if (wd1.length === 5) {
+                                        return date.getDay() !== wd1[0] && date.getDay() !== wd1[1] && date.getDay() !== wd1[2] && date.getDay() !== wd1[3] && date.getDay() !== wd1[4]
+                                    } else if (wd1.length === 6) {
+                                        return date.getDay() !== wd1[0] && date.getDay() !== wd1[1] && date.getDay() !== wd1[2] && date.getDay() !== wd1[3] && date.getDay() !== wd1[4] && date.getDay() !== wd1[5]
+                                    } else if (wd1.length === 7) {
+                                        return date.getDay() !== wd1[0] && date.getDay() !== wd1[1] && date.getDay() !== wd1[2] && date.getDay() !== wd1[3] && date.getDay() !== wd1[4] && date.getDay() !== wd1[5] && date.getDay() !== wd1[6]
+                                    }
+                                }}
                                 format="yyyy-MM-dd"
                                 onChange={(e) => {
                                     setDay2(new Date(e));
@@ -141,7 +172,7 @@ function Flights() {
                                     backgroundColor: 'white'
                                 }}
                             />
-                        </div>
+                        </div> : ""}
                         <div className="w-full relative">
                             <label htmlFor="from" className="block text-white text-sm">
                                 Туристы

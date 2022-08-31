@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="ProjectTasksOptions">
     <TaskOptions isEnabled="false">
       <option name="arguments" value="$FileName$:$FileNameWithoutExtension$.css" />
@@ -22,4 +23,7 @@
       <envs />
     </TaskOptions>
   </component>
+=======
+  <component name="ProjectTasksOptions" suppressed-tasks="SCSS" />
+>>>>>>> ccf136b1f9178d22d0ded086958981943065514c
 </project>

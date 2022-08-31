@@ -4,6 +4,7 @@ import ReactSelect from "react-select";
 import hotelsTownLists from "../../../constants/hotelsTownLists";
 import regions from "../../../api/projectApi/regions";
 import moment from "moment";
+import {useNavigate} from "react-router-dom";
 
 function Transfers() {
     const [adults, setAdults] = useState(1);
@@ -15,6 +16,7 @@ function Transfers() {
     const [data, setData] = useState("")
     const [transfers, setTransfers] = useState([])
     const [regionsList, setRegionsList] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         regions.getAllRegions().then(res => {
@@ -52,12 +54,14 @@ function Transfers() {
         }])
     }
 
-    const order = () => {
-
+    const order = (obj) => {
+        let tr_data = JSON.stringify(obj)
+        localStorage.setItem("transfer", tr_data);
+        navigate(`/transferDetails/${adults + '_' + children + '_' + infant}`)
     }
 
     return (<>
-        <div className={"header pb-10"}>
+        <div className={"header sixtrh pb-10"}>
             <div className="max-w-5xl mx-auto py-44">
                 <div
                     className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
@@ -199,7 +203,7 @@ function Transfers() {
                             </div>
                             <div className={"text-center"}>
                                 <p className={"text-xl"}><span className={"font-bold"}>Price:</span> {tr.price}$</p>
-                                <button onClick={order}
+                                <button onClick={() => order(tr)}
                                         className={"p-3 active:opacity-90 px-5 border-red-500 border rounded hover:bg-red-500 hover:text-white transition"}>Заказать
                                 </button>
                             </div>
