@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import regions from "../../api/projectApi/regions";
 import moment from "moment";
-import {GrTrash} from "react-icons/gr";
+import {GrEdit, GrTrash} from "react-icons/gr";
 import {userRole} from "../../constants/userRole";
 import RegionModal from "../../components/modal/RegionModal";
 
@@ -45,7 +45,7 @@ function Regions() {
         <div className="max-w-5xl m-auto p-5">
             <div className={"text-right py-3"}>
                 <button className={"p-2 border border-gray-400 text-white rounded bg-green-500 transition"}
-                        onClick={() => handlePressItemEdit("create", {role: userRole.admin})}>Добавит
+                        onClick={() => handlePressItemEdit("create")}>Добавит
                     регион
                 </button>
             </div>
@@ -67,6 +67,8 @@ function Regions() {
                         <td className={"border border-red-200 p-2"}>
                             <button className={"p-2 border border-red-200 rounded hover:bg-gray-200 transition"}
                                     onClick={() => handleDelete(a.id)}><GrTrash fontSize="1.5em"/></button>
+                            <button className={"p-2 border border-red-200 rounded hover:bg-gray-200 transition"}
+                                    onClick={() => handlePressItemEdit("update", a)}><GrEdit fontSize="1.5em"/></button>
                         </td>
                     </tr>)
                 })}

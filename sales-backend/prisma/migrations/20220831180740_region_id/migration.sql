@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Region" ADD COLUMN     "regionId" INTEGER NOT NULL DEFAULT 102;

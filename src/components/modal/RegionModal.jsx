@@ -1,7 +1,17 @@
 import React, {useEffect, useState} from "react"
-import {Box, Button, Modal, TextField, Typography, useMediaQuery, useTheme} from "@mui/material";
-import {toast} from "react-toastify";
+import {
+    Box,
+    Button,
+    Modal,
+    TextField,
+    Typography,
+    useMediaQuery,
+    useTheme
+} from "@mui/material";
 import regions from "../../api/projectApi/regions";
+import Select from "react-select";
+import hotelsTownLists from "../../constants/hotelsTownLists";
+import {toast} from "react-toastify";
 
 const style = {
     position: 'absolute',
@@ -21,20 +31,56 @@ const RegionModal = ({open, handleClose, type, values, setRegions}) => {
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
     const [data, setData] = useState({
         name: '',
+        regionId: null,
         ...values,
     })
 
     useEffect(() => {
         if (open) {
-            setData(values)
+            let id = values?.regionId
+            let a
+            for (let i = 0; i < hotelsTownLists.length; i++) {
+                if (hotelsTownLists[i].id === id) {
+                    a = hotelsTownLists[i]
+                    break;
+                }
+            }
+            setData({
+                name: '',
+                ...values,
+                regionId: a?.id ? {
+                    value: a?.id,
+                    label: a?.title
+                } : null,
+            })
         }
     }, [values])
 
     const handlePressSubmit = () => {
-        regions.addNew({name: data.name}).then(res => setRegions(prev => [...prev, res.data.result]))
+        if (type === "create") {
+            regions.addNew({
+                name: data.name,
+                regionId: data.regionId?.value
+            }).then(res => {
+                regions.getAllRegions().then(res => setRegions(res.data.result))
+            }).catch(e => {
+                toast(e.message, {type: "error"})
+            })
+        } else {
+            regions.update(data.id, {
+                name: data.name,
+                regionId: data.regionId?.value
+            }).then(res => {
+                regions.getAllRegions().then(res => setRegions(res.data.result))
+            }).catch(e => {
+                toast(e.message, {type: "error"})
+            })
+        }
         handleClose();
     }
-
+    const handleChange = (event) => {
+        setData({...data, regionId: event});
+    };
     return (
         <div>
             <Modal
@@ -50,12 +96,23 @@ const RegionModal = ({open, handleClose, type, values, setRegions}) => {
                     <Box style={{marginTop: 8}}>
                         <Box style={{marginTop: 4}}>
                             <TextField
-                                value={values.name}
+                                value={data.name}
                                 style={{width: "100%"}}
                                 className={"p-3"}
                                 variant={"outlined"}
                                 placeholder={"Name and short name"}
-                                onChange={(event) => setData({...values, name: event.target.value})}
+                                onChange={(event) => setData({...data, name: event.target.value})}
+                            />
+                        </Box>
+                    </Box>
+                    <Box style={{marginTop: 8}}>
+                        <Box style={{marginTop: 4}}>
+                            <Select
+                                // defaultValue={data.regionId.}
+                                value={data.regionId}
+                                label="Region"
+                                onChange={handleChange}
+                                options={hotelsTownLists.map(e => ({value: e.id, label: e.title}))}
                             />
                         </Box>
                     </Box>

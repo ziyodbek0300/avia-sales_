@@ -16,25 +16,26 @@ function TourPack() {
     useEffect(() => {
         let arr = [];
         let all = [];
-        // regions.getAllRegions().then(regions => {
-        //     setRegionsList(regions.data.result[0].map(reg => {
-        //         return {value: reg.name, label: reg.name}
-        //     }));
-        //     regions.data.result[0].forEach(reg => {
-        //         flightsList.forEach(item => {
-        //             if (item.fromId === reg.id) {
-        //                 arr.push({...item, fromName: reg.name});
-        //             }
-        //         })
-        //     })
-        //     regions.data.result[0].forEach(reg => {
-        //         arr.forEach(item => {
-        //             if (item.toId === reg.id) {
-        //                 all.push({...item, toName: reg.name});
-        //             }
-        //         })
-        //     })
-        // });
+        regions.getAllRegions().then(regions => {
+            console.log(regions.data.result)
+            setRegionsList(regions.data.result.map(reg => {
+                return {value: reg.name, label: reg.name}
+            }));
+            regions.data.result.forEach(reg => {
+                flightsList.forEach(item => {
+                    if (item.fromId === reg.id) {
+                        arr.push({...item, fromName: reg.name});
+                    }
+                })
+            })
+            regions.data.result.forEach(reg => {
+                arr.forEach(item => {
+                    if (item.toId === reg.id) {
+                        all.push({...item, toName: reg.name});
+                    }
+                })
+            })
+        });
         setFlightsList(all);
     }, []);
 

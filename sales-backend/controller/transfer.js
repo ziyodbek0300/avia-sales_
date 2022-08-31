@@ -3,11 +3,6 @@ const userRole = require("../constants/userRole");
 const {PrismaClient} = require("@prisma/client")
 const prisma = new PrismaClient()
 
-
-const searchTour =async (req, res, next) => {
-
-}
-
 const del = async (req, res, next) => {
     try {
         if (!req.user || req.user.role === userRole.client || req.user.role === userRole.agent) {
@@ -18,7 +13,7 @@ const del = async (req, res, next) => {
                 return res.status(401).send(ErrorSend(401, {}, "no user"))
             }
         }
-        Promise.all([prisma.flight.deleteMany({where: {id: +req.params.id}})])
+        Promise.all([prisma.transfer.deleteMany({where: {id: +req.params.id}})])
             .then(r => {
                 if (r[0]?.count >0) {
                     return res.status(200).send(Success(200, true, "ok"))
@@ -38,7 +33,7 @@ const del = async (req, res, next) => {
 const getOne = async (req, res, next) => {
     try {
 
-        prisma.flight.findUnique({where: {id: req.params.id}})
+        prisma.transfer.findUnique({where: {id: req.params.id}})
             .then(r => {
                 return res.status(200).send(Success(200, r, "ok"))
             })
@@ -52,7 +47,7 @@ const getOne = async (req, res, next) => {
 
 const getAll = async (req, res, next) => {
     try {
-        prisma.flight.findMany({})
+        prisma.transfer.findMany({})
             .then(r => {
                 return res.status(200).send(Success(200, r, "ok"))
             })
@@ -73,9 +68,10 @@ const update = async (req, res, next) => {
                 return res.status(404).send(ErrorSend(404, {}, "no user"))
             }
         }
-        prisma.flight.update({where: {id: +req.params.id}, data: req.body}).then(r => {
+        prisma.transfer.update({where: {id: +req.params.id}, data: req.body}).then(r => {
                 res.status(200).send(Success(200, r, "ok"))
         }).catch(e => {
+            console.log(e)
             res.status(404).send(ErrorSend(404, e, e.message))
         })
     } catch (e) {
@@ -92,7 +88,7 @@ const addNew = async (req, res, next) => {
                 return res.status(404).send(ErrorSend(404, {}, "no user"))
             }
         }
-        prisma.flight.create({data: req.body}).then(r => {
+        prisma.transfer.create({data: req.body}).then(r => {
             res.status(200).send(Success(200, r, "ok"))
         }).catch(e => {
             console.log(e)
@@ -104,5 +100,5 @@ const addNew = async (req, res, next) => {
 }
 
 module.exports = {
-    getAll, getOne, del, update, addNew,searchTour
+    getAll, getOne, del, update, addNew
 }

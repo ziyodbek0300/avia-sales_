@@ -1,7 +1,7 @@
 const userRole = {
     admin: "admin",
     agent: "agent",
-    client:"client"
+    client: "client"
 }
 
-module.exports=userRole
+module.exports = userRole
