@@ -10,7 +10,7 @@ function FormExample({setPassagers, passagers, index}) {
                 <label htmlFor="surname" className={"w-full block"}>Фамилия</label>
                 <input type="text" id={"surname"}
                        onInput={(e) => {
-                           let a = passagers
+                           let a = passagers;
                            a[index].first_name = e.target.value
                            setPassagers(a)
                        }}
@@ -20,7 +20,7 @@ function FormExample({setPassagers, passagers, index}) {
                 <label htmlFor="last_name" className={"w-full block"}>Имя</label>
                 <input type="text" id={"last_name"}
                        onInput={(e) => {
-                           let a = passagers
+                           let a = passagers;
                            a[index].last_name = e.target.value
                            setPassagers(a)
                        }}
@@ -33,7 +33,7 @@ function FormExample({setPassagers, passagers, index}) {
                         value: "russian", label: "Russia"
                     }]}
                     onChange={(e) => {
-                        let a = passagers
+                        let a = passagers;
                         a[index].from = e.value
                         setPassagers(a)
                     }}
@@ -56,7 +56,7 @@ function FormExample({setPassagers, passagers, index}) {
             </div>
             <div className={"py-3 w-full lg:pr-10"}>
                 <label htmlFor="last_name" className={"w-full block"}>Дата рождение</label>
-                <input type="date" id={"birthday"}
+                <input required type="date" id={"birthday"}
                        onInput={(e) => {
                            let a = passagers
                            a[index].birthday = e.target.value
@@ -66,7 +66,7 @@ function FormExample({setPassagers, passagers, index}) {
             </div>
             <div className={"py-3 w-full lg:pr-10"}>
                 <label htmlFor="sNum" className={"w-full block"}>Серия и № паспорта</label>
-                <input type="text" id={"sNum"}
+                <input required type="text" id={"sNum"}
                        onInput={(e) => {
                            let a = passagers
                            a[index].sNum = e.target.value
@@ -76,7 +76,7 @@ function FormExample({setPassagers, passagers, index}) {
             </div>
             <div className={"py-3 w-full lg:pr-10"}>
                 <label htmlFor="date3" className={"w-full block"}>Срок действия</label>
-                <input type="date" id={"date3"}
+                <input required type="date" id={"date3"}
                        onInput={(e) => {
                            let a = passagers
                            a[index].date3 = e.target.value

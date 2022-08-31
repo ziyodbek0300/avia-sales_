@@ -24,6 +24,8 @@ import Details from "./containers/details";
 import PartnerOrders from "./containers/partnerOrders";
 import TransfersDetail from "./containers/details/TransfersDetail";
 import HotelOrder from "./containers/hotelOrder";
+import Result from "./containers/details/Result";
+import Transfers from "./containers/transfers";
 
 function App() {
     const dispatch = useDispatch()
@@ -51,6 +53,9 @@ function App() {
                                     <Route path="/about-us" element={<About/>}/>
                                     <Route path="/where-are-we" element={<Where/>}/>
                                     <Route path="/for-partners" element={<ForPartners/>}/>
+                                    <Route path="/details/:id" element={<Details/>}/>
+                                    <Route path="/transferDetails/:id" element={<TransfersDetail/>}/>
+                                    <Route path="/transferDetails/result" element={<Result/>}/>
                                     <Route path="hotel/order/:hotelId/:id" element={<HotelOrder/>}/>
                                     {(users?.role === userRole.agent) ? (
                                         <>
@@ -77,7 +82,9 @@ function App() {
                                         <Route path="/where-are-we" element={<Where/>}/>
                                         <Route path="/for-partners" element={<ForPartners/>}/>
                                         <Route path="/details/:id" element={<Details/>}/>
+                                        <Route path="/transfersList" element={<Transfers/>}/>
                                         <Route path="/transferDetails/:id" element={<TransfersDetail/>}/>
+                                        <Route path="/transferDetails/result" element={<Result/>}/>
                                         <Route path="hotel/order/:hotelId/:id" element={<HotelOrder/>}/>
                                         <Route path={"/"} element={<AdminNavbar/>}>
                                             <Route path={"/"} element={<Navigate to={"/users"}/>}/>

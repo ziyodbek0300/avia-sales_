@@ -80,6 +80,10 @@ code {
   background-image: url("./static/images/bg_2.jpg");
 }
 
+.sixtrh {
+  background-image: url("./static/images/transfer.jpg");
+}
+
 .third {
   background-position: 10% 60% !important;
   background-image: url("./static/images/bg_3.jpg");
