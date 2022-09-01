@@ -39,6 +39,7 @@ function Flights() {
             typeModal: type, openModal: true, values: item
         })
     }
+
     return (<div>
         <div className="max-w-5xl m-auto p-5">
             <div className={"text-right py-3"}>

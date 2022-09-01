@@ -26,6 +26,8 @@ import TransfersDetail from "./containers/details/TransfersDetail";
 import HotelOrder from "./containers/hotelOrder";
 import Result from "./containers/details/Result";
 import Transfers from "./containers/transfers";
+import VisaDetails from "./containers/details/VisaDetails";
+import Visas from "./containers/visas";
 
 function App() {
     const dispatch = useDispatch()
@@ -56,6 +58,7 @@ function App() {
                                     <Route path="/details/:id" element={<Details/>}/>
                                     <Route path="/transferDetails/:id" element={<TransfersDetail/>}/>
                                     <Route path="/transferDetails/result" element={<Result/>}/>
+                                    <Route path="visaDetails/:id" element={<VisaDetails/>}/>
                                     <Route path="hotel/order/:hotelId/:id" element={<HotelOrder/>}/>
                                     {(users?.role === userRole.agent) ? (
                                         <>
@@ -82,7 +85,6 @@ function App() {
                                         <Route path="/where-are-we" element={<Where/>}/>
                                         <Route path="/for-partners" element={<ForPartners/>}/>
                                         <Route path="/details/:id" element={<Details/>}/>
-                                        <Route path="/transfersList" element={<Transfers/>}/>
                                         <Route path="/transferDetails/:id" element={<TransfersDetail/>}/>
                                         <Route path="/transferDetails/result" element={<Result/>}/>
                                         <Route path="hotel/order/:hotelId/:id" element={<HotelOrder/>}/>
@@ -97,7 +99,10 @@ function App() {
                                             <Route path="where-are-we" element={<Where/>}/>
                                             <Route path="for-partners" element={<ForPartners/>}/>
                                             <Route path="regions" element={<Regions/>}/>
+                                            <Route path="/transfersList" element={<Transfers/>}/>
                                             <Route path="flights" element={<Flights/>}/>
+                                            <Route path="/visasList" element={<Visas/>}/>
+                                            <Route path="visaDetails/:id" element={<VisaDetails/>}/>
                                             <Route path={"*"} element={<div>Not found</div>}/>
                                         </Route>
                                     </Routes>

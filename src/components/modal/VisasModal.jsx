@@ -24,7 +24,7 @@ const style = {
     borderRadius: 5
 };
 
-function FlightsModal({open, handleClose, type, values, setRegions}) {
+function VisasModal({open, handleClose, type, values, setRegions}) {
     const theme = useTheme();
     const dispatch = useDispatch();
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
@@ -168,4 +168,4 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
     </div>);
 }
 
-export default FlightsModal;
+export default VisasModal;
