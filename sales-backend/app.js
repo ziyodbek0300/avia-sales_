@@ -11,6 +11,7 @@ const flight = require('./routes/flight');
 const order = require('./routes/order');
 const transfer = require('./routes/transfer');
 const registration = require('./routes/registration');
+const visa = require('./routes/visa');
 const auth = require("./service/auth")
 const app = express();
 
@@ -32,5 +33,6 @@ app.use('/region', region);
 app.use('/flight', flight);
 app.use('/order', order);
 app.use('/transfer', transfer);
+app.use('/visa', visa);
 
 module.exports = app;

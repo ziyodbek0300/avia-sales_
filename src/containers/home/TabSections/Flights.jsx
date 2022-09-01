@@ -43,7 +43,7 @@ function Flights() {
     }, []);
 
     const showTickets = () => {
-        console.log(from.label, flights[0].fromName);
+        // console.log(from.label, flights[0].fromName);
         // eslint-disable-next-line array-callback-return
         flights.map(flight => {
             if (flight.fromName === from.label && flight.toName === to.label) {

@@ -17,7 +17,6 @@ const reducer = (state = initialState, action) => {
             }
         }
         case constants.getAll: {
-            console.log(action)
             return {
                 ...state,
                 flights: action.all

@@ -38,7 +38,6 @@ const RenderItem = ({e}) => {
                     loading: false,
                     data: data.data,
                 })
-                console.log(data.data)
             } else {
                 toast("Get error", {type: 'warning'})
             }
@@ -145,7 +144,6 @@ function Hotels() {
     const handlePressFind = () => {
         hotel.getHotels(values.town)
             .then(r => {
-                // setHotels(r.data?.Response?.Data[0]?.hotel)
                 setHotels(r.data)
             })
             .catch(e => {
@@ -291,7 +289,11 @@ function Hotels() {
             </div>
             <div className="max-w-5xl mx-auto flex flex-col gap-3">
                 {hotels.map(e => {
-                    return e.status !== 'D' && e.name !== "" && e.name?.toLowerCase() !== "unknown hotel" && e.name !== undefined && (
+                    if (!(e.status !== 'D' && e.name !== "" && e.name?.toLowerCase() !== "unknown hotel" && e.name !== undefined)) {
+                        return null;
+                    }
+                    console.log(e.dataa)
+                    return (
                         <RenderItem e={e}/>
                     )
                 })}

@@ -17,7 +17,7 @@ const AssignAdmin = ({value, setValue = () => ({})}) => {
                         setA({id: e.id, label: e.fullName||""})
                     }
                 })
-                console.log(newData)
+                // console.log(newData)
                 setAdmins(newData)
             })
             .catch(() => {

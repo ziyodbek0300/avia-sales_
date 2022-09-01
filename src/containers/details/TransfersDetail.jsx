@@ -56,8 +56,13 @@ function TransfersDetail() {
             description: comment,
             passengers: pass,
         }
+<<<<<<< HEAD
         transfers.addNew(obj).then(response => {
             console.log(response);
+=======
+        order.addNew(obj).then(response => {
+            // console.log(response);
+>>>>>>> 2fa2663e396e75c5011b14b1844b5b52a39e6049
             toast("Забронирован")
         }).catch(err => {
             console.log(err);
@@ -65,6 +70,11 @@ function TransfersDetail() {
 
     }
 
+<<<<<<< HEAD
+=======
+    // console.log("Hello World")
+
+>>>>>>> 2fa2663e396e75c5011b14b1844b5b52a39e6049
     return (<div className={"max-w-5xl mx-auto lg:p-0 px-4"}>
         <div className={"py-3"}>
             <h3>Заказать трансфер</h3>
