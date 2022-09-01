@@ -56,7 +56,7 @@ function TransfersDetail() {
             passengers: pass,
         }
         order.addNew(obj).then(response => {
-            console.log(response);
+            // console.log(response);
             toast("Забронирован")
         }).catch(err => {
             console.log(err);
@@ -64,7 +64,7 @@ function TransfersDetail() {
 
     }
 
-    console.log("Hello World")
+    // console.log("Hello World")
 
     return (<div className={"max-w-5xl mx-auto lg:p-0 px-4"}>
         <div className={"py-3"}>

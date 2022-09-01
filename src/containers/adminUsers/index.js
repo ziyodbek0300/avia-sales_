@@ -137,7 +137,7 @@ export default function AdminUsers() {
     }
 
     const handlePressItemEdit = (type, item) => {
-        console.log(item)
+        // console.log(item)
         setUserModal({
             typeModal: type,
             openModal: true,

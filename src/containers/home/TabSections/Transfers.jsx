@@ -31,7 +31,7 @@ function Transfers() {
     })
 
     const transfer = () => {
-        console.log(adults, infant, children)
+        // console.log(adults, infant, children)
         let price = 100;
         let countPassegers = +adults + +children;
         // eslint-disable-next-line no-mixed-operators

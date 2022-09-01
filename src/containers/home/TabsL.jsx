@@ -10,6 +10,10 @@ import Flights from "./TabSections/Flights";
 import Visas from "./TabSections/Visas";
 import Transfers from "./TabSections/Transfers";
 import ExcursionTours from './TabSections/ExcursionTours';
+import {useLocation} from "react-router-dom";
+
+const useQuery = () => new URLSearchParams(useLocation().search);
+
 
 function TabsL() {
     return (
