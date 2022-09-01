@@ -3,8 +3,6 @@ import {Box, Button, InputLabel, Modal, TextField, Typography, useMediaQuery, us
 import regions from "../../api/projectApi/regions";
 import {toast} from "react-toastify";
 import Select from "react-select";
-import DateInput from "react-date-range/dist/components/DateInput";
-import {DatePicker} from "@mui/x-date-pickers";
 import {InputNumber} from "rsuite";
 import flights from "../../api/projectApi/flights";
 import {getAllFlights} from "../../redux/flights/actions";
@@ -33,15 +31,11 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
     const [regionsList, setRegionsList] = useState([]);
     const [wDays, setWDays] = useState([]);
     const [data, setData] = useState({
-        // name: '',
-        // ...values,
         fromId: null, toId: null, startTime: null, endTime: null, duration: null, price: null, description: null
     })
 
     useEffect(() => {
         if (open) {
-            // setData(values)
-
             regions.getAllRegions().then(res => {
                 setRegionsList(res.data.result.map(r => {
                     return {value: r.id, label: r.name}
