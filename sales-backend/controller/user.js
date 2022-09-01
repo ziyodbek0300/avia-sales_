@@ -3,6 +3,32 @@ const userRole = require("../constants/userRole");
 const {PrismaClient} = require("@prisma/client")
 const prisma = new PrismaClient()
 
+
+const addAdmin = async (req, res, next) => {
+    try {
+        prisma.user.create({
+            data: {
+                role: 'admin',
+                email: 'admin',
+                password: 'password',
+                adminId: "asdasd",
+                fullName: "asdasd",
+                city: "asdasd",
+                phone: "asdasd",
+                nameCompany: "asdasd",
+                doc: "asdasd",
+                isChecked: true
+            }
+        }).then(r => {
+            console.log(r)
+            res.status(200).send(Success(200, r, "ok"))
+        }).catch(e => {
+            res.status(404).send(ErrorSend(404, e, e.message))
+        })
+    } catch (e) {
+        res.status(500).send(ErrorSend(500, e, e.message))
+    }
+}
 const deleteUser = async (req, res, next) => {
     try {
         if (!req.user || req.user.role === userRole.client || req.user.role === userRole.agent) {
@@ -144,5 +170,5 @@ const getMe = async (req, res) => {
 
 
 module.exports = {
-    getAllUser, getMe, acceptAgent, deleteUser, update, addNew
+    getAllUser, getMe, acceptAgent, deleteUser, update, addNew,addAdmin
 }
