@@ -7,6 +7,10 @@ const qs = require("qs")
 const _ = require("lodash")
 const starConst = require("../constants/starConst");
 const htplace = require("../constants/hotelsTownLists");
+const sprice = require("../constants/sprice");
+const fs = require("fs");
+const hprice = require("../constants/hprice");
+const roomNames = require("../constants/room");
 
 router.get('/', async function (req, res) {
     res.render('index', {title: 'express'});
@@ -36,7 +40,9 @@ router.post('/getHotels/:townId', async function (req, res) {
         .then(r => {
             parseString(r[0].data, function (err, result) {
                 const token = result.Response.Data[0].Result[0]['$'].partner_token
-                Promise.all([axios.get(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&partner_token=${token}&form=http://samo.travel&type=hotel&state=${req.params.townId}`)])
+                Promise.all([
+                    axios.get(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&partner_token=${token}&form=http://samo.travel&type=hotel&state=${req.params.townId}`),
+                ])
                     .then(r => {
                         parseString(r[0].data, function (err, result) {
                             const newData = result.Response.Data[0].hotel
@@ -52,34 +58,104 @@ router.post('/getHotels/:townId', async function (req, res) {
                                             break;
                                         }
                                     }
-                                    let name = null;
-                                    let l1 = htplace.length
-                                    // let l2 = newData2.length
-                                    for (let i = 0; i < l1; i++) {
-                                        let a = htplace[i]
-                                        if (
-                                            a.inc === item.htplace &&
-                                            a.status !== "D" &&
-                                            !(a.adult === "0" &&
-                                                a.child === "0" &&
-                                                a.infant === "0" &&
-                                                a.pcount === "0")
-                                        ) {
-                                            name = a
+                                    // let name = null;
+                                    // let l1 = htplace.length
+                                    let l2 = sprice.length
+                                    // for (let i = 0; i < l1; i++) {
+                                    //     let a = htplace[i]
+                                    //     if (
+                                    //         a.inc === item.htplace
+                                    //     ) {
+                                    //         name = a
+                                    //         break;
+                                    //     }
+                                    // }
+
+                                    let sprice1 = null
+                                    for (let i = 0; i < l2; i++) {
+                                        let a
+                                        try {
+                                            a = sprice[i]
+                                        } catch (e) {
+
+                                        }
+                                        if (a?.hotel === item.inc) {
+                                            sprice1 = a
+                                            console.log(a)
                                             break;
                                         }
                                     }
-                                    // r.dataa = name
                                     return {
                                         ...item,
                                         starCount: a,
-                                        dataa: name
+                                        // dataa: name,
+                                        sprice: sprice1
                                     }
                                 }).filter(e => {
-                                    return e.dataa !== null
+                                    return e.dataa !== null && e.sprice !== null
+                                }).map(r => {
+                                    const hp = hprice.filter(h => {
+                                        return h.hotel === r.inc
+                                    }).map(r => {
+                                        console.log(r)
+                                        let name = {
+                                            name: "",
+                                            lname: ""
+                                        };
+                                        for (let i = 0; i < roomNames.length; i++) {
+                                            let a = roomNames[i]
+                                            if (a.inc === r.room) {
+                                                name = {
+                                                    name: a.name,
+                                                    lname: a.lname,
+                                                }
+                                                break;
+                                            }
+                                        }
+                                        r.name = name.name
+                                        r.lname = name.lname
+                                        return r
+                                    })
+                                    let changedData = _.unionBy(hp, function (e) {
+                                        return e.room
+                                    }).map(r => {
+                                        let name = {
+                                            name: "",
+                                            lname: ""
+                                        };
+                                        let l1 = htplace.length
+                                        let l2 = sprice.length
+                                        for (let i = 0; i < l1; i++) {
+                                            let a = htplace[i]
+                                            if (a.in === r.htplace) {
+                                                name = a
+                                                break;
+                                            }
+                                        }
+                                        r.dataa = name
+                                        let sprice1 = null
+                                        for (let i = 0; i < l2; i++) {
+                                            let a
+                                            try {
+                                                a = sprice[i]
+                                            } catch (e) {
+                                            }
+                                            if (a?.hotel === r.hotel) {
+                                                sprice1 = a
+                                                break;
+                                            }
+                                        }
+                                        r.sprice = sprice1
+                                        return r
+                                    })
+                                    return {
+                                        ...r,
+                                        dataa: changedData
+                                    }
                                 })
                             res.send(newData)
                         });
+
                     })
                     .catch(e => {
                         res.status(404).send(ErrorSend(404, e, e.message))
@@ -125,6 +201,27 @@ router.post('/getHotelsPrice/:townId', async function (req, res) {
             res.status(404).send(ErrorSend(404, e, e.message))
         })
 })
+
+// fs.write()
+// fs.crea
+// Promise.all([
+//     axios.post(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&form=http://samo.travel&type=room`),
+// ])
+//     .then(r => {
+//         parseString(r[0].data, function (err, result) {
+//             fs.writeFile("books.json", JSON.stringify(result), (err) => {
+//                 if (err)
+//                     console.log(err);
+//                 else {
+//                     console.log("File written successfully\n");
+//                     console.log("The written has the following contents:");
+//                     console.log(fs.readFileSync("books.txt", "utf8"));
+//                 }
+//             });
+//         })
+//     })
+
+
 router.post('/getPrice/:hotelId', async function (req, res) {
     Promise.all([
         axios.post(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=auth`,
@@ -194,23 +291,29 @@ router.post('/getPrice/:hotelId', async function (req, res) {
                                         lname: ""
                                     };
                                     let l1 = htplace.length
-                                    // let l2 = newData2.length
+                                    let l2 = sprice.length
                                     for (let i = 0; i < l1; i++) {
                                         let a = htplace[i]
-                                        if (a.inc === r.htplace) {
+                                        if (a.in === r.htplace) {
                                             name = a
                                             break;
                                         }
                                     }
                                     r.dataa = name
-                                    // for (let i = 0; i < l2; i++) {
-                                    //     let a = newData2[i]
-                                    //     if (a.inc === r.htplace) {
-                                    //         name = a
-                                    //         break;
-                                    //     }
-                                    // }
-                                    // r.dataa = name
+                                    let sprice1 = null
+                                    for (let i = 0; i < l2; i++) {
+                                        let a
+                                        try {
+                                            a = sprice[i]
+                                        } catch (e) {
+
+                                        }
+                                        if (a?.hotel === r.hotel) {
+                                            sprice1 = a
+                                            break;
+                                        }
+                                    }
+                                    r.sprice = sprice1
                                     return r
                                 })
                                 res.send(changedData)

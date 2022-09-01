@@ -62,6 +62,35 @@ model Flight {
   weekDays    Int[]
 }
 
+model VisaPassenger {
+  id             Int       @id @default(autoincrement())
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  lastname       String?
+  firtname       String?
+  nationality    String?
+  gender         Gender?
+  birthday       DateTime?
+  passportNumber String?
+  endDate        DateTime?
+  visa           Visa?     @relation(fields: [visaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  visaId         Int?
+}
+
+model Visa {
+  id            Int             @id @default(autoincrement())
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  visaType      String
+  date          DateTime
+  location      String
+  phone         String
+  name          String
+  price         Float
+  passengers    Int[]
+  VisaPassenger VisaPassenger[]
+}
+
 model Passenger {
   id             Int      @id @default(autoincrement())
   createdAt      DateTime @default(now())
@@ -88,7 +117,7 @@ model HotelPassenger {
   birthday       DateTime
   passportNumber String
   endDate        DateTime
-  hotelOrder     HotelOrder? @relation(fields: [hotelOrderId], references: [id])
+  hotelOrder     HotelOrder? @relation(fields: [hotelOrderId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   hotelOrderId   Int?
 }
 
@@ -103,7 +132,7 @@ model TransferPassenger {
   birthday       DateTime
   passportNumber String
   endDate        DateTime
-  hotelOrder     HotelOrder? @relation(fields: [hotelOrderId], references: [id])
+  hotelOrder     HotelOrder? @relation(fields: [hotelOrderId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   hotelOrderId   Int?
 }
 
@@ -145,8 +174,6 @@ model HotelOrder {
   id                Int                 @id @default(autoincrement())
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
-  //  partner     User        @relation(fields: [partnerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  //  passager    HotelPassenger[]
   HotelPassenger    HotelPassenger[]
   TransferPassenger TransferPassenger[]
 }

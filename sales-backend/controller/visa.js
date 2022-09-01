@@ -13,7 +13,7 @@ const del = async (req, res, next) => {
                 return res.status(401).send(ErrorSend(401, {}, "no user"))
             }
         }
-        Promise.all([prisma.transfer.deleteMany({where: {id: +req.params.id}})])
+        Promise.all([prisma.visa.deleteMany({where: {id: +req.params.id}})])
             .then(r => {
                 if (r[0]?.count > 0) {
                     return res.status(200).send(Success(200, true, "ok"))
@@ -30,14 +30,15 @@ const del = async (req, res, next) => {
     }
 }
 
-const getOne = async (req, res, next) => {
+const getOne = async (req, res) => {
     try {
 
-        prisma.transfer.findUnique({where: {id: req.params.id}})
+        prisma.visa.findUnique({where: {id: +req.params.id}})
             .then(r => {
                 return res.status(200).send(Success(200, r, "ok"))
             })
             .catch(e => {
+                console.log(e)
                 return res.status(404).send(ErrorSend(404, e, e.message))
             })
     } catch (e) {
@@ -47,7 +48,7 @@ const getOne = async (req, res, next) => {
 
 const getAll = async (req, res, next) => {
     try {
-        prisma.transfer.findMany({})
+        prisma.visa.findMany({})
             .then(r => {
                 return res.status(200).send(Success(200, r, "ok"))
             })
@@ -68,7 +69,7 @@ const update = async (req, res, next) => {
                 return res.status(404).send(ErrorSend(404, {}, "no user"))
             }
         }
-        prisma.transfer.update({where: {id: +req.params.id}, data: req.body}).then(r => {
+        prisma.visa.update({where: {id: +req.params.id}, data: req.body}).then(r => {
             res.status(200).send(Success(200, r, "ok"))
         }).catch(e => {
             console.log(e)
@@ -92,24 +93,35 @@ const addNew = async (req, res, next) => {
         const orderBody = req.body
         const passagers = orderBody?.passengers
         delete orderBody?.passengers
-        let transfer = await prisma.transfer.create({data: orderBody}).catch(e => {
+        let transfer = await prisma.visa.create({data: orderBody}).catch(e => {
+            console.log(e)
             res.status(400).send(ErrorSend(400, e, e.message))
         })
         // console.log("transfer",transfer.id)
         const passenger = await prisma.$transaction(
             passagers?.map(r => {
-                return prisma.transferPassenger.create({
+                return prisma.visaPassenger.create({
                     data: {
-                        ...r,
+                        lastname:r.lastname,
+                        firtname:r.firtname,
+                        nationality:r.nationality,
+                        gender:r.gender,
+                        birthday:r.birthday,
+                        passportNumber:r.passportNumber,
+                        endDate:r.endDate,
+                        hotelOrder:r.hotelOrder,
+                        visaId:r.visaId,
+                        // ...r,
                         // hotelOrderId: +transfer.id,
                     }
                 })
             }),
         ).catch(e=>{
+            console.log(e)
             res.status(400).send(ErrorSend(400, e, e.message))
         })
 
-        transfer = await prisma.transfer.update({
+        transfer = await prisma.visa.update({
             data: {
                 passengers: passenger.map(r => {
                     return r.id
