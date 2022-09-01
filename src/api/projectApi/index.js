@@ -1,8 +1,8 @@
 import axios from "axios";
 import Cookies from 'js-cookie';
 
-// export const MainApi = "http://travelcontinent.uz/api";
-export const MainApi = "http://localhost";
+export const MainApi = "http://travelcontinent.uz/api";
+// export const MainApi = "http://localhost";
 // export const MainApi = "http://192.168.31.74";
 
 const instance = axios.create({
