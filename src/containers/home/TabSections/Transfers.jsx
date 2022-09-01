@@ -30,13 +30,8 @@ function Transfers() {
         return {value: a.id, label: a.title}
     })
 
-<<<<<<< HEAD
     const transfer = (e) => {
         e.preventDefault();
-=======
-    const transfer = () => {
-        // console.log(adults, infant, children)
->>>>>>> 2fa2663e396e75c5011b14b1844b5b52a39e6049
         let price = 100;
         let countPassegers = +adults + +children;
         // eslint-disable-next-line no-mixed-operators
