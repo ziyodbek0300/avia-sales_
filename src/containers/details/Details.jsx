@@ -131,7 +131,7 @@ function Details() {
                 <div className={"border border-red-300 p-5 mb-3 rounded-lg"}>
                     <div
                         className={"flex justify-between lg:flex-row flex-col lg:flex-row flex-col gap-5  items-center"}>
-                        <p>{moment(JSON.parse(localStorage.getItem("flight")).departureTime).format("MM:DD:YYYY HH:MM")} по
+                        <p>{moment(JSON.parse(localStorage.getItem("flight")).departureTime).format("MM:DD:YYYY HH:mm")} по
                             Ташкентскому времени</p>
                         <div className={"flex justify-center flex-col gap-3"}>
                             <p><span

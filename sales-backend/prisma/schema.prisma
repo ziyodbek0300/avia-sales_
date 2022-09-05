@@ -48,18 +48,31 @@ model Region {
 }
 
 model Flight {
-  id          Int      @id @default(autoincrement())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  fromId      Float
-  toId        Float
-  startTime   DateTime
-  endTime     DateTime
-  duration    Float
-  price       Float
-  description String
-  Order       Order[]
-  weekDays    Int[]
+  id              Int      @id @default(autoincrement())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  fromId          Float
+  toId            Float
+  startTime       DateTime
+  endTime         DateTime
+  duration        Float
+  price           Float
+  description     String
+  Order           Order[]
+  weekDays        Int[]
+  isWithReturn    Boolean  @default(false)
+  returnStartTime DateTime?
+  returnEndTime   DateTime?
+}
+
+model ExcursionTour {
+  id              Int      @id @default(autoincrement())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  from String
+  to String
+  isWithReturn Boolean @default(false)
+
 }
 
 model VisaPassenger {

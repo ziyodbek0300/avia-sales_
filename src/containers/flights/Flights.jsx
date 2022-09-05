@@ -68,9 +68,9 @@ function Flights() {
                         <td className={"border border-red-200 p-2"}>{a?.fromName} - {a?.toName}</td>
                         <td className={"border border-red-200 p-2"}>{a.price} $</td>
                         <td className={"border border-red-200 p-2"}>{Math.floor(a.duration / 60) + ':' + a.duration % 60}</td>
-                        <td className={"border border-red-200 p-2"}>{moment(a.startTime).format("HH:MM")}</td>
-                        <td className={"border border-red-200 p-2"}>{moment(a.endTime).format("HH:MM")}</td>
-                        <td className={"border border-red-200 p-2"}>{moment(a.createdAt).format("MMMM DD YYYY HH:MM")}</td>
+                        <td className={"border border-red-200 p-2"}>{moment(a.startTime).format("HH:mm")}</td>
+                        <td className={"border border-red-200 p-2"}>{moment(a.endTime).format("HH:mm")}</td>
+                        <td className={"border border-red-200 p-2"}>{moment(a.createdAt).format("MMMM DD YYYY HH:mm")}</td>
                         <td className={"border border-red-200 p-2"}>
                             <button className={"p-2 border border-red-200 rounded hover:bg-gray-200 transition"}
                                     onClick={() => handleDelete(a.id)}><GrTrash fontSize="1.5em"/></button>

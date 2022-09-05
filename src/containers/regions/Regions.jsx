@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import regions from "../../api/projectApi/regions";
 import moment from "moment";
 import {GrEdit, GrTrash} from "react-icons/gr";
-import {userRole} from "../../constants/userRole";
 import RegionModal from "../../components/modal/RegionModal";
 
 function Regions() {
@@ -63,7 +62,7 @@ function Regions() {
                 </tr> : regions_list?.map(a => {
                     return (<tr key={a.id} className={"border border-red-200"}>
                         <td className={"border border-red-200 p-2"}>{a.name}</td>
-                        <td className={"border border-red-200 p-2"}>{moment(a.createdAt).format("MMMM DD YYYY HH:MM")}</td>
+                        <td className={"border border-red-200 p-2"}>{moment(a.createdAt).format("MMMM DD YYYY HH:mm")}</td>
                         <td className={"border border-red-200 p-2"}>
                             <button className={"p-2 border border-red-200 rounded hover:bg-gray-200 transition"}
                                     onClick={() => handleDelete(a.id)}><GrTrash fontSize="1.5em"/></button>

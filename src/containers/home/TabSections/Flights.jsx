@@ -285,7 +285,7 @@ function Flights() {
                             <div className={"flex justify-between"}>
                 <span className={"text-lg"} style={{lineHeight: 1.2}}>
                 <span className={"text-xl font-normal"}
-                      style={{lineHeight: 0}}>{moment(a.startTime).format("HH:MM")}</span><br/>
+                      style={{lineHeight: 0}}>{moment(a.startTime).format("HH:mm")}</span><br/>
                 <span className={"text-xs"}
                       style={{lineHeight: 0}}>{moment(a.startTime).format("DD:MM:YYYY")}</span><br/>
                 <span className={"capitalize"}>{a.fromName}</span>
@@ -298,7 +298,7 @@ function Flights() {
                                 </div>
                                 <span className={"text-lg"} style={{lineHeight: 1.2}}>
                 <span className={"text-xl font-normal"}
-                      style={{lineHeight: 0}}>{moment(a.endTime).format("HH:MM")}</span><br/>
+                      style={{lineHeight: 0}}>{moment(a.endTime).format("HH:mm")}</span><br/>
                 <span className={"text-xs"} style={{lineHeight: 0}}>{moment(a.endTime).format("DD:MM:YYYY")}</span><br/>
                 <span className={"capitalize"}>{a.toName}</span>
                 </span>

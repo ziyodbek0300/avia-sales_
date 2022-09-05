@@ -68,8 +68,8 @@ function Transfers() {
                         <td className={"border border-red-200 p-2"}>{a?.name}</td>
                         <td className={"border border-red-200 p-2"}>{a?.phone}</td>
                         <td className={"border border-red-200 p-2"}>{a.price} $</td>
-                        <td className={"border border-red-200 p-2"}>{moment(a.endTime).format("HH:MM")}</td>
-                        <td className={"border border-red-200 p-2"}>{moment(a.createdAt).format("MMMM DD YYYY HH:MM")}</td>
+                        <td className={"border border-red-200 p-2"}>{moment(a.endTime).format("HH:mm")}</td>
+                        <td className={"border border-red-200 p-2"}>{moment(a.createdAt).format("MMMM DD YYYY HH:mm")}</td>
                         <td className={"border border-red-200 p-2"}>
                             <button className={"p-2 border border-red-200 rounded hover:bg-gray-200 transition"}
                                     onClick={() => handleDelete(a.id)}><GrTrash fontSize="1.5em"/></button>

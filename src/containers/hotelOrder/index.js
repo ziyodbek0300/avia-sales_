@@ -133,7 +133,7 @@ const HotelOrder = () => {
                     <div
                         className={"flex justify-between lg:flex-row flex-col lg:flex-row flex-col gap-5  items-center"}>
                         <p>
-                            {moment(JSON.parse(localStorage.getItem("flight"))?.departureTime).format("MM:DD:YYYY HH:MM")}
+                            {moment(JSON.parse(localStorage.getItem("flight"))?.departureTime).format("MM:DD:YYYY HH:mm")}
                             по Ташкентскому времени
                         </p>
                         <div className={"flex justify-center flex-col gap-3"}>

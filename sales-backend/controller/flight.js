@@ -14,7 +14,6 @@ const prisma = new PrismaClient()
 
 
 const searchTour = async (req, res, next) => {
-
     Promise.all([
         axios.post(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=auth`,
             qs.stringify({
@@ -22,21 +21,6 @@ const searchTour = async (req, res, next) => {
                 passwordDigest: "DfuUuLNhnl13Uu%2FSkJuQYZ9%2B9cr6vmlZ3W9vjPAywgRY7c9elyMp9GHRmwsN%2FPKzCyhacrhHM9Po2JLV1gHgRQ%3D%3D"
             }),
             {headers: {'content-type': 'application/x-www-form-urlencoded'}}),
-        // prisma.flight.findUnique({
-        //     where: {
-        //         // fromId: +req.query.fromId,
-        //         // toId: +req.query.toId,
-        //         // toId: req.query.toId,
-        //         // startTime: {
-        //         //     lte: req.query.endTime,
-        //         //     gte: req.query.startTime,
-        //         // },
-        //         // endTime: {
-        //         //     lte: req.query.endTime,
-        //         //     gte: req.query.startTime,
-        //         // },
-        //     }
-        // })
     ])
         .then(r => {
             parseString(r[0].data, function (err, result) {
@@ -59,18 +43,7 @@ const searchTour = async (req, res, next) => {
                                             break;
                                         }
                                     }
-                                    // let name = null;
-                                    // let l1 = htplace.length
                                     let l2 = sprice.length
-                                    // for (let i = 0; i < l1; i++) {
-                                    //     let a = htplace[i]
-                                    //     if (
-                                    //         a.inc === item.htplace
-                                    //     ) {
-                                    //         name = a
-                                    //         break;
-                                    //     }
-                                    // }
 
                                     let sprice1 = null
                                     for (let i = 0; i < l2; i++) {
@@ -88,13 +61,13 @@ const searchTour = async (req, res, next) => {
                                     return {
                                         ...item,
                                         starCount: a,
-                                        // dataa: name,
                                         sprice: sprice1
                                     }
                                 }).filter(e => {
                                     return e.dataa !== null && e.sprice !== null
                                 }).map(r => {
                                     const hp = hprice.filter(h => {
+                                        console.log(h.hotel,r.inc)
                                         return h.hotel === r.inc
                                     }).map(r => {
                                         let name = {
@@ -115,6 +88,7 @@ const searchTour = async (req, res, next) => {
                                         r.lname = name.lname
                                         return r
                                     })
+                                    console.log(hp)
                                     let changedData = _.unionBy(hp, function (e) {
                                         return e.room
                                     }).map(r => {
