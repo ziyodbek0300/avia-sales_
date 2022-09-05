@@ -84,7 +84,6 @@ function Flights() {
             open={flightModal.openModal}
             handleClose={handleClose}
             values={flightModal.values}
-            // setFlights={setFlights}
         />
     </div>);
 }
