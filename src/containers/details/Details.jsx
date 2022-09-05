@@ -7,14 +7,11 @@ import order from "../../api/projectApi/order";
 import {toast} from "react-toastify";
 import {useSelector} from "react-redux";
 
-// import order from "../../../sales-backend/controller";
-
 function Details() {
     const {id} = useParams();
-    const [adults, setAdults] = useState(id.split('_')[0])
-    const [children, setChildren] = useState(id.split('_')[1])
-    const [infants, setInfants] = useState(id.split('_')[2])
-    // console.log(adults, children, infants)
+    const [adults] = useState(id.split('_')[0])
+    const [children] = useState(id.split('_')[1])
+    const [infants] = useState(id.split('_')[2])
     const [contactName, setContactName] = useState("")
     const [contactEmail, setContactEmail] = useState("")
     const [contactPhone, setContactPhone] = useState("")
@@ -46,8 +43,8 @@ function Details() {
         let end = moment(JSON.parse(localStorage.getItem("flight")).endTime).toDate();
         let start = moment(JSON.parse(localStorage.getItem("flight")).startTime).toDate();
 
-        let obj = {
-            flightId: JSON.parse(localStorage.getItem("flight")).id,
+        let obj = currentUser.id ? {
+            flightId: +JSON.parse(localStorage.getItem("flight")).id,
             contactName: contactName,
             email: contactEmail,
             phone: contactPhone,
@@ -55,12 +52,23 @@ function Details() {
             partnerId: currentUser.id ? currentUser.id : null,
             startDate: start,
             endDate: end,
-            orderType: "asdasd",
+            orderType: "",
+            price: +JSON.parse(localStorage.getItem("flight")).price * (+adults + +children),
+            passagers: pass
+        } : {
+            flightId: +JSON.parse(localStorage.getItem("flight")).id,
+            contactName: contactName,
+            email: contactEmail,
+            phone: contactPhone,
+            comment: comment,
+            startDate: start,
+            endDate: end,
+            orderType: "",
             price: +JSON.parse(localStorage.getItem("flight")).price * (+adults + +children),
             passagers: pass
         }
+        console.log(JSON.stringify(obj));
         order.addNew(obj).then(response => {
-            // console.log(response);
             toast("Забронирован")
         }).catch(err => {
             console.log(err);
@@ -117,15 +125,6 @@ function Details() {
                             return (
                                 <FormExample key={v4()} setPassagers={onchange} passagers={passagers} index={index}/>)
                         })}
-                    </div>
-                </div>
-                <div className={"border border-red-300 p-5 mb-4 rounded-lg"}>
-                    <div className="">
-                        <label htmlFor="comment" className={"block"}>Комментарий</label>
-                        <textarea onInput={(e) => setComment(e.target.value)} name="comment"
-                                  className={"w-full border border-red-300 p-2 outline-red-300 rounded-lg"}
-                                  id="comment"
-                                  rows={4}></textarea>
                     </div>
                 </div>
                 <div className={"border border-red-300 p-5 mb-3 rounded-lg"}>
