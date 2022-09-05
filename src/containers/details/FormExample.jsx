@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import ReactSelect from "react-select";
 import {gender} from "../../constants/userRole";
 
-function FormExample({setPassagers, passagers, index}) {
+function FormExample({setPassagers, passagers, index, type}) {
     return (<div className={"py-5 border-b-2 border-red-300"}>
-        <p className={"text-lg"}>Пассажир {index + 1}</p>
+        <p className={"text-lg"}>{type === "visa" ? "Владелец визы" : type==="transfer" ? "Человек" : "Пассажир"} {index + 1}</p>
         <div className={"pt-2 flex justify-between lg:flex-row flex-col"}>
             <div className={"py-3 w-full lg:pr-10"}>
                 <label htmlFor="surname" className={"w-full block"}>Фамилия</label>

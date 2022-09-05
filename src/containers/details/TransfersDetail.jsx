@@ -98,7 +98,7 @@ function TransfersDetail() {
                             по которому они полетят. Поля нужно заполнять латинскими буквами.</p>
                     </div>
                     {new Array(+adults + +children + +infants).fill(null).map((a, index) => {
-                        return (<FormExample key={v4()} setPassagers={onchange} passagers={passagers} index={index}/>)
+                        return (<FormExample type={"transfer"} key={v4()} setPassagers={onchange} passagers={passagers} index={index}/>)
                     })}
                 </div>
             </div>

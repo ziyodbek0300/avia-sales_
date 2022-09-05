@@ -3,7 +3,8 @@ import Cookies from 'js-cookie';
 
 // export const MainApi = "http://travelcontinent.uz/api";
 export const MainApi = "http://localhost:5000";
-// export const MainApi = "http://192.168.31.74";
+// export const MainApi = "http://localhost";
+// export const MainApi = "http://192.168.31.74:5000";
 
 const instance = axios.create({
     baseURL: `${MainApi}/`,

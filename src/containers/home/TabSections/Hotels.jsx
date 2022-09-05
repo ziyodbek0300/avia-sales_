@@ -5,7 +5,7 @@ import hotel from '../../../api/projectApi/hotel';
 import hotelsTownLists from '../../../constants/hotelsTownLists';
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
-
+import Ripples from 'react-ripples'
 
 const RenderItem = ({e}) => {
     // console.log()
@@ -62,66 +62,69 @@ const RenderItem = ({e}) => {
 
             {values.open ? (
                 <>
-                    <div className={"flex justify-between"}>
+                    <div className={"flex justify-between py-4"}>
                         <div onClick={() => setValues({...values, tabIndex: 1})}
-                             className={"flex justify-center w-10 bg-orange-500"}>
-                            photo
+                             className={values.tabIndex === 1 ? "active:opacity-80 cursor-pointer flex justify-center bg-orange-500 w-full text-center rounded-lg p-2 text-white capitalize text-lg font-bold" : "flex cursor-pointer justify-center bg-gray-200 w-full text-center rounded-lg p-2 capitalize text-lg font-bold"}>
+                            photos
                         </div>
-                        <div onClick={() => setValues({...values, tabIndex: 0})} className={"w-10 bg-orange-500"}>
+                        <div onClick={() => setValues({...values, tabIndex: 0})}
+                             className={values.tabIndex === 0 ? "active:opacity-80 cursor-pointer flex justify-center bg-orange-500 w-full text-center rounded-lg p-2 text-white capitalize text-lg font-bold" : "flex cursor-pointer justify-center bg-gray-200 w-full text-center rounded-lg p-2 capitalize text-lg font-bold"}>
                             rooms
                         </div>
                     </div>
-                    {values.tabIndex === 0 ? (
-                        <div className={"mt-16"}>
-                            <form action="">
-                                <div>
-                                    {
-                                        values.loading ? (
-                                            <div>
-                                                loading...
-                                            </div>
-                                        ) : (
-                                            <div>
-                                                {
-                                                    values.data.map(e => {
-                                                        return e.status !== "D" && (
-                                                            <div style={{width: "100%", minHeight: 200}}
-                                                                 className={"bg-orange-500"}>
-                                                                <input name={"asd"} type="radio"/>
-                                                                name {e.name}
-                                                                <br/>
-                                                                price {e.price}
-                                                                <br/>
-                                                                data {e.dataa.name}
-                                                                <br/>
-                                                                <button className={"p-4 bg-blue-500"}
-                                                                        onClick={() => navigate(`hotel/order/${hotelId}/${e.inc}?name=${e.name}&adult=${1}&c=${2}&d=${3}`)}>
-                                                                    order
-                                                                </button>
-                                                            </div>
-                                                        )
-                                                    })
-                                                }
-                                            </div>
-                                        )
-                                    }
-                                </div>
-                            </form>
+                    <div className={"bg-gray-200 rounded p-5"}>
+                        {values.tabIndex === 0 ? (
+                            <div className={"mt-16"}>
+                                <form action="">
+                                    <div>
+                                        {
+                                            values.loading ? (
+                                                <div>
+                                                    <div className="lds-dual-ring"></div>
+                                                </div>
+                                            ) : (
+                                                <div className={'flex flex-col gap-5'}>
+                                                    {
+                                                        values.data.map(e => {
+                                                            return e.status !== "D" && (
+                                                                <div style={{width: "100%", minHeight: 200}}
+                                                                     className={"bg-orange-500"}>
+                                                                    <input name={"asd"} type="radio"/>
+                                                                    name {e.name}
+                                                                    <br/>
+                                                                    price {e.price}
+                                                                    <br/>
+                                                                    data {e.dataa.name}
+                                                                    <br/>
+                                                                    <button className={"p-4 bg-blue-500"}
+                                                                            onClick={() => navigate(`hotel/order/${hotelId}/${e.inc}?name=${e.name}&adult=${1}&c=${2}&d=${3}`)}>
+                                                                        order
+                                                                    </button>
+                                                                </div>
+                                                            )
+                                                        })
+                                                    }
+                                                </div>
+                                            )
+                                        }
+                                    </div>
+                                </form>
 
-                        </div>
-                    ) : (
-                        <div className={"flex"}>
-                            <img className="rounded" width="150px" style={{maxHeight: '150px'}}
-                                 src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}
-                                 alt=""/>
-                            <img className="rounded" width="150px" style={{maxHeight: '150px'}}
-                                 src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=1&equilateral=1&width=200&height=200&stamp=72BE0B64`}
-                                 alt=""/>
-                            <img className="rounded" width="150px" style={{maxHeight: '150px'}}
-                                 src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=2&equilateral=1&width=200&height=200&stamp=72BE0B64`}
-                                 alt=""/>
-                        </div>
-                    )}
+                            </div>
+                        ) : (
+                            <div className={"flex gap-4"}>
+                                <img className="rounded hover:shadow-md transition hover:shadow-orange-300" width="150px" style={{maxHeight: '150px', objectFit: 'cover'}}
+                                     src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}
+                                     alt=""/>
+                                <img className="rounded hover:shadow-md transition hover:shadow-orange-300" width="150px" style={{maxHeight: '150px', objectFit: 'cover'}}
+                                     src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=1&equilateral=1&width=200&height=200&stamp=72BE0B64`}
+                                     alt=""/>
+                                <img className="rounded hover:shadow-md transition hover:shadow-orange-300" width="150px" style={{maxHeight: '150px', objectFit: 'cover'}}
+                                     src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=2&equilateral=1&width=200&height=200&stamp=72BE0B64`}
+                                     alt=""/>
+                            </div>
+                        )}
+                    </div>
                 </>
             ) : null}
         </div>
@@ -245,9 +248,9 @@ function Hotels() {
                                                     От 2 до 12 лет</p>
                                             </div>
                                             <div className="flex w-full">
-                                                <button onClick={() => setChildren(prev => prev -= 1)}
-                                                        className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">-
-                                                </button>
+                                                    <button onClick={() => setChildren(prev => prev -= 1)}
+                                                            className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">-
+                                                    </button>
                                                 <input type="number" value={children}
                                                        onInput={(e) => setChildren(prev => +e.target.value)}
                                                        className="text-center border-0 p-2 w-1/2 outline-none bg-transparent"/>
