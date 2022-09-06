@@ -54,17 +54,27 @@ code {
 .header {
     -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 94%, 53% 94%, 50% 100%, 45% 94%, 0 94%);
     clip-path: polygon(0% 0%, 100% 0%, 100% 94%, 53% 94%, 50% 100%, 45% 94%, 0 94%);
-    background-image: url("./static/images/bg_1-min.jpg");
+    background-image: url("./static/images/6.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: 0% 100%;
 }
 
+.header.qw {
+    -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 94%, 53% 94%, 50% 100%, 45% 94%, 0 94%);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 94%, 53% 94%, 50% 100%, 45% 94%, 0 94%);
+    background-image: url("./static/images/bg_1-min.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: 0% 30%;
+}
+
 .header:last-child {
-    background-image: url("./static/images/bg_2.jpg");
+    background-image: url("./static/images/1.jpg");
 }
 
 .second {
+    background-image: url("./static/images/bg_2.jpg");
     background-position: 20% 25% !important;
 }
 
@@ -85,7 +95,8 @@ code {
 }
 
 .sixtrh {
-    background-image: url("./static/images/transfer.jpg");
+    background-size: cover;
+    background-image: url("./static/images/qwerty.jpg");
 }
 
 .third {
@@ -106,7 +117,7 @@ code {
 
 .fifth {
     background-position: center !important;
-    background-image: url("./static/images/bg_5.jpg") !important;
+    background-image: url("./static/images/qw.jpg") !important;
 }
 
 .bg-example {

@@ -2,9 +2,6 @@ import React, {useRef, useState} from 'react'
 import {BsArrowRightShort} from 'react-icons/bs'
 import {RiSendPlane2Line} from 'react-icons/ri'
 import {VISAS, VISA_STATE, VISA_PRICE} from '../../../constants/visas'
-import {DateRangePicker} from 'rsuite'
-import {DateRange} from "react-date-range";
-import moment from "moment/moment";
 import {useNavigate} from "react-router-dom";
 
 function Visas() {
@@ -40,7 +37,7 @@ function Visas() {
     }
 
     const handleClick = (e) => {
-        console.log(e.target.classList.contains("qw1"));
+        e.target.classList.contains("qw1") ? setIsOpen(true) : setIsOpen(false);
     }
 
     const order = (obj) => {
@@ -104,14 +101,14 @@ function Visas() {
                                 value={"В:" + adults + " М:" + infant + " Д:" + children + ", Эконом"}
                                 onClick={() => setIsOpen(!isOpen)}
                                 onChange={() => console.log('as')}
-                                className="p-2 rounded border-4 border-red-600 w-full"
+                                className="p-2 rounded border-4 qw1 border-red-600 w-full"
                                 type="text"
                                 name="from"
                                 placeholder="2, Эконом"
                                 id="sa"
                             />
                             {isOpen ? (<div ref={popupRef} className="absolute qw1 top-full -left-20">
-                                <div className="bg-white qw1 rounded-lg p-1 tooltip-in relative mt-5 w-80 qw1 shadow">
+                                <div className="bg-white qw1 rounded-lg p-1 tooltip-in relative mt-5 w-80 shadow">
                                     <div className="flex qw1 p-3">
                                         <div className="qw1 w-full">
                                             <p className={"qw1"}>Взрослые <br/>
@@ -131,7 +128,7 @@ function Visas() {
                                     </div>
                                     <div className="qw1 flex p-3">
                                         <div className="qw1 w-full">
-                                            <p>Дети <br/>
+                                            <p className={"qw1"}>Дети <br/>
                                                 От 2 до 12 лет</p>
                                         </div>
                                         <div className="qw1 flex w-full">
@@ -148,7 +145,7 @@ function Visas() {
                                     </div>
                                     <div className="qw1 flex p-3">
                                         <div className="qw1 w-full">
-                                            <p>Младенцы <br/>
+                                            <p className={"qw1"}>Младенцы <br/>
                                                 До 2 лет </p>
                                         </div>
                                         <div className="qw1 flex w-full">

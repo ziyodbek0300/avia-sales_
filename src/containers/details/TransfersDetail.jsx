@@ -9,13 +9,12 @@ import transfers from "../../api/projectApi/transfers";
 
 function TransfersDetail() {
     const {id} = useParams();
-    const [adults, setAdults] = useState(id.split('_')[0])
-    const [children, setChildren] = useState(id.split('_')[1])
-    const [infants, setInfants] = useState(id.split('_')[2])
+    const [adults] = useState(id.split('_')[0])
+    const [children] = useState(id.split('_')[1])
+    const [infants] = useState(id.split('_')[2])
     const [contactName, setContactName] = useState("")
-    const [contactEmail, setContactEmail] = useState("")
     const [contactPhone, setContactPhone] = useState("")
-    const [comment, setComment] = useState("")
+    const [comment] = useState("")
     const [passagers, setPassagers] = useState(new Array(+adults + +children + +infants).fill({
         first_name: "", last_name: "", from: "", gender: "", birthday: "", sNum: "", date3: ""
     }))

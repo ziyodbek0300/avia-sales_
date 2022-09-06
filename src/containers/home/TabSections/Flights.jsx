@@ -43,7 +43,6 @@ function Flights() {
     }, []);
 
     const showTickets = () => {
-        // console.log(from.label, flights[0].fromName);
         // eslint-disable-next-line array-callback-return
         flights.map(flight => {
             if (flight.fromName === from.label && flight.toName === to.label) {
@@ -64,7 +63,7 @@ function Flights() {
     };
 
     return (<div>
-        <div className="header">
+        <div className="header qw">
             <div className="max-w-5xl mx-auto py-44">
                 <div
                     className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
@@ -270,7 +269,7 @@ function Flights() {
         </div>
         <div className={"py-3 max-w-5xl m-auto"}>
             {tickets.length === 0 ? <><h4>Позвоните по этим номерам, если вы хотите узнать больше об информации</h4>
-                <a>+998941079990</a></> : tickets.map((a, b) => {
+                <a href={"tel:+998901341818"}>+998(90)134-18-18</a></> : tickets.map((a, b) => {
                 var totalTimeInMin = a.duration;
                 let aaa = Math.floor(totalTimeInMin / 60) + ':' + totalTimeInMin % 60;
                 return (<NavLink onClick={() => localStorage.setItem("flight", JSON.stringify(a))}
@@ -286,8 +285,9 @@ function Flights() {
                 <span className={"text-lg"} style={{lineHeight: 1.2}}>
                 <span className={"text-xl font-normal"}
                       style={{lineHeight: 0}}>{moment(a.startTime).format("HH:mm")}</span><br/>
-                <span className={"text-xs"}
-                      style={{lineHeight: 0}}>{moment(a.startTime).format("DD:MM:YYYY")}</span><br/>
+                    {/*<span className={"text-xs"}*/}
+                    {/*      style={{lineHeight: 0}}>{moment(a.startTime).format("DD:MM:YYYY")}</span>*/}
+                    <br/>
                 <span className={"capitalize"}>{a.fromName}</span>
                 </span>
                                 <div
@@ -299,7 +299,8 @@ function Flights() {
                                 <span className={"text-lg"} style={{lineHeight: 1.2}}>
                 <span className={"text-xl font-normal"}
                       style={{lineHeight: 0}}>{moment(a.endTime).format("HH:mm")}</span><br/>
-                <span className={"text-xs"} style={{lineHeight: 0}}>{moment(a.endTime).format("DD:MM:YYYY")}</span><br/>
+                                    {/*<span className={"text-xs"} style={{lineHeight: 0}}>{moment(a.endTime).format("DD:MM:YYYY")}</span>*/}
+                                    <br/>
                 <span className={"capitalize"}>{a.toName}</span>
                 </span>
                             </div>
