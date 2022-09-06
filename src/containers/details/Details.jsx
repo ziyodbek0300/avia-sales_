@@ -15,7 +15,7 @@ function Details() {
     const [contactName, setContactName] = useState("")
     const [contactEmail, setContactEmail] = useState("")
     const [contactPhone, setContactPhone] = useState("")
-    const [comment, setComment] = useState("")
+    const [comment] = useState("")
     const [passagers, setPassagers] = useState(new Array(+adults + +children + +infants).fill({
         first_name: "", last_name: "", from: "", gender: "", birthday: "", sNum: "", date3: ""
     }))
@@ -67,7 +67,6 @@ function Details() {
             price: +JSON.parse(localStorage.getItem("flight")).price * (+adults + +children),
             passagers: pass
         }
-        console.log(JSON.stringify(obj));
         order.addNew(obj).then(response => {
             toast("Забронирован")
         }).catch(err => {
