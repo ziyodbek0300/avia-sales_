@@ -172,7 +172,7 @@ function TourPack() {
 
     const handleSearch = () => {
         if (from?.value && to?.value) {
-            flights.search(from.value, to.value)
+            flights.search(from.value, to.value,to.regionId)
                 .then(r => {
                     if (Array.isArray(r.data) && r.data?.length > 0) {
                         setHotels(r.data)
