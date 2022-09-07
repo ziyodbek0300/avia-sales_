@@ -7,5 +7,5 @@ export default {
     addNew: (data) => axios.post("/flight/addNew", data),
     deleteOne: (id) => axios.delete(`/flight/delete/${id}`),
     updateOne: (id, data) => axios.put(`/flight/update/${id}`, data),
-    search: (id, fromId, toId, endTime, startTime) => axios.get(`/flight/search/${id}?fromId=${fromId}&toId=${toId}&endTime=${endTime}&startTime=${startTime}`)
+    search: (fromId, toId, endTime, startTime) => axios.get(`/flight/search?fromId=${fromId}&toId=${toId}&endTime=${endTime}&startTime=${startTime}`)
 };
