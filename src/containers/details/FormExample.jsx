@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import ReactSelect from "react-select";
 import {gender} from "../../constants/userRole";
+import countries from "../../constants/countries";
 
 function FormExample({setPassagers, passagers, index, type}) {
     return (<div className={"py-5 border-b-2 border-red-300"}>
@@ -29,9 +30,7 @@ function FormExample({setPassagers, passagers, index, type}) {
             <div className={"py-3 w-full lg:pr-10"}>
                 <label htmlFor="name" className={"w-full block"}>Гражданство</label>
                 <ReactSelect
-                    options={[{value: "uzbek", label: "Uzbekistan"}, {
-                        value: "russian", label: "Russia"
-                    }]}
+                    options={countries.map(cName => {return {value: cName, label: cName}})}
                     onChange={(e) => {
                         let a = passagers;
                         a[index].from = e.value

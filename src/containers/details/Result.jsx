@@ -1,6 +1,9 @@
 import React from 'react';
+import {useParams} from "react-router-dom";
 
 function Result(props) {
+    const params = useParams();
+    console.log(params)
     return (<div className={"max-w-5xl mx-auto p-4"}>
         <p className={"text-2xl my-3"}>Проверка</p>
         <div className={"border border-red-300 rounded-lg p-5 mb-6"}>
