@@ -5,7 +5,7 @@ import hotel from '../../../api/projectApi/hotel';
 import hotelsTownLists from '../../../constants/hotelsTownLists';
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
-import Ripples from 'react-ripples'
+import {BiStar} from "react-icons/bi";
 
 const RenderItem = ({e}) => {
     // console.log()
@@ -46,18 +46,21 @@ const RenderItem = ({e}) => {
     const navigate = useNavigate()
     return (
         <div className={'bg-white p-2 gap-5 shadow border rounded-lg'}>
-            <div onClick={handlePress} className="cursor-pointer flex"
+            <div onClick={handlePress} className="cursor-pointer flex gap-2"
                  key={`${hotelId}`}>
                 <img className="rounded" width="200" style={{maxHeight: '200px'}}
                      src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${hotelId}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}
                      alt=""/>
-                <h1 className="text-xl font-bold">{e.name}</h1>
+                <div>
+                    <h1 className="text-xl font-bold block">{e.name}</h1>
+                    {new Array(e.starCount).fill("a").map(a => {return (<span className={"mx-3"}><BiStar color={"black"}/>{a}</span>)})}
+                    <p>start count {e.starCount}</p>
+                </div>
                 {hotelsTownLists.map(a => {
                     return a.id === e.town && (
-                        <p className="text-sm">{a.title}</p>
+                        <p className="text-sm block bg-red-500">{a.title}</p>
                     )
                 })}
-                start count {e.starCount}
             </div>
 
             {values.open ? (
@@ -113,13 +116,16 @@ const RenderItem = ({e}) => {
                             </div>
                         ) : (
                             <div className={"flex gap-4"}>
-                                <img className="rounded hover:shadow-md transition hover:shadow-orange-300" width="150px" style={{maxHeight: '150px', objectFit: 'cover'}}
+                                <img className="rounded hover:shadow-md transition hover:shadow-orange-300"
+                                     width="150px" style={{maxHeight: '150px', objectFit: 'cover'}}
                                      src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}
                                      alt=""/>
-                                <img className="rounded hover:shadow-md transition hover:shadow-orange-300" width="150px" style={{maxHeight: '150px', objectFit: 'cover'}}
+                                <img className="rounded hover:shadow-md transition hover:shadow-orange-300"
+                                     width="150px" style={{maxHeight: '150px', objectFit: 'cover'}}
                                      src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=1&equilateral=1&width=200&height=200&stamp=72BE0B64`}
                                      alt=""/>
-                                <img className="rounded hover:shadow-md transition hover:shadow-orange-300" width="150px" style={{maxHeight: '150px', objectFit: 'cover'}}
+                                <img className="rounded hover:shadow-md transition hover:shadow-orange-300"
+                                     width="150px" style={{maxHeight: '150px', objectFit: 'cover'}}
                                      src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=2&equilateral=1&width=200&height=200&stamp=72BE0B64`}
                                      alt=""/>
                             </div>
@@ -248,9 +254,9 @@ function Hotels() {
                                                     От 2 до 12 лет</p>
                                             </div>
                                             <div className="flex w-full">
-                                                    <button onClick={() => setChildren(prev => prev -= 1)}
-                                                            className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">-
-                                                    </button>
+                                                <button onClick={() => setChildren(prev => prev -= 1)}
+                                                        className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">-
+                                                </button>
                                                 <input type="number" value={children}
                                                        onInput={(e) => setChildren(prev => +e.target.value)}
                                                        className="text-center border-0 p-2 w-1/2 outline-none bg-transparent"/>
