@@ -14,7 +14,7 @@ const RenderItem = ({e}) => {
         loading: false,
         data: [],
         open: false,
-        tabIndex: 0
+        tabIndex: 1
     })
     const handlePress = async () => {
         setValues({
@@ -46,15 +46,21 @@ const RenderItem = ({e}) => {
     const navigate = useNavigate()
     return (
         <div className={'bg-white p-2 gap-5 shadow border rounded-lg'}>
-            <div onClick={handlePress} className="cursor-pointer flex gap-2"
+            <div onClick={handlePress} className="cursor-pointer flex gap-6"
                  key={`${hotelId}`}>
                 <img className="rounded" width="200" style={{maxHeight: '200px'}}
                      src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${hotelId}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}
                      alt=""/>
-                <div>
-                    <h1 className="text-xl font-bold block">{e.name}</h1>
-                    {new Array(e.starCount).fill("a").map(a => {return (<span className={"mx-3"}><BiStar color={"black"}/>{a}</span>)})}
-                    <p>start count {e.starCount}</p>
+                <div className={"flex flex-col justify-between"}>
+                    <div>
+                        <h1 className="text-xl font-bold block">{e.name}</h1>
+                        <div className={"flex py-5"}>
+                            {new Array(isNaN(e.starCount.slice(0, 1)) ? 1 : +e.starCount.slice(0, 1)).fill("a").map(a => {
+                                return (<span className={"mx-1"}><BiStar color={"red    "}/></span>)
+                            })}
+                        </div>
+                    </div>
+                    <p className={"mt-auto text-2xl"}>Цена: ${Math.floor(e.sprice.adultpr)}</p>
                 </div>
                 {hotelsTownLists.map(a => {
                     return a.id === e.town && (
@@ -67,12 +73,12 @@ const RenderItem = ({e}) => {
                 <>
                     <div className={"flex justify-between py-4"}>
                         <div onClick={() => setValues({...values, tabIndex: 1})}
-                             className={values.tabIndex === 1 ? "active:opacity-80 cursor-pointer flex justify-center bg-orange-500 w-full text-center rounded-lg p-2 text-white capitalize text-lg font-bold" : "flex cursor-pointer justify-center bg-gray-200 w-full text-center rounded-lg p-2 capitalize text-lg font-bold"}>
-                            photos
+                             className={values.tabIndex === 1 ? "active:opacity-80 cursor-pointer flex justify-center bg-red-500 w-full text-center rounded-lg p-2 text-white capitalize text-lg font-bold" : "flex cursor-pointer justify-center bg-gray-200 w-full text-center rounded-lg p-2 capitalize text-lg font-bold"}>
+                            Фото
                         </div>
                         <div onClick={() => setValues({...values, tabIndex: 0})}
-                             className={values.tabIndex === 0 ? "active:opacity-80 cursor-pointer flex justify-center bg-orange-500 w-full text-center rounded-lg p-2 text-white capitalize text-lg font-bold" : "flex cursor-pointer justify-center bg-gray-200 w-full text-center rounded-lg p-2 capitalize text-lg font-bold"}>
-                            rooms
+                             className={values.tabIndex === 0 ? "active:opacity-80 cursor-pointer flex justify-center bg-red-500 w-full text-center rounded-lg p-2 text-white capitalize text-lg font-bold" : "flex cursor-pointer justify-center bg-gray-200 w-full text-center rounded-lg p-2 capitalize text-lg font-bold"}>
+                            Комната
                         </div>
                     </div>
                     <div className={"bg-gray-200 rounded p-5"}>
@@ -82,27 +88,33 @@ const RenderItem = ({e}) => {
                                     <div>
                                         {
                                             values.loading ? (
-                                                <div>
+                                                <div className={"flex justify-center"}>
                                                     <div className="lds-dual-ring"></div>
                                                 </div>
                                             ) : (
-                                                <div className={'flex flex-col gap-5'}>
+                                                <div className={'grid lg:grid-cols-2 grid-cols-1 gap-5'}>
                                                     {
                                                         values.data.map(e => {
                                                             return e.status !== "D" && (
                                                                 <div style={{width: "100%", minHeight: 200}}
-                                                                     className={"bg-orange-500"}>
-                                                                    <input name={"asd"} type="radio"/>
-                                                                    name {e.name}
-                                                                    <br/>
-                                                                    price {e.price}
-                                                                    <br/>
-                                                                    data {e.dataa.name}
-                                                                    <br/>
-                                                                    <button className={"p-4 bg-blue-500"}
-                                                                            onClick={() => navigate(`hotel/order/${hotelId}/${e.inc}?name=${e.name}&adult=${1}&c=${2}&d=${3}`)}>
-                                                                        order
-                                                                    </button>
+                                                                     className={"bg-red-400 text-white relative p-3 rounded-lg shadow"}>
+                                                                    <input name={"asd"}
+                                                                           className={"absolute hidden h-full w-full top-0 left-0"}
+                                                                           type="radio"/>
+                                                                    <div className={"flex flex-col justify-between h-full"}>
+                                                                        <div>
+                                                                            <h3>{e.name ? e.name : "No name"}</h3>
+                                                                            <p className={"text-xl"}>Price:
+                                                                                ${Math.floor(e.price)}</p>
+                                                                            <p>{e.dataa.name}</p>
+                                                                        </div>
+                                                                        <div className={"text-right"}>
+                                                                            <button className={"px-4 py-2 bg-white text-zinc-900 font-bold capitalize rounded"}
+                                                                                    onClick={() => navigate(`hotel/order/${hotelId}/${e.inc}?name=${e.name}&adult=${1}&c=${2}&d=${3}`)}>
+                                                                                order
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             )
                                                         })
@@ -116,15 +128,15 @@ const RenderItem = ({e}) => {
                             </div>
                         ) : (
                             <div className={"flex gap-4"}>
-                                <img className="rounded hover:shadow-md transition hover:shadow-orange-300"
+                                <img className="rounded hover:shadow-md transition hover:shadow-red-300"
                                      width="150px" style={{maxHeight: '150px', objectFit: 'cover'}}
                                      src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}
                                      alt=""/>
-                                <img className="rounded hover:shadow-md transition hover:shadow-orange-300"
+                                <img className="rounded hover:shadow-md transition hover:shadow-red-300"
                                      width="150px" style={{maxHeight: '150px', objectFit: 'cover'}}
                                      src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=1&equilateral=1&width=200&height=200&stamp=72BE0B64`}
                                      alt=""/>
-                                <img className="rounded hover:shadow-md transition hover:shadow-orange-300"
+                                <img className="rounded hover:shadow-md transition hover:shadow-red-300"
                                      width="150px" style={{maxHeight: '150px', objectFit: 'cover'}}
                                      src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=2&equilateral=1&width=200&height=200&stamp=72BE0B64`}
                                      alt=""/>
@@ -184,6 +196,7 @@ function Hotels() {
                                         setValues({...values, town: e.target.value})
                                     }}
                                 >
+                                    <option value="">- выбрать -</option>
                                     {hotelsTownLists.map(e => {
                                         return (
                                             <option key={e.id} value={e.id}>{e.title}</option>

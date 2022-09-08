@@ -16,12 +16,12 @@ function ExcursionTours() {
             <div className={"flex justify-between gap-5"}>
                 {exTour.map(a => {
                     return (
-                        <div className={"border-2 border-red-500 bg-white/60 text-white w-full p-4 rounded-lg bg-white/90 backdrop-blur-lg"}>
+                        <div className={"border-2 border-red-500 bg-white/40 text-white w-full p-4 rounded-lg bg-white/90 backdrop-blur-lg"}>
                             <p className={"text-2xl font-bold"}>{a.name}</p>
                             <p>{a.typeOfEx}</p>
                             <p>{a.price}</p>
-                            {/*<p>{a.departureTime}</p>*/}
                             <p>{a.hotelStars}</p>
+                            <button className={"bg-red-500 text-white px-4 py-2 mt-3"}>Заказать</button>
                         </div>
                     )
                 })}
