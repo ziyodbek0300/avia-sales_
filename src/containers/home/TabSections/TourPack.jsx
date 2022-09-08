@@ -11,7 +11,6 @@ import {useNavigate} from "react-router-dom";
 import hotelsTownLists from "../../../constants/hotelsTownLists";
 
 const RenderItem = ({e}) => {
-    // console.log()
     const hotelId = e?.inc
     const [values, setValues] = useState({
         loading: false,
@@ -133,6 +132,8 @@ const RenderItem = ({e}) => {
 }
 
 function TourPack() {
+    const [from, setFrom] = useState(null);
+    const [to, setTo] = useState(null);
     const [adults, setAdults] = useState(1);
     const [infant, setInfant] = useState(0);
     const [children, setChildren] = useState(0);
@@ -147,7 +148,7 @@ function TourPack() {
         let all = [];
         regions.getAllRegions().then(regions => {
             setRegionsList(regions.data.result.map(reg => {
-                return {value: reg.name, label: reg.name}
+                return {value: reg.id, regionId: reg.regionId, label: reg.name}
             }));
             regions.data.result.forEach(reg => {
                 flightsList.forEach(item => {
@@ -170,17 +171,23 @@ function TourPack() {
     const [hotels, setHotels] = useState([]);
 
     const handleSearch = () => {
-        flights.search(5)
-            .then(r => {
-                setHotels(r.data)
-            })
-            .catch(e => {
-                toast(e.message, {type: "error"})
-            })
+        if (from?.value && to?.value) {
+            flights.search(from.value, to.value,to.regionId)
+                .then(r => {
+                    if (Array.isArray(r.data) && r.data?.length > 0) {
+                        setHotels(r.data)
+                    } else {
+                        setHotels([])
+                        toast("Турпакет не найден", {type: "info"})
+                    }
+                })
+                .catch(e => {
+                    toast(e.message, {type: "error"})
+                })
+        }
     }
 
     return (
-
         <>
             <div className="header second" onClick={handleClick}>
                 <div className="max-w-5xl mx-auto py-52">
@@ -201,6 +208,10 @@ function TourPack() {
                                     style={{border: '1px solid red'}}
                                     options={[{value: '', label: '- выбрать -'}, ...regionsList]}
                                     placeholder="- выбрать -"
+                                    value={from?.id}
+                                    onChange={(newValue) => {
+                                        setFrom(newValue)
+                                    }}
                                 />
                             </div>
                             <RiSendPlane2Line className="text-white w-10"/>
@@ -211,6 +222,10 @@ function TourPack() {
                                 <ReactSelect
                                     options={[{value: '', label: '- выбрать -'}, ...regionsList]}
                                     placeholder="- выбрать -"
+                                    value={to?.id}
+                                    onChange={(newValue) => {
+                                        setTo(newValue)
+                                    }}
                                 />
                             </div>
                             <div className="w-full">
@@ -343,7 +358,6 @@ function TourPack() {
                     if (!(e.status !== 'D' && e.name !== "" && e.name?.toLowerCase() !== "unknown hotel" && e.name !== undefined)) {
                         return null;
                     }
-                    console.log(e.dataa)
                     return (
                         <RenderItem e={e}/>
                     )

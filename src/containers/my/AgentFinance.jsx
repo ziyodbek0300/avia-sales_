@@ -5,7 +5,7 @@ import {MainApi} from "../../api/projectApi";
 import {GrCheckmark, GrTrash, GrView} from "react-icons/gr";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {getAllOrder, getAllOrderForAgent} from "../../redux/orders/actions";
+import {getAllOrderForAgent} from "../../redux/orders/actions";
 
 const headCells = [
     {
@@ -62,7 +62,7 @@ const AgentAviaTicket = ({agentId}) => {
     const dispatch = useDispatch()
     const userId = useSelector(state => state.user?.currentUser?.id)
     useEffect(() => {
-        dispatch(getAllOrderForAgent(agentId||userId))
+        dispatch(getAllOrderForAgent(agentId || userId))
     }, [])
     const navigate = useNavigate()
 

@@ -56,7 +56,6 @@ const getOne = async (req, res, next) => {
 
 const getAll = async (req, res, next) => {
     try {
-        console.log(req.user.role)
         prisma.order.findMany({})
             .then(r => {
                 return res.status(200).send(Success(200, r, "ok"))
@@ -69,6 +68,30 @@ const getAll = async (req, res, next) => {
         return res.status(505).send({code: 505, error: e, message: e.message})
     }
 }
+
+const getAllForAgent = async (req, res, next) => {
+    try {
+        // if (!req.user || req.user.role !== userRole.client || req.user.role === userRole.agent) {
+        //     if (req.user && req.user.role === userRole.agent) {
+        //         return res.status(404).send(ErrorSend(404, {}, "no user"))
+        //         // return next()
+        //     } else {
+        //         return res.status(401).send(ErrorSend(401, {}, "no user"))
+        //     }
+        // }
+        prisma.order.findMany({where: {partnerId: +req.params.id}})
+            .then(r => {
+                return res.status(200).send(Success(200, r, "ok"))
+            })
+            .catch(e => {
+                console.log(e)
+                return res.status(404).send({code: 404, error: e, message: e.message})
+            })
+    } catch (e) {
+        return res.status(505).send({code: 505, error: e, message: e.message})
+    }
+}
+
 
 const update = async (req, res, next) => {
     try {
@@ -91,20 +114,20 @@ const update = async (req, res, next) => {
 
 const addNew = async (req, res, next) => {
     try {
-        if (!req.user || req.user.role === userRole.client || req.user.role === userRole.agent) {
-            if (req.user && req.user.role === userRole.agent) {
-                return res.status(404).send(ErrorSend(404, {}, "no user"))
-            } else {
-                return res.status(404).send(ErrorSend(404, {}, "no user"))
-            }
-        }
+        // if (!req.user || req.user.role === userRole.client || req.user.role === userRole.agent) {
+        //     if (req.user && req.user.role === userRole.agent) {
+        //         return res.status(404).send(ErrorSend(404, {}, "no user"))
+        //     } else {
+        //         return res.status(404).send(ErrorSend(404, {}, "no user"))
+        //     }
+        // }
         const orderBody = req.body
         const passagers = orderBody?.passagers
         delete orderBody?.passagers
-        let order = await prisma.order.create({data: orderBody}).catch(e=>{
+
+        let order = await prisma.order.create({data: orderBody}).catch(e => {
             console.log(e)
         })
-        console.log(order,req.body)
         const passenger = await prisma.$transaction(
             passagers?.map(r => {
                 return prisma.passenger.create({
@@ -121,8 +144,8 @@ const addNew = async (req, res, next) => {
                     return r.id
                 })
             }, where: {id: order.id}
-        }).catch(e=>{
-            console.log("asdasdad",e)
+        }).catch(e => {
+            console.log("asdasdad", e)
         })
         res.status(200).send(Success(200, {order, passenger}, "ok"))
     } catch (e) {
@@ -132,5 +155,5 @@ const addNew = async (req, res, next) => {
 }
 
 module.exports = {
-    getAll, getOne, del, update, addNew
+    getAll, getOne, del, update, addNew, getAllForAgent
 }

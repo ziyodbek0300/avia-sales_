@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import Store from "../../redux"
 import {useNavigate} from "react-router-dom";
 import {getAllOrder} from "../../redux/orders/actions";
+import AgentPage from "../agentIndex/AgentPage/AgentPage";
 
 const headCells = [
     {
@@ -77,44 +78,45 @@ const PartnerOrder = () => {
 
     return (
         <div>
-            <MuiTable
-                tableName={"Партнеры"}
-                rows={orders?.map(r => {
-                    return {
-                        ...r,
-                        edit: (item) => (
-                            <div>
-                                <Button
-                                    variant={"outlined"}
-                                    onClick={() => window.open(
-                                        `${MainApi}/${item.doc}`,
-                                        '_blank',
-                                        'noopener,noreferrer')
-                                    }
-                                >
-                                    <GrView fontSize="1.5em"/>
-                                </Button>
-                                <Button
-                                    variant={"outlined"}
-                                    // onClick={() => handlePressAccept(item.id)}
-                                >
-                                    <GrCheckmark fontSize="1.5em"/>
-                                </Button>
-                                <Button
-                                    variant={"outlined"}
-                                    // onClick={() => handlePressDelete(item.id)}
-                                >
-                                    <GrTrash fontSize="1.5em"/>
-                                </Button>
-                            </div>
-                        )
-                    }
-                })}
-                headCells={headCells}
-                onClickRow={() => {
-                    navigate(`/partners/orders/asasdad`)
-                }}
-            />
+            <AgentPage/>
+            {/*<MuiTable*/}
+            {/*    tableName={"Партнеры"}*/}
+            {/*    rows={orders?.map(r => {*/}
+            {/*        return {*/}
+            {/*            ...r,*/}
+            {/*            edit: (item) => (*/}
+            {/*                <div>*/}
+            {/*                    <Button*/}
+            {/*                        variant={"outlined"}*/}
+            {/*                        onClick={() => window.open(*/}
+            {/*                            `${MainApi}/${item.doc}`,*/}
+            {/*                            '_blank',*/}
+            {/*                            'noopener,noreferrer')*/}
+            {/*                        }*/}
+            {/*                    >*/}
+            {/*                        <GrView fontSize="1.5em"/>*/}
+            {/*                    </Button>*/}
+            {/*                    <Button*/}
+            {/*                        variant={"outlined"}*/}
+            {/*                        // onClick={() => handlePressAccept(item.id)}*/}
+            {/*                    >*/}
+            {/*                        <GrCheckmark fontSize="1.5em"/>*/}
+            {/*                    </Button>*/}
+            {/*                    <Button*/}
+            {/*                        variant={"outlined"}*/}
+            {/*                        // onClick={() => handlePressDelete(item.id)}*/}
+            {/*                    >*/}
+            {/*                        <GrTrash fontSize="1.5em"/>*/}
+            {/*                    </Button>*/}
+            {/*                </div>*/}
+            {/*            )*/}
+            {/*        }*/}
+            {/*    })}*/}
+            {/*    headCells={headCells}*/}
+            {/*    onClickRow={() => {*/}
+            {/*        navigate(`/partners/orders/asasdad`)*/}
+            {/*    }}*/}
+            {/*/>*/}
         </div>
     )
 }

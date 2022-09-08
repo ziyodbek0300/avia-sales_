@@ -7,6 +7,36 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model TourPassenger {
+  id             Int       @id @default(autoincrement())
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  lastname       String?
+  firtname       String?
+  nationality    String?
+  gender         Gender?
+  birthday       DateTime?
+  passportNumber String?
+  endDate        DateTime?
+  tourPack       TourPack? @relation(fields: [tourPackId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  tourPackId     Int?
+}
+
+model TourPack {
+  id            Int             @id @default(autoincrement())
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  flightId      Int?
+  hotelOrderId  Int?
+  startDate     DateTime?
+  townId        String?
+  hotelId       String?
+  roomId        String?
+  hotelPrice    Float?
+  flightPrice   Float?
+  TourPassenger TourPassenger[]
+}
+
 model User {
   id          Int      @id @default(autoincrement())
   createdAt   DateTime @default(now())
@@ -48,11 +78,11 @@ model Region {
 }
 
 model Flight {
-  id              Int      @id @default(autoincrement())
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  fromId          Float
-  toId            Float
+  id              Int       @id @default(autoincrement())
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  fromId          Int
+  toId            Int
   startTime       DateTime
   endTime         DateTime
   duration        Float
@@ -60,19 +90,19 @@ model Flight {
   description     String
   Order           Order[]
   weekDays        Int[]
-  isWithReturn    Boolean  @default(false)
+  isWithReturn    Boolean   @default(false)
   returnStartTime DateTime?
   returnEndTime   DateTime?
+  regionId        Int?
 }
 
 model ExcursionTour {
-  id              Int      @id @default(autoincrement())
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  from String
-  to String
-  isWithReturn Boolean @default(false)
-
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  from         String
+  to           String
+  isWithReturn Boolean  @default(false)
 }
 
 model VisaPassenger {
@@ -168,7 +198,7 @@ model Order {
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
   flightId    Int
-  partnerId   Int
+  partnerId   Int?
   passagersId Int[]
   contactName String
   email       String
@@ -178,8 +208,8 @@ model Order {
   orderType   String
   startDate   DateTime
   endDate     DateTime
-  partner     User        @relation(fields: [partnerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  flight      Flight      @relation(fields: [flightId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  partner     User?       @relation(fields: [partnerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  flight      Flight?     @relation(fields: [flightId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   passager    Passenger[]
 }
 

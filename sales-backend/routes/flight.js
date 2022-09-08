@@ -7,6 +7,6 @@ router.post('/addNew', addNew);
 router.get('/getOne/:id', getOne);
 router.put('/update/:id', update);
 router.delete('/delete/:id', del);
-router.get('/search/:townId', searchTour);
+router.get('/search', searchTour);
 
 module.exports = router;

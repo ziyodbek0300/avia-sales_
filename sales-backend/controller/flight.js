@@ -15,18 +15,23 @@ const prisma = new PrismaClient()
 
 const searchTour = async (req, res, next) => {
     Promise.all([
+        // prisma.flight.find({ where: { search: req.query.toId } }),
         axios.post(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=auth`,
             qs.stringify({
                 login: "ContinenTashtXML",
                 passwordDigest: "DfuUuLNhnl13Uu%2FSkJuQYZ9%2B9cr6vmlZ3W9vjPAywgRY7c9elyMp9GHRmwsN%2FPKzCyhacrhHM9Po2JLV1gHgRQ%3D%3D"
             }),
             {headers: {'content-type': 'application/x-www-form-urlencoded'}}),
+        // prisma.flight.findMany({  }),
+        prisma.flight.findMany({ where: {fromId: +req.query.fromId,toId: +req.query.toId} }),
+
     ])
         .then(r => {
+            console.log(r[1])
             parseString(r[0].data, function (err, result) {
                 const token = result.Response.Data[0].Result[0]['$'].partner_token
                 Promise.all([
-                        axios.get(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&partner_token=${token}&form=http://samo.travel&type=hotel&state=${req.params.townId}`),
+                        axios.get(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&partner_token=${token}&form=http://samo.travel&type=hotel&state=${+req.query.regionId}`),
                 ])
                     .then(r => {
                         parseString(r[0].data, function (err, result) {
@@ -67,7 +72,6 @@ const searchTour = async (req, res, next) => {
                                     return e.dataa !== null && e.sprice !== null
                                 }).map(r => {
                                     const hp = hprice.filter(h => {
-                                        console.log(h.hotel,r.inc)
                                         return h.hotel === r.inc
                                     }).map(r => {
                                         let name = {
@@ -88,7 +92,6 @@ const searchTour = async (req, res, next) => {
                                         r.lname = name.lname
                                         return r
                                     })
-                                    console.log(hp)
                                     let changedData = _.unionBy(hp, function (e) {
                                         return e.room
                                     }).map(r => {
@@ -123,12 +126,13 @@ const searchTour = async (req, res, next) => {
                                     })
                                     return {
                                         ...r,
-                                        dataa: changedData
+                                        dataa: changedData,
+                                        flight1:r[1]
                                     }
                                 })
-                            res.send(newData)
+                            console.log(r[1])
+                            res.send(r[1]?newData:[])
                         });
-
                     })
                     .catch(e => {
                         res.status(404).send(ErrorSend(404, e, e.message))
@@ -136,6 +140,7 @@ const searchTour = async (req, res, next) => {
             });
         })
         .catch(e => {
+            console.log(e)
             res.status(404).send(ErrorSend(404, e, e.message))
         })
 }
@@ -159,7 +164,6 @@ const del = async (req, res, next) => {
                 }
             })
             .catch(e => {
-                console.log(e)
                 return res.status(404).send(ErrorSend(404, e, e.message))
             })
     } catch (e) {
@@ -227,7 +231,6 @@ const addNew = async (req, res, next) => {
         prisma.flight.create({data: req.body}).then(r => {
             res.status(200).send(Success(200, r, "ok"))
         }).catch(e => {
-            console.log(e)
             res.status(404).send(ErrorSend(404, e, e.message))
         })
     } catch (e) {
