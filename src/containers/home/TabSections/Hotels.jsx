@@ -103,7 +103,7 @@ const RenderItem = ({e}) => {
                                                                            type="radio"/>
                                                                     <div className={"flex flex-col justify-between h-full"}>
                                                                         <div>
-                                                                            <h3>{e.name ? e.name : "No name"}</h3>
+                                                                            <h3>{e.name ? e.name : "Standart"}</h3>
                                                                             <p className={"text-xl"}>Price:
                                                                                 ${Math.floor(e.price)}</p>
                                                                             <p>{e.dataa.name}</p>

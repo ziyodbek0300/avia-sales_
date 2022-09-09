@@ -61,7 +61,7 @@ function ExcursionDetail() {
 
     return (<div className={"max-w-5xl mx-auto lg:p-0 px-4"}>
         <div className={"py-3"}>
-            <h3>Заказать екскурсионний тоур</h3>
+            <h3>Заказать екскурсионний тур</h3>
         </div>
         <div>
             <div className={"mb-3"}>
