@@ -56,7 +56,7 @@ const RenderItem = ({e}) => {
                         <h1 className="text-xl font-bold block">{e.name}</h1>
                         <div className={"flex py-5"}>
                             {new Array(isNaN(e.starCount.slice(0, 1)) ? 1 : +e.starCount.slice(0, 1)).fill("a").map(a => {
-                                return (<span className={"mx-1"}><BiStar color={"red    "}/></span>)
+                                return (<span className={"mx-1"}><BiStar color={"red"}/></span>)
                             })}
                         </div>
                     </div>

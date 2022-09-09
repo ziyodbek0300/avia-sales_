@@ -28,6 +28,7 @@ import Result from "./containers/details/Result";
 import Transfers from "./containers/transfers";
 import VisaDetails from "./containers/details/VisaDetails";
 import Visas from "./containers/visas";
+import ExcursionTour from "./containers/details/ExcursionTour";
 
 function App() {
     const dispatch = useDispatch()
@@ -59,6 +60,7 @@ function App() {
                                     <Route path="/transferDetails/:id" element={<TransfersDetail/>}/>
                                     <Route path="/transferDetails/result" element={<Result/>}/>
                                     <Route path="visaDetails/:id" element={<VisaDetails/>}/>
+                                    <Route path="/excursion/:id" element={<ExcursionTour/>}/>
                                     <Route path="hotel/order/:hotelId/:id" element={<HotelOrder/>}/>
                                     {(users?.role === userRole.agent) ? (
                                         <>
@@ -88,6 +90,7 @@ function App() {
                                         <Route path="/transferDetails/:id" element={<TransfersDetail/>}/>
                                         <Route path="/transferDetails/result" element={<Result/>}/>
                                         <Route path="hotel/order/:hotelId/:id" element={<HotelOrder/>}/>
+                                        <Route path="/excursion/:id" element={<ExcursionTour/>}/>
                                         <Route path={"/"} element={<AdminNavbar/>}>
                                             <Route path={"/"} element={<Navigate to={"/users"}/>}/>
                                             <Route path="users" element={<AdminUsers/>}/>
