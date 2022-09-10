@@ -15,7 +15,7 @@ function ExcursionTours() {
         <div className={"flex justify-between gap-5"}>
             {exTour.map((a, c) => {
                 return (<div
-                    className={"border-2 border-red-500 bg-blue-800 text-white w-full p-4 rounded-lg bg-white/90 backdrop-blur-lg"}>
+                    className={"border-2 border-red-500 bg-blue-800 text-white w-full p-4 rounded-lg backdrop-blur-lg"}>
                     <p className={"text-2xl font-bold"}>{a.name}</p>
                     <div className={"flex justify-between items-center"}>
                         <p className={"text-xl"}>{a.typeOfEx}</p>
