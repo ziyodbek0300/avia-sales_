@@ -326,9 +326,7 @@ function Hotels() {
                     try {
                         return e.name.toLowerCase().includes(search.toLowerCase()) ? (
                             <RenderItem e={e}/>
-                        ) : (<div className={"text-center"}>
-                            <h1>No Compared Data</h1>
-                        </div>)
+                        ) : ("")
                     } catch (e) {
                         console.log(e)
                     }
