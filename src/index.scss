@@ -4,10 +4,10 @@
 // font by google fonts
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-@font-face {
-  font-family: Idealist;
-  src: url('./static/fonts/Idealist\ Sans.otf') type-of($value: 'otf');
-}
+//@font-face {
+//  font-family: Idealist;
+//  src: url('./static/fonts/Idealist\ Sans.otf') type-of($value: 'otf');
+//}
 
 * {
   font-family: 'Idealist', sans-serif;
@@ -58,7 +58,7 @@ code {
   background-image: url('./static/images/bg_1-min.jpg');
   background-repeat: no-repeat;
   background-size: 100%;
-  background-position: 0% 100%;
+  background-position: 0 100%;
 }
 
 .header:last-child {
@@ -73,7 +73,7 @@ code {
 
 @media (max-width: 1400px) {
   .second {
-    background-position: 25% 0% !important;
+    background-position: 25% 0 !important;
   }
 }
 
@@ -148,3 +148,29 @@ input[type=number] {
   top: -2rem;
   left: calc(50% - 1rem);
 }
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #ccc;
+  border-color: #ccc transparent #ccc transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+

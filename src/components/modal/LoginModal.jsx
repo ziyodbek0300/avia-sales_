@@ -20,14 +20,6 @@ const style = {
     borderRadius: 8
 };
 
-// const validateEmail = (email) => {
-//     return String(email)
-//         .toLowerCase()
-//         .match(
-//             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-//         );
-// };
-
 const LoginModal = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -41,7 +33,6 @@ const LoginModal = () => {
 
     // const role
     const user = useSelector(state => state.user.currentUser)
-
     const [values, setValues] = useState({
         email: '',
         password: '',
@@ -87,7 +78,7 @@ const LoginModal = () => {
                         </Box>
                         <Box>
                             <Box style={{display: 'flex', flexDirection: 'row'}}>
-                                {t('enter')}
+                                {/*{t('enter')}*/}
                                 <Typography fontSize={14}>
                                     {user?.fullName}
                                 </Typography>

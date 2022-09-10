@@ -83,7 +83,7 @@ const TourPackage = ()=>{
         <div>
             <MuiTable
                 tableName={"Турпакеты"}
-                rows={[]?.map(r => {
+                rows={headCells?.map(r => {
                     return {
                         ...r,
                         edit: (item) => (

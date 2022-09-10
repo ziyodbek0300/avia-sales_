@@ -3,6 +3,8 @@ import MuiTable from "../../components/table";
 import {Button} from "@mui/material";
 import {MainApi} from "../../api/projectApi";
 import {GrCheckmark, GrTrash, GrView} from "react-icons/gr";
+import {useDispatch, useSelector} from "react-redux";
+import {getAllUser} from "../../redux/user/actions";
 
 const headCells = [
     {
@@ -28,8 +30,8 @@ const headCells = [
     },
 ];
 const TourPackage = ()=>{
-    const [data,setData] = useState([])
-    useEffect(()=>{},[])
+    // const [data,setData] = useState([])
+
     return (
         <div>
             <MuiTable

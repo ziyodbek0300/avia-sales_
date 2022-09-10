@@ -7,7 +7,7 @@ import {
 } from "react-router-dom"
 import {Tab} from "react-tabs";
 import {GiAirplaneDeparture, GiCoins, GiTicket} from "react-icons/gi";
-import {FiGrid, FiUsers} from "react-icons/fi"
+import {FiActivity, FiAlertCircle, FiAlertTriangle, FiGrid, FiLock, FiUsers} from "react-icons/fi"
 import {AiOutlineLogout} from "react-icons/ai";
 import {SignOut} from "../../containers/agentIndex/AgentPage/AgentPage";
 import {useDispatch} from "react-redux";
@@ -25,8 +25,8 @@ function AdminNavbar(props) {
     }
     return (
         <>
-            <div className={"flex flex-wrap"}>
-                <div className='flex flex-wrap gap-2 max-w-5xl mx-auto'>
+            <div className={"flex flex-wrap mx-auto"}>
+                <div className='flex flex-wrap gap-2 mx-auto'>
                     <Tab
                         onClick={() => navigate("/users")}
                         className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${route.pathname === "/users" ? "bg-red-600" : ""}`}
@@ -61,6 +61,34 @@ function AdminNavbar(props) {
                         selectedClassName='bg-red-600'>
                         <FiGrid/>
                         Партнеры
+                    </Tab>
+                    <Tab
+                        onClick={() => navigate("/regions")}
+                        className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${route.pathname === "/regions" ? "bg-red-600" : ""}`}
+                        selectedClassName='bg-red-600'>
+                        <FiLock/>
+                        Региони
+                    </Tab>
+                    <Tab
+                        onClick={() => navigate("/flights")}
+                        className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${route.pathname === "/flights" ? "bg-red-600" : ""}`}
+                        selectedClassName='bg-red-600'>
+                        <FiActivity/>
+                        Рейсы
+                    </Tab>
+                    <Tab
+                        onClick={() => navigate("/transfersList")}
+                        className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${route.pathname === "/transfersList" ? "bg-red-600" : ""}`}
+                        selectedClassName='bg-red-600'>
+                        <FiAlertCircle/>
+                        Трансфери
+                    </Tab>
+                    <Tab
+                        onClick={() => navigate("/visasList")}
+                        className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${route.pathname === "/visasList" ? "bg-red-600" : ""}`}
+                        selectedClassName='bg-red-600'>
+                        <FiAlertTriangle/>
+                        Визи
                     </Tab>
                 </div>
                 <div className={"flex flex-1 justify-end my-4"}>

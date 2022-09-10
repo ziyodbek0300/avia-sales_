@@ -6,7 +6,12 @@ const cors = require("cors");
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const ticket = require('./routes/ticket');
+const region = require('./routes/region');
+const flight = require('./routes/flight');
+const order = require('./routes/order');
+const transfer = require('./routes/transfer');
 const registration = require('./routes/registration');
+const visa = require('./routes/visa');
 const auth = require("./service/auth")
 const app = express();
 
@@ -24,5 +29,10 @@ app.use('/', indexRouter);
 app.use('/user', usersRouter);
 app.use('/register', registration);
 app.use('/ticket', ticket);
+app.use('/region', region);
+app.use('/flight', flight);
+app.use('/order', order);
+app.use('/transfer', transfer);
+app.use('/visa', visa);
 
 module.exports = app;

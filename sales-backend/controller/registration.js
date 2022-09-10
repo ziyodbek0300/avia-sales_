@@ -1,9 +1,10 @@
-const model = require("../models")
 const {Success, ErrorSend} = require("../service/SuccessAndError");
 const file1 = require('path').resolve(__dirname, '..')
 const jwt = require('jsonwebtoken');
 const fs = require("fs")
 const privateKey = fs.readFileSync('private.key', "utf8");
+const {PrismaClient} = require("@prisma/client")
+const prisma = new PrismaClient()
 
 const registrationUser = async (req, res, next) => {
     try {
@@ -12,7 +13,7 @@ const registrationUser = async (req, res, next) => {
             return res.status(404).send({code: 404, error: {}, message: "File not pdf"})
         }
         fs.rename(file1 + `/public/pdf/${file.filename}`, file1 + `/public/pdf/${file.filename}.pdf`, (e) => {
-            Promise.all([model.User.create({...req.body, isChecked: false, doc: file.path + ".pdf"})]).then(r => {
+            Promise.all([prisma.user.create({data:{...req.body, isChecked: false, doc: file.path + ".pdf"}})]).then(r => {
                 return res.status(200).send({code: 200, user: r[0]})
             }).catch(e => {
                 return res.status(404).send({code: 404, error: e, message: e.message})
@@ -26,14 +27,18 @@ const registrationUser = async (req, res, next) => {
 const loginUser = async (req, res) => {
     try {
         let {email, password} = req.body
-        model.User.findOne({where: {email: email, password: password}}).then(r => {
-            const token = jwt.sign({
-                User: r.dataValues.id,
-                email: r.dataValues.email,
-                role: r.dataValues.role,
-                date: new Date(),
-            }, privateKey, {});
-            res.status(200).send(Success(200, {token: token, date: new Date()}, "Ok"))
+        prisma.user.findFirst({where: {AND:{email, password}}}).then(r => {
+            if (r){
+                const token = jwt.sign({
+                    User: r?.id,
+                    email: r?.email,
+                    role: r?.role,
+                    date: new Date(),
+                }, privateKey, {});
+                res.status(200).send(Success(200, {token: token, date: new Date()}, "Ok"))
+            } else {
+                res.status(401).send(ErrorSend(401, {}, "user not found"))
+            }
         }).catch(e => {
             res.status(404).send(ErrorSend(404, e, e.message))
         })

@@ -10,6 +10,10 @@ import Flights from "./TabSections/Flights";
 import Visas from "./TabSections/Visas";
 import Transfers from "./TabSections/Transfers";
 import ExcursionTours from './TabSections/ExcursionTours';
+import {useLocation} from "react-router-dom";
+
+const useQuery = () => new URLSearchParams(useLocation().search);
+
 
 function TabsL() {
     return (
@@ -62,7 +66,7 @@ function TabsL() {
                 <TabPanel>
                     <TourPack />
                 </TabPanel>
-                <TabPanel className="header">
+                <TabPanel>
                     <Flights />
                 </TabPanel>
                 <TabPanel className="header third">
@@ -71,10 +75,10 @@ function TabsL() {
                 <TabPanel>
                     <Hotels />
                 </TabPanel>
-                <TabPanel className="header fifth">
+                <TabPanel>
                     <Visas />
                 </TabPanel>
-                <TabPanel className="header ">
+                <TabPanel>
                     <Transfers />
                 </TabPanel>
             </Tabs>

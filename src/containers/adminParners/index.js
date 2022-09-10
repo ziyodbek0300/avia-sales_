@@ -3,10 +3,14 @@ import MuiTable from "../../components/table";
 import {Button} from "@mui/material";
 import {MainApi} from "../../api/projectApi";
 import {GrCheckmark, GrTrash, GrView} from "react-icons/gr";
+import {useDispatch, useSelector} from "react-redux";
+import {getAllUser} from "../../redux/user/actions";
+import Store from "../../redux"
+import {useNavigate} from "react-router-dom";
 
 const headCells = [
     {
-        id: 'id',
+        id: 'nameCompany',
         numeric: false,
         disablePadding: true,
         label: 'Название компании',
@@ -20,22 +24,36 @@ const headCells = [
         isTime: false
     },
     {
-        id: 'type',
+        id: 'createdAt',
         numeric: true,
         disablePadding: false,
         label: 'Дата создания.',
-        isTime: false
+        isTime: true
     },
 ];
 
-const AdminPartners = ()=>{
-    const [data,setData] = useState([])
-    useEffect(()=>{},[])
+const sortAgents = state => {
+    const user = Store().store.getState().user
+    return state.user.users.agent.filter(r => {
+        return r.partnerId = user
+    })
+}
+
+const AdminPartners = () => {
+    const [data, setData] = useState([])
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getAllUser())
+        // alert("asdsad")
+    }, [])
+    const navigate = useNavigate()
+
+    const agents = useSelector(sortAgents)
     return (
         <div>
             <MuiTable
                 tableName={"Партнеры"}
-                rows={[]?.map(r => {
+                rows={agents?.map(r => {
                     return {
                         ...r,
                         edit: (item) => (
@@ -67,6 +85,9 @@ const AdminPartners = ()=>{
                     }
                 })}
                 headCells={headCells}
+                onClickRow={() => {
+                    navigate(`/partners/orders/asasdad`)
+                }}
             />
         </div>
     )

@@ -1,25 +1,46 @@
-const model = require("../models");
 const {Success, ErrorSend} = require("../service/SuccessAndError");
 const userRole = require("../constants/userRole");
+const {PrismaClient} = require("@prisma/client")
+const prisma = new PrismaClient()
 
 
+const addAdmin = async (req, res, next) => {
+    try {
+        prisma.user.create({
+            data: {
+                role: 'admin',
+                email: 'admin',
+                password: 'password',
+                adminId: "asdasd",
+                fullName: "asdasd",
+                city: "asdasd",
+                phone: "asdasd",
+                nameCompany: "asdasd",
+                doc: "asdasd",
+                isChecked: true
+            }
+        }).then(r => {
+            console.log(r)
+            res.status(200).send(Success(200, r, "ok"))
+        }).catch(e => {
+            res.status(404).send(ErrorSend(404, e, e.message))
+        })
+    } catch (e) {
+        res.status(500).send(ErrorSend(500, e, e.message))
+    }
+}
 const deleteUser = async (req, res, next) => {
     try {
         if (!req.user || req.user.role === userRole.client || req.user.role === userRole.agent) {
             if (req.user && req.user.role === userRole.agent) {
                 return res.status(404).send(ErrorSend(404, {}, "no user"))
-                // return next()
             } else {
                 return res.status(401).send(ErrorSend(401, {}, "no user"))
             }
         }
-        Promise.all([model.User.destroy({where: {id: req.params.id}})])
+        Promise.all([prisma.user.deleteMany({where: {id: +req.params.id}})])
             .then(r => {
-                if (r[0] === 1) {
-                    return res.status(200).send(Success(200, true, "ok"))
-                } else {
-                    return res.status(404).send(ErrorSend(404, {}, "not found"))
-                }
+                return res.status(200).send(Success(200, r, "ok"))
             })
             .catch(e => {
                 return res.status(404).send(ErrorSend(404, e, e.message))
@@ -34,14 +55,13 @@ const acceptAgent = async (req, res, next) => {
         if (!req.user || req.user.role === userRole.client || req.user.role === userRole.agent) {
             if (req.user && req.user.role === userRole.agent) {
                 return res.status(404).send(ErrorSend(404, {}, "no user"))
-                // return next()
             } else {
                 return res.status(401).send(ErrorSend(401, {}, "no user"))
             }
         }
-        Promise.all([model.User.update({isChecked: true}, {where: {id: req.params.id}},)])
+        Promise.all([prisma.user.updateMany({where: {id: +req.params.id}, data: {isChecked: true}})])
             .then(r => {
-                if (r[0][0] === 1) {
+                if (r[0].count > 0) {
                     return res.status(200).send(Success(200, true, "ok"))
                 } else {
                     return res.status(404).send(ErrorSend(404, {}, "not found"))
@@ -64,25 +84,25 @@ const getAllUser = async (req, res, next) => {
                 return res.status(404).send(ErrorSend(404, {}, "no user"))
             }
         }
-        Promise.all([model.User.findAll({})])
+        Promise.all([prisma.user.findMany({})])
             .then(r => {
                 let result = {
                     [userRole.admin]: [], [userRole.agent]: [], newAgent: [],
                 }
                 r[0].map(item => {
-                    if (item.dataValues.role === userRole.admin) {
+                    if (item.role === userRole.admin) {
                         result = {
-                            ...result, [userRole.admin]: [...result[userRole.admin], item.dataValues]
+                            ...result, [userRole.admin]: [...result[userRole.admin], item]
                         }
                         return 1;
-                    } else if (item.dataValues.role === userRole.agent && item.dataValues.isChecked) {
+                    } else if (item.role === userRole.agent && item.isChecked) {
                         result = {
-                            ...result, [userRole.agent]: [...result[userRole.agent], item.dataValues]
+                            ...result, [userRole.agent]: [...result[userRole.agent], item]
                         }
                         return 1;
-                    } else if (item.dataValues.role === userRole.agent && !item.dataValues.isChecked) {
+                    } else if (item.role === userRole.agent && !item.isChecked) {
                         result = {
-                            ...result, newAgent: [...result.newAgent, item.dataValues]
+                            ...result, newAgent: [...result.newAgent, item]
                         }
                         return 1;
                     }
@@ -106,12 +126,32 @@ const update = async (req, res, next) => {
                 return res.status(404).send(ErrorSend(404, {}, "no user"))
             }
         }
-        model.User.update({...req.body}, {where: {id: req.params.id}}).then(r => {
+        prisma.user.update({where: {id: +req.params.id}, data: {...req.body}}).then(r => {
             if (r[0] === 1) {
                 res.status(200).send(Success(200, 1, "ok"))
             } else {
                 res.status(404).send(ErrorSend(404, {}, "error"))
             }
+        }).catch(e => {
+            res.status(404).send(ErrorSend(404, e, e.message))
+        })
+    } catch (e) {
+        res.status(500).send(ErrorSend(500, e, e.message))
+    }
+}
+
+const addNew = async (req, res, next) => {
+    try {
+        if (!req.user || req.user.role === userRole.client || req.user.role === userRole.agent) {
+            if (req.user && req.user.role === userRole.agent) {
+                return res.status(404).send(ErrorSend(404, {}, "no user"))
+            } else {
+                return res.status(404).send(ErrorSend(404, {}, "no user"))
+            }
+        }
+        prisma.user.create({data: {...req.body, isChecked: true}}).then(r => {
+            console.log(r)
+            res.status(200).send(Success(200, r, "ok"))
         }).catch(e => {
             res.status(404).send(ErrorSend(404, e, e.message))
         })
@@ -130,5 +170,5 @@ const getMe = async (req, res) => {
 
 
 module.exports = {
-    getAllUser, getMe, acceptAgent, deleteUser, update
+    getAllUser, getMe, acceptAgent, deleteUser, update, addNew,addAdmin
 }

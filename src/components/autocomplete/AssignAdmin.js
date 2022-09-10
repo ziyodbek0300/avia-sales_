@@ -12,30 +12,30 @@ const AssignAdmin = ({value, setValue = () => ({})}) => {
                 const data = r.data.result.admin
                 let newData = []
                 data.map((e) => {
-                    newData = [...newData, {id: e.id, label: e.fullName}]
+                    newData = [...newData, {id: e.id, label: e.fullName||""}]
                     if (e.id === value) {
-                        setA({id: e.id, label: e.fullName})
+                        setA({id: e.id, label: e.fullName||""})
                     }
                 })
+                // console.log(newData)
                 setAdmins(newData)
             })
             .catch(() => {
                 toast("Network error")
             })
-        return () => setA(null)
+        return () => setA([])
     }, [])
-
     const handleChange = (e, r) => {
         setA(r)
     }
 
-    useEffect(() => {
-        setValue(a?.id)
-    }, [a?.id])
+    // useEffect(() => {
+    //     setValue(a?.id)
+    // }, [a?.id])
 
     return (
         <Autocomplete
-            value={a}
+            // value={a}
             disablePortal
             style={{width: "100%"}}
             id="combo-box-demo"

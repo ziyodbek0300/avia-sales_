@@ -1,0 +1,233 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model TourPassenger {
+  id             Int       @id @default(autoincrement())
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  lastname       String?
+  firtname       String?
+  nationality    String?
+  gender         Gender?
+  birthday       DateTime?
+  passportNumber String?
+  endDate        DateTime?
+  tourPack       TourPack? @relation(fields: [tourPackId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  tourPackId     Int?
+}
+
+model TourPack {
+  id            Int             @id @default(autoincrement())
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  flightId      Int?
+  hotelOrderId  Int?
+  startDate     DateTime?
+  townId        String?
+  hotelId       String?
+  roomId        String?
+  hotelPrice    Float?
+  flightPrice   Float?
+  TourPassenger TourPassenger[]
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  email       String?
+  adminId     String?
+  fullName    String?
+  city        String?
+  password    String?
+  phone       String?
+  nameCompany String?
+  doc         String?
+  isChecked   Boolean  @default(false)
+  role        Role     @default(admin)
+  Order       Order[]
+}
+
+model Ticket {
+  id            Int       @id @default(autoincrement())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  date          DateTime?
+  type          String?
+  chartRegular  String?
+  detail        String?
+  bookingStatus String?
+  paymentStatus String?
+  price         Float?
+  passengers    String?
+  comment       String?
+}
+
+model Region {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  regionId  Int
+}
+
+model Flight {
+  id              Int       @id @default(autoincrement())
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  fromId          Int
+  toId            Int
+  startTime       DateTime
+  endTime         DateTime
+  duration        Float
+  price           Float
+  description     String
+  Order           Order[]
+  weekDays        Int[]
+  isWithReturn    Boolean   @default(false)
+  returnStartTime DateTime?
+  returnEndTime   DateTime?
+  regionId        Int?
+}
+
+model ExcursionTour {
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  from         String
+  to           String
+  isWithReturn Boolean  @default(false)
+}
+
+model VisaPassenger {
+  id             Int       @id @default(autoincrement())
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  lastname       String?
+  firtname       String?
+  nationality    String?
+  gender         Gender?
+  birthday       DateTime?
+  passportNumber String?
+  endDate        DateTime?
+  visa           Visa?     @relation(fields: [visaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  visaId         Int?
+}
+
+model Visa {
+  id            Int             @id @default(autoincrement())
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  visaType      String
+  date          DateTime
+  location      String
+  phone         String
+  name          String
+  price         Float
+  passengers    Int[]
+  VisaPassenger VisaPassenger[]
+}
+
+model Passenger {
+  id             Int      @id @default(autoincrement())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  lastname       String
+  firtname       String
+  nationality    String
+  gender         Gender
+  birthday       DateTime
+  passportNumber String
+  endDate        DateTime
+  Order          Order?   @relation(fields: [orderId], references: [id])
+  orderId        Int?
+}
+
+model HotelPassenger {
+  id             Int         @id @default(autoincrement())
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  lastname       String
+  firtname       String
+  nationality    String
+  gender         Gender
+  birthday       DateTime
+  passportNumber String
+  endDate        DateTime
+  hotelOrder     HotelOrder? @relation(fields: [hotelOrderId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  hotelOrderId   Int?
+}
+
+model TransferPassenger {
+  id             Int         @id @default(autoincrement())
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  lastname       String
+  firtname       String
+  nationality    String
+  gender         Gender
+  birthday       DateTime
+  passportNumber String
+  endDate        DateTime
+  hotelOrder     HotelOrder? @relation(fields: [hotelOrderId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  hotelOrderId   Int?
+}
+
+model Transfer {
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  tarnsferFrom String
+  tarnsferTo   String
+  time         DateTime
+  passengers   Int[]
+  price        Float
+  phone        String
+  name         String
+  description  String   @default("")
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  flightId    Int
+  partnerId   Int?
+  passagersId Int[]
+  contactName String
+  email       String
+  phone       String
+  comment     String
+  price       Float
+  orderType   String
+  startDate   DateTime
+  endDate     DateTime
+  partner     User?       @relation(fields: [partnerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  flight      Flight?     @relation(fields: [flightId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  passager    Passenger[]
+}
+
+model HotelOrder {
+  id                Int                 @id @default(autoincrement())
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  HotelPassenger    HotelPassenger[]
+  TransferPassenger TransferPassenger[]
+}
+
+enum Role {
+  admin
+  agent
+  client
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
