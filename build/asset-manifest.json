@@ -1,15 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.4153c10e.css",
-    "main.js": "/static/js/main.643be9bd.js",
-    "static/media/transfer.jpg": "/static/media/transfer.a82c87668858056211fa.jpg",
+    "main.css": "/static/css/main.51005ca6.css",
+    "main.js": "/static/js/main.88a6619f.js",
     "static/media/contract.pdf": "/static/media/contract.162627cdc9e6b36865b4.pdf",
+    "static/media/qw.jpg": "/static/media/qw.28791e0934bc2c05afc1.jpg",
     "static/media/bg_2.jpg": "/static/media/bg_2.deabb8fbcdb51f0a4bb4.jpg",
+    "static/media/qwerty.jpg": "/static/media/qwerty.6f6452578790a236b776.jpg",
     "static/media/6-min-min.jpg": "/static/media/6-min-min.6bd99dc7e73a20f57e90.jpg",
     "static/media/7.jpg": "/static/media/7.cb9ad945622f421e8638.jpg",
     "static/media/8.jpg": "/static/media/8.ecef5610e1ddc9583a19.jpg",
     "static/media/1.jpg": "/static/media/1.c7dfcc4e63e7873c772c.jpg",
-    "static/media/bg_5.jpg": "/static/media/bg_5.150c9d0a53e2bae249b5.jpg",
+    "static/media/6.jpg": "/static/media/6.63d06b504a982eff04b6.jpg",
     "static/media/bg_3.jpg": "/static/media/bg_3.2b56fe2b55f060d449f3.jpg",
     "static/media/9.jpg": "/static/media/9.f596b03655c09c895825.jpg",
     "static/media/5.jpg": "/static/media/5.84a5fbff42b98ccd5142.jpg",
@@ -26,11 +27,11 @@
     "static/media/uzbekistan-airways.jpg": "/static/media/uzbekistan-airways.3dacde6b74bf9401b8ee.jpg",
     "static/media/visa.jpg": "/static/media/visa.857a8a1141430989e8e6.jpg",
     "index.html": "/index.html",
-    "main.4153c10e.css.map": "/static/css/main.4153c10e.css.map",
-    "main.643be9bd.js.map": "/static/js/main.643be9bd.js.map"
+    "main.51005ca6.css.map": "/static/css/main.51005ca6.css.map",
+    "main.88a6619f.js.map": "/static/js/main.88a6619f.js.map"
   },
   "entrypoints": [
-    "static/css/main.4153c10e.css",
-    "static/js/main.643be9bd.js"
+    "static/css/main.51005ca6.css",
+    "static/js/main.88a6619f.js"
   ]
 }
