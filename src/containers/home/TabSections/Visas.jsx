@@ -3,8 +3,10 @@ import {BsArrowRightShort} from 'react-icons/bs'
 import {RiSendPlane2Line} from 'react-icons/ri'
 import {VISAS, VISA_STATE, VISA_PRICE} from '../../../constants/visas'
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 function Visas() {
+    const {t} = useTranslation();
     const navigate = useNavigate();
     const [adults, setAdults] = useState(1);
     const [infant, setInfant] = useState(0);
@@ -54,7 +56,7 @@ function Visas() {
                     <div className="flex gap-2 lg:flex-row flex-col items-center py-4 text-gray-600">
                         <div className="w-full">
                             <label htmlFor="from" className="block text-white text-sm">
-                                Страна
+                                {t('strana')}
                             </label>
                             <select onChange={(e) => setLocation(e.target.value)}
                                     className='p-2 rounded border-4 border-red-600 w-full' name="state_from"
@@ -65,7 +67,7 @@ function Visas() {
                         <RiSendPlane2Line className="text-white w-10"/>
                         <div className="w-full">
                             <label htmlFor="from" className="block text-white text-sm">
-                                Тип визы
+                                {t('typeVisa')}
                             </label>
                             <select onChange={(e) => setVisaType(e.target.value)}
                                     className='p-2 rounded border-4 border-red-600 w-full' name="state_from"
@@ -76,7 +78,7 @@ function Visas() {
                         </div>
                         <div className="w-full">
                             <label htmlFor="date" className="block text-white text-sm">
-                                Дата
+                                {t('date')}
                             </label>
                             <div className='control-pane'>
                                 <div className='control-section'>
@@ -94,7 +96,7 @@ function Visas() {
                         </div>
                         <div className="w-full relative">
                             <label htmlFor="sa" className="block text-white text-sm">
-                                Гости и номера
+                                {t('gosti')}
                             </label>
                             <input
                                 autoComplete={"off"}
@@ -168,7 +170,7 @@ function Visas() {
                         <button
                             onClick={visaFunc}
                             className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-500 text-white text-sm">
-                            Найти <BsArrowRightShort className="lh-0 text-2xl"/>
+                            {t('nayti')} <BsArrowRightShort className="lh-0 text-2xl"/>
                         </button>
                     </div>
                 </div>

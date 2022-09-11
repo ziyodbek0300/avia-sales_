@@ -91,7 +91,7 @@ const RegionModal = ({open, handleClose, type, values, setRegions}) => {
             >
                 <Box sx={{...style, width: matches ? '50%' : "70%"}}>
                     <Typography fontSize={24}>
-                        {type === "create" ? `Create region` : ''}
+                        {type === "create" ? `Создать регион` : ''}
                     </Typography>
                     <Box style={{marginTop: 8}}>
                         <Box style={{marginTop: 4}}>
@@ -122,7 +122,7 @@ const RegionModal = ({open, handleClose, type, values, setRegions}) => {
                         variant={"outlined"}
                     >
                         <Typography>
-                            Save
+                            Сохранять
                         </Typography>
                     </Button>
                 </Box>

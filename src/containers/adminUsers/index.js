@@ -149,21 +149,21 @@ export default function AdminUsers() {
         <Box sx={{width: '100%'}}>
             <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="Admins" {...a11yProps(0)} />
-                    <Tab label="Agents" {...a11yProps(1)} />
-                    <Tab label="New Agents" {...a11yProps(2)} />
+                    <Tab label="Админы" {...a11yProps(0)} />
+                    <Tab label="Агенты" {...a11yProps(1)} />
+                    <Tab label="Новые агенты" {...a11yProps(2)} />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
                 <Box style={{display: 'flex', justifyContent: 'flex-end', height: 56, alignItems: 'center'}}>
                     <Button onClick={() => handlePressItemEdit("create", {role: userRole.admin})}>
                         <Typography>
-                            Create Admin
+                            Создать админ
                         </Typography>
                     </Button>
                 </Box>
                 <MuiTable
-                    tableName={"Admins"}
+                    tableName={"Админы"}
                     rows={users.admin?.map(r => {
                         return {
                             ...r,
@@ -186,12 +186,12 @@ export default function AdminUsers() {
                 <Box style={{display: 'flex', justifyContent: 'flex-end', height: 56, alignItems: 'center'}}>
                     <Button onClick={() => handlePressItemEdit("create", {role: userRole.agent})}>
                         <Typography>
-                            Create Agent
+                            Создать агент
                         </Typography>
                     </Button>
                 </Box>
                 <MuiTable
-                    tableName={"Agents"}
+                    tableName={"Агенты"}
                     rows={users.agent?.map(r => {
                         return {
                             ...r,
@@ -212,7 +212,7 @@ export default function AdminUsers() {
             </TabPanel>
             <TabPanel value={value} index={2}>
                 <MuiTable
-                    tableName={"New Agents"}
+                    tableName={"Новый агент"}
                     rows={users.newAgent?.map(r => {
                         return {
                             ...r,

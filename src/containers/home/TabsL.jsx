@@ -10,12 +10,14 @@ import Flights from "./TabSections/Flights";
 import Visas from "./TabSections/Visas";
 import Transfers from "./TabSections/Transfers";
 import ExcursionTours from './TabSections/ExcursionTours';
-// import {useLocation} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 // const useQuery = () => new URLSearchParams(useLocation().search);
 
 
 function TabsL() {
+    const {t} = useTranslation()
+
     return (
         <div className="pt-5">
             <Tabs>
@@ -25,42 +27,42 @@ function TabsL() {
                         selectedClassName="bg-red-600"
                     >
                         <FiGrid />
-                        Турпакеты
+                        {t('tourPack')}
                     </Tab>
                     <Tab
                         className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm"
                         selectedClassName="bg-red-600"
                     >
                         <GiAirplaneDeparture />
-                        Авиабилеты
+                        {t('aviaFlights')}
                     </Tab>
                     <Tab
                         className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm"
                         selectedClassName="bg-red-600"
                     >
                         <FiGrid />
-                        Экскурсионные туры
+                        {t('exTours')}
                     </Tab>
                     <Tab
                         className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm"
                         selectedClassName="bg-red-600"
                     >
                         <FaHotel />
-                        Отели
+                        {t('hotels')}
                     </Tab>
                     <Tab
                         className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm"
                         selectedClassName="bg-red-600"
                     >
                         <GrVisa />
-                        Визы
+                        {t('visa')}
                     </Tab>
                     <Tab
                         className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-t-lg bg-red-400 text-white text-sm"
                         selectedClassName="bg-red-600"
                     >
                         <GrVisa />
-                        Трансферы
+                        {t('transfers')}
                     </Tab>
                 </TabList>
                 <TabPanel>

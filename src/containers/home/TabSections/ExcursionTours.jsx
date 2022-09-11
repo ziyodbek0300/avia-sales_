@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import exTour from "../../../constants/exTour";
 import {useNavigate} from "react-router-dom";
 import {BiStar} from "react-icons/bi";
+import moment from "moment";
 
 function ExcursionTours() {
     const navigate = useNavigate();
@@ -20,6 +21,17 @@ function ExcursionTours() {
                     <div className={"flex justify-between items-center"}>
                         <p className={"text-xl"}>{a.typeOfEx}</p>
                         <p className={"text-2xl"}>${a.price}</p>
+                    </div>
+                    <div className={"my-3"}>
+                        <div className={"my-3"}>
+                            <p className={"text-xl"}>Время уходить: {moment(a.departureTime).format("MM-DD-YY")}</p>
+                            <p className={"text-md"}>Мадина Ночь: {a.madinaNights}</p>
+                            <p className={"text-md"}>Мекка Ночь: {a.makkaNights}</p>
+                            <p className={"text-md"}>Всю ночь: {a.makkaNights + a.madinaNights}</p>
+                        </div>
+                        <div>
+                            {a.items.map(b => <p>{b}</p>)}
+                        </div>
                     </div>
                     <p>Отел
                         <div className={"flex gap-1"}>
