@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react'
 import {BsArrowRightShort} from 'react-icons/bs'
 import {RiSendPlane2Line} from 'react-icons/ri'
-import {VISAS, VISA_STATE, VISA_PRICE} from '../../../constants/visas'
+import {VISAS, VISA_STATE, VISA_PRICE, VISA_PRICE2} from '../../../constants/visas'
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
@@ -16,15 +16,27 @@ function Visas() {
     const [isOpen, setIsOpen] = useState(false);
     const [date, setDate] = useState("")
     const [visas, setVisas] = useState([]);
+    const [visaTypes, setVisaTypes] = useState(0);
     const popupRef = useRef();
 
     const visaFunc = (e) => {
         e.preventDefault();
         let price = 100;
         let countPassegers = +adults + +children;
-        // eslint-disable-next-line no-mixed-operators
-
-        price = VISA_PRICE[visaType] * countPassegers;
+        // eslint-disable-next-line no-mixed-operators,no-unused-vars
+        let pr1 = 0;
+        // eslint-disable-next-line no-unused-vars
+        let pr2 = 0;
+        console.log(+visaType)
+        // eslint-disable-next-line array-callback-return
+        VISA_PRICE2.map(a => {
+            if (+a.id === +visaType) {
+                pr1 = a.price.adults;
+                pr2 = a.price.children;
+            }
+        })
+        console.log(((+adults * +pr1) + (+children * +pr2)))
+        price = visaTypes === 0 ? VISA_PRICE[visaType] * countPassegers : ((+adults * +pr1) + (+children * +pr2));
 
         setVisas([...visas, {
             visaType: visaType,
@@ -43,6 +55,7 @@ function Visas() {
     }
 
     const order = (obj) => {
+        // console.log(obj)
         let tr_data = JSON.stringify(obj)
         localStorage.setItem("visa", tr_data);
         navigate(`/visaDetails/${adults + '_' + children + '_' + infant}`)
@@ -58,7 +71,10 @@ function Visas() {
                             <label htmlFor="from" className="block text-white text-sm">
                                 {t('strana')}
                             </label>
-                            <select onChange={(e) => setLocation(e.target.value)}
+                            <select onChange={(e) => {
+                                setLocation(e.target.value);
+                                +e.target.value === 0 ? setVisaTypes(0) : setVisaTypes(1)
+                            }}
                                     className='p-2 rounded border-4 border-red-600 w-full' name="state_from"
                                     id="state_from" placeholder={"- выбрат -"}>
                                 {VISA_STATE.map((visa, index) => <option key={visa} value={index}>{visa}</option>)}
@@ -73,7 +89,13 @@ function Visas() {
                                     className='p-2 rounded border-4 border-red-600 w-full' name="state_from"
                                     placeholder={"- выбрат -"}
                                     id="state_from">
-                                {VISAS.map((visa, index) => <option key={visa} value={index}>{visa}</option>)}
+                                <option>-выбрать-</option>
+                                {visaTypes === 0 ? VISAS.map((visa, index) =>{
+                                    if(index <= 2) {
+                                        return <option key={visa}value={index}>{visa}</option>
+                                    }
+                                }) : VISA_PRICE2.map((visa, index) =>
+                                    <option key={index} value={visa.id}>{visa.name}</option>)}
                             </select>
                         </div>
                         <div className="w-full">
