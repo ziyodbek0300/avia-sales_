@@ -33,11 +33,12 @@ const del = async (req, res, next) => {
 const getOne = async (req, res, next) => {
     try {
 
-        prisma.transfer.findUnique({where: {id: req.params.id}})
+        prisma.transfer.findUnique({where: {id: +req.params.id},include:{TransferPassenger: true}})
             .then(r => {
                 return res.status(200).send(Success(200, r, "ok"))
             })
             .catch(e => {
+                console.log("e")
                 return res.status(404).send(ErrorSend(404, e, e.message))
             })
     } catch (e) {
@@ -47,11 +48,12 @@ const getOne = async (req, res, next) => {
 
 const getAll = async (req, res, next) => {
     try {
-        prisma.transfer.findMany({})
+        prisma.transfer.findMany({include:{TransferPassenger: true}})
             .then(r => {
                 return res.status(200).send(Success(200, r, "ok"))
             })
             .catch(e => {
+                console.log(e)
                 return res.status(404).send({code: 404, error: e, message: e.message})
             })
     } catch (e) {
@@ -101,7 +103,7 @@ const addNew = async (req, res, next) => {
                 return prisma.transferPassenger.create({
                     data: {
                         ...r,
-                        // hotelOrderId: +transfer.id,
+                        transferId:transfer.id
                     }
                 })
             }),

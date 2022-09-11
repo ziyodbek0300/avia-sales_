@@ -8,7 +8,6 @@ const _ = require("lodash")
 const starConst = require("../constants/starConst");
 const htplace = require("../constants/hotelsTownLists");
 const sprice = require("../constants/sprice");
-const fs = require("fs");
 const hprice = require("../constants/hprice");
 const roomNames = require("../constants/room");
 
@@ -43,9 +42,10 @@ router.post('/getHotels/:townId', async function (req, res) {
                 Promise.all([
                     axios.get(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&partner_token=${token}&form=http://samo.travel&type=hotel&state=${req.params.townId}`),
                 ])
-                    .then(r => {
+                    .then(async r => {
+                        let newData = []
                         parseString(r[0].data, function (err, result) {
-                            const newData = result.Response.Data[0].hotel
+                            newData = result.Response.Data[0].hotel
                                 .filter(e => {
                                     return e['$'].status !== 'D'
                                 })
@@ -58,19 +58,7 @@ router.post('/getHotels/:townId', async function (req, res) {
                                             break;
                                         }
                                     }
-                                    // let name = null;
-                                    // let l1 = htplace.length
                                     let l2 = sprice.length
-                                    // for (let i = 0; i < l1; i++) {
-                                    //     let a = htplace[i]
-                                    //     if (
-                                    //         a.inc === item.htplace
-                                    //     ) {
-                                    //         name = a
-                                    //         break;
-                                    //     }
-                                    // }
-
                                     let sprice1 = null
                                     for (let i = 0; i < l2; i++) {
                                         let a
@@ -81,7 +69,6 @@ router.post('/getHotels/:townId', async function (req, res) {
                                         }
                                         if (a?.hotel === item.inc) {
                                             sprice1 = a
-                                            console.log(a)
                                             break;
                                         }
                                     }
@@ -97,7 +84,6 @@ router.post('/getHotels/:townId', async function (req, res) {
                                     const hp = hprice.filter(h => {
                                         return h.hotel === r.inc
                                     }).map(r => {
-                                        console.log(r)
                                         let name = {
                                             name: "",
                                             lname: ""
@@ -153,9 +139,32 @@ router.post('/getHotels/:townId', async function (req, res) {
                                         dataa: changedData
                                     }
                                 })
-                            res.send(newData)
+                            // let a  =Pr
                         });
+                        const a = await Promise.all(newData.map(e => {
+                            try {
+                                return axios.post(`http://localhost:${process.env.PORT}/getPrice/${e.inc}`)
+                            } catch (e) {
+                                return null;
+                            }
+                        })).catch(e=>{
 
+                        })
+                        let response =a.map(r=>r.data)
+                        res.send(newData.map(e => {
+                            let pricee = {}
+                            for (let i = 0; i < response.length; i++) {
+                                let indexElement = response[i]
+                                if (indexElement.length>0&&e.inc === indexElement[0].hotel) {
+                                    pricee = indexElement
+                                    break
+                                }
+                            }
+                            return {
+                                ...e,
+                                price:pricee
+                            }
+                        }))
                     })
                     .catch(e => {
                         res.status(404).send(ErrorSend(404, e, e.message))
