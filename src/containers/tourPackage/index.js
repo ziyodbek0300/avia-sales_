@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import MuiTable from "../../components/table";
 import {Button} from "@mui/material";
 import {MainApi} from "../../api/projectApi";
@@ -60,24 +60,9 @@ const headCells = [
         disablePadding: false,
         label: '',
         isTime: false
-    },
-    // {
-    //     id: 'passengers',
-    //     numeric: true,
-    //     disablePadding: false,
-    //     label: 'Passengers',
-    //     isTime: false
-    // },
-    // {
-    //     id: 'comment',
-    //     numeric: true,
-    //     disablePadding: false,
-    //     label: 'Comment',
-    //     isTime: false
-    // },
+    }
 ];
 const TourPackage = ()=>{
-    const [data,setData] = useState([])
     useEffect(()=>{},[])
     return (
         <div>

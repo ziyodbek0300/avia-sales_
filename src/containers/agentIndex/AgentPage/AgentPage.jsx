@@ -13,6 +13,7 @@ import Cookies from "js-cookie";
 import {logOut} from "../../../redux/user/actions";
 import AgentAviaTicket from "../../my/AgentAviaTicket";
 import {userRole} from "../../../constants/userRole";
+import {useTranslation} from "react-i18next";
 
 export const SignOut = styled(Button)`
   color: red;
@@ -226,7 +227,7 @@ function AgentPage({id}) {
     //         isTime: false
     //     },
     // ]
-
+    const {t} = useTranslation()
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const handlePressLogout = () => {
@@ -252,7 +253,7 @@ function AgentPage({id}) {
                             className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm'
                             selectedClassName='bg-red-600'>
                             <FiGrid/>
-                            Турпакеты
+                            {t('tourPack')}
                         </Tab>
                         <Tab
                             className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm'

@@ -51,16 +51,16 @@ function Visas() {
             <table className={"w-full border border-red-200"}>
                 <thead>
                 <tr className={"border border-red-200"}>
-                    <th className={"p-2 border border-red-200"}>Name</th>
-                    <th className={"p-2 border border-red-200"}>Phone</th>
-                    <th className={"p-2 border border-red-200"}>Price</th>
-                    <th className={"p-2 border border-red-200"}>Date</th>
-                    <th className={"p-2 border border-red-200"}>Actions</th>
+                    <th className={"p-2 border border-red-200"}>Имя</th>
+                    <th className={"p-2 border border-red-200"}>Телефон</th>
+                    <th className={"p-2 border border-red-200"}>Цена</th>
+                    <th className={"p-2 border border-red-200"}>Дата</th>
+                    <th className={"p-2 border border-red-200"}>Действия</th>
                 </tr>
                 </thead>
                 <tbody>
                 {selector?.length === 0 ? <tr className={"border border-red-200"}>
-                    <td colSpan={3} className={"border border-red-200 p-2 text-center"}>No Data</td>
+                    <td colSpan={3} className={"border border-red-200 p-2 text-center"}>Нет данных</td>
                 </tr> : selector?.map(a => {
                     return (<tr key={v4()}>
                         <td className={"border border-red-200 p-2"}>{a?.location}</td>

@@ -1,12 +1,14 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {BsArrowRightShort} from 'react-icons/bs'
 import ReactSelect from "react-select";
 import hotelsTownLists from "../../../constants/hotelsTownLists";
 import regions from "../../../api/projectApi/regions";
 import moment from "moment";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 function Transfers() {
+    const {t} = useTranslation();
     const [adults, setAdults] = useState(1);
     const [infant, setInfant] = useState(0);
     const [children, setChildren] = useState(0);
@@ -17,6 +19,7 @@ function Transfers() {
     const [transfers, setTransfers] = useState([]);
     const [regionsList, setRegionsList] = useState([]);
     const navigate = useNavigate();
+    const popupRef = useRef();
 
     useEffect(() => {
         regions.getAllRegions().then(res => {
@@ -60,8 +63,12 @@ function Transfers() {
         navigate(`/transferDetails/${adults + '_' + children + '_' + infant}`)
     }
 
+    const handleClick = (e) => {
+        e.target.classList.contains("qw1") ? setIsOpen(true) : setIsOpen(false);
+    }
+
     return (<>
-        <div className={"header sixtrh pb-10"}>
+        <div className={"header sixtrh pb-10"} onClick={handleClick}>
             <form onSubmit={transfer}>
                 <div className="max-w-5xl mx-auto py-44">
                     <div
@@ -69,7 +76,7 @@ function Transfers() {
                         <div className="flex lg:flex-row flex-col gap-2 items-center py-4 text-gray-600">
                             <div className="w-full">
                                 <label htmlFor="from" className="block text-white text-sm">
-                                    Откуда
+                                    {t('toT')}
                                 </label>
                                 <ReactSelect
                                     onChange={(e) => {
@@ -82,7 +89,7 @@ function Transfers() {
                             </div>
                             <div className="w-full">
                                 <label htmlFor="from" className="block text-white text-sm">
-                                    Куда
+                                    {t('fromTo')}
                                 </label>
                                 <ReactSelect
                                     placeholder="- выбрать -"
@@ -93,7 +100,7 @@ function Transfers() {
                             </div>
                             <div className="w-full">
                                 <label htmlFor="date" className="block text-white text-sm">
-                                    Дата заезда
+                                    {t('departure')}
                                 </label>
                                 <input
                                     required
@@ -106,7 +113,7 @@ function Transfers() {
                             </div>
                             <div className="w-full relative">
                                 <label htmlFor="date" className="block text-white text-sm">
-                                    Гости и номера
+                                    {t('gosti')}
                                 </label>
                                 <input
                                     required
@@ -114,62 +121,62 @@ function Transfers() {
                                     value={"В:" + adults + " М:" + infant + " Д:" + children + ", Эконом"}
                                     onClick={() => setIsOpen(!isOpen)}
                                     onChange={() => console.log('as')}
-                                    className="p-2 rounded border-4 border-red-600 w-full"
+                                    className="p-2 rounded border-4 qw1 border-red-600 w-full"
                                     type="text"
                                     name="from"
                                     placeholder="2, Эконом"
                                     id="from"
                                 />
-                                {isOpen ? (<div className="absolute top-full -left-20">
-                                    <div className="bg-white rounded-lg p-1 tooltip-in relative mt-5 w-80 shadow">
-                                        <div className="flex p-3">
-                                            <div className="w-full">
-                                                <p>Взрослые <br/>
+                                {isOpen ? (<div ref={popupRef} className="absolute qw1 top-full -left-20">
+                                    <div className="bg-white qw1 rounded-lg p-1 tooltip-in relative mt-5 w-80 shadow">
+                                        <div className="flex qw1 p-3">
+                                            <div className="qw1 w-full">
+                                                <p className={"qw1"}>Взрослые <br/>
                                                     Старше 12 лет</p>
                                             </div>
-                                            <div className="flex w-full">
+                                            <div className="qw1 flex qw1 w-full">
                                                 <button onClick={() => setAdults(prev => prev -= 1)}
-                                                        className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">-
+                                                        className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">-
                                                 </button>
                                                 <input type="number" value={adults}
                                                        onInput={(e) => setAdults(+e.target.value)}
-                                                       className="border-0 text-center p-2 w-1/2 outline-none bg-transparent"/>
+                                                       className="qw1 border-0 text-center p-2 w-1/2 outline-none bg-transparent"/>
                                                 <button onClick={() => setAdults(prev => prev += 1)}
-                                                        className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">+
+                                                        className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">+
                                                 </button>
                                             </div>
                                         </div>
-                                        <div className="flex p-3">
-                                            <div className="w-full">
-                                                <p>Дети <br/>
+                                        <div className="qw1 flex p-3">
+                                            <div className="qw1 w-full">
+                                                <p className={"qw1"}>Дети <br/>
                                                     От 2 до 12 лет</p>
                                             </div>
-                                            <div className="flex w-full">
+                                            <div className="qw1 flex w-full">
                                                 <button onClick={() => setChildren(prev => prev -= 1)}
-                                                        className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">-
+                                                        className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">-
                                                 </button>
                                                 <input type="number" value={children}
                                                        onInput={(e) => setChildren(prev => +e.target.value)}
-                                                       className="text-center border-0 p-2 w-1/2 outline-none bg-transparent"/>
+                                                       className="qw1 text-center border-0 p-2 w-1/2 outline-none bg-transparent"/>
                                                 <button onClick={() => setChildren(prev => prev += 1)}
-                                                        className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">+
+                                                        className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">+
                                                 </button>
                                             </div>
                                         </div>
-                                        <div className="flex p-3">
-                                            <div className="w-full">
-                                                <p>Младенцы <br/>
+                                        <div className="qw1 flex p-3">
+                                            <div className="qw1 w-full">
+                                                <p className={"qw1"}>Младенцы <br/>
                                                     До 2 лет </p>
                                             </div>
-                                            <div className="flex w-full">
+                                            <div className="qw1 flex w-full">
                                                 <button onClick={() => setInfant(prev => prev -= 1)}
-                                                        className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">-
+                                                        className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">-
                                                 </button>
                                                 <input type="number" value={infant}
                                                        onInput={(e) => setInfant(prev => +e.target.value)}
-                                                       className="text-center border-0 p-2 w-1/2 outline-none bg-transparent"/>
+                                                       className="qw1 text-center border-0 p-2 w-1/2 outline-none bg-transparent"/>
                                                 <button onClick={() => setInfant(prev => prev += 1)}
-                                                        className="w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">+
+                                                        className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">+
                                                 </button>
                                             </div>
                                         </div>
@@ -181,7 +188,7 @@ function Transfers() {
                             <button
                                 type={"submit"}
                                 className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-500 text-white text-sm">
-                                Найти <BsArrowRightShort className="lh-0 text-2xl"/>
+                                {t('nayti')} <BsArrowRightShort className="lh-0 text-2xl"/>
                             </button>
                         </div>
                     </div>

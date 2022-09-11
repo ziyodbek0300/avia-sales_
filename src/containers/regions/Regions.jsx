@@ -51,14 +51,14 @@ function Regions() {
             <table className={"w-full border border-red-200"}>
                 <thead>
                 <tr className={"border border-red-200"}>
-                    <th className={"p-2 border border-red-200"}>Name</th>
-                    <th className={"p-2 border border-red-200"}>Created At</th>
-                    <th className={"p-2 border border-red-200"}>Actions</th>
+                    <th className={"p-2 border border-red-200"}>Имя</th>
+                    <th className={"p-2 border border-red-200"}>Создано на</th>
+                    <th className={"p-2 border border-red-200"}>Действия</th>
                 </tr>
                 </thead>
                 <tbody>
                 {regions_list?.length === 0 ? <tr className={"border border-red-200"}>
-                    <td colSpan={3} className={"border border-red-200 p-2 text-center"}>No Data</td>
+                    <td colSpan={3} className={"border border-red-200 p-2 text-center"}>Нет данных</td>
                 </tr> : regions_list?.map(a => {
                     return (<tr key={a.id} className={"border border-red-200"}>
                         <td className={"border border-red-200 p-2"}>{a.name}</td>

@@ -13,8 +13,10 @@ import {SignOut} from "../../containers/agentIndex/AgentPage/AgentPage";
 import {useDispatch} from "react-redux";
 import Cookies from "js-cookie";
 import {logOut} from "../../redux/user/actions";
+import {useTranslation} from "react-i18next";
 
-function AdminNavbar(props) {
+function AdminNavbar() {
+    const {t} = useTranslation()
     const navigate = useNavigate()
     const route = useLocation()
     const dispatch = useDispatch()
@@ -32,7 +34,7 @@ function AdminNavbar(props) {
                         className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${route.pathname === "/users" ? "bg-red-600" : ""}`}
                     >
                         <FiUsers/>
-                        Users
+                        Пользователи
                     </Tab>
                     <Tab
                         onClick={() => navigate("/avia-tickets")}
@@ -46,7 +48,7 @@ function AdminNavbar(props) {
                         className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${route.pathname === "/tour-package" ? "bg-red-600" : ""}`}
                         selectedClassName='bg-red-600'>
                         <FiGrid/>
-                        Турпакеты
+                        Турпакети
                     </Tab>
                     <Tab
                         onClick={() => navigate("/finance")}
@@ -97,7 +99,7 @@ function AdminNavbar(props) {
                             <div className={"mx-2"}>
                                 <AiOutlineLogout/>
                             </div>
-                            Log out
+                            Выйти
                         </SignOut>
                     </div>
                 </div>

@@ -161,7 +161,7 @@ const UserModal = ({open, handleClose, type, values}) => {
                         variant={"outlined"}
                     >
                         <Typography>
-                            Save
+                            Сохранять
                         </Typography>
                     </Button>
                 </Box>

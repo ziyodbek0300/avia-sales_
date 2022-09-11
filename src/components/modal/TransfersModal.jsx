@@ -83,7 +83,7 @@ function TransfersModal({open, handleClose, type, values, setRegions}) {
                     </Typography>
                     <Box style={{marginTop: 8}}>
                         <Box style={{marginBottom: 8}}>
-                            <InputLabel>From</InputLabel>
+                            <InputLabel>Из</InputLabel>
                             <Select
                                 options={regionsList}
                                 style={{width: "100%", padding: 0}}
@@ -94,7 +94,7 @@ function TransfersModal({open, handleClose, type, values, setRegions}) {
                             />
                         </Box>
                         <Box style={{marginBottom: 8}}>
-                            <InputLabel>To</InputLabel>
+                            <InputLabel>Куда</InputLabel>
                             <Select
                                 options={regionsList}
                                 style={{width: "100%", padding: 0}}
@@ -105,7 +105,7 @@ function TransfersModal({open, handleClose, type, values, setRegions}) {
                             />
                         </Box>
                         <Box style={{marginBottom: 8}}>
-                            <InputLabel>Start Time</InputLabel>
+                                <InputLabel>Время начала</InputLabel>
                             <input
                                 style={{width: "100%"}}
                                 className={"px-2 py-[0.4rem] border-[.122rem] border-gray-300 rounded-md"}
@@ -114,7 +114,7 @@ function TransfersModal({open, handleClose, type, values, setRegions}) {
                             />
                         </Box>
                         <Box style={{marginBottom: 8}}>
-                            <InputLabel>End Time</InputLabel>
+                            <InputLabel>Время окончания</InputLabel>
                             <input
                                 style={{width: "100%"}}
                                 className={"px-2 py-[0.4rem] border-[.122rem] border-gray-300 rounded-md"}
@@ -123,7 +123,7 @@ function TransfersModal({open, handleClose, type, values, setRegions}) {
                             />
                         </Box>
                         <Box style={{marginBottom: 8}}>
-                            <InputLabel>Week Days</InputLabel>
+                            <InputLabel>Будние дни</InputLabel>
                             <ReactSelect
                                 isMulti
                                 style={{width: "100%"}}
@@ -136,7 +136,7 @@ function TransfersModal({open, handleClose, type, values, setRegions}) {
                             />
                         </Box>
                         <Box style={{marginBottom: 8}}>
-                            <InputLabel>Duration</InputLabel>
+                            <InputLabel>Продолжительность (минуты)</InputLabel>
                             <InputNumber
                                 style={{width: "100%"}}
                                 className={"px-0 py-0 border-2 border-gray-300 rounded-md z-0"}
@@ -145,7 +145,7 @@ function TransfersModal({open, handleClose, type, values, setRegions}) {
                             />
                         </Box>
                         <Box style={{marginTop: 4}}>
-                            <InputLabel>Price</InputLabel>
+                            <InputLabel>Цена</InputLabel>
                             <TextField
                                 value={values.price}
                                 style={{width: "100%"}}
@@ -161,7 +161,7 @@ function TransfersModal({open, handleClose, type, values, setRegions}) {
                         variant={"outlined"}
                     >
                         <Typography>
-                            Save
+                            Сохранять
                         </Typography>
                     </Button>
                 </Box>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {RiSendPlane2Line} from "react-icons/ri";
 import {BsArrowRightShort} from "react-icons/bs";
 import {DatePicker} from 'rsuite'
@@ -9,6 +9,7 @@ import hotel from "../../../api/projectApi/hotel";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 import hotelsTownLists from "../../../constants/hotelsTownLists";
+import {useTranslation} from "react-i18next";
 
 const RenderItem = ({e}) => {
     const hotelId = e?.inc
@@ -132,6 +133,7 @@ const RenderItem = ({e}) => {
 }
 
 function TourPack() {
+    const {t} = useTranslation();
     const [from, setFrom] = useState(null);
     const [to, setTo] = useState(null);
     const [adults, setAdults] = useState(1);
@@ -140,6 +142,8 @@ function TourPack() {
     const [isOpen, setIsOpen] = useState(false);
     const [regionsList, setRegionsList] = useState([]);
     const [flightsList, setFlightsList] = useState([]);
+    const popupRef = useRef();
+
     const handleClick = (e) => {
         e.target.classList.contains("qw1") ? setIsOpen(true) : setIsOpen(false);
     }
@@ -172,7 +176,7 @@ function TourPack() {
 
     const handleSearch = () => {
         if (from?.value && to?.value) {
-            flights.search(from.value, to.value,to.regionId)
+            flights.search(from.value, to.value, to.regionId)
                 .then(r => {
                     if (Array.isArray(r.data) && r.data?.length > 0) {
                         setHotels(r.data)
@@ -196,13 +200,13 @@ function TourPack() {
                         <div className="flex items-center gap-3">
                             <div className="flex items-center gap-1">
                                 <input type="radio" name="t1" id="t1"/>
-                                <label htmlFor="t1">Сложный маршрут</label>
+                                <label htmlFor="t1"></label>
                             </div>
                         </div>
                         <div className="flex gap-2 items-center py-4 text-gray-600">
                             <div className="w-full">
                                 <label htmlFor="from" className="block text-white text-sm">
-                                    Откуда
+                                    {t('toT')}
                                 </label>
                                 <ReactSelect
                                     style={{border: '1px solid red'}}
@@ -217,7 +221,7 @@ function TourPack() {
                             <RiSendPlane2Line className="text-white w-10"/>
                             <div className="w-full">
                                 <label htmlFor="from" className="block text-white text-sm">
-                                    Направление
+                                    {t('fromTo')}
                                 </label>
                                 <ReactSelect
                                     options={[{value: '', label: '- выбрать -'}, ...regionsList]}
@@ -230,7 +234,7 @@ function TourPack() {
                             </div>
                             <div className="w-full">
                                 <label htmlFor="from" className="block text-white text-sm">
-                                    Туда
+                                    {t('to')}
                                 </label>
                                 <DatePicker
                                     disabledDate={date => date.getDay() === 1 || date.getDay() === 2 || date.getDay() === 4 || date.getDay() === 5 || date.getDay() === 6}
@@ -245,7 +249,7 @@ function TourPack() {
                             </div>
                             <div className="w-full">
                                 <label htmlFor="from" className="block text-white text-sm">
-                                    Обратно
+                                    {t('obratno')}
                                 </label>
                                 <DatePicker
                                     disabledDate={date => date.getDay() === 0 || date.getDay() === 1 || date.getDay() === 4 || date.getDay() === 5 || date.getDay() === 3}
@@ -260,7 +264,7 @@ function TourPack() {
                             </div>
                             <div className="w-full relative">
                                 <label htmlFor="date" className="block text-white text-sm">
-                                    Гости и номера
+                                    {t('gosti')}
                                 </label>
                                 <input
                                     autoComplete={"off"}
@@ -273,7 +277,7 @@ function TourPack() {
                                     placeholder="2, Эконом"
                                     id="from"
                                 />
-                                {isOpen ? (<div className="absolute qw1 top-full -left-20">
+                                {isOpen ? (<div ref={popupRef} className="absolute qw1 top-full -left-20">
                                     <div className="bg-white qw1 rounded-lg p-1 tooltip-in relative mt-5 w-80 shadow">
                                         <div className="flex qw1 p-3">
                                             <div className="qw1 w-full">
@@ -331,7 +335,7 @@ function TourPack() {
                             </div>
                             <div className="w-full">
                                 <label htmlFor="from" className="block text-white text-sm">
-                                    Трансфер
+                                    {t('transfers')}
                                 </label>
                                 <select
                                     name=""
@@ -347,7 +351,7 @@ function TourPack() {
                             <button
                                 onClick={handleSearch}
                                 className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-800 text-white text-sm">
-                                Найти <BsArrowRightShort className="lh-0 text-2xl"/>
+                                {t('nayti')} <BsArrowRightShort className="lh-0 text-2xl"/>
                             </button>
                         </div>
                     </div>

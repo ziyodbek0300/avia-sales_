@@ -78,7 +78,7 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
         >
             <Box sx={{...style, width: matches ? '50%' : "70%"}}>
                 <Typography fontSize={24}>
-                    {type === "create" ? `Create region` : ''}
+                    {type === "create" ? `Создать регион` : ''}
                 </Typography>
                 <Box style={{marginTop: 8}}>
                     <Box style={{marginBottom: 8}}>
@@ -160,7 +160,7 @@ function FlightsModal({open, handleClose, type, values, setRegions}) {
                     variant={"outlined"}
                 >
                     <Typography>
-                        Save
+                        Сохранять
                     </Typography>
                 </Button>
             </Box>
