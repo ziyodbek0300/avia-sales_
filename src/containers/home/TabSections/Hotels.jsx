@@ -7,8 +7,11 @@ import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 import {BiStar} from "react-icons/bi";
 
-const RenderItem = ({e}) => {
-    // console.log()
+const RenderItem = ({
+                        e, adults,
+                        children,
+                        infant
+                    }) => {
     const hotelId = e?.inc
     const [values, setValues] = useState({
         loading: false,
@@ -101,7 +104,8 @@ const RenderItem = ({e}) => {
                                                                     <input name={"asd"}
                                                                            className={"absolute hidden h-full w-full top-0 left-0"}
                                                                            type="radio"/>
-                                                                    <div className={"flex flex-col justify-between h-full"}>
+                                                                    <div
+                                                                        className={"flex flex-col justify-between h-full"}>
                                                                         <div>
                                                                             <h3>{e.name ? e.name : "No name"}</h3>
                                                                             <p className={"text-xl"}>Price:
@@ -109,8 +113,9 @@ const RenderItem = ({e}) => {
                                                                             <p>{e.dataa.name}</p>
                                                                         </div>
                                                                         <div className={"text-right"}>
-                                                                            <button className={"px-4 py-2 bg-white text-zinc-900 font-bold capitalize rounded"}
-                                                                                    onClick={() => navigate(`hotel/order/${hotelId}/${e.inc}?name=${e.name}&adult=${1}&c=${2}&d=${3}`)}>
+                                                                            <button
+                                                                                className={"px-4 py-2 bg-white text-zinc-900 font-bold capitalize rounded"}
+                                                                                onClick={() => navigate(`hotel/order/${hotelId}/${e.inc}?name=${e.name}&adult=${adults}&c=${children}&d=${infant}`)}>
                                                                                 order
                                                                             </button>
                                                                         </div>
@@ -314,9 +319,8 @@ function Hotels() {
                     if (!(e.status !== 'D' && e.name !== "" && e.name?.toLowerCase() !== "unknown hotel" && e.name !== undefined)) {
                         return null;
                     }
-                    console.log(e.dataa)
                     return (
-                        <RenderItem e={e}/>
+                        <RenderItem e={e} adults={adults} infant={infant} children={children}/>
                     )
                 })}
             </div>

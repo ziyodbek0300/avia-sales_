@@ -10,7 +10,7 @@ import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 import hotelsTownLists from "../../../constants/hotelsTownLists";
 
-const RenderItem = ({e}) => {
+const RenderItem = ({e, adults, infant, children, isGroup}) => {
     const hotelId = e?.inc
     const [values, setValues] = useState({
         loading: false,
@@ -46,6 +46,11 @@ const RenderItem = ({e}) => {
         }
     }
     const navigate = useNavigate()
+
+    const handlePressOrder = () => {
+        navigate(`/tour-packet/order/${hotelId}/${e.inc}?name=${e.name}&adult=${adults}&c=${children}&d=${infant}`)
+    }
+
     return (
         <div className={'bg-white p-2 gap-5 shadow border rounded-lg'}>
             <div onClick={handlePress} className="cursor-pointer flex"
@@ -97,7 +102,7 @@ const RenderItem = ({e}) => {
                                                                 data {e.dataa.name}
                                                                 <br/>
                                                                 <button className={"p-4 bg-blue-500"}
-                                                                        onClick={() => navigate(`hotel/order/${hotelId}/${e.inc}?name=${e.name}&adult=${1}&c=${2}&d=${3}`)}>
+                                                                        onClick={handlePressOrder}>
                                                                     order
                                                                 </button>
                                                             </div>
@@ -140,6 +145,7 @@ function TourPack() {
     const [isOpen, setIsOpen] = useState(false);
     const [regionsList, setRegionsList] = useState([]);
     const [flightsList, setFlightsList] = useState([]);
+    const [isGroup, setIsGroup] = useState(1);
     const handleClick = (e) => {
         e.target.classList.contains("qw1") ? setIsOpen(true) : setIsOpen(false);
     }
@@ -172,7 +178,7 @@ function TourPack() {
 
     const handleSearch = () => {
         if (from?.value && to?.value) {
-            flights.search(from.value, to.value,to.regionId)
+            flights.search(from.value, to.value, to.regionId)
                 .then(r => {
                     if (Array.isArray(r.data) && r.data?.length > 0) {
                         setHotels(r.data)
@@ -337,9 +343,11 @@ function TourPack() {
                                     name=""
                                     className="p-2 rounded border-4 border-red-600 w-full"
                                     id=""
+                                    value={isGroup}
+                                    onChange={(e) => setIsGroup(e.target.value)}
                                 >
-                                    <option value="">Групповой</option>
-                                    <option value="">Индивидуальный</option>
+                                    <option value={1}>Групповой</option>
+                                    <option value={0}>Индивидуальный</option>
                                 </select>
                             </div>
                         </div>
@@ -359,7 +367,7 @@ function TourPack() {
                         return null;
                     }
                     return (
-                        <RenderItem e={e}/>
+                        <RenderItem e={e} children={children} infant={infant} adults={adults} isGroup={isGroup === 1}/>
                     )
                 })}
             </div>

@@ -62,6 +62,7 @@ function App() {
                                     <Route path="visaDetails/:id" element={<VisaDetails/>}/>
                                     <Route path="/excursion/:id" element={<ExcursionTour/>}/>
                                     <Route path="hotel/order/:hotelId/:id" element={<HotelOrder/>}/>
+                                    <Route path="/tour-packet/order/:hotelId/:roomId/:isGroup" element={<HotelOrder/>}/>
                                     {(users?.role === userRole.agent) ? (
                                         <>
                                             <Route path={'/my'}>
@@ -89,6 +90,7 @@ function App() {
                                         <Route path="/details/:id" element={<Details/>}/>
                                         <Route path="/transferDetails/:id" element={<TransfersDetail/>}/>
                                         <Route path="/transferDetails/result" element={<Result/>}/>
+                                        <Route path="/tour-packet/order/:hotelId/:roomId" element={<HotelOrder/>}/>
                                         <Route path="hotel/order/:hotelId/:id" element={<HotelOrder/>}/>
                                         <Route path="/excursion/:id" element={<ExcursionTour/>}/>
                                         <Route path={"/"} element={<AdminNavbar/>}>

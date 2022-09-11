@@ -23,18 +23,19 @@ const searchTour = async (req, res, next) => {
             }),
             {headers: {'content-type': 'application/x-www-form-urlencoded'}}),
         // prisma.flight.findMany({  }),
-        prisma.flight.findMany({ where: {fromId: +req.query.fromId,toId: +req.query.toId} }),
+        prisma.flight.findMany({where: {fromId: +req.query.fromId, toId: +req.query.toId}}),
 
     ])
         .then(r => {
-            console.log(r[1])
+            const flights = r[1]
+            // console.log(r[1])
             parseString(r[0].data, function (err, result) {
                 const token = result.Response.Data[0].Result[0]['$'].partner_token
                 Promise.all([
-                        axios.get(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&partner_token=${token}&form=http://samo.travel&type=hotel&state=${+req.query.regionId}`),
+                    axios.get(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&partner_token=${token}&form=http://samo.travel&type=hotel&state=${+req.query.regionId}`),
                 ])
                     .then(r => {
-                        parseString(r[0].data, function (err, result) {
+                        Promise.all([parseString(r[0].data, async function (err, result) {
                             const newData = result.Response.Data[0].hotel
                                 .filter(e => {
                                     return e['$'].status !== 'D'
@@ -127,12 +128,21 @@ const searchTour = async (req, res, next) => {
                                     return {
                                         ...r,
                                         dataa: changedData,
-                                        flight1:r[1]
+                                        flight1: flights
                                     }
                                 })
-                            console.log(r[1])
-                            res.send(r[1]?newData:[])
-                        });
+                            let a = flights ? newData : []
+                            a = await Promise.all(a.map(async r => {
+                                const asd = await axios.get(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&partner_token=${token}&form=http://samo.travel&type=hotel&state=${+req.query.regionId}`)
+                                console.log(asd)
+                                return {
+                                    ...r,
+                                }
+                            }))
+                            res.send(a)
+                        })]).catch(e => {
+                            res.status(404).send(ErrorSend(404, e, e.message))
+                        })
                     })
                     .catch(e => {
                         res.status(404).send(ErrorSend(404, e, e.message))
