@@ -57,7 +57,7 @@ function VisaDetails() {
         }
         visas.addNew(obj).then(response => {
             toast("Забронирован")
-            navigate('/transferDetails/result', { })
+            navigate('/visaDetails/result', { })
         }).catch(err => {
             console.log(err);
         })
