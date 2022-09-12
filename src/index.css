@@ -54,7 +54,7 @@ code {
 .header {
     -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 94%, 53% 94%, 50% 100%, 45% 94%, 0 94%);
     clip-path: polygon(0% 0%, 100% 0%, 100% 94%, 53% 94%, 50% 100%, 45% 94%, 0 94%);
-    background-image: url("./static/images/6.jpg");
+    background-image: url("./static/images/bg_1-min.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: 0% 100%;

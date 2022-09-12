@@ -35,7 +35,20 @@
     "vseStran": "Hamma davlatlar",
     "uae": "BAA",
     "mekkah": "Makka",
-    "saudArabia": "Saudiya Arabistoni"
+    "saudArabia": "Saudiya Arabistoni",
+    "svyaz": "Biz bilan bog'laning",
+    "svyazText": "Biz bilan bog'laning. Biz sizga ko'proq ma'lumot beramiz.",
+    "submit": "Yuborish",
+    "umra": "Umra ziyorati",
+    "ttext": "Qo'shimcha ma'lumot olishni istasangiz, ushbu raqamlarga qo'ng'iroq qiling",
+    "first": "Standart",
+    "second": "Lyuks",
+    "third": "VIP",
+    "xaramdan": "Haramdan",
+    "medinaNight": "Madinada Tunlar",
+    "mekkahNights": "Makkada Tunlar",
+    "allNights": "Hamma Tunlar",
+    "depart": "Jo'nash"
   },
   "ru": {
     "langUz": "Узб",
@@ -73,7 +86,20 @@
     "vseStran": "Все страны",
     "uae": "ОАЭ",
     "mekkah": "Мекка",
-    "saudArabia": "Саудовская Аравия"
+    "saudArabia": "Саудовская Аравия",
+    "svyaz": "Свяжитесь с нами",
+    "svyazText": "Свяжитесь с нами. Мы дадим вам много информации.",
+    "submit": "Отправлять",
+    "umra": "Умра паломничество",
+    "ttext": "Позвоните по этим номерам, если вы хотите узнать больше об информации",
+    "first": "Стандарт",
+    "second": "Лйукс",
+    "third": "ВИП",
+    "xaramdan": "Из Харам",
+    "medinaNight": "Мадина Ночь",
+    "mekkahNights": "Мекка Ночь",
+    "allNights":  "Всю ночь",
+    "depart": "Время уходить"
   },
   "en": {
     "langUz": "Uzb",
@@ -111,6 +137,19 @@
     "vseStran": "All states",
     "uae": "UAE",
     "mekkah": "Makkah",
-    "saudArabia": "Saudi Arabia"
+    "saudArabia": "Saudi Arabia",
+    "svyaz": "Contact us",
+    "svyazText": "Contact us. We will give you a lot of information.",
+    "submit": "Submit",
+    "umra": "Umrah pilgrimage",
+    "ttext": "Call these numbers if you would like more information",
+    "first": "Standard",
+    "second": "Lux",
+    "third": "VIP",
+    "xaramdan": "From Haram",
+    "medinaNight": "Medina Nights",
+    "mekkahNights": "Mekkah Nights",
+    "allNights":  "All Nights",
+    "depart": "Departure time"
   }
 }

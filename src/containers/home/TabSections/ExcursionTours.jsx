@@ -3,8 +3,10 @@ import exTour from "../../../constants/exTour";
 import {useNavigate} from "react-router-dom";
 import {BiStar} from "react-icons/bi";
 import moment from "moment";
+import {useTranslation} from "react-i18next";
 
 function ExcursionTours() {
+    const {t} = useTranslation();
     const navigate = useNavigate();
     const [countP, setCountP] = useState(1);
 
@@ -17,18 +19,18 @@ function ExcursionTours() {
             {exTour.map((a, c) => {
                 return (<div
                     className={"border-2 border-red-500 bg-blue-800 text-white w-full p-4 rounded-lg backdrop-blur-lg"}>
-                    <p className={"text-2xl font-bold"}>{a.name}</p>
+                    <p className={"text-2xl font-bold"}>{t('umra')}</p>
                     <div className={"flex justify-between items-center"}>
-                        <p className={"text-xl"}>{a.typeOfEx}</p>
+                        <p className={"text-xl"}>{a.typeOfEx === "Стандарт" ? t('first') : a.typeOfEx === "Лйукс" ? t('second') : t('third')}</p>
                         <p className={"text-2xl"}>${a.price}</p>
                     </div>
                     <div className={"my-3"}>
                         <div className={"my-3"}>
-                            <p className={"text-xl"}>Харамдан: {a.located}</p>
-                            <p className={"text-xl"}>Время уходить: {moment(a.departureTime).format("MM-DD-YY")}</p>
-                            <p className={"text-md"}>Мадина Ночь: {a.madinaNights}</p>
-                            <p className={"text-md"}>Мекка Ночь: {a.makkaNights}</p>
-                            <p className={"text-md"}>Всю ночь: {a.makkaNights + a.madinaNights}</p>
+                            <p className={"text-xl"}>{t('xaramdan')}: {a.located}</p>
+                            <p className={"text-xl"}>{t('depart')}: {moment(a.departureTime).format("MM-DD-YY")}</p>
+                            <p className={"text-md"}>{t('medinaNight')}: {a.madinaNights}</p>
+                            <p className={"text-md"}>{t('mekkahNights')}: {a.makkaNights}</p>
+                            <p className={"text-md"}>{t('allNights')}: {a.makkaNights + a.madinaNights}</p>
                         </div>
                         <div>
                             {a.items.map(b => <p>{b}</p>)}

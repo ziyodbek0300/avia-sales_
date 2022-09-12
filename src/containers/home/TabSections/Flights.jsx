@@ -274,8 +274,8 @@ function Flights() {
             </div>
         </div>
         <div className={"py-3 max-w-5xl m-auto"}>
-            {tickets.length === 0 ? <><h4>Позвоните по этим номерам, если вы хотите узнать больше об информации</h4>
-                <a href={"tel:+998901341818"}>+998(90)134-18-18</a></> : tickets.map((a, b) => {
+            {tickets.length === 0 ? <><h4>{t('ttext')}</h4>
+                <a className={"text-2xl font-bold"} href={"tel:+998901341818"}>+998(90)134-18-18</a></> : tickets.map((a, b) => {
                 var totalTimeInMin = a.duration;
                 let aaa = Math.floor(totalTimeInMin / 60) + ':' + totalTimeInMin % 60;
                 return (<NavLink onClick={() => localStorage.setItem("flight", JSON.stringify(a))}
