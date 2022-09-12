@@ -221,6 +221,14 @@ model HotelOrder {
   HotelPassenger HotelPassenger[]
 }
 
+model Hotels {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  regionId  Int
+  jsonValue Json
+}
+
 enum Role {
   admin
   agent

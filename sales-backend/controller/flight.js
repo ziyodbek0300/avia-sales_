@@ -184,11 +184,12 @@ const del = async (req, res, next) => {
 const getOne = async (req, res, next) => {
     try {
 
-        prisma.flight.findUnique({where: {id: req.params.id}})
+        prisma.flight.findUnique({where: {id: +req.params.id}})
             .then(r => {
                 return res.status(200).send(Success(200, r, "ok"))
             })
             .catch(e => {
+                console.log(e)
                 return res.status(404).send(ErrorSend(404, e, e.message))
             })
     } catch (e) {
