@@ -1,9 +1,17 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
+import order from "../../api/projectApi/order";
 
-function Result(props) {
-    const params = useParams();
-    console.log(params )
+function FlightsResult() {
+    const {id} = useParams();
+    const [data, setData] = useState({});
+
+    useEffect(() => {
+        order.getOne(id).then(res => {
+            setData(res.data.result)
+        })
+    }, [id])
+
     return (<div className={"max-w-5xl mx-auto p-4"}>
         <p className={"text-2xl my-3"}>Проверка</p>
         <div className={"border border-red-300 rounded-lg p-5 mb-6"}>
@@ -32,7 +40,7 @@ function Result(props) {
                     </div>
                     <div>
                         <p className={"text-2xl"}>Сумма:</p>
-                        <p className={"text-xl"}>825<sup>$</sup></p>
+                        <p className={"text-xl"}>{data.price}<sup>$</sup></p>
                     </div>
                 </div>
                 <div className={"mb-4 border lg:w-1/2 w-full border-red-400 rounded-lg p-4"}>
@@ -50,4 +58,4 @@ function Result(props) {
     </div>);
 }
 
-export default Result;
+export default FlightsResult;

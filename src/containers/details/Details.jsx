@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {v4} from "uuid";
 import FormExample from "./FormExample";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import moment from "moment";
 import order from "../../api/projectApi/order";
 import {toast} from "react-toastify";
@@ -9,6 +9,7 @@ import {useSelector} from "react-redux";
 
 function Details() {
     const {id} = useParams();
+    const navigate = useNavigate();
     const [adults] = useState(id.split('_')[0])
     const [children] = useState(id.split('_')[1])
     const [infants] = useState(id.split('_')[2])
@@ -53,7 +54,7 @@ function Details() {
             startDate: start,
             endDate: end,
             orderType: "",
-            price: +JSON.parse(localStorage.getItem("flight")).price * (+adults + +children),
+            price: +JSON.parse(localStorage.getItem("flight")).total,
             passagers: pass
         } : {
             flightId: +JSON.parse(localStorage.getItem("flight")).id,
@@ -64,11 +65,12 @@ function Details() {
             startDate: start,
             endDate: end,
             orderType: "",
-            price: +JSON.parse(localStorage.getItem("flight")).price * (+adults + +children),
+            price: +JSON.parse(localStorage.getItem("flight")).total,
             passagers: pass
         }
         order.addNew(obj).then(response => {
-            toast("Забронирован")
+            toast("Забронирован");
+            navigate(`/details/result/${response.data.result.order.id}`);
         }).catch(err => {
             console.log(err);
         })
@@ -133,7 +135,7 @@ function Details() {
                             Ташкентскому времени</p>
                         <div className={"flex justify-center flex-col gap-3"}>
                             <p><span
-                                className={"text-2xl text-red-400"}>{JSON.parse(localStorage.getItem("flight")).price * (+adults + +children)}<sup>USD</sup></span> / <span>{JSON.parse(localStorage.getItem("flight")).price * (+adults + +children + +infants)}<>USD</></span>
+                                className={"text-2xl text-red-400"}>{JSON.parse(localStorage.getItem("flight")).total * (+adults + +children)}<sup>USD</sup></span> / <span>{JSON.parse(localStorage.getItem("flight")).total * (+adults + +children + +infants)}<>USD</></span>
                             </p>
                             <button
                                 type={"submit"}

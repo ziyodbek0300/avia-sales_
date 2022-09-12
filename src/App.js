@@ -29,6 +29,7 @@ import Transfers from "./containers/transfers";
 import VisaDetails from "./containers/details/VisaDetails";
 import Visas from "./containers/visas";
 import ExcursionTour from "./containers/details/ExcursionTour";
+import FlightsResult from "./containers/details/FlightsResult";
 
 function App() {
     const dispatch = useDispatch()
@@ -60,6 +61,7 @@ function App() {
                                     <Route path="/transferDetails/:id" element={<TransfersDetail/>}/>
                                     <Route path="/transferDetails/result" element={<Result/>}/>
                                     <Route path="visaDetails/:id" element={<VisaDetails/>}/>
+                                    <Route path="/details/result/:id" element={<FlightsResult/>}/>
                                     <Route path="/excursion/:id" element={<ExcursionTour/>}/>
                                     <Route path="hotel/order/:hotelId/:id" element={<HotelOrder/>}/>
                                     <Route path="/tour-packet/order/:hotelId/:roomId/:isGroup" element={<HotelOrder/>}/>
@@ -90,6 +92,7 @@ function App() {
                                         <Route path="/details/:id" element={<Details/>}/>
                                         <Route path="/transferDetails/:id" element={<TransfersDetail/>}/>
                                         <Route path="/transferDetails/result" element={<Result/>}/>
+                                        <Route path="/details/result/:id" element={<FlightsResult/>}/>
                                         <Route path="/tour-packet/order/:hotelId/:roomId" element={<HotelOrder/>}/>
                                         <Route path="hotel/order/:hotelId/:id" element={<HotelOrder/>}/>
                                         <Route path="/excursion/:id" element={<ExcursionTour/>}/>
