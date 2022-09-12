@@ -82,7 +82,7 @@ router.post('/getHotels/:townId', async function (req, res) {
             parseString(r[0].data, function (err, result) {
                 const token = result.Response.Data[0].Result[0]['$'].partner_token
                 Promise.all([
-                    axios.get(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&partner_token=${token}&form=http://samo.travel&type=hotel&state=${req.params.townId}`),
+                    axios.get(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&partner_token=${token}&form=http://samo.travel&type=hotel&town=${req.params.townId}`),
                 ])
                     .then(async r => {
                         let newData = []
@@ -120,9 +120,11 @@ router.post('/getHotels/:townId', async function (req, res) {
                                         // dataa: name,
                                         sprice: sprice1
                                     }
-                                }).filter(e => {
-                                    return e.dataa !== null && e.sprice !== null
-                                }).map(r => {
+                                })
+                                // .filter(e => {
+                                //     return e.dataa !== null && e.sprice !== null
+                                // })
+                                .map(r => {
                                     const hp = hprice.filter(h => {
                                         return h.hotel === r.inc
                                     }).map(r => {
