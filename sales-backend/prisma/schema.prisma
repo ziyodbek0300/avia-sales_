@@ -165,9 +165,9 @@ model HotelPassenger {
 }
 
 model TransferPassenger {
-  id             Int         @id @default(autoincrement())
-  createdAt      DateTime    @default(now())
-  updatedAt      DateTime    @updatedAt
+  id             Int       @id @default(autoincrement())
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
   lastname       String
   firtname       String
   nationality    String
@@ -175,22 +175,23 @@ model TransferPassenger {
   birthday       DateTime
   passportNumber String
   endDate        DateTime
-  hotelOrder     HotelOrder? @relation(fields: [hotelOrderId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  hotelOrderId   Int?
+  transfer       Transfer? @relation(fields: [transferId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  transferId     Int?
 }
 
 model Transfer {
-  id           Int      @id @default(autoincrement())
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  tarnsferFrom String
-  tarnsferTo   String
-  time         DateTime
-  passengers   Int[]
-  price        Float
-  phone        String
-  name         String
-  description  String   @default("")
+  id                Int                 @id @default(autoincrement())
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  tarnsferFrom      String
+  tarnsferTo        String
+  time              DateTime
+  passengers        Int[]
+  price             Float
+  phone             String
+  name              String
+  description       String              @default("")
+  TransferPassenger TransferPassenger[]
 }
 
 model Order {
@@ -214,11 +215,10 @@ model Order {
 }
 
 model HotelOrder {
-  id                Int                 @id @default(autoincrement())
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-  HotelPassenger    HotelPassenger[]
-  TransferPassenger TransferPassenger[]
+  id             Int              @id @default(autoincrement())
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  HotelPassenger HotelPassenger[]
 }
 
 enum Role {

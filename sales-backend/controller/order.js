@@ -56,7 +56,7 @@ const getOne = async (req, res, next) => {
 
 const getAll = async (req, res, next) => {
     try {
-        prisma.order.findMany({})
+        prisma.order.findMany({include:{passager:true}})
             .then(r => {
                 return res.status(200).send(Success(200, r, "ok"))
             })
