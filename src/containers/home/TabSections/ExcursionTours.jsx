@@ -24,6 +24,7 @@ function ExcursionTours() {
                     </div>
                     <div className={"my-3"}>
                         <div className={"my-3"}>
+                            <p className={"text-xl"}>Харамдан: {a.located}</p>
                             <p className={"text-xl"}>Время уходить: {moment(a.departureTime).format("MM-DD-YY")}</p>
                             <p className={"text-md"}>Мадина Ночь: {a.madinaNights}</p>
                             <p className={"text-md"}>Мекка Ночь: {a.makkaNights}</p>

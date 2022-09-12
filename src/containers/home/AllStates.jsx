@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom'
 import bgImg7 from "../../static/images/7.jpg";
 import bgImg8 from "../../static/images/8.jpg";
 import bgImg9 from "../../static/images/9.jpg";
+import {useTranslation} from "react-i18next";
 
 function AllStates() {
+    const {t} = useTranslation();
+
     return (
         <div className={"pb-5 max-w-5xl mx-auto mt-5 text-2xl"}>
-            <p className="text-3xl text-gray-500 font-bold mb-3">Все страны</p>
+            <p className="text-3xl text-gray-500 font-bold mb-3">{t('vseStran')}</p>
             <div className={"h-80 gap-3 fw-bold fs-4 grid grid-cols-3"}>
                 <div
                     style={{
@@ -22,7 +25,7 @@ function AllStates() {
                         className="text-decoration-none text-white absolute bottom-3 text-2xl right-3"
                         to="/video/1"
                     >
-                        ОАЭ
+                        {t('uae')}
                     </Link>
                 </div>
                 <div
@@ -38,7 +41,7 @@ function AllStates() {
                         className="text-decoration-none text-white absolute bottom-3 text-2xl right-3"
                         to="/video/1"
                     >
-                        Мекка
+                        {t('mekkah')}
                     </Link>
                 </div>
                 <div
@@ -54,7 +57,7 @@ function AllStates() {
                         className="text-decoration-none text-white absolute bottom-3 text-2xl right-3"
                         to="/video/1"
                     >
-                        Саудовская Аравия
+                        {t('saudArabia')}
                     </Link>
                 </div>
             </div>
