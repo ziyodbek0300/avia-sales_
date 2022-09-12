@@ -148,6 +148,16 @@ function TourPack() {
     const [regionsList, setRegionsList] = useState([]);
     const [flightsList, setFlightsList] = useState([]);
     const [isGroup, setIsGroup] = useState(1);
+    const [hotels, setHotels] = useState([]);
+
+    const [values, setValues] = useState({
+        oldRegionId: null,
+        oldFromId: null,
+        oldToId: null,
+        oldHotels: [],
+        date1: null,
+        date2: null
+    })
     const popupRef = useRef();
 
     const handleClick = (e) => {
@@ -178,22 +188,34 @@ function TourPack() {
         setFlightsList(all);
     }, []);
 
-    const [hotels, setHotels] = useState([]);
 
     const handleSearch = () => {
-        if (from?.value && to?.value) {
-            flights.search(from.value, to.value, to.regionId)
-                .then(r => {
-                    if (Array.isArray(r.data) && r.data?.length > 0) {
-                        setHotels(r.data)
-                    } else {
-                        setHotels([])
-                        toast("Турпакет не найден", {type: "info"})
-                    }
-                })
-                .catch(e => {
-                    toast(e.message, {type: "error"})
-                })
+        if (hotels.length > 0 && to.regionId === values.oldRegionId && from.id === values.oldFromId && to.id === values.oldToId) {
+            return;
+        } else {
+            if (from?.value && to?.value && values.date1 !== null && values.date2&&values.date1<values.date2) {
+                flights.search(from.value, to.value, to.regionId)
+                    .then(r => {
+                        if (Array.isArray(r.data) && r.data?.length > 0) {
+                            setHotels(r.data)
+                            setValues({
+                                ...values,
+                                oldRegionId: to.regionId,
+                                oldHotels: r.data,
+                                oldFromId: from.id,
+                                oldToId: to.id
+                            })
+                        } else {
+                            setHotels([])
+                            toast("Турпакет не найден", {type: "info"})
+                        }
+                    })
+                    .catch(e => {
+                        toast(e.message, {type: "error"})
+                    })
+            } else {
+                toast("Пожалуйста, заполните все поля или введите правильные даты", {type: "info"})
+            }
         }
     }
 
@@ -251,6 +273,8 @@ function TourPack() {
                                         borderRadius: '4px',
                                         backgroundColor: 'white'
                                     }}
+                                    value={values.date1}
+                                    onChange={e => setValues({...values, date1: e})}
                                 />
                             </div>
                             <div className="w-full">
@@ -266,6 +290,8 @@ function TourPack() {
                                         borderRadius: '4px',
                                         backgroundColor: 'white'
                                     }}
+                                    value={values.date2}
+                                    onChange={e => setValues({...values, date2: e})}
                                 />
                             </div>
                             <div className="w-full relative">
@@ -370,9 +396,14 @@ function TourPack() {
                     if (!(e.status !== 'D' && e.name !== "" && e.name?.toLowerCase() !== "unknown hotel" && e.name !== undefined)) {
                         return null;
                     }
-                    return (
-                        <RenderItem e={e} children={children} infant={infant} adults={adults} isGroup={isGroup === 1}/>
-                    )
+                    const sprice = e.sprice
+                    if (true) {
+                        return (
+                            <RenderItem e={e} children={children} infant={infant} adults={adults}
+                                        isGroup={isGroup === 1}/>
+                        )
+                    }
+                    return null
                 })}
             </div>
         </>
