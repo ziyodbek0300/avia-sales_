@@ -26,7 +26,16 @@
     "endDate": "Ketish sanasi",
     "date": "Sana",
     "typeVisa": "Viza Turi",
-    "nayti": "Qidirish"
+    "nayti": "Qidirish",
+    "luchshi": "Eng yaxshi davlatlar",
+    "abuDabi": "Abu Dabi",
+    "medina": "Madina",
+    "dubai": "Dubay",
+    "jidda": "Jidda",
+    "vseStran": "Hamma davlatlar",
+    "uae": "BAA",
+    "mekkah": "Makka",
+    "saudArabia": "Saudiya Arabistoni"
   },
   "ru": {
     "langUz": "Узб",
@@ -55,7 +64,16 @@
     "endDate": "Дата выезда",
     "date": "Дата",
     "typeVisa": "Тип визы",
-    "nayti": "Найти"
+    "nayti": "Найти",
+    "luchshi": "Лучшие страны",
+    "abuDabi": "Абу Даби",
+    "medina": "Медина",
+    "dubai": "Дубай",
+    "jidda": "Джидда",
+    "vseStran": "Все страны",
+    "uae": "ОАЭ",
+    "mekkah": "Мекка",
+    "saudArabia": "Саудовская Аравия"
   },
   "en": {
     "langUz": "Uzb",
@@ -84,6 +102,15 @@
     "endDate": "Departure date",
     "date": "Date",
     "typeVisa": "Type of Visa",
-    "nayti": "Search"
+    "nayti": "Search",
+    "luchshi": "Top countries",
+    "abuDabi": "Abu Dhabi",
+    "medina": "Medina",
+    "dubai": "Dubai",
+    "jidda": "Jeddah",
+    "vseStran": "All states",
+    "uae": "UAE",
+    "mekkah": "Makkah",
+    "saudArabia": "Saudi Arabia"
   }
 }

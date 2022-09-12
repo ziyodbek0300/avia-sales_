@@ -4,12 +4,15 @@ import bgImg from "../../static/images/1.jpg";
 import bgImg5 from "../../static/images/5.jpg";
 import bgImg3 from "../../static/images/3.jpg";
 import bgImg6 from "../../static/images/6-min-min.jpg";
+import {useTranslation} from "react-i18next";
 
 function BestStates() {
+    const {t} = useTranslation();
+
     return (
         <>
             <div className={"pb-4 max-w-5xl mx-auto mt-5 text-2xl"}>
-                <p className="text-3xl text-gray-500 font-bold mb-3">Лучшие страны</p>
+                <p className="text-3xl text-gray-500 font-bold mb-3">{t('luchshi')}</p>
                 <div className={"main-courses fw-bold fs-4"}>
                     <div
                         style={{
@@ -24,7 +27,7 @@ function BestStates() {
                             className="text-decoration-none text-white absolute bottom-3 text-3xl right-3"
                             to="/video/1"
                         >
-                            Дубай
+                            {t('dubai')}
                         </Link>
                     </div>
                     <div
@@ -40,7 +43,7 @@ function BestStates() {
                             className="text-decoration-none text-white absolute bottom-3 text-3xl right-3"
                             to="/video/1"
                         >
-                            Медина
+                            {t('medina')}
                         </Link>
                     </div>
                 </div>
@@ -60,7 +63,7 @@ function BestStates() {
                             className="text-decoration-none text-white absolute bottom-3  text-3xl right-3"
                             to="/video/1"
                         >
-                            Джидда
+                            {t('jidda')}
                         </Link>
                     </div>
                     <div
@@ -76,7 +79,7 @@ function BestStates() {
                             className="text-decoration-none text-white absolute bottom-3 text-3xl right-3"
                             to="/video/1"
                         >
-                            Абу Даби
+                            {t("abuDabi")}
                         </Link>
                     </div>
                 </div>
