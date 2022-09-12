@@ -10901,5 +10901,4 @@ const htplace =  [
     // }
 ]
 
-module.exports = hotelsTownLists
-module.exports = htplace
+module.exports = {hotelsTownLists,htplace}

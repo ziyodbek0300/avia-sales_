@@ -10,6 +10,11 @@ const htplace = require("../constants/hotelsTownLists");
 const sprice = require("../constants/sprice");
 const hprice = require("../constants/hprice");
 const roomNames = require("../constants/room");
+const cron = require('node-cron');
+// const hotelsTownLists = require("../../src/constants/hotelsTownLists");
+const {PrismaClient} = require("@prisma/client")
+const {hotelsTownLists} = require("../constants/hotelsTownLists")
+const prisma = new PrismaClient()
 
 router.get('/', async function (req, res) {
     res.render('index', {title: 'express'});
@@ -27,7 +32,44 @@ router.post('/', async function (req, res) {
         })
 });
 
+// cron.schedule('0 0 */1 * * *', () => {
+// cron.schedule('*/1 * * * * *', () => {
+//     console.log("asdasdasdasd",hotelsTownLists.length)
+//     hotelsTownLists.map(e => {
+//         axios.post(`http://localhost:${process.env.PORT}/getHotels/${e.id}`).then(async r=>{
+//             const hotel = await prisma.hotels.findUnique({where:{id:e.id}})
+//             console.log(hotel)
+//         }).catch(e=>{
+//             console.log(e)
+//         })
+//     })
+// });
+
+cron.schedule("0 0 */1 * * *", function () {
+    console.log("running a task every 10 second");
+    hotelsTownLists.map(async (e, index) => {
+        const hotel = await prisma.hotels.findUnique({where: {regionId: e.id}})
+        setTimeout(async () => {
+            axios.post(`http://localhost:${process.env.PORT}/getHotels/${e.id}`).then(async r => {
+                if (!hotel) {
+                    await prisma.hotels.create({data: {regionId: e.id, jsonValue: r.data}})
+                } else {
+                    await prisma.hotels.update({where: {regionId: e.id}, data: {regionId: e.id, jsonValue: r.data}})
+                }
+            }).catch(e => {
+                console.log(e)
+            })
+        }, (index + 1) * 60000)
+    })
+});
+
+router.get('/getHotels/:townId', async function (req, res) {
+    const hotel = await prisma.hotels.findMany({where: {regionId: +req.params.townId}})
+    res.send(hotel[0].jsonValue)
+})
+
 router.post('/getHotels/:townId', async function (req, res) {
+    console.log("as")
     Promise.all([
         axios.post(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=auth`,
             qs.stringify({
@@ -147,22 +189,22 @@ router.post('/getHotels/:townId', async function (req, res) {
                             } catch (e) {
                                 return null;
                             }
-                        })).catch(e=>{
+                        })).catch(e => {
 
                         })
-                        let response =a.map(r=>r.data)
+                        let response = a.map(r => r.data)
                         res.send(newData.map(e => {
                             let pricee = {}
                             for (let i = 0; i < response.length; i++) {
                                 let indexElement = response[i]
-                                if (indexElement.length>0&&e.inc === indexElement[0].hotel) {
+                                if (indexElement.length > 0 && e.inc === indexElement[0].hotel) {
                                     pricee = indexElement
                                     break
                                 }
                             }
                             return {
                                 ...e,
-                                price:pricee
+                                price: pricee
                             }
                         }))
                     })

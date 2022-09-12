@@ -31,15 +31,7 @@ const del = async (req, res, next) => {
 
 const getOne = async (req, res, next) => {
     try {
-        // if (!req.user || req.user.role === userRole.client || req.user.role === userRole.agent) {
-        //     if (req.user && req.user.role === userRole.agent) {
-        //         return res.status(404).send(ErrorSend(404, {}, "no user"))
-        //         // return next()
-        //     } else {
-        //         return res.status(401).send(ErrorSend(401, {}, "no user"))
-        //     }
-        // }
-        prisma.order.findUnique({where: {id: +req.params.id}})
+        prisma.order.findUnique({where: {id: +req.params.id}, include: {passager: true, flight: true, partner: true}})
             .then(r => {
                 if (r) {
                     return res.status(200).send(Success(200, r, "ok"))
@@ -56,7 +48,7 @@ const getOne = async (req, res, next) => {
 
 const getAll = async (req, res, next) => {
     try {
-        prisma.order.findMany({include:{passager:true}})
+        prisma.order.findMany({include: {passager: true}})
             .then(r => {
                 return res.status(200).send(Success(200, r, "ok"))
             })
