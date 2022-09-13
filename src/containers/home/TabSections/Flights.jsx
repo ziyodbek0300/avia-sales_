@@ -36,6 +36,8 @@ function FlightsTab() {
     const [wd1, setWd1] = useState([]);
     const [obratno, setObratno] = useState(false);
     const popupRef = useRef();
+    const changeTransfer = useRef();
+    const [isTransfer, setIsTransfer] = useState(false);
 
     const handleClick = (e) => {
         e.target.classList.contains("qw1") ? setIsOpen(true) : setIsOpen(false);
@@ -55,7 +57,9 @@ function FlightsTab() {
         // eslint-disable-next-line array-callback-return
         flights.map(flight => {
             if (flight.fromName === from.label && flight.toName === to.label) {
-                setTickets([...tickets, {...flight, adults: adults, children: children}]);
+                setTickets([...tickets, {
+                    ...flight, adults: adults, children: children, total: (+flight.price * (+adults + +children))
+                }]);
             }
         })
     }
@@ -75,7 +79,7 @@ function FlightsTab() {
         <div className="header" onClick={handleClick}>
             <div className="max-w-5xl mx-auto py-44">
                 <div
-                    className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
+                    className="bg-blue-900 relative border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
                     <div className="flex items-center gap-3">
                         <div className="flex items-center gap-1">
                             <input type="checkbox"
@@ -252,11 +256,14 @@ function FlightsTab() {
                                 </div>
                             </div>) : ""}
                         </div>
-                        <div className="w-full">
+                        <div className="w-full relative">
+                            <input type="checkbox" className={"absolute top-0 right-0"}
+                                   onChange={(e) => setIsTransfer(!isTransfer)}/>
                             <label htmlFor="from" className="block text-white text-sm">
                                 {t('transfers')}
                             </label>
                             <select
+                                disabled={!isTransfer}
                                 name=""
                                 className="p-2 rounded border-4 border-red-600 w-full"
                                 id=""
@@ -281,20 +288,21 @@ function FlightsTab() {
                 <a className={"text-2xl font-bold"}
                    href={"tel:+998901341818"}>+998(90)134-18-18</a></> : tickets.map((a, b) => {
                 var totalTimeInMin = a.duration;
-                let transferPrice = 0;
-                if (4 <= (a.adults + a.children) && (a.adults + a.children) <= 8) {
-                    transferPrice = 130;
-                } else if (8 < (a.adults + a.children) && (a.adults + a.children) <= 14) {
-                    transferPrice = 200;
-                } else if (15 <= (a.adults + a.children) && (a.adults + a.children) <= 50) {
-                    transferPrice = 500;
+                let price = 100;
+                let countPassegers = +adults + +children;
+                if (4 <= countPassegers && countPassegers <= 8) {
+                    price = 130;
+                } else if (8 < countPassegers && countPassegers <= 14) {
+                    price = 200;
+                } else if (15 <= countPassegers && countPassegers <= 50) {
+                    price = 500;
                 }
                 let aaa = Math.floor(totalTimeInMin / 60) + ':' + totalTimeInMin % 60;
                 return (<NavLink onClick={() => localStorage.setItem("flight", JSON.stringify({
                     ...a,
-                    total: (a.price * (a.adults + a.children)) + +transferPrice
+                    total: !isTransfer ? a.total : a.total + price
                 }))}
-                                 to={`/details/${adults + '_' + children + '_' + infant}`}>
+                                 to={`/details/${adults + '_' + children + '_' + infant}`} key={b}>
                     <div
                         className={"p-3 mb-3 shadow hover:shadow-md cursor-pointer transition-all rounded-lg border flex"}>
                         <div className={"w-full px-2 pr-5"}>
@@ -322,7 +330,8 @@ function FlightsTab() {
                             </div>
                         </div>
                         <div className={"border-l p-3 flex justify-center items-center w-60"}>
-                            <p className={"text-2xl font-bold text-red-500"}>{(a.price * (a.adults + a.children)) + +transferPrice}$</p>
+                            {!isTransfer ? <p className={"text-2xl font-bold text-red-500"}>{a.total}$</p> :
+                                <p className={"text-2xl font-bold text-red-500"}>{a.total + price}$</p>}
                         </div>
                     </div>
                 </NavLink>)
