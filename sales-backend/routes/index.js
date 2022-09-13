@@ -64,8 +64,12 @@ cron.schedule("0 0 */1 * * *", function () {
 });
 
 router.get('/getHotels/:townId', async function (req, res) {
-    const hotel = await prisma.hotels.findMany({where: {regionId: +req.params.townId}})
-    res.send(hotel[0].jsonValue)
+    try {
+        const hotel = await prisma.hotels.findMany({where: {regionId: +req.params.townId}})
+        res.send(hotel[0].jsonValue)
+    } catch (e) {
+        res.status(404).send(ErrorSend(404, e, e.message))
+    }
 })
 
 router.post('/getHotels/:townId', async function (req, res) {

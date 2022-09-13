@@ -24,28 +24,28 @@ const RenderItem = ({
         setValues({
             ...values,
             data: [],
-            loading: true,
+            loading: false,
             open: !values.open
         })
-        if (!values.open) {
-            const data = await hotel.getPrice(hotelId).catch(e => {
-                setValues({
-                    ...values,
-                    loading: false,
-                    open: true,
-                })
-            })
-            if (data.status === 200) {
-                setValues({
-                    ...values,
-                    open: true,
-                    loading: false,
-                    data: data.data,
-                })
-            } else {
-                toast("Get error", {type: 'warning'})
-            }
-        }
+        // if (!values.open) {
+        //     const data = await hotel.getPrice(hotelId).catch(e => {
+        //         setValues({
+        //             ...values,
+        //             loading: false,
+        //             open: true,
+        //         })
+        //     })
+        //     if (data.status === 200) {
+        //         setValues({
+        //             ...values,
+        //             open: true,
+        //             loading: false,
+        //             data: data.data,
+        //         })
+        //     } else {
+        //         toast("Get error", {type: 'warning'})
+        //     }
+        // }
     }
     const navigate = useNavigate()
     return (
@@ -64,7 +64,7 @@ const RenderItem = ({
                             })}
                         </div>
                     </div>
-                    <p className={"mt-auto text-2xl"}>Цена: ${Math.floor(e.sprice.adultpr)}</p>
+                    <p className={"mt-auto text-2xl"}>Цена: ${Array.isArray(e.price)&&e.price.length>0&&Math.floor(e.price[0].price)}</p>
                 </div>
                 {hotelsTownLists.map(a => {
                     return a.id === e.town && (
@@ -98,7 +98,7 @@ const RenderItem = ({
                                             ) : (
                                                 <div className={'grid lg:grid-cols-2 grid-cols-1 gap-5'}>
                                                     {
-                                                        values.data.map(e => {
+                                                        e.price?.map(e => {
                                                             return e.status !== "D" && (
                                                                 <div style={{width: "100%", minHeight: 200}}
                                                                      className={"bg-red-400 text-white relative p-3 rounded-lg shadow"}>
