@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.dc9dc792.css",
-    "main.js": "/static/js/main.8a1a711c.js",
+    "main.css": "/static/css/main.37395b8d.css",
+    "main.js": "/static/js/main.10fef9b9.js",
     "static/media/contract.pdf": "/static/media/contract.162627cdc9e6b36865b4.pdf",
     "static/media/qw.jpg": "/static/media/qw.28791e0934bc2c05afc1.jpg",
     "static/media/bg_2.jpg": "/static/media/bg_2.deabb8fbcdb51f0a4bb4.jpg",
@@ -10,7 +10,6 @@
     "static/media/7.jpg": "/static/media/7.cb9ad945622f421e8638.jpg",
     "static/media/8.jpg": "/static/media/8.ecef5610e1ddc9583a19.jpg",
     "static/media/1.jpg": "/static/media/1.c7dfcc4e63e7873c772c.jpg",
-    "static/media/6.jpg": "/static/media/6.63d06b504a982eff04b6.jpg",
     "static/media/bg_3.jpg": "/static/media/bg_3.2b56fe2b55f060d449f3.jpg",
     "static/media/9.jpg": "/static/media/9.f596b03655c09c895825.jpg",
     "static/media/5.jpg": "/static/media/5.84a5fbff42b98ccd5142.jpg",
@@ -27,11 +26,11 @@
     "static/media/uzbekistan-airways.jpg": "/static/media/uzbekistan-airways.3dacde6b74bf9401b8ee.jpg",
     "static/media/visa.jpg": "/static/media/visa.857a8a1141430989e8e6.jpg",
     "index.html": "/index.html",
-    "main.dc9dc792.css.map": "/static/css/main.dc9dc792.css.map",
-    "main.8a1a711c.js.map": "/static/js/main.8a1a711c.js.map"
+    "main.37395b8d.css.map": "/static/css/main.37395b8d.css.map",
+    "main.10fef9b9.js.map": "/static/js/main.10fef9b9.js.map"
   },
   "entrypoints": [
-    "static/css/main.dc9dc792.css",
-    "static/js/main.8a1a711c.js"
+    "static/css/main.37395b8d.css",
+    "static/js/main.10fef9b9.js"
   ]
 }

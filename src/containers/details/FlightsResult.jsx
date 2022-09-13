@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import order from "../../api/projectApi/order";
+import moment from "moment";
 
 function FlightsResult() {
     const {id} = useParams();
@@ -18,16 +19,16 @@ function FlightsResult() {
             <div className={"lg:w-1/2 w-full"}>
                 <div className={"mb-4 flex justify-between items-center"}>
                     <label htmlFor="first">Номер заказа (бронирования): </label>
-                    <input type="text" className={"border-red-300 rounded border p-2"} placeholder={"95124"}/>
+                    <input type="text" className={"border-red-300 rounded border p-2"} value={moment(data.createdAt).format("MMHHmm")} placeholder={"95124"}/>
                 </div>
                 <div className={"mb-4 flex justify-between items-center"}>
                     <label htmlFor="first"> Фамилия пассажира (латини): </label>
-                    <input type="text" className={"border-red-300 rounded border p-2"} placeholder={"AKHMADJONOV"}/>
+                    <input type="text" className={"border-red-300 rounded border p-2"} value={data.contactName} placeholder={"AKHMADJONOV"}/>
                 </div>
                 <div className={"text-right"}>
-                    <button
-                        className={"p-2 border border-red-200 rounded hover:bg-red-500 hover:text-white active:opacity-80 transition"}>Поиск
-                    </button>
+                    {/*<button*/}
+                    {/*    className={"p-2 border border-red-200 rounded hover:bg-red-500 hover:text-white active:opacity-80 transition"}>Поиск*/}
+                    {/*</button>*/}
                 </div>
             </div>
         </div>
@@ -35,8 +36,8 @@ function FlightsResult() {
             <div className={"lg:w-4/5 w-full"}>
                 <div className={"mb-4 flex justify-between items-center"}>
                     <div>
-                        <p className={"text-2xl"}>Заказ ID: 90735</p>
-                        <p className={""}>от: 31.08.2022 14:40:42</p>
+                        <p className={"text-2xl"}>Заказ ID: {moment(data.createdAt).format("MMHHmm")}</p>
+                        <p className={""}>от: {moment(data.startDate).format("YYYY-MM-DD HH:mm")}</p>
                     </div>
                     <div>
                         <p className={"text-2xl"}>Сумма:</p>
