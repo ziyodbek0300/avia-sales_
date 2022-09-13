@@ -102,8 +102,8 @@ const PartnerOrder = () => {
                     }
                 })}
                 headCells={headCells}
-                onClickRow={() => {
-                    navigate(`/partners/orders/asasdad`)
+                onClickRow={(s) => {
+                    navigate(`/details/result/${s.id}`)
                 }}
             />
         </div>
