@@ -29,6 +29,13 @@ import Transfers from "./containers/transfers";
 import VisaDetails from "./containers/details/VisaDetails";
 import Visas from "./containers/visas";
 import ExcursionTour from "./containers/details/ExcursionTour";
+import FlightsResult from "./containers/details/FlightsResult";
+import TourPack from "./containers/home/TabSections/TourPack";
+import ExcursionTours from "./containers/home/TabSections/ExcursionTours";
+import Hotels from "./containers/home/TabSections/Hotels";
+import TransfersTab from "./containers/home/TabSections/Transfers";
+import VisasTab from "./containers/home/TabSections/Visas";
+import FlightsTab from "./containers/home/TabSections/Flights";
 
 function App() {
     const dispatch = useDispatch()
@@ -52,7 +59,14 @@ function App() {
                             <div>
                                 <Navbar/>
                                 <Routes>
-                                    <Route index element={<Home/>}/>
+                                    <Route path={"/"} element={<Home/>}>
+                                        <Route element={<TourPack/>} path={"/"}/>
+                                        <Route element={<FlightsTab/>} path={"tab-flights"}/>
+                                        <Route element={<ExcursionTours/>} path={"tab-ex-tours"}/>
+                                        <Route element={<Hotels/>} path={"tab-hotels"}/>
+                                        <Route element={<VisasTab/>} path={"tab-visas"}/>
+                                        <Route element={<TransfersTab/>} path={"tab-transfers"}/>
+                                    </Route>
                                     <Route path="/about-us" element={<About/>}/>
                                     <Route path="/where-are-we" element={<Where/>}/>
                                     <Route path="/for-partners" element={<ForPartners/>}/>
@@ -60,6 +74,7 @@ function App() {
                                     <Route path="/transferDetails/:id" element={<TransfersDetail/>}/>
                                     <Route path="/transferDetails/result" element={<Result/>}/>
                                     <Route path="visaDetails/:id" element={<VisaDetails/>}/>
+                                    <Route path="/details/result/:id" element={<FlightsResult/>}/>
                                     <Route path="/excursion/:id" element={<ExcursionTour/>}/>
                                     <Route path="hotel/order/:hotelId/:id" element={<HotelOrder/>}/>
                                     <Route path="/tour-packet/order/:hotelId/:roomId/:isGroup" element={<HotelOrder/>}/>
@@ -83,13 +98,21 @@ function App() {
                                 <div>
                                     <Navbar/>
                                     <Routes>
-                                        <Route index element={<Home/>}/>
+                                        <Route path={"/"} element={<Home/>}>
+                                            <Route element={<TourPack/>} path={"/"}/>
+                                            <Route element={<FlightsTab/>} path={"tab-flights"}/>
+                                            <Route element={<ExcursionTours/>} path={"tab-ex-tours"}/>
+                                            <Route element={<Hotels/>} path={"tab-hotels"}/>
+                                            <Route element={<VisasTab/>} path={"tab-visas"}/>
+                                            <Route element={<TransfersTab/>} path={"tab-transfers"}/>
+                                        </Route>
                                         <Route path="/about-us" element={<About/>}/>
                                         <Route path="/where-are-we" element={<Where/>}/>
                                         <Route path="/for-partners" element={<ForPartners/>}/>
                                         <Route path="/details/:id" element={<Details/>}/>
                                         <Route path="/transferDetails/:id" element={<TransfersDetail/>}/>
                                         <Route path="/transferDetails/result" element={<Result/>}/>
+                                        <Route path="/details/result/:id" element={<FlightsResult/>}/>
                                         <Route path="/tour-packet/order/:hotelId/:roomId" element={<HotelOrder/>}/>
                                         <Route path="hotel/order/:hotelId/:id" element={<HotelOrder/>}/>
                                         <Route path="/excursion/:id" element={<ExcursionTour/>}/>

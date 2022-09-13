@@ -7,6 +7,9 @@ import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 import {BiStar} from "react-icons/bi";
 import {useTranslation} from "react-i18next";
+import BestStates from "../BestStates";
+import AllStates from "../AllStates";
+import LastSection from "../LastSection";
 
 const RenderItem = ({
                         e, adults,
@@ -342,6 +345,9 @@ function Hotels() {
                     }
                 })}
             </div>
+            <BestStates/>
+            <AllStates/>
+            <LastSection/>
         </>
     )
 }

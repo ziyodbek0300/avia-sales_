@@ -18,7 +18,7 @@ i18n
     .use(initReactI18next)
     .init({
         resources,
-        lng: langCons.uz,
+        lng: langCons.ru,
         interpolation: {
             escapeValue: false
         }

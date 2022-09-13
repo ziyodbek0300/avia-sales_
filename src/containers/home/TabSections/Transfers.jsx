@@ -6,8 +6,11 @@ import regions from "../../../api/projectApi/regions";
 import moment from "moment";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
+import BestStates from "../BestStates";
+import AllStates from "../AllStates";
+import LastSection from "../LastSection";
 
-function Transfers() {
+function TransfersTab() {
     const {t} = useTranslation();
     const [adults, setAdults] = useState(1);
     const [infant, setInfant] = useState(0);
@@ -217,7 +220,10 @@ function Transfers() {
                 </div>)
             })}
         </div>
+        <BestStates/>
+        <AllStates/>
+        <LastSection/>
     </>)
 }
 
-export default Transfers
+export default TransfersTab

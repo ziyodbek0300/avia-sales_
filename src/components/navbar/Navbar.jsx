@@ -38,8 +38,8 @@ function Navbar() {
                             name="lang"
                             id="lang"
                             className='border-slate-500 w-16 focus:outline-none'>
-                            <option value={langCons.uz}>{t("langUz")}</option>
                             <option value={langCons.ru}>{t("langRu")}</option>
+                            <option value={langCons.uz}>{t("langUz")}</option>
                             <option value={langCons.en}>{t("langEn")}</option>
                         </select>
                     </li>

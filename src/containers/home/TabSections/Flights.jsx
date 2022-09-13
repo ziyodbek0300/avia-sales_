@@ -12,8 +12,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {getAllFlights} from "../../../redux/flights/actions";
 import {NavLink} from "react-router-dom";
 import {useTranslation} from "react-i18next";
+import BestStates from "../BestStates";
+import AllStates from "../AllStates";
+import LastSection from "../LastSection";
 
-function Flights() {
+function FlightsTab() {
     const {t} = useTranslation();
     const moment = extendMoment(Moment);
     const [adults, setAdults] = useState(1);
@@ -33,6 +36,8 @@ function Flights() {
     const [wd1, setWd1] = useState([]);
     const [obratno, setObratno] = useState(false);
     const popupRef = useRef();
+    const changeTransfer = useRef();
+    const [isTransfer, setIsTransfer] = useState(false);
 
     const handleClick = (e) => {
         e.target.classList.contains("qw1") ? setIsOpen(true) : setIsOpen(false);
@@ -52,7 +57,9 @@ function Flights() {
         // eslint-disable-next-line array-callback-return
         flights.map(flight => {
             if (flight.fromName === from.label && flight.toName === to.label) {
-                setTickets([...tickets, flight]);
+                setTickets([...tickets, {
+                    ...flight, adults: adults, children: children, total: (+flight.price * (+adults + +children))
+                }]);
             }
         })
     }
@@ -72,7 +79,7 @@ function Flights() {
         <div className="header" onClick={handleClick}>
             <div className="max-w-5xl mx-auto py-44">
                 <div
-                    className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
+                    className="bg-blue-900 relative border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
                     <div className="flex items-center gap-3">
                         <div className="flex items-center gap-1">
                             <input type="checkbox"
@@ -249,11 +256,14 @@ function Flights() {
                                 </div>
                             </div>) : ""}
                         </div>
-                        <div className="w-full">
+                        <div className="w-full relative">
+                            <input type="checkbox" className={"absolute top-0 right-0"}
+                                   onChange={(e) => setIsTransfer(!isTransfer)}/>
                             <label htmlFor="from" className="block text-white text-sm">
                                 {t('transfers')}
                             </label>
                             <select
+                                disabled={!isTransfer}
                                 name=""
                                 className="p-2 rounded border-4 border-red-600 w-full"
                                 id=""
@@ -267,7 +277,7 @@ function Flights() {
                         <button
                             onClick={showTickets}
                             className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-800 text-white text-sm">
-                            {t('nayt')} <BsArrowRightShort className="lh-0 text-2xl"/>
+                            {t('nayti')} <BsArrowRightShort className="lh-0 text-2xl"/>
                         </button>
                     </div>
                 </div>
@@ -275,11 +285,24 @@ function Flights() {
         </div>
         <div className={"py-3 max-w-5xl m-auto"}>
             {tickets.length === 0 ? <><h4>{t('ttext')}</h4>
-                <a className={"text-2xl font-bold"} href={"tel:+998901341818"}>+998(90)134-18-18</a></> : tickets.map((a, b) => {
+                <a className={"text-2xl font-bold"}
+                   href={"tel:+998901341818"}>+998(90)134-18-18</a></> : tickets.map((a, b) => {
                 var totalTimeInMin = a.duration;
+                let price = 100;
+                let countPassegers = +adults + +children;
+                if (4 <= countPassegers && countPassegers <= 8) {
+                    price = 130;
+                } else if (8 < countPassegers && countPassegers <= 14) {
+                    price = 200;
+                } else if (15 <= countPassegers && countPassegers <= 50) {
+                    price = 500;
+                }
                 let aaa = Math.floor(totalTimeInMin / 60) + ':' + totalTimeInMin % 60;
-                return (<NavLink onClick={() => localStorage.setItem("flight", JSON.stringify(a))}
-                                 to={`/details/${adults + '_' + children + '_' + infant}`}>
+                return (<NavLink onClick={() => localStorage.setItem("flight", JSON.stringify({
+                    ...a,
+                    total: !isTransfer ? a.total : a.total + price
+                }))}
+                                 to={`/details/${adults + '_' + children + '_' + infant}`} key={b}>
                     <div
                         className={"p-3 mb-3 shadow hover:shadow-md cursor-pointer transition-all rounded-lg border flex"}>
                         <div className={"w-full px-2 pr-5"}>
@@ -288,14 +311,11 @@ function Flights() {
                                 <p className={"font-bold mb-3"}>Ekonom</p>
                             </div>
                             <div className={"flex justify-between"}>
-                <span className={"text-lg"} style={{lineHeight: 1.2}}>
-                <span className={"text-xl font-normal"}
-                      style={{lineHeight: 0}}>{moment(a.startTime).format("HH:mm")}</span><br/>
-                    {/*<span className={"text-xs"}*/}
-                    {/*      style={{lineHeight: 0}}>{moment(a.startTime).format("DD:MM:YYYY")}</span>*/}
-                    <br/>
-                <span className={"capitalize"}>{a.fromName}</span>
-                </span>
+                                <span className={"text-lg"} style={{lineHeight: 1.2}}>
+                                    <span className={"text-xl font-normal"}
+                                          style={{lineHeight: 0}}>{moment(a.startTime).format("HH:mm")}</span><br/><br/>
+                                    <span className={"capitalize"}>{a.fromName}</span>
+                                </span>
                                 <div
                                     className={"flex w-full bg-red-500 text-white mx-3 justify-between px-6 rounded border-b-2 border-dotted border-gray-500 h-10 align-bottom p-3"}>
                                     <FaPlaneDeparture className={"text-2xl text-white"}/>
@@ -303,22 +323,24 @@ function Flights() {
                                     <FaPlaneArrival className={"text-2xl text-white"}/>
                                 </div>
                                 <span className={"text-lg"} style={{lineHeight: 1.2}}>
-                <span className={"text-xl font-normal"}
-                      style={{lineHeight: 0}}>{moment(a.endTime).format("HH:mm")}</span><br/>
-                                    {/*<span className={"text-xs"} style={{lineHeight: 0}}>{moment(a.endTime).format("DD:MM:YYYY")}</span>*/}
-                                    <br/>
-                <span className={"capitalize"}>{a.toName}</span>
-                </span>
+                                    <span className={"text-xl font-normal"}
+                                          style={{lineHeight: 0}}>{moment(a.endTime).format("HH:mm")}</span><br/><br/>
+                                    <span className={"capitalize"}>{a.toName}</span>
+                                </span>
                             </div>
                         </div>
                         <div className={"border-l p-3 flex justify-center items-center w-60"}>
-                            <p className={"text-2xl font-bold text-red-500"}>{a.price * (+adults + +children)}$</p>
+                            {!isTransfer ? <p className={"text-2xl font-bold text-red-500"}>{a.total}$</p> :
+                                <p className={"text-2xl font-bold text-red-500"}>{a.total + price}$</p>}
                         </div>
                     </div>
                 </NavLink>)
             })}
         </div>
+        <BestStates/>
+        <AllStates/>
+        <LastSection/>
     </div>);
 }
 
-export default Flights
+export default FlightsTab

@@ -10,6 +10,9 @@ import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 import hotelsTownLists from "../../../constants/hotelsTownLists";
 import {useTranslation} from "react-i18next";
+import AllStates from "../AllStates";
+import BestStates from "../BestStates";
+import LastSection from "../LastSection";
 
 const RenderItem = ({e, adults, infant, children, isGroup}) => {
     const hotelId = e?.inc
@@ -133,7 +136,6 @@ const RenderItem = ({e, adults, infant, children, isGroup}) => {
                 </>
             ) : null}
         </div>
-
     )
 }
 
@@ -193,7 +195,7 @@ function TourPack() {
         if (hotels.length > 0 && to.regionId === values.oldRegionId && from.id === values.oldFromId && to.id === values.oldToId) {
             return;
         } else {
-            if (from?.value && to?.value && values.date1 !== null && values.date2&&values.date1<values.date2) {
+            if (from?.value && to?.value && values.date1 !== null && values.date2 && values.date1 < values.date2) {
                 flights.search(from.value, to.value, to.regionId)
                     .then(r => {
                         if (Array.isArray(r.data) && r.data?.length > 0) {
@@ -406,6 +408,9 @@ function TourPack() {
                     return null
                 })}
             </div>
+            <BestStates/>
+            <AllStates/>
+            <LastSection/>
         </>
     )
 }
