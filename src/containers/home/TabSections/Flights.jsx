@@ -12,8 +12,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {getAllFlights} from "../../../redux/flights/actions";
 import {NavLink} from "react-router-dom";
 import {useTranslation} from "react-i18next";
+import BestStates from "../BestStates";
+import AllStates from "../AllStates";
+import LastSection from "../LastSection";
 
-function Flights() {
+function FlightsTab() {
     const {t} = useTranslation();
     const moment = extendMoment(Moment);
     const [adults, setAdults] = useState(1);
@@ -325,7 +328,10 @@ function Flights() {
                 </NavLink>)
             })}
         </div>
+        <BestStates/>
+        <AllStates/>
+        <LastSection/>
     </div>);
 }
 
-export default Flights
+export default FlightsTab

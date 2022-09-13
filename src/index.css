@@ -94,13 +94,13 @@ code {
     background-image: url("./static/images/bg_2.jpg");
 }
 
-.sixtrh {
+.header.sixtrh {
     background-size: cover;
     background-position: 10% 60%;
     background-image: url("./static/images/qwerty.jpg");
 }
 
-.third {
+.header.third {
     background-position: 10% 60% !important;
     background-image: url("./static/images/bg_3.jpg");
 }

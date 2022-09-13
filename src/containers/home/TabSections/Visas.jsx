@@ -4,8 +4,11 @@ import {RiSendPlane2Line} from 'react-icons/ri'
 import {VISAS, VISA_STATE, VISA_PRICE, VISA_PRICE2} from '../../../constants/visas'
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
+import BestStates from "../BestStates";
+import AllStates from "../AllStates";
+import LastSection from "../LastSection";
 
-function Visas() {
+function VisasTab() {
     const {t} = useTranslation();
     const navigate = useNavigate();
     const [adults, setAdults] = useState(1);
@@ -219,7 +222,10 @@ function Visas() {
                 </div>)
             })}
         </div>
+        <BestStates/>
+        <AllStates/>
+        <LastSection/>
     </>)
 }
 
-export default Visas
+export default VisasTab
