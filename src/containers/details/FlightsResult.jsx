@@ -15,20 +15,31 @@ function FlightsResult() {
 
     return (<div className={"max-w-5xl mx-auto p-4"}>
         <p className={"text-2xl my-3"}>Проверка</p>
-        <div className={"border border-red-300 rounded-lg p-5 mb-6"}>
+        <p className={"text-sm"}>Заказчик</p>
+        <div className={"border border-red-300 flex lg:gap-16 lg:flex-row flex-col rounded-lg p-5 mb-6"}>
             <div className={"lg:w-1/2 w-full"}>
                 <div className={"mb-4 flex justify-between items-center"}>
                     <label htmlFor="first">Номер заказа (бронирования): </label>
-                    <input type="text" className={"border-red-300 rounded border p-2"} value={moment(data.createdAt).format("MMHHmm")} placeholder={"95124"}/>
+                    <input onChange={(e) => setData({...data, reference: e.target.value})} type="text"
+                           className={"border-red-300 rounded border p-2"}
+                           value={moment(data.createdAt).format("MMHHmm")} placeholder={"95124"}/>
                 </div>
                 <div className={"mb-4 flex justify-between items-center"}>
                     <label htmlFor="first"> Фамилия пассажира (латини): </label>
-                    <input type="text" className={"border-red-300 rounded border p-2"} value={data.contactName} placeholder={"AKHMADJONOV"}/>
+                    <input onChange={(e) => setData({...data, contactName: e.target.value})} type="text"
+                           className={"border-red-300 rounded border p-2"} value={data.contactName}/>
                 </div>
-                <div className={"text-right"}>
-                    {/*<button*/}
-                    {/*    className={"p-2 border border-red-200 rounded hover:bg-red-500 hover:text-white active:opacity-80 transition"}>Поиск*/}
-                    {/*</button>*/}
+            </div>
+            <div className={"lg:w-1/2 w-full"}>
+                <div className={"mb-4 flex justify-between items-center"}>
+                    <label htmlFor="first">Эл. адрес:</label>
+                    <input type="email" className={"border-red-300 rounded border p-2"}
+                           onChange={(e) => setData({...data, email: e.target.value})} value={data.email}/>
+                </div>
+                <div className={"mb-4 flex justify-between items-center"}>
+                    <label htmlFor="first">Телефон номер: </label>
+                    <input onChange={(e) => setData({...data, phone: e.target.value})} type="phone"
+                           className={"border-red-300 rounded border p-2"} value={data.phone}/>
                 </div>
             </div>
         </div>
@@ -51,8 +62,45 @@ function FlightsResult() {
                     </div>
                 </div>
                 <div>
-                    <p className="text-2xl my-3">Пассажиры (1)</p>
-                    <div className={""}></div>
+                    <div className={""}>{data.passager?.map((pass, index) => {
+                        return (
+                            <div key={pass.id}>
+                                <p className="text-2xl my-3">Пассажир {index + 1}</p>
+                                <div className={"border-red-500 border rounded mb-4 p-3"}>
+                                    <div className={"flex items-end mb-3"}>
+                                        <p>Имя</p>
+                                        <div className={"border-b border-gray-700 w-full border-dotted"}></div>
+                                        <p className={"text-lg font-bold"}>{pass.firtname}</p>
+                                    </div>
+                                    <div className={"flex items-end mb-3"}>
+                                        <p>Фамилия</p>
+                                        <div className={"border-b border-gray-700 w-full border-dotted"}></div>
+                                        <p className={"text-lg font-bold"}>{pass.lastname}</p>
+                                    </div>
+                                    <div className={"flex items-end mb-3"}>
+                                        <p>Национальность</p>
+                                        <div className={"border-b border-gray-700 w-full border-dotted"}></div>
+                                        <p className={"text-lg font-bold"}>{pass.nationality}</p>
+                                    </div>
+                                    <div className={"flex items-end mb-3"}>
+                                        <p>Пол</p>
+                                        <div className={"border-b border-gray-700 w-full border-dotted"}></div>
+                                        <p className={"text-lg font-bold"}>{pass.gender}</p>
+                                    </div>
+                                    <div className={"flex items-end mb-3"}>
+                                        <p>День рождения</p>
+                                        <div className={"border-b border-gray-700 w-full border-dotted"}></div>
+                                        <p className={"text-lg font-bold"}>{moment(pass.birthday).format("DD-MM-YYYY HH:mm")}</p>
+                                    </div>
+                                    <div className={"flex items-end mb-3"}>
+                                        <p>Номер паспорта</p>
+                                        <div className={"border-b border-gray-700 w-full border-dotted"}></div>
+                                        <p className={"text-lg font-bold"}>{pass.passportNumber}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })}</div>
                 </div>
             </div>
         </div>
