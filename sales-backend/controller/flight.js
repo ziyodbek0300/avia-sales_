@@ -15,13 +15,18 @@ const prisma = new PrismaClient()
 
 const searchTour = async (req, res, next) => {
     Promise.all([
-        axios.get(`http://localhost:${process.env.PORT}/getHotels/${req.query.regionId}`),
+        axios.get(`http://localhost:${process.env.PORT}/hotel/getOne/${req.query.regionId}`),
         prisma.flight.findMany({where: {fromId: +req.query.fromId, toId: +req.query.toId}}),
     ])
         .then(r => {
             const hotels = r[0].data
             const flights = r[1]
-            res.send(hotels)
+            res.send(hotels.map(r=>{
+                return {
+                    ...r,
+                    flights
+                }
+            }))
         })
         .catch(e => {
             console.log(e)

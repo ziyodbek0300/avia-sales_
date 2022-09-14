@@ -1,20 +1,21 @@
 const express = require('express');
 const axios = require("axios");
-const {ErrorSend} = require("../service/SuccessAndError");
-const router = express.Router();
 const parseString = require('xml2js').parseString;
 const qs = require("qs")
 const _ = require("lodash")
+const cron = require('node-cron');
+const {PrismaClient} = require("@prisma/client")
+
+const router = express.Router();
+const prisma = new PrismaClient()
+
+const {ErrorSend} = require("../service/SuccessAndError");
 const starConst = require("../constants/starConst");
 const htplace = require("../constants/hotelsTownLists");
 const sprice = require("../constants/sprice");
 const hprice = require("../constants/hprice");
 const roomNames = require("../constants/room");
-const cron = require('node-cron');
-// const hotelsTownLists = require("../../src/constants/hotelsTownLists");
-const {PrismaClient} = require("@prisma/client")
-const {hotelsTownLists} = require("../constants/hotelsTownLists")
-const prisma = new PrismaClient()
+// const {hotelsTownLists} = require("../constants/hotelsTownLists")
 
 router.get('/', async function (req, res) {
     res.render('index', {title: 'express'});
@@ -32,40 +33,32 @@ router.post('/', async function (req, res) {
         })
 });
 
-// cron.schedule('0 0 */1 * * *', () => {
-// cron.schedule('*/1 * * * * *', () => {
-//     console.log("asdasdasdasd",hotelsTownLists.length)
-//     hotelsTownLists.map(e => {
-//         axios.post(`http://localhost:${process.env.PORT}/getHotels/${e.id}`).then(async r=>{
-//             const hotel = await prisma.hotels.findUnique({where:{id:e.id}})
-//             console.log(hotel)
-//         }).catch(e=>{
-//             console.log(e)
-//         })
+// cron.schedule("0 0 */1 * * *", function () {
+//     console.log("running a task every 10 second");
+//     hotelsTownLists.map(async (e, index) => {
+//         const hotel = await prisma.hotels.findUnique({where: {regionId: e.id}})
+//         setTimeout(async () => {
+//             axios.post(`http://localhost:${process.env.PORT}/getHotels/${e.id}`).then(async r => {
+//                 if (!hotel) {
+//                     await prisma.hotels.create({data: {regionId: e.id, jsonValue: r.data}})
+//                 } else {
+//                     await prisma.hotels.update({where: {regionId: e.id}, data: {regionId: e.id, jsonValue: r.data}})
+//                 }
+//             }).catch(e => {
+//                 console.log(e)
+//             })
+//         }, (index + 1) * 60000)
 //     })
 // });
 
-cron.schedule("0 0 */1 * * *", function () {
-    console.log("running a task every 10 second");
-    hotelsTownLists.map(async (e, index) => {
-        const hotel = await prisma.hotels.findUnique({where: {regionId: e.id}})
-        setTimeout(async () => {
-            axios.post(`http://localhost:${process.env.PORT}/getHotels/${e.id}`).then(async r => {
-                if (!hotel) {
-                    await prisma.hotels.create({data: {regionId: e.id, jsonValue: r.data}})
-                } else {
-                    await prisma.hotels.update({where: {regionId: e.id}, data: {regionId: e.id, jsonValue: r.data}})
-                }
-            }).catch(e => {
-                console.log(e)
-            })
-        }, (index + 1) * 60000)
-    })
-});
-
 router.get('/getHotels/:townId', async function (req, res) {
-    const hotel = await prisma.hotels.findMany({where: {regionId: +req.params.townId}})
-    res.send(hotel[0].jsonValue)
+    try {
+        const hotel = await prisma.hotels.findMany({where: {regionId: +req.params.townId}})
+        res.send(hotel[0].jsonValue)
+    } catch (e) {
+        console.log(e)
+        res.status(404).send(ErrorSend(404, e, e.message))
+    }
 })
 
 router.post('/getHotels/:townId', async function (req, res) {

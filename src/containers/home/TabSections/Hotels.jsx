@@ -27,28 +27,28 @@ const RenderItem = ({
         setValues({
             ...values,
             data: [],
-            loading: true,
+            loading: false,
             open: !values.open
         })
-        if (!values.open) {
-            const data = await hotel.getPrice(hotelId).catch(e => {
-                setValues({
-                    ...values,
-                    loading: false,
-                    open: true,
-                })
-            })
-            if (data.status === 200) {
-                setValues({
-                    ...values,
-                    open: true,
-                    loading: false,
-                    data: data.data,
-                })
-            } else {
-                toast("Get error", {type: 'warning'})
-            }
-        }
+        // if (!values.open) {
+        //     const data = await hotel.getPrice(hotelId).catch(e => {
+        //         setValues({
+        //             ...values,
+        //             loading: false,
+        //             open: true,
+        //         })
+        //     })
+        //     if (data.status === 200) {
+        //         setValues({
+        //             ...values,
+        //             open: true,
+        //             loading: false,
+        //             data: data.data,
+        //         })
+        //     } else {
+        //         toast("Get error", {type: 'warning'})
+        //     }
+        // }
     }
     const navigate = useNavigate()
     return (
@@ -67,7 +67,7 @@ const RenderItem = ({
                             })}
                         </div>
                     </div>
-                    <p className={"mt-auto text-2xl"}>Цена: ${Math.floor(e.sprice.adultpr)}</p>
+                    <p className={"mt-auto text-2xl"}>Цена: ${Array.isArray(e.price)&&e.price.length>0&&Math.floor(e.price[0].price)}</p>
                 </div>
                 {hotelsTownLists.map(a => {
                     return a.id === e.town && (
@@ -101,7 +101,7 @@ const RenderItem = ({
                                             ) : (
                                                 <div className={'grid lg:grid-cols-2 grid-cols-1 gap-5'}>
                                                     {
-                                                        values.data.map(e => {
+                                                        e.price?.map(e => {
                                                             return e.status !== "D" && (
                                                                 <div style={{width: "100%", minHeight: 200}}
                                                                      className={"bg-red-400 text-white relative p-3 rounded-lg shadow"}>
@@ -177,10 +177,11 @@ function Hotels() {
     const handlePressFind = () => {
         hotel.getHotels(values.town)
             .then(r => {
-                setHotels(r.data)
+                console.log(r.data.result)
+                setHotels(Array.isArray(r.data)?r.data:[])
             })
             .catch(e => {
-                setHotels([])
+                // setHotels([])
             })
     }
 
@@ -326,7 +327,7 @@ function Hotels() {
                 </div>
             </div>
             <div className="max-w-5xl mx-auto flex flex-col gap-3">
-                {hotels.length !== 0 ? (<div className={"flex justify-end"}><input placeholder={"Search"}
+                {hotels?.length !== 0 ? (<div className={"flex justify-end"}><input placeholder={"Search"}
                                                                                    className={"border border-red-500 p-2 rounded"}
                                                                                    type={"search"}
                                                                                    onInput={(e) => setSearch(e.target.value)}/>

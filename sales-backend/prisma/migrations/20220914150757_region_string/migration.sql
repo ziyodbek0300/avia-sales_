@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Hotels" ALTER COLUMN "regionId" SET DATA TYPE TEXT;
