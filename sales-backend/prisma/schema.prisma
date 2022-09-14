@@ -225,7 +225,7 @@ model Hotels {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  regionId  Int
+  regionId  String
   jsonValue Json
 }
 
