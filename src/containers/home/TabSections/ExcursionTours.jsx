@@ -7,12 +7,13 @@ import {useTranslation} from "react-i18next";
 import BestStates from "../BestStates";
 import AllStates from "../AllStates";
 import LastSection from "../LastSection";
+import {useSelector} from "react-redux";
 
 function ExcursionTours() {
     const {t} = useTranslation();
     const navigate = useNavigate();
     const [countP, setCountP] = useState(1);
-
+    const user = useSelector(state => state.user.currentUser);
     const orderEx = (type, cost) => {
         navigate(`/excursion/${type}_${cost}_${countP}`)
     }
@@ -27,7 +28,7 @@ function ExcursionTours() {
                             <p className={"text-2xl font-bold"}>{t('umra')}</p>
                             <div className={"flex justify-between items-center"}>
                                 <p className={"text-xl"}>{a.typeOfEx === "Стандарт" ? t('first') : a.typeOfEx === "Лйукс" ? t('second') : t('third')}</p>
-                                <p className={"text-2xl"}>${a.price}</p>
+                                <p className={"text-2xl"}>${user ? +a.price : +a.price + 100}</p>
                             </div>
                             <div className={"my-3"}>
                                 <div className={"my-3"}>
@@ -52,8 +53,9 @@ function ExcursionTours() {
                                 <input onInput={(e) => setCountP(e.target.value)} type="number"
                                        className={"w-full text-white p-2 rounded-lg bg-transparent border-2"}
                                        id={"as"}/>
-                                <button onClick={() => orderEx(a.typeOfEx, countP * a.price)}
-                                        className={"bg-red-500 text-white px-4 py-2 rounded-lg"}>Заказать
+                                <button
+                                    onClick={() => orderEx(a.typeOfEx, user ? countP * a.price : countP * (a.price + 100))}
+                                    className={"bg-red-500 text-white px-4 py-2 rounded-lg"}>Заказать
                                 </button>
                             </div>
                         </div>)
