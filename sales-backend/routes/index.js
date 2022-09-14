@@ -15,7 +15,7 @@ const htplace = require("../constants/hotelsTownLists");
 const sprice = require("../constants/sprice");
 const hprice = require("../constants/hprice");
 const roomNames = require("../constants/room");
-const {hotelsTownLists} = require("../constants/hotelsTownLists")
+// const {hotelsTownLists} = require("../constants/hotelsTownLists")
 
 router.get('/', async function (req, res) {
     res.render('index', {title: 'express'});
@@ -33,23 +33,23 @@ router.post('/', async function (req, res) {
         })
 });
 
-cron.schedule("0 0 */1 * * *", function () {
-    console.log("running a task every 10 second");
-    hotelsTownLists.map(async (e, index) => {
-        const hotel = await prisma.hotels.findUnique({where: {regionId: e.id}})
-        setTimeout(async () => {
-            axios.post(`http://localhost:${process.env.PORT}/getHotels/${e.id}`).then(async r => {
-                if (!hotel) {
-                    await prisma.hotels.create({data: {regionId: e.id, jsonValue: r.data}})
-                } else {
-                    await prisma.hotels.update({where: {regionId: e.id}, data: {regionId: e.id, jsonValue: r.data}})
-                }
-            }).catch(e => {
-                console.log(e)
-            })
-        }, (index + 1) * 60000)
-    })
-});
+// cron.schedule("0 0 */1 * * *", function () {
+//     console.log("running a task every 10 second");
+//     hotelsTownLists.map(async (e, index) => {
+//         const hotel = await prisma.hotels.findUnique({where: {regionId: e.id}})
+//         setTimeout(async () => {
+//             axios.post(`http://localhost:${process.env.PORT}/getHotels/${e.id}`).then(async r => {
+//                 if (!hotel) {
+//                     await prisma.hotels.create({data: {regionId: e.id, jsonValue: r.data}})
+//                 } else {
+//                     await prisma.hotels.update({where: {regionId: e.id}, data: {regionId: e.id, jsonValue: r.data}})
+//                 }
+//             }).catch(e => {
+//                 console.log(e)
+//             })
+//         }, (index + 1) * 60000)
+//     })
+// });
 
 router.get('/getHotels/:townId', async function (req, res) {
     try {

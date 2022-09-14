@@ -96,15 +96,6 @@ model Flight {
   regionId        Int?
 }
 
-model ExcursionTour {
-  id           Int      @id @default(autoincrement())
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  from         String
-  to           String
-  isWithReturn Boolean  @default(false)
-}
-
 model VisaPassenger {
   id             Int       @id @default(autoincrement())
   createdAt      DateTime  @default(now())
@@ -116,8 +107,8 @@ model VisaPassenger {
   birthday       DateTime?
   passportNumber String?
   endDate        DateTime?
-  visa           Visa?     @relation(fields: [visaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  visaId         Int?
+  visaId         Int
+  Visa           Visa      @relation(fields: [visaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Visa {
@@ -177,6 +168,33 @@ model TransferPassenger {
   endDate        DateTime
   transfer       Transfer? @relation(fields: [transferId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   transferId     Int?
+}
+
+model ExcursionTourPassenger {
+  id             Int            @id @default(autoincrement())
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  lastname       String
+  firtname       String
+  nationality    String
+  gender         Gender
+  birthday       DateTime
+  passportNumber String
+  endDate        DateTime
+  ExcursionTour  ExcursionTour? @relation(fields: [tourId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  tourId         Int?
+}
+
+model ExcursionTour {
+  id          Int                      @id @default(autoincrement())
+  createdAt   DateTime                 @default(now())
+  updatedAt   DateTime                 @updatedAt
+  price       Float
+  phone_no    String
+  contactName String
+  passagersId Int[]
+  total       Float                    @default(0)
+  passagers   ExcursionTourPassenger[]
 }
 
 model Transfer {

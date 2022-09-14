@@ -177,10 +177,11 @@ function Hotels() {
     const handlePressFind = () => {
         hotel.getHotels(values.town)
             .then(r => {
-                setHotels(r.data)
+                console.log(r.data.result)
+                setHotels(Array.isArray(r.data)?r.data:[])
             })
             .catch(e => {
-                setHotels([])
+                // setHotels([])
             })
     }
 
@@ -326,7 +327,7 @@ function Hotels() {
                 </div>
             </div>
             <div className="max-w-5xl mx-auto flex flex-col gap-3">
-                {hotels.length !== 0 ? (<div className={"flex justify-end"}><input placeholder={"Search"}
+                {hotels?.length !== 0 ? (<div className={"flex justify-end"}><input placeholder={"Search"}
                                                                                    className={"border border-red-500 p-2 rounded"}
                                                                                    type={"search"}
                                                                                    onInput={(e) => setSearch(e.target.value)}/>
