@@ -4,13 +4,319 @@ import { RiSendPlane2Line } from "react-icons/ri";
 import hotel from "../../../api/projectApi/hotel";
 import hotelsTownLists from "../../../constants/hotelsTownLists";
 import { useNavigate } from "react-router-dom";
-import { BiStar } from "react-icons/bi";
 import { useTranslation } from "react-i18next";
 import BestStates from "../BestStates";
 import AllStates from "../AllStates";
 import LastSection from "../LastSection";
 import { getHtplace } from "../../../constants/htplace";
 import moment from "moment";
+import { BiStar, BiTransfer } from "react-icons/bi";
+// import { FaPlane } from "react-icons/fa";
+// import { SiVisa } from "react-icons/si";
+// import { FcDocument } from "react-icons/fc";
+
+// const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
+
+// const RenderItem = ({ e, adults = 0, children = 0, infant = 0 }) => {
+//   const navigate = useNavigate();
+//   const { t } = useTranslation();
+//   const hotelId = e?.inc;
+//   const [isReturn, setIsReturn] = useState({ bool: true, arr: [] });
+//   const [values, setValues] = useState({
+//     loading: false,
+//     data: [],
+//     open: false,
+//     tabIndex: 1,
+//   });
+//   const htplace =
+//     Array.isArray(e.price) &&
+//     e.price?.map((e) => {
+//       return getHtplace(e.htplace);
+//     });
+//   useEffect(() => {
+//     let arr = [];
+//     Array.isArray(htplace) &&
+//       htplace?.map((r) => {
+//         try {
+//           if (+r?.pcount >= adults + children + infant) {
+//             if (
+//               +r?.adult >= adults &&
+//               +r?.child >= children &&
+//               +r?.infant >= infant
+//             ) {
+//               arr.push(r);
+//             }
+//           }
+//         } catch (e) {}
+//       });
+//   // const htplace = e.price.map((e) => {
+//   //   return getHtplace(e.htplace);
+//   // });
+//   // useEffect(() => {
+//   //   let arr = [];
+//   //   htplace.map((r) => {
+//   //     try {
+//   //       if (+r?.pcount >= adults + children + infant) {
+//   //         if (
+//   //           +r?.adult >= adults &&
+//   //           +r?.child >= children &&
+//   //           +r?.infant >= infant
+//   //         ) {
+//   //           arr.push(r);
+//   //         }
+//   //       }
+//   //     } catch (e) {}
+//   //   });
+//   //   if (arr.length > 0) {
+//   //     setIsReturn({ bool: true, arr });
+//   //   } else {
+//   //     setIsReturn({ bool: false, arr: [] });
+//   //   }
+//   // }, [adults, children, infant]);
+//
+//   const handlePress = async () => {
+//     setValues({
+//       ...values,
+//       data: [],
+//       loading: false,
+//       open: !values.open,
+//     });
+//   };
+//   if (
+//     !(Array.isArray(e.price) && e.price.length > 0 && e.price[0]?.price > 0)
+//   ) {
+//   if (!(Array.isArray(e.price) && e.price.length > 0 && e.price[0].price > 0)) {
+//     return null;
+//   }
+//   if (!isReturn.bool) {
+//     return null;
+//   }
+//
+//   const getPrice = () => {
+//     try {
+//       var now = moment(dates.date2); //todays date
+//       var end = moment(dates.date1); // another date
+//       var duration = moment.duration(now.diff(end));
+//       var days = duration.asDays();
+//       return (
+//         e.price
+//           ?.map((e) => {
+//             let bool = false;
+//             try {
+//               Array.isArray(isReturn.arr) &&
+//                 isReturn.arr?.map((r) => {
+//                   if (r.in === e.htplace) {
+//                     bool = true;
+//                   }
+//                 });
+//             } catch (e) {}
+//             if (bool) return e;
+//           })
+//           .filter((e) => !!e)[0].price * days
+//       );
+//     } catch (e) {
+//       return 0;
+//     }
+//   };
+//
+//   return (
+//     <div className={"bg-white p-2 gap-5 shadow border rounded-lg"}>
+//       <div
+//         onClick={handlePress}
+//         className="cursor-pointer flex gap-6"
+//         key={`${hotelId}`}
+//       >
+//         <img
+//           className="rounded"
+//           width="200"
+//           style={{ maxHeight: "200px" }}
+//           src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${hotelId}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}
+//           alt=""
+//         />
+//         <div className={"flex flex-col justify-between"}>
+//           <div>
+//             <h1 className="text-xl font-bold block">{e.name}</h1>
+//             <div className={"flex py-5"}>
+//               {new Array(
+// <<<<<<< HEAD
+//                 isNaN(e.starCount?.slice(0, 1)) ? 1 : +e.starCount?.slice(0, 1)
+//               )
+//                 .fill("a")
+//                 ?.map((a) => {
+// =======
+//                 isNaN(e.starCount.slice(0, 1)) ? 1 : +e.starCount.slice(0, 1)
+//               )
+//                 .fill("a")
+//                 .map((a) => {
+// >>>>>>> d5d65801b1749049fdd84f1218a76eafd64c1ab3
+//                   return (
+//                     <span className={"mx-1"}>
+//                       <BiStar color={"red"} />
+//                     </span>
+//                   );
+//                 })}
+//             </div>
+//           </div>
+//           <p className={"mt-auto text-2xl"}>
+//             Цена: $
+//             {Array.isArray(isReturn.arr) &&
+//               isReturn.arr.length > 0 &&
+//               Math.floor(getPrice())}
+//           </p>
+//         </div>
+//         {hotelsTownLists?.map((a) => {
+//             {Array.isArray(e.price) &&
+//               e.price.length > 0 &&
+//               Math.floor(e.price[0].price)}
+//           </p>
+//         </div>
+//         {hotelsTownLists.map((a) => {
+//           return (
+//             a.id === e.town && (
+//               <p className="text-sm block bg-red-500">{a.title}</p>
+//             )
+//           );
+//         })}
+//       </div>
+//
+//       {values.open ? (
+//         <>
+//           <div className={"flex justify-between py-4"}>
+//             <div
+//               onClick={() => setValues({ ...values, tabIndex: 1 })}
+//               className={
+//                 values.tabIndex === 1
+//                   ? "active:opacity-80 cursor-pointer flex justify-center bg-red-500 w-full text-center rounded-lg p-2 text-white capitalize text-lg font-bold"
+//                   : "flex cursor-pointer justify-center bg-gray-200 w-full text-center rounded-lg p-2 capitalize text-lg font-bold"
+//               }
+//             >
+//               Фото
+//             </div>
+//             <div
+//               onClick={() => setValues({ ...values, tabIndex: 0 })}
+//               className={
+//                 values.tabIndex === 0
+//                   ? "active:opacity-80 cursor-pointer flex justify-center bg-red-500 w-full text-center rounded-lg p-2 text-white capitalize text-lg font-bold"
+//                   : "flex cursor-pointer justify-center bg-gray-200 w-full text-center rounded-lg p-2 capitalize text-lg font-bold"
+//               }
+//             >
+//               Комната
+//             </div>
+//           </div>
+//           <div className={"bg-gray-200 rounded p-5"}>
+//             {values.tabIndex === 0 ? (
+//               <div className={"mt-16"}>
+//                 <form action="">
+//                   <div>
+//                     {values.loading ? (
+//                       <div className={"flex justify-center"}>
+//                         <div className="lds-dual-ring"></div>
+//                       </div>
+//                     ) : (
+//                       <div className={"grid lg:grid-cols-2 grid-cols-1 gap-5"}>
+//                         {Array.isArray(e.price) &&
+//                           e.price.length > 0 &&
+//                           e.price?.map((e) => {
+//                             let bool = false;
+//                             try {
+// <<<<<<< HEAD
+//                               Array.isArray(isReturn.arr) &&
+//                                 isReturn.arr?.map((r) => {
+//                                   if (r.in === e.htplace) {
+//                                     bool = true;
+//                                   }
+//                                 });
+// =======
+//                               isReturn.arr?.map((r) => {
+//                                 if (r.in === e.htplace) {
+//                                   bool = true;
+//                                 }
+//                               });
+// >>>>>>> d5d65801b1749049fdd84f1218a76eafd64c1ab3
+//                             } catch (e) {}
+//                             if (!bool) return null;
+//                             return (
+//                               e.status !== "D" && (
+//                                 <div
+//                                   style={{ width: "100%", minHeight: 200 }}
+//                                   className={
+//                                     "bg-red-400 text-white relative p-3 rounded-lg shadow"
+//                                   }
+//                                 >
+//                                   <input
+//                                     name={"asd"}
+//                                     className={
+//                                       "absolute hidden h-full w-full top-0 left-0"
+//                                     }
+//                                     type="radio"
+//                                   />
+//                                   <div
+//                                     className={
+//                                       "flex flex-col justify-between h-full"
+//                                     }
+//                                   >
+//                                     <div>
+//                                       <h3>{e.name ? e.name : "Standart"}</h3>
+//                                       <p className={"text-xl"}>
+//                                         Price: ${Math.floor(e.price)}
+//                                       </p>
+//                                       <p>{e.dataa.name}</p>
+//                                     </div>
+//                                     <div className={"text-right"}>
+//                                       <button
+//                                         className={
+//                                           "px-4 py-2 bg-white text-zinc-900 font-bold capitalize rounded"
+//                                         }
+//                                         onClick={() =>
+//                                           navigate(
+//                                             `/hotel/order/${hotelId}/${e.inc}?name=${e.name}&adult=${adults}&c=${children}&d=${infant}`
+//                                           )
+//                                         }
+//                                       >
+//                                         {t("order")}
+//                                       </button>
+//                                     </div>
+//                                   </div>
+//                                 </div>
+//                               )
+//                             );
+//                           })}
+//                       </div>
+//                     )}
+//                   </div>
+//                 </form>
+//               </div>
+//             ) : (
+//               <div className={"flex gap-4"}>
+//                 <img
+//                   className="rounded hover:shadow-md transition hover:shadow-red-300"
+//                   width="150px"
+//                   style={{ maxHeight: "150px", objectFit: "cover" }}
+//                   src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}
+//                   alt=""
+//                 />
+//                 <img
+//                   className="rounded hover:shadow-md transition hover:shadow-red-300"
+//                   width="150px"
+//                   style={{ maxHeight: "150px", objectFit: "cover" }}
+//                   src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=1&equilateral=1&width=200&height=200&stamp=72BE0B64`}
+//                   alt=""
+//                 />
+//                 <img
+//                   className="rounded hover:shadow-md transition hover:shadow-red-300"
+//                   width="150px"
+//                   style={{ maxHeight: "150px", objectFit: "cover" }}
+//                   src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=2&equilateral=1&width=200&height=200&stamp=72BE0B64`}
+//                   alt=""
+//                 />
+//               </div>
+//             )}
+//           </div>
+//         </>
+//       ) : null}
+//     </div>
+//   );
+// };
 
 const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
   const navigate = useNavigate();
@@ -111,8 +417,12 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
         />
         <div className={"flex flex-col justify-between"}>
           <div>
+            {/*<h1 className="text-2xl mb-3 font-bold block uppercase text-red-500">*/}
+            {/*  турпакет*/}
+            {/*</h1>*/}
+
             <h1 className="text-xl font-bold block">{e.name}</h1>
-            <div className={"flex py-5"}>
+            <div className={"flex py-2"}>
               {new Array(
                 isNaN(e.starCount?.slice(0, 1)) ? 1 : +e.starCount?.slice(0, 1)
               )
@@ -126,11 +436,29 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
                 })}
             </div>
           </div>
+          {/*<div className={"flex gap-2 items-center justify-start"}>*/}
+          {/*  <p className={"m-0 flex justify-center items-center gap-1"}>*/}
+          {/*    <FaPlane />*/}
+          {/*    Авиаперелёт*/}
+          {/*  </p>*/}
+          {/*  <p className={"m-0 flex justify-center items-center gap-1"}>*/}
+          {/*    <SiVisa />*/}
+          {/*    Виза*/}
+          {/*  </p>*/}
+          {/*  <p className={"m-0 flex justify-center items-center gap-1"}>*/}
+          {/*    <BiTransfer />*/}
+          {/*    Трансфер*/}
+          {/*  </p>*/}
+          {/*  <p className={"m-0 flex justify-center items-center gap-1"}>*/}
+          {/*    <FcDocument />*/}
+          {/*    Страховка*/}
+          {/*  </p>*/}
+          {/*</div>*/}
           <p className={"mt-auto text-2xl"}>
             Цена: $
             {Array.isArray(isReturn.arr) &&
               isReturn.arr.length > 0 &&
-              Math.floor(getPrice())}
+              Math.floor(getPrice() + 300 + 100)}
           </p>
         </div>
         {hotelsTownLists?.map((a) => {
@@ -358,7 +686,6 @@ function Hotels() {
                       date1: moment(e.target.value).format("yyyy-MM-DD"),
                     })
                   }
-                  // onChange={e=>setDates({...values,date1: e.t})}
                 />
               </div>
               <div className="w-full">

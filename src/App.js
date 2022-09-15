@@ -36,6 +36,9 @@ import Hotels from "./containers/home/TabSections/Hotels";
 import TransfersTab from "./containers/home/TabSections/Transfers";
 import VisasTab from "./containers/home/TabSections/Visas";
 import FlightsTab from "./containers/home/TabSections/Flights";
+import ExTourResult from "./containers/details/ExTourResult";
+import ExTourList from "./containers/exTourList/ExTourList";
+import VisaResult from "./containers/details/VisaResult";
 
 function App() {
   const dispatch = useDispatch();
@@ -76,6 +79,11 @@ function App() {
               <Route path="/transferDetails/result/:id" element={<Result />} />
               <Route path="visaDetails/:id" element={<VisaDetails />} />
               <Route path="/details/result/:id" element={<FlightsResult />} />
+              <Route path="/details/visaResult/:id" element={<VisaResult />} />
+              <Route
+                path="/details/exTourResult/:id"
+                element={<ExTourResult />}
+              />
               <Route path="/excursion/:id" element={<ExcursionTour />} />
               <Route path="hotel/order/:hotelId/:id" element={<HotelOrder />} />
               <Route
@@ -119,6 +127,11 @@ function App() {
               />
               <Route path="/transferDetails/result/:id" element={<Result />} />
               <Route path="/details/result/:id" element={<FlightsResult />} />
+              <Route path="/details/visaResult/:id" element={<VisaResult />} />
+              <Route
+                path="/details/exTourResult/:id"
+                element={<ExTourResult />}
+              />
               <Route
                 path="/tour-packet/order/:hotelId/:roomId"
                 element={<HotelOrder />}
@@ -132,6 +145,7 @@ function App() {
                 <Route path="finance" element={<Finnance />} />
                 <Route path="partners" element={<AdminParners />} />
                 <Route path="partners/orders/:id" element={<PartnerOrders />} />
+                <Route path="exTourList" element={<ExTourList />} />
                 <Route path="avia-tickets" element={<Aviaticket />} />
                 <Route path="where-are-we" element={<Where />} />
                 <Route path="for-partners" element={<ForPartners />} />

@@ -8,10 +8,12 @@ import { getAllVisas } from "../../redux/visas/actions";
 import VisasModal from "../../components/modal/VisasModal";
 import { toast } from "react-toastify";
 import visas from "../../api/projectApi/visas";
+import { useNavigate } from "react-router-dom";
 
 function Visas() {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state.visas.visas);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getAllVisas());
@@ -52,16 +54,16 @@ function Visas() {
     <div>
       <div className="max-w-5xl m-auto p-5">
         <div className={"text-right py-3"}>
-          <button
-            className={
-              "p-2 border border-gray-400 text-white rounded bg-green-500 transition"
-            }
-            onClick={() =>
-              handlePressItemEdit("create", { role: userRole.admin })
-            }
-          >
-            Добавит Виза
-          </button>
+          {/*<button*/}
+          {/*  className={*/}
+          {/*    "p-2 border border-gray-400 text-white rounded bg-green-500 transition"*/}
+          {/*  }*/}
+          {/*  onClick={() =>*/}
+          {/*    handlePressItemEdit("create", { role: userRole.admin })*/}
+          {/*  }*/}
+          {/*>*/}
+          {/*  Добавит Виза*/}
+          {/*</button>*/}
         </div>
         <table className={"w-full border border-red-200"}>
           <thead>
@@ -77,7 +79,7 @@ function Visas() {
           </thead>
           <tbody>
             {selector?.length === 0 ? (
-              <tr className={"border border-red-200"}>
+              <tr className={"border hover:bg-red-500/10 border-red-200"}>
                 <td
                   colSpan={3}
                   className={"border border-red-200 p-2 text-center"}
@@ -88,7 +90,11 @@ function Visas() {
             ) : (
               selector?.map((a) => {
                 return (
-                  <tr key={v4()}>
+                  <tr
+                    key={v4()}
+                    className={"hover:bg-red-500/10 active:bg-red-500/20"}
+                    onClick={() => navigate(`/details/visaResult/${a.id}`)}
+                  >
                     <td className={"border border-red-200 p-2"}>
                       {a?.location}
                     </td>

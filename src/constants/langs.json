@@ -51,13 +51,13 @@
     "depart": "Jo'nash",
     "startDate": "Boshlash vaqti",
     "price": "Narx",
-    "notFoundTransfer": "Transfer topilmadi",
     "endDateTableHeader": "Tugash vaqti",
     "Comment": "Komentariya",
     "contactName": "Aloqa nomi",
     "phone": "Tel raqam",
     "createdDate": "Yaratilgan vaqti",
-    "order": "Buyurtma"
+    "notFoundTransfer": "Transfer topilmadi",
+    "order": "Band qilish"
   },
   "ru": {
     "langUz": "Узб",
@@ -111,13 +111,13 @@
     "depart": "Время уходить",
     "startDate": "Время начала",
     "price": "Цена",
-    "notFoundTransfer": "Не найден перевод",
     "endDateTableHeader": "Время окончания",
     "Comment": "Комментарий",
     "contactName": "Контактное лицо",
     "phone": "Телефон",
     "createdDate": "Дата создания",
-    "order": "Заказ"
+    "notFoundTransfer": "Не найден перевод",
+    "order":  "Бронировать"
   },
 
   "en": {
@@ -171,13 +171,13 @@
     "allNights":  "All Nights",
     "depart": "Departure time",
     "startDate": "Start time",
-    "notFoundTransfer": "Not found transfer",
     "price": "Price",
     "endDateTableHeader": "End date",
     "Comment": "Comment",
     "contactName": "Contact name",
     "phone": "Phone",
     "createdDate": "Created date",
-    "order": "Order"
+    "notFoundTransfer": "Not found transfer",
+    "order":  "Order"
   }
 }
