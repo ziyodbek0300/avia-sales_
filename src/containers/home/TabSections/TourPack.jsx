@@ -441,10 +441,10 @@ function TourPack() {
                   value={
                     "В:" +
                     adults +
-                    " М:" +
-                    infant +
                     " Д:" +
                     children +
+                    " М:" +
+                    infant +
                     ", Эконом"
                   }
                   onClick={() => setIsOpen(!isOpen)}
