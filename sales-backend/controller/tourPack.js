@@ -38,7 +38,7 @@ const getOne = async (req, res, next) => {
     prisma.hotelOrder
       .findUnique({
         where: { id: +req.params.id },
-        include: { HotelPassenger:true },
+        include: { flight: true, TourPackPassenger: true },
       })
       .then((r) => {
         if (r) {
@@ -56,8 +56,8 @@ const getOne = async (req, res, next) => {
 
 const getAll = async (req, res, next) => {
   try {
-    prisma.hotelOrder
-      .findMany({ include: { HotelPassenger:true } })
+    prisma.tourPacketOrder
+      .findMany({ include: { flight: true, TourPackPassenger: true } })
       .then((r) => {
         return res.status(200).send(Success(200, r, "ok"));
       })
@@ -74,8 +74,11 @@ const getAll = async (req, res, next) => {
 
 const getAllForAgent = async (req, res, next) => {
   try {
-    prisma.hotelOrder
-      .findMany({ where: { partnerId: +req.params.id } })
+    prisma.tourPacketOrder
+      .findMany({
+        where: { partnerId: +req.params.id },
+        include: { flight: true, TourPackPassenger: true },
+      })
       .then((r) => {
         return res.status(200).send(Success(200, r, "ok"));
       })
@@ -103,7 +106,7 @@ const update = async (req, res, next) => {
         return res.status(404).send(ErrorSend(404, {}, "no user"));
       }
     }
-    prisma.hotelOrder
+    prisma.tourPacketOrder
       .update({ where: { id: +req.params.id }, data: req.body })
       .then((r) => {
         res.status(200).send(Success(200, r, "ok"));
@@ -129,22 +132,22 @@ const addNew = async (req, res, next) => {
     const passagers = orderBody?.passagers;
     delete orderBody?.passagers;
 
-    let order = await prisma.hotelOrder
+    let order = await prisma.tourPacketOrder
       .create({ data: orderBody })
       .catch((e) => {
         console.log(e);
       });
     const passenger = await prisma.$transaction(
       passagers?.map((r) => {
-        return prisma.hotelPassenger.create({
+        return prisma.tourPackPassenger.create({
           data: {
             ...r,
-            hotelOrderId: order.id,
+            tourPackId: order.id,
           },
         });
       })
     );
-    order = await prisma.hotelOrder
+    order = await prisma.tourPacketOrder
       .update({
         data: {
           passagersId: passenger.map((r) => {
