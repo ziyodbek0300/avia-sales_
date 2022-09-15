@@ -78,9 +78,9 @@ model Region {
 }
 
 model Flight {
-  id              Int       @id @default(autoincrement())
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  id              Int               @id @default(autoincrement())
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
   fromId          Int
   toId            Int
   startTime       DateTime
@@ -90,10 +90,11 @@ model Flight {
   description     String
   Order           Order[]
   weekDays        Int[]
-  isWithReturn    Boolean   @default(false)
+  isWithReturn    Boolean           @default(false)
   returnStartTime DateTime?
   returnEndTime   DateTime?
   regionId        Int?
+  TourPacketOrder TourPacketOrder[]
 }
 
 model VisaPassenger {
@@ -236,7 +237,21 @@ model HotelOrder {
   id             Int              @id @default(autoincrement())
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
+  partnerId      Int?
+  passagersId    Int[]
+  contactName    String
+  email          String
+  phone          String
+  comment        String
+  price          Float
+  hotelId        String
+  roomId         String
+  mealId         String
+  serviceId      String?
+  startDate      DateTime
+  endDate        DateTime
   HotelPassenger HotelPassenger[]
+  regionId       String
 }
 
 model Hotels {
@@ -245,6 +260,46 @@ model Hotels {
   updatedAt DateTime @updatedAt
   regionId  String
   jsonValue Json
+}
+
+model TourPackPassenger {
+  id              Int              @id @default(autoincrement())
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  lastname        String
+  firtname        String
+  nationality     String
+  gender          Gender
+  birthday        DateTime
+  passportNumber  String
+  endDate         DateTime
+  TourPacketOrder TourPacketOrder? @relation(fields: [tourPackId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  tourPackId      Int?
+}
+
+model TourPacketOrder {
+  id                Int                 @id @default(autoincrement())
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  hotelPrice        Float
+  transferPrice     Float
+  flight            Flight?             @relation(fields: [flightId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  flightId          Int?
+  partnerId         Int?
+  passagersId       Int[]
+  contactName       String
+  email             String
+  phone             String
+  comment           String
+  price             Float
+  hotelId           String
+  roomId            String
+  mealId            String
+  serviceId         String?
+  startDate         DateTime
+  endDate           DateTime
+  regionId          String
+  TourPackPassenger TourPackPassenger[]
 }
 
 enum Role {
