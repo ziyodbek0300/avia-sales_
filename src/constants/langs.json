@@ -57,7 +57,12 @@
     "phone": "Tel raqam",
     "createdDate": "Yaratilgan vaqti",
     "notFoundTransfer": "Transfer topilmadi",
-    "order": "Band qilish"
+    "order": "Band qilish",
+    "email": "Email",
+    "fullName": "To'liq ismi",
+    "City": "Shahar",
+    "company_name": "Kompaniya nomi",
+    "Actions": "Ammalar"
   },
   "ru": {
     "langUz": "Узб",
@@ -117,7 +122,12 @@
     "phone": "Телефон",
     "createdDate": "Дата создания",
     "notFoundTransfer": "Не найден перевод",
-    "order":  "Бронировать"
+    "order":  "Бронировать",
+    "email": "Эл. адрес",
+    "fullName": "ФИО",
+    "City": "Город",
+    "company_name": "Название компании",
+    "Actions": "Действия"
   },
 
   "en": {
@@ -178,6 +188,11 @@
     "phone": "Phone",
     "createdDate": "Created date",
     "notFoundTransfer": "Not found transfer",
-    "order":  "Order"
+    "order":  "Order",
+    "email": "Email",
+    "fullName": "Full name",
+    "City": "City",
+    "company_name": "Company name",
+    "Actions": "Actions"
   }
 }
