@@ -3,7 +3,6 @@ import {BsArrowRightShort} from 'react-icons/bs';
 import {RiSendPlane2Line} from 'react-icons/ri';
 import hotel from '../../../api/projectApi/hotel';
 import hotelsTownLists from '../../../constants/hotelsTownLists';
-import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 import {BiStar} from "react-icons/bi";
 import {useTranslation} from "react-i18next";

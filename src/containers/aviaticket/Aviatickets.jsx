@@ -6,54 +6,55 @@ import {GrCheckmark, GrTrash, GrView} from "react-icons/gr";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {getAllOrder} from "../../redux/orders/actions";
+import {t} from "i18next";
 
 const headCells = [
     {
         id: 'price',
         numeric: true,
         disablePadding: false,
-        label: 'price',
+        label: t('price'),
         isTime: false
     },
     {
         id: 'startDate',
         numeric: true,
         disablePadding: false,
-        label: 'startDate',
+        label: t("startDate"),
         isTime: true
     },
     {
         id: 'endDate',
         numeric: true,
         disablePadding: false,
-        label: 'endDate',
+        label: t('endDate'),
         isTime: true
     },
     {
         id: 'comment',
         numeric: true,
         disablePadding: false,
-        label: 'Comment',
+        label: t('Comment'),
         isTime: false
     },
     {
         id: 'contactName',
         numeric: true,
         disablePadding: false,
-        label: 'contactName',
+        label: t("contactName"),
         isTime: false
     }, {
         id: 'phone',
         numeric: true,
         disablePadding: false,
-        label: 'phone',
+        label: t('phone'),
         isTime: false
     },
     {
         id: 'createdAt',
         numeric: true,
         disablePadding: false,
-        label: 'Дата создания.',
+        label: t("createdDate"),
         isTime: true
     },
 ];

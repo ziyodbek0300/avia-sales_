@@ -48,7 +48,9 @@
     "medinaNight": "Madinada Tunlar",
     "mekkahNights": "Makkada Tunlar",
     "allNights": "Hamma Tunlar",
-    "depart": "Jo'nash"
+    "depart": "Jo'nash",
+    "startDate": "Boshlash vaqti",
+    "price": "Narx"
   },
   "ru": {
     "langUz": "Узб",
@@ -99,7 +101,9 @@
     "medinaNight": "Мадина Ночь",
     "mekkahNights": "Мекка Ночь",
     "allNights":  "Всю ночь",
-    "depart": "Время уходить"
+    "depart": "Время уходить",
+    "startDate": "Время начала",
+    "price": "Narx"
   },
   "en": {
     "langUz": "Uzb",
@@ -150,6 +154,7 @@
     "medinaNight": "Medina Nights",
     "mekkahNights": "Mekkah Nights",
     "allNights":  "All Nights",
-    "depart": "Departure time"
+    "depart": "Departure time",
+    "startDate": "Start time"
   }
 }
