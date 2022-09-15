@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { v4 } from "uuid";
 import FormExample from "./FormExample";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
@@ -14,6 +14,7 @@ function ExcursionDetail() {
   const [adults] = useState(id.split("_")[2]);
   const [contactName, setContactName] = useState("");
   const [contactPhone, setContactPhone] = useState("");
+  const navigate = useNavigate();
   const [passagers, setPassagers] = useState(
     new Array(+adults).fill({
       first_name: "",
@@ -47,15 +48,17 @@ function ExcursionDetail() {
     });
 
     let obj = {
-      price: costET,
+      price: +costET,
       phone_no: contactPhone,
       contactName: contactName,
-      passengers: pass,
+      passagers: pass,
+      total: currentUser ? +costET : +costET + 100,
     };
     excursionTour
       .addNew(obj)
       .then((response) => {
         toast("Забронирован");
+        navigate(`/details/exTourResult/${response.data.result.order.id}`);
       })
       .catch((err) => {
         console.log(err);

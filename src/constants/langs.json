@@ -49,7 +49,8 @@
     "mekkahNights": "Makkada Tunlar",
     "allNights": "Hamma Tunlar",
     "depart": "Jo'nash",
-    "notFoundTransfer": "Transfer topilmadi"
+    "notFoundTransfer": "Transfer topilmadi",
+    "order": "Band qilish"
   },
   "ru": {
     "langUz": "Узб",
@@ -101,7 +102,8 @@
     "mekkahNights": "Мекка Ночь",
     "allNights":  "Всю ночь",
     "depart": "Время уходить",
-    "notFoundTransfer": "Не найден перевод"
+    "notFoundTransfer": "Не найден перевод",
+    "order":  "Бронировать"
   },
   "en": {
     "langUz": "Uzb",
@@ -153,6 +155,7 @@
     "mekkahNights": "Mekkah Nights",
     "allNights":  "All Nights",
     "depart": "Departure time",
-    "notFoundTransfer": "Not found transfer"
+    "notFoundTransfer": "Not found transfer",
+    "order":  "Order"
   }
 }

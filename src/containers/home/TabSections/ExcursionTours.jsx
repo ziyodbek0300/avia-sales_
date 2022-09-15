@@ -27,55 +27,57 @@ function ExcursionTours() {
               return (
                 <div
                   className={
-                    "border-2 border-red-500 bg-blue-800 text-white w-full p-4 rounded-lg backdrop-blur-lg"
+                    "border-2 border-red-500 bg-blue-800 text-white w-full p-4 rounded-lg backdrop-blur-lg flex flex-col justify-between"
                   }
                 >
-                  <p className={"text-2xl font-bold"}>{t("umra")}</p>
-                  <div className={"flex justify-between items-center"}>
-                    <p className={"text-xl"}>
-                      {a.typeOfEx === "Стандарт"
-                        ? t("first")
-                        : a.typeOfEx === "Лйукс"
-                        ? t("second")
-                        : t("third")}
-                    </p>
-                    <p className={"text-2xl"}>
-                      ${user ? +a.price : +a.price + 100}
-                    </p>
-                  </div>
-                  <div className={"my-3"}>
+                  <div>
+                    <p className={"text-2xl font-bold"}>{t("umra")}</p>
+                    <div className={"flex justify-between items-center"}>
+                      <p className={"text-xl"}>
+                        {a.typeOfEx === "Стандарт"
+                          ? t("first")
+                          : a.typeOfEx === "Лйукс"
+                          ? t("second")
+                          : t("third")}
+                      </p>
+                      <p className={"text-2xl"}>
+                        ${user ? +a.price : +a.price + 100}
+                      </p>
+                    </div>
                     <div className={"my-3"}>
-                      <p className={"text-xl"}>
-                        {t("xaramdan")}: {a.located}
-                      </p>
-                      <p className={"text-xl"}>
-                        {t("depart")}:{" "}
-                        {moment(a.departureTime).format("MM-DD-YY")}
-                      </p>
-                      <p className={"text-md"}>
-                        {t("medinaNight")}: {a.madinaNights}
-                      </p>
-                      <p className={"text-md"}>
-                        {t("mekkahNights")}: {a.makkaNights}
-                      </p>
-                      <p className={"text-md"}>
-                        {t("allNights")}: {a.makkaNights + a.madinaNights}
-                      </p>
+                      <div className={"my-3"}>
+                        <p className={"text-xl"}>
+                          {t("xaramdan")}: {a.located}
+                        </p>
+                        <p className={"text-xl"}>
+                          {t("depart")}:{" "}
+                          {moment(a.departureTime).format("MM-DD-YY")}
+                        </p>
+                        <p className={"text-md"}>
+                          {t("medinaNight")}: {a.madinaNights}
+                        </p>
+                        <p className={"text-md"}>
+                          {t("mekkahNights")}: {a.makkaNights}
+                        </p>
+                        <p className={"text-md"}>
+                          {t("allNights")}: {a.makkaNights + a.madinaNights}
+                        </p>
+                      </div>
+                      <div>
+                        {a.items.map((b) => (
+                          <p>{b}</p>
+                        ))}
+                      </div>
                     </div>
-                    <div>
-                      {a.items.map((b) => (
-                        <p>{b}</p>
-                      ))}
-                    </div>
+                    <p>
+                      Отел
+                      <div className={"flex gap-1"}>
+                        {new Array(a.hotelStars).fill(null).map((a, b) => {
+                          return <BiStar color={"red"} />;
+                        })}
+                      </div>
+                    </p>
                   </div>
-                  <p>
-                    Отел
-                    <div className={"flex gap-1"}>
-                      {new Array(a.hotelStars).fill(null).map((a, b) => {
-                        return <BiStar color={"red"} />;
-                      })}
-                    </div>
-                  </p>
                   <div
                     className={"flex justify-between items-center gap-5 pt-5"}
                   >

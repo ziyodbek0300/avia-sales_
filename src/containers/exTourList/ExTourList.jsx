@@ -1,42 +1,39 @@
 import React, { useEffect, useState } from "react";
-import { userRole } from "../../constants/userRole";
-import { v4 } from "uuid";
-import moment from "moment/moment";
-import { GrTrash } from "react-icons/gr";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllVisas } from "../../redux/visas/actions";
-import VisasModal from "../../components/modal/VisasModal";
-import { toast } from "react-toastify";
-import visas from "../../api/projectApi/visas";
+import moment from "moment";
+import { GrEdit, GrTrash } from "react-icons/gr";
+import RegionModal from "../../components/modal/RegionModal";
+import excursionTour from "../../api/projectApi/excursionTour";
 import { useNavigate } from "react-router-dom";
 
-function Visas() {
-  const dispatch = useDispatch();
-  const selector = useSelector((state) => state.visas.visas);
+function ExTourList() {
+  const [regions_list, setRegions] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getAllVisas());
+    excursionTour.getAll().then((res) => setRegions(res.data.result));
   }, []);
 
-  console.log(selector);
-
-  const handleDelete = async (id) => {
-    const confirmation = window.confirm("Are you sure to delete this visa?");
+  const handleDelete = (id) => {
+    const confirmation = window.confirm("Are you sure to delete this region?");
     if (confirmation) {
-      await visas.deleteOne(id).then((data) => toast("Deleted", "success"));
-      dispatch(getAllVisas());
+      excursionTour
+        .deleteOne(id)
+        .then(() => regions_list.filter((a) => a.id !== id))
+        .catch(() => regions_list.filter((a) => a.id !== id));
+      excursionTour.getAll().then((res) => {
+        setRegions(res.data.result[0]);
+      });
     }
   };
 
-  const [flightModal, setFlightModal] = useState({
+  const [userModal, setUserModal] = useState({
     typeModal: "create",
     openModal: false,
     values: {},
   });
 
   const handleClose = () => {
-    setFlightModal({
+    setUserModal({
       typeModal: "create",
       openModal: false,
       values: {},
@@ -44,12 +41,13 @@ function Visas() {
   };
 
   const handlePressItemEdit = (type, item) => {
-    setFlightModal({
+    setUserModal({
       typeModal: type,
       openModal: true,
       values: item,
     });
   };
+
   return (
     <div>
       <div className="max-w-5xl m-auto p-5">
@@ -58,28 +56,24 @@ function Visas() {
           {/*  className={*/}
           {/*    "p-2 border border-gray-400 text-white rounded bg-green-500 transition"*/}
           {/*  }*/}
-          {/*  onClick={() =>*/}
-          {/*    handlePressItemEdit("create", { role: userRole.admin })*/}
-          {/*  }*/}
+          {/*  onClick={() => handlePressItemEdit("create")}*/}
           {/*>*/}
-          {/*  Добавит Виза*/}
+          {/*  Добавит регион*/}
           {/*</button>*/}
         </div>
         <table className={"w-full border border-red-200"}>
           <thead>
             <tr className={"border border-red-200"}>
               <th className={"p-2 border border-red-200"}>Имя</th>
-              <th className={"p-2 border border-red-200"}>Телефон</th>
-              <th className={"p-2 border border-red-200"}>Тип визы</th>
-              <th className={"p-2 border border-red-200"}>Расположение</th>
               <th className={"p-2 border border-red-200"}>Цена</th>
-              <th className={"p-2 border border-red-200"}>Дата</th>
+              <th className={"p-2 border border-red-200"}>Номер</th>
+              <th className={"p-2 border border-red-200"}>Создано на</th>
               <th className={"p-2 border border-red-200"}>Действия</th>
             </tr>
           </thead>
           <tbody>
-            {selector?.length === 0 ? (
-              <tr className={"border hover:bg-red-500/10 border-red-200"}>
+            {regions_list?.length === 0 ? (
+              <tr className={"border border-red-200"}>
                 <td
                   colSpan={3}
                   className={"border border-red-200 p-2 text-center"}
@@ -88,26 +82,24 @@ function Visas() {
                 </td>
               </tr>
             ) : (
-              selector?.map((a) => {
+              regions_list?.map((a) => {
                 return (
                   <tr
-                    key={v4()}
-                    className={"hover:bg-red-500/10 active:bg-red-500/20"}
-                    onClick={() => navigate(`/details/visaResult/${a.id}`)}
+                    onClick={() => navigate(`/details/exTourResult/${a.id}`)}
+                    key={a.id}
+                    className={
+                      "border border-red-200 cursor-pointer hover:bg-red-500/10 active:bg-red-500/20"
+                    }
                   >
                     <td className={"border border-red-200 p-2"}>
-                      {a?.location}
+                      {a.contactName}
                     </td>
-                    <td className={"border border-red-200 p-2"}>{a?.phone}</td>
+                    <td className={"border border-red-200 p-2"}>${a.total}</td>
                     <td className={"border border-red-200 p-2"}>
-                      {a?.visaType}
+                      {a.phone_no}
                     </td>
                     <td className={"border border-red-200 p-2"}>
-                      {a?.location}
-                    </td>
-                    <td className={"border border-red-200 p-2"}>{a.price} $</td>
-                    <td className={"border border-red-200 p-2"}>
-                      {moment(a.date).format("MMMM DD YYYY")}
+                      {moment(a.createdAt).format("MMMM DD YYYY HH:mm")}
                     </td>
                     <td className={"border border-red-200 p-2"}>
                       <button
@@ -118,6 +110,14 @@ function Visas() {
                       >
                         <GrTrash fontSize="1.5em" />
                       </button>
+                      <button
+                        className={
+                          "p-2 border border-red-200 rounded hover:bg-gray-200 transition"
+                        }
+                        onClick={() => handlePressItemEdit("update", a)}
+                      >
+                        <GrEdit fontSize="1.5em" />
+                      </button>
                     </td>
                   </tr>
                 );
@@ -126,15 +126,15 @@ function Visas() {
           </tbody>
         </table>
       </div>
-      <VisasModal
-        type={flightModal.typeModal}
-        open={flightModal.openModal}
+      <RegionModal
+        type={userModal.typeModal}
+        open={userModal.openModal}
         handleClose={handleClose}
-        values={flightModal.values}
-        // setFlights={setFlights}
+        values={userModal.values}
+        setRegions={setRegions}
       />
     </div>
   );
 }
 
-export default Visas;
+export default ExTourList;
