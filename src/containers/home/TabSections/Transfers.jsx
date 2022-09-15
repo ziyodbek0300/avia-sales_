@@ -72,7 +72,7 @@ function TransfersTab() {
 
     return (<>
         <div className={"header sixtrh pb-10"} onClick={handleClick}>
-            <form onSubmit={transfer}>
+            {/*<form >*/}
                 <div className="max-w-5xl mx-auto py-44">
                     <div
                         className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
@@ -138,7 +138,7 @@ function TransfersTab() {
                                                     Старше 12 лет</p>
                                             </div>
                                             <div className="qw1 flex qw1 w-full">
-                                                <button onClick={() => setAdults(prev => prev -= 1)}
+                                                <button type={"button"} onClick={() => setAdults(prev => prev -= 1)}
                                                         className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl">-
                                                 </button>
                                                 <input type="number" value={adults}
@@ -189,6 +189,7 @@ function TransfersTab() {
                         </div>
                         <div className="flex items-center justify-end">
                             <button
+                                onClick={transfer}
                                 type={"submit"}
                                 className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-500 text-white text-sm">
                                 {t('nayti')} <BsArrowRightShort className="lh-0 text-2xl"/>
@@ -196,7 +197,7 @@ function TransfersTab() {
                         </div>
                     </div>
                 </div>
-            </form>
+            {/*</form>*/}
         </div>
         <div className={"max-w-5xl mx-auto py-3 mt-10"}>
             {transfers.map(tr => {

@@ -50,7 +50,14 @@
     "allNights": "Hamma Tunlar",
     "depart": "Jo'nash",
     "startDate": "Boshlash vaqti",
-    "price": "Narx"
+    "price": "Narx",
+    "notFoundTransfer": "Transfer topilmadi",
+    "endDateTableHeader": "Tugash vaqti",
+    "Comment": "Komentariya",
+    "contactName": "Aloqa nomi",
+    "phone": "Tel raqam",
+    "createdDate": "Yaratilgan vaqti",
+    "order": "Buyurtma"
   },
   "ru": {
     "langUz": "Узб",
@@ -103,8 +110,16 @@
     "allNights":  "Всю ночь",
     "depart": "Время уходить",
     "startDate": "Время начала",
-    "price": "Narx"
+    "price": "Цена",
+    "notFoundTransfer": "Не найден перевод",
+    "endDateTableHeader": "Время окончания",
+    "Comment": "Комментарий",
+    "contactName": "Контактное лицо",
+    "phone": "Телефон",
+    "createdDate": "Дата создания",
+    "order": "Заказ"
   },
+
   "en": {
     "langUz": "Uzb",
     "langRu": "Rus",
@@ -155,6 +170,14 @@
     "mekkahNights": "Mekkah Nights",
     "allNights":  "All Nights",
     "depart": "Departure time",
-    "startDate": "Start time"
+    "startDate": "Start time",
+    "notFoundTransfer": "Not found transfer",
+    "price": "Price",
+    "endDateTableHeader": "End date",
+    "Comment": "Comment",
+    "contactName": "Contact name",
+    "phone": "Phone",
+    "createdDate": "Created date",
+    "order": "Order"
   }
 }
