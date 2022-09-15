@@ -13,10 +13,15 @@ import AllStates from "../AllStates";
 import BestStates from "../BestStates";
 import LastSection from "../LastSection";
 import { getHtplace } from "../../../constants/htplace";
-import { BiStar } from "react-icons/bi";
+import { BiStar, BiTransfer } from "react-icons/bi";
+import moment from "moment";
+import { FaPlane } from "react-icons/fa";
+import { SiVisa } from "react-icons/si";
+import { FcDocument } from "react-icons/fc";
 
-const RenderItem = ({ e, adults = 0, children = 0, infant = 0 }) => {
+const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const hotelId = e?.inc;
   const [isReturn, setIsReturn] = useState({ bool: true, arr: [] });
   const [values, setValues] = useState({
@@ -25,24 +30,27 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0 }) => {
     open: false,
     tabIndex: 1,
   });
-  const htplace = e.price.map((e) => {
-    return getHtplace(e.htplace);
-  });
+  const htplace =
+    Array.isArray(e.price) &&
+    e.price?.map((e) => {
+      return getHtplace(e.htplace);
+    });
   useEffect(() => {
     let arr = [];
-    htplace.map((r) => {
-      try {
-        if (+r?.pcount >= adults + children + infant) {
-          if (
-            +r?.adult >= adults &&
-            +r?.child >= children &&
-            +r?.infant >= infant
-          ) {
-            arr.push(r);
+    Array.isArray(htplace) &&
+      htplace?.map((r) => {
+        try {
+          if (+r?.pcount >= adults + children + infant) {
+            if (
+              +r?.adult >= adults &&
+              +r?.child >= children &&
+              +r?.infant >= infant
+            ) {
+              arr.push(r);
+            }
           }
-        }
-      } catch (e) {}
-    });
+        } catch (e) {}
+      });
     if (arr.length > 0) {
       setIsReturn({ bool: true, arr });
     } else {
@@ -58,12 +66,41 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0 }) => {
       open: !values.open,
     });
   };
-  if (!(Array.isArray(e.price) && e.price.length > 0 && e.price[0].price > 0)) {
+  if (
+    !(Array.isArray(e.price) && e.price.length > 0 && e.price[0]?.price > 0)
+  ) {
     return null;
   }
   if (!isReturn.bool) {
     return null;
   }
+
+  const getPrice = () => {
+    try {
+      var now = moment(dates.date2); //todays date
+      var end = moment(dates.date1); // another date
+      var duration = moment.duration(now.diff(end));
+      var days = duration.asDays();
+      return (
+        e.price
+          ?.map((e) => {
+            let bool = false;
+            try {
+              Array.isArray(isReturn.arr) &&
+                isReturn.arr?.map((r) => {
+                  if (r.in === e.htplace) {
+                    bool = true;
+                  }
+                });
+            } catch (e) {}
+            if (bool) return e;
+          })
+          .filter((e) => !!e)[0].price * days
+      );
+    } catch (e) {
+      return 0;
+    }
+  };
 
   return (
     <div className={"bg-white p-2 gap-5 shadow border rounded-lg"}>
@@ -81,13 +118,17 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0 }) => {
         />
         <div className={"flex flex-col justify-between"}>
           <div>
-            <h1 className="text-xl font-bold block">{e.name}</h1>
-            <div className={"flex py-5"}>
+            <h1 className="text-2xl mb-3 font-bold block uppercase text-red-500">
+              турпакет
+            </h1>
+
+            <h2 className="text-lg font-bold block">{e.name}</h2>
+            <div className={"flex py-2"}>
               {new Array(
-                isNaN(e.starCount.slice(0, 1)) ? 1 : +e.starCount.slice(0, 1)
+                isNaN(e.starCount?.slice(0, 1)) ? 1 : +e.starCount?.slice(0, 1)
               )
                 .fill("a")
-                .map((a) => {
+                ?.map((a) => {
                   return (
                     <span className={"mx-1"}>
                       <BiStar color={"red"} />
@@ -96,14 +137,32 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0 }) => {
                 })}
             </div>
           </div>
+          <div className={"flex gap-2 items-center justify-start"}>
+            <p className={"m-0 flex justify-center items-center gap-1"}>
+              <FaPlane />
+              Авиаперелёт
+            </p>
+            <p className={"m-0 flex justify-center items-center gap-1"}>
+              <SiVisa />
+              Виза
+            </p>
+            <p className={"m-0 flex justify-center items-center gap-1"}>
+              <BiTransfer />
+              Трансфер
+            </p>
+            <p className={"m-0 flex justify-center items-center gap-1"}>
+              <FcDocument />
+              Страховка
+            </p>
+          </div>
           <p className={"mt-auto text-2xl"}>
             Цена: $
-            {Array.isArray(e.price) &&
-              e.price.length > 0 &&
-              Math.floor(e.price[0].price)}
+            {Array.isArray(isReturn.arr) &&
+              isReturn.arr.length > 0 &&
+              Math.floor(getPrice() + 300 + 100)}
           </p>
         </div>
-        {hotelsTownLists.map((a) => {
+        {hotelsTownLists?.map((a) => {
           return (
             a.id === e.town && (
               <p className="text-sm block bg-red-500">{a.title}</p>
@@ -152,11 +211,12 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0 }) => {
                           e.price?.map((e) => {
                             let bool = false;
                             try {
-                              isReturn.arr?.map((r) => {
-                                if (r.in === e.htplace) {
-                                  bool = true;
-                                }
-                              });
+                              Array.isArray(isReturn.arr) &&
+                                isReturn.arr?.map((r) => {
+                                  if (r.in === e.htplace) {
+                                    bool = true;
+                                  }
+                                });
                             } catch (e) {}
                             if (!bool) return null;
                             return (
@@ -193,11 +253,11 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0 }) => {
                                         }
                                         onClick={() =>
                                           navigate(
-                                            `hotel/order/${hotelId}/${e.inc}?name=${e.name}&adult=${adults}&c=${children}&d=${infant}`
+                                            `/hotel/order/${hotelId}/${e.inc}?name=${e.name}&adult=${adults}&c=${children}&d=${infant}`
                                           )
                                         }
                                       >
-                                        order
+                                        {t("order")}
                                       </button>
                                     </div>
                                   </div>
@@ -601,6 +661,7 @@ function TourPack() {
               infant={infant}
               adults={adults}
               isGroup={isGroup === 1}
+              dates={values}
             />
           );
         })}

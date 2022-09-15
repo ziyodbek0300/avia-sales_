@@ -49,6 +49,13 @@
     "mekkahNights": "Makkada Tunlar",
     "allNights": "Hamma Tunlar",
     "depart": "Jo'nash",
+    "startDate": "Boshlash vaqti",
+    "price": "Narx",
+    "endDateTableHeader": "Tugash vaqti",
+    "Comment": "Komentariya",
+    "contactName": "Aloqa nomi",
+    "phone": "Tel raqam",
+    "createdDate": "Yaratilgan vaqti",
     "notFoundTransfer": "Transfer topilmadi",
     "order": "Band qilish"
   },
@@ -102,9 +109,17 @@
     "mekkahNights": "Мекка Ночь",
     "allNights":  "Всю ночь",
     "depart": "Время уходить",
+    "startDate": "Время начала",
+    "price": "Цена",
+    "endDateTableHeader": "Время окончания",
+    "Comment": "Комментарий",
+    "contactName": "Контактное лицо",
+    "phone": "Телефон",
+    "createdDate": "Дата создания",
     "notFoundTransfer": "Не найден перевод",
     "order":  "Бронировать"
   },
+
   "en": {
     "langUz": "Uzb",
     "langRu": "Rus",
@@ -155,6 +170,13 @@
     "mekkahNights": "Mekkah Nights",
     "allNights":  "All Nights",
     "depart": "Departure time",
+    "startDate": "Start time",
+    "price": "Price",
+    "endDateTableHeader": "End date",
+    "Comment": "Comment",
+    "contactName": "Contact name",
+    "phone": "Phone",
+    "createdDate": "Created date",
     "notFoundTransfer": "Not found transfer",
     "order":  "Order"
   }

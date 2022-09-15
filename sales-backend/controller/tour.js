@@ -124,16 +124,22 @@ const addNew = async (req, res, next) => {
                 })
             }),
         );
-        order = await prisma.excursionTour.update({
+        const ids = passenger.map(r => {
+            return r.id
+        })
+        await prisma.excursionTour.update({
             data: {
-                passagersId: passenger.map(r => {
-                    return r.id
-                })
+                passagersId: ids
             }, where: {id: order.id}
         }).catch(e => {
             console.log("asdasdad", e)
         })
-        res.status(200).send(Success(200, {order, passenger}, "ok"))
+        res.status(200).send(Success(200, {
+            order: {
+                ...order,
+                passagersId: ids
+            }, passenger
+        }, "ok"))
     } catch (e) {
         console.log(e)
         res.status(500).send(ErrorSend(500, e, e.message))
