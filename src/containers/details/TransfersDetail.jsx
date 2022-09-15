@@ -64,7 +64,6 @@ function TransfersDetail() {
     transfers
       .addNew(obj)
       .then((response) => {
-        console.log(response);
         toast("Забронирован");
         navigate(`/transferDetails/result/${response.data?.result?.id}`);
       })

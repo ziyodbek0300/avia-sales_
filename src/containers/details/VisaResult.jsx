@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import order from "../../api/projectApi/order";
 import moment from "moment";
-import excursionTour from "../../api/projectApi/excursionTour";
 import visas from "../../api/projectApi/visas";
 
 function VisaResult() {
@@ -88,7 +86,7 @@ function VisaResult() {
           </div>
           <div>
             <div className={""}>
-              {data.passagers?.map((pass, index) => {
+              {data.VisaPassenger?.map((pass, index) => {
                 return (
                   <div key={pass.id}>
                     <p className="text-2xl my-3">Пассажир {index + 1}</p>

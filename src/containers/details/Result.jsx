@@ -41,30 +41,32 @@ function Result() {
           <div className={"mb-4 flex justify-between items-center"}>
             <label htmlFor="first">Номер заказа (бронирования): </label>
             <input
+              onChange={(e) => setData({ ...data, reference: e.target.value })}
               type="text"
               className={"border-red-300 rounded border p-2"}
+              value={moment(data.createdAt).format("MMHHmm")}
               placeholder={"95124"}
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
             />
           </div>
           <div className={"mb-4 flex justify-between items-center"}>
             <label htmlFor="first"> Фамилия пассажира (латини): </label>
             <input
+              onChange={(e) => setData({ ...data, name: e.target.value })}
               type="text"
               className={"border-red-300 rounded border p-2"}
-              placeholder={"AKHMADJONOV"}
+              value={data.name}
             />
           </div>
-          <div className={"text-right"}>
-            <button
-              onClick={handlePressClick}
-              className={
-                "p-2 border border-red-200 rounded hover:bg-red-500 hover:text-white active:opacity-80 transition"
-              }
-            >
-              Поиск
-            </button>
+        </div>
+        <div className={"lg:w-1/2 w-full"}>
+          <div className={"mb-4 flex justify-between items-center"}>
+            <label htmlFor="first">Телефон номер: </label>
+            <input
+              onChange={(e) => setData({ ...data, phone: e.target.value })}
+              type="phone"
+              className={"border-red-300 rounded border p-2"}
+              value={data.phone}
+            />
           </div>
         </div>
       </div>
