@@ -11,11 +11,21 @@ function LastSection() {
   const handleSubmit = (e) => {
     e.preventDefault();
     let text = `From user form: \n\n👨: ${e.target[0].value}\n📞: ${e.target[1].value}`;
-    const chatIds = [1152682790];
+    const chatIds = [1152682790, 240579830, 1781457567];
+    axios.get(
+      `https://api.telegram.org/bot5730996504:AAFnEMWLB_fiUQfOJi4wc9chm72-sTwlWhM/sendMessage?chat_id=${
+        chatIds[0]
+      }&text=${encodeURIComponent(text)}`
+    );
+    axios.get(
+      `https://api.telegram.org/bot5730996504:AAFnEMWLB_fiUQfOJi4wc9chm72-sTwlWhM/sendMessage?chat_id=${
+        chatIds[1]
+      }&text=${encodeURIComponent(text)}`
+    );
     axios
       .get(
         `https://api.telegram.org/bot5730996504:AAFnEMWLB_fiUQfOJi4wc9chm72-sTwlWhM/sendMessage?chat_id=${
-          chatIds[0]
+          chatIds[2]
         }&text=${encodeURIComponent(text)}`
       )
       .then((res) => {
