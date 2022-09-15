@@ -380,6 +380,7 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
       var end = moment(dates.date1); // another date
       var duration = moment.duration(now.diff(end));
       var days = duration.asDays();
+      // console.log(Math.ceil(days));
       return (
         e.price
           ?.map((e) => {
@@ -394,7 +395,7 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
             } catch (e) {}
             if (bool) return e;
           })
-          .filter((e) => !!e)[0].price * days
+          .filter((e) => !!e)[0].price * Math.ceil(days)
       );
     } catch (e) {
       return 0;
@@ -458,7 +459,7 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
             Цена: $
             {Array.isArray(isReturn.arr) &&
               isReturn.arr.length > 0 &&
-              Math.floor(getPrice() + 300 + 100)}
+              Math.floor(getPrice())}
           </p>
         </div>
         {hotelsTownLists?.map((a) => {

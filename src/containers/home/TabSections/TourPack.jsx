@@ -95,7 +95,7 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
             } catch (e) {}
             if (bool) return e;
           })
-          .filter((e) => !!e)[0].price * days
+          .filter((e) => !!e)[0].price * Math.ceil(days)
       );
     } catch (e) {
       return 0;
