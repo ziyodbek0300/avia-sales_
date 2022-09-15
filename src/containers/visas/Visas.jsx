@@ -92,7 +92,9 @@ function Visas() {
                 return (
                   <tr
                     key={v4()}
-                    className={"hover:bg-red-500/10 active:bg-red-500/20"}
+                    className={
+                      "hover:bg-red-500/10 active:bg-red-500/20 cursor-pointer"
+                    }
                     onClick={() => navigate(`/details/visaResult/${a.id}`)}
                   >
                     <td className={"border border-red-200 p-2"}>
