@@ -88,7 +88,7 @@ function VisaResult() {
           </div>
           <div>
             <div className={""}>
-              {data.passagers?.map((pass, index) => {
+              {data.VisaPassenger?.map((pass, index) => {
                 return (
                   <div key={pass.id}>
                     <p className="text-2xl my-3">Пассажир {index + 1}</p>

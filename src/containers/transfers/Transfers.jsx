@@ -6,10 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllTransfers } from "../../redux/transfers/actions";
 import transfers from "../../api/projectApi/transfers";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function Transfers() {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state.transfers.transfers);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getAllTransfers());
@@ -64,7 +66,11 @@ function Transfers() {
             ) : (
               selector?.map((a) => {
                 return (
-                  <tr key={v4()}>
+                  <tr
+                    key={v4()}
+                    className={"hover:bg-red-400/10 active:bg-red-500/20"}
+                    onClick={() => navigate(`/transferDetails/result/${a.id}`)}
+                  >
                     <td className={"border border-red-200 p-2"}>{a?.name}</td>
                     <td className={"border border-red-200 p-2"}>{a?.phone}</td>
                     <td className={"border border-red-200 p-2"}>{a.price} $</td>

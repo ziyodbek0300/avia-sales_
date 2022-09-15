@@ -53,7 +53,7 @@ function Result() {
             <input
               type="text"
               className={"border-red-300 rounded border p-2"}
-              placeholder={"AKHMADJONOV"}
+              value={data.name}
             />
           </div>
           <div className={"text-right"}>
