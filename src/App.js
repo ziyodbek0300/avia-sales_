@@ -1,16 +1,16 @@
-import {Route, Routes, Navigate} from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
 import About from "./containers/about/About";
 import ForPartners from "./containers/forPartners";
 import Home from "./containers/home/Home";
 import Where from "./containers/where";
-import {userRole} from "./constants/userRole";
-import {ToastContainer} from "react-toastify";
-import {useDispatch, useSelector} from "react-redux";
-import {useLayoutEffect} from "react";
-import {getMe} from "./redux/user/actions";
+import { userRole } from "./constants/userRole";
+import { ToastContainer } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { useLayoutEffect } from "react";
+import { getMe } from "./redux/user/actions";
 import AgentIndex from "./containers/agentIndex";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import AdminNavbar from "./components/navbar/AdminNavbar";
 import AdminUsers from "./containers/adminUsers";
 import Footer from "./components/footer";
@@ -38,111 +38,118 @@ import VisasTab from "./containers/home/TabSections/Visas";
 import FlightsTab from "./containers/home/TabSections/Flights";
 
 function App() {
-    const dispatch = useDispatch()
-    const users = useSelector(state => state.user.currentUser)
-    const loading = useSelector(state => state.user.loading)
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.user.currentUser);
+  const loading = useSelector((state) => state.user.loading);
 
-    useLayoutEffect(() => {
-        dispatch(getMe())
-    }, [])
+  useLayoutEffect(() => {
+    dispatch(getMe());
+  }, []);
 
-
-    return (
-        <div>
-            {loading ? (
-                    <div>
-                        loading...
-                    </div>
-                ) :
-                (users?.role === userRole.client || !users?.role || users.role === userRole.agent) ? (
-                        <div className="flex flex-col min-h-screen justify-between">
-                            <div>
-                                <Navbar/>
-                                <Routes>
-                                    <Route path={"/"} element={<Home/>}>
-                                        <Route element={<TourPack/>} path={"/"}/>
-                                        <Route element={<FlightsTab/>} path={"tab-flights"}/>
-                                        <Route element={<ExcursionTours/>} path={"tab-ex-tours"}/>
-                                        <Route element={<Hotels/>} path={"tab-hotels"}/>
-                                        <Route element={<VisasTab/>} path={"tab-visas"}/>
-                                        <Route element={<TransfersTab/>} path={"tab-transfers"}/>
-                                    </Route>
-                                    <Route path="/about-us" element={<About/>}/>
-                                    <Route path="/where-are-we" element={<Where/>}/>
-                                    <Route path="/for-partners" element={<ForPartners/>}/>
-                                    <Route path="/details/:id" element={<Details/>}/>
-                                    <Route path="/transferDetails/:id" element={<TransfersDetail/>}/>
-                                    <Route path="/transferDetails/result" element={<Result/>}/>
-                                    <Route path="visaDetails/:id" element={<VisaDetails/>}/>
-                                    <Route path="/details/result/:id" element={<FlightsResult/>}/>
-                                    <Route path="/excursion/:id" element={<ExcursionTour/>}/>
-                                    <Route path="hotel/order/:hotelId/:id" element={<HotelOrder/>}/>
-                                    <Route path="/tour-packet/order/:hotelId/:roomId/:isGroup" element={<HotelOrder/>}/>
-                                    {(users?.role === userRole.agent) ? (
-                                        <>
-                                            <Route path={'/my'}>
-                                                <Route index element={<AgentIndex/>}/>
-                                                <Route path="about-us" element={<About/>}/>
-                                                <Route path="where-are-we" element={<Where/>}/>
-                                                <Route path="for-partners" element={<ForPartners/>}/>
-                                            </Route>
-                                        </>
-                                    ) : null}
-                                </Routes>
-                            </div>
-                            <Footer/>
-                        </div>
-                    )
-                    : users?.role === userRole.admin ? (
-                            <div className="flex flex-col min-h-screen justify-between">
-                                <div>
-                                    <Navbar/>
-                                    <Routes>
-                                        <Route path={"/"} element={<Home/>}>
-                                            <Route element={<TourPack/>} path={"/"}/>
-                                            <Route element={<FlightsTab/>} path={"tab-flights"}/>
-                                            <Route element={<ExcursionTours/>} path={"tab-ex-tours"}/>
-                                            <Route element={<Hotels/>} path={"tab-hotels"}/>
-                                            <Route element={<VisasTab/>} path={"tab-visas"}/>
-                                            <Route element={<TransfersTab/>} path={"tab-transfers"}/>
-                                        </Route>
-                                        <Route path="/about-us" element={<About/>}/>
-                                        <Route path="/where-are-we" element={<Where/>}/>
-                                        <Route path="/for-partners" element={<ForPartners/>}/>
-                                        <Route path="/details/:id" element={<Details/>}/>
-                                        <Route path="/transferDetails/:id" element={<TransfersDetail/>}/>
-                                        <Route path="/transferDetails/result" element={<Result/>}/>
-                                        <Route path="/details/result/:id" element={<FlightsResult/>}/>
-                                        <Route path="/tour-packet/order/:hotelId/:roomId" element={<HotelOrder/>}/>
-                                        <Route path="hotel/order/:hotelId/:id" element={<HotelOrder/>}/>
-                                        <Route path="/excursion/:id" element={<ExcursionTour/>}/>
-                                        <Route path={"/"} element={<AdminNavbar/>}>
-                                            <Route path={"/"} element={<Navigate to={"/users"}/>}/>
-                                            <Route path="users" element={<AdminUsers/>}/>
-                                            <Route path="tour-package" element={<TourPackage/>}/>
-                                            <Route path="finance" element={<Finnance/>}/>
-                                            <Route path="partners" element={<AdminParners/>}/>
-                                            <Route path="partners/orders/:id" element={<PartnerOrders/>}/>
-                                            <Route path="avia-tickets" element={<Aviaticket/>}/>
-                                            <Route path="where-are-we" element={<Where/>}/>
-                                            <Route path="for-partners" element={<ForPartners/>}/>
-                                            <Route path="regions" element={<Regions/>}/>
-                                            <Route path="/transfersList" element={<Transfers/>}/>
-                                            <Route path="flights" element={<Flights/>}/>
-                                            <Route path="/visasList" element={<Visas/>}/>
-                                            <Route path="visaDetails/:id" element={<VisaDetails/>}/>
-                                            <Route path={"*"} element={<div>Not found</div>}/>
-                                        </Route>
-                                    </Routes>
-                                </div>
-                                <Footer/>
-                            </div>
-                        )
-                        : null
-            }
-            <ToastContainer/>
+  return (
+    <div>
+      {loading ? (
+        <div>loading...</div>
+      ) : users?.role === userRole.client ||
+        !users?.role ||
+        users.role === userRole.agent ? (
+        <div className="flex flex-col min-h-screen justify-between">
+          <div>
+            <Navbar />
+            <Routes>
+              <Route path={"/"} element={<Home />}>
+                <Route element={<TourPack />} path={"/"} />
+                <Route element={<FlightsTab />} path={"tab-flights"} />
+                <Route element={<ExcursionTours />} path={"tab-ex-tours"} />
+                <Route element={<Hotels />} path={"tab-hotels"} />
+                <Route element={<VisasTab />} path={"tab-visas"} />
+                <Route element={<TransfersTab />} path={"tab-transfers"} />
+              </Route>
+              <Route path="/about-us" element={<About />} />
+              <Route path="/where-are-we" element={<Where />} />
+              <Route path="/for-partners" element={<ForPartners />} />
+              <Route path="/details/:id" element={<Details />} />
+              <Route
+                path="/transferDetails/:id"
+                element={<TransfersDetail />}
+              />
+              <Route path="/transferDetails/result/:id" element={<Result />} />
+              <Route path="visaDetails/:id" element={<VisaDetails />} />
+              <Route path="/details/result/:id" element={<FlightsResult />} />
+              <Route path="/excursion/:id" element={<ExcursionTour />} />
+              <Route path="hotel/order/:hotelId/:id" element={<HotelOrder />} />
+              <Route
+                path="/tour-packet/order/:hotelId/:roomId/:isGroup"
+                element={<HotelOrder />}
+              />
+              {users?.role === userRole.agent ? (
+                <>
+                  <Route path={"/my"}>
+                    <Route index element={<AgentIndex />} />
+                    <Route path="about-us" element={<About />} />
+                    <Route path="where-are-we" element={<Where />} />
+                    <Route path="for-partners" element={<ForPartners />} />
+                  </Route>
+                </>
+              ) : null}
+            </Routes>
+          </div>
+          <Footer />
         </div>
-    );
+      ) : users?.role === userRole.admin ? (
+        <div className="flex flex-col min-h-screen justify-between">
+          <div>
+            <Navbar />
+            <Routes>
+              <Route path={"/"} element={<Home />}>
+                <Route element={<TourPack />} path={"/"} />
+                <Route element={<FlightsTab />} path={"tab-flights"} />
+                <Route element={<ExcursionTours />} path={"tab-ex-tours"} />
+                <Route element={<Hotels />} path={"tab-hotels"} />
+                <Route element={<VisasTab />} path={"tab-visas"} />
+                <Route element={<TransfersTab />} path={"tab-transfers"} />
+              </Route>
+              <Route path="/about-us" element={<About />} />
+              <Route path="/where-are-we" element={<Where />} />
+              <Route path="/for-partners" element={<ForPartners />} />
+              <Route path="/details/:id" element={<Details />} />
+              <Route
+                path="/transferDetails/:id"
+                element={<TransfersDetail />}
+              />
+              <Route path="/transferDetails/result/:id" element={<Result />} />
+              <Route path="/details/result/:id" element={<FlightsResult />} />
+              <Route
+                path="/tour-packet/order/:hotelId/:roomId"
+                element={<HotelOrder />}
+              />
+              <Route path="hotel/order/:hotelId/:id" element={<HotelOrder />} />
+              <Route path="/excursion/:id" element={<ExcursionTour />} />
+              <Route path={"/"} element={<AdminNavbar />}>
+                <Route path={"/"} element={<Navigate to={"/users"} />} />
+                <Route path="users" element={<AdminUsers />} />
+                <Route path="tour-package" element={<TourPackage />} />
+                <Route path="finance" element={<Finnance />} />
+                <Route path="partners" element={<AdminParners />} />
+                <Route path="partners/orders/:id" element={<PartnerOrders />} />
+                <Route path="avia-tickets" element={<Aviaticket />} />
+                <Route path="where-are-we" element={<Where />} />
+                <Route path="for-partners" element={<ForPartners />} />
+                <Route path="regions" element={<Regions />} />
+                <Route path="/transfersList" element={<Transfers />} />
+                <Route path="flights" element={<Flights />} />
+                <Route path="/visasList" element={<Visas />} />
+                <Route path="visaDetails/:id" element={<VisaDetails />} />
+                <Route path={"*"} element={<div>Not found</div>} />
+              </Route>
+            </Routes>
+          </div>
+          <Footer />
+        </div>
+      ) : null}
+      <ToastContainer />
+    </div>
+  );
 }
 
 export default App;

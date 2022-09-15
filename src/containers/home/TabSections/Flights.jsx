@@ -193,7 +193,7 @@ function FlightsTab() {
                                 autoComplete={"off"}
                                 value={"В:" + adults + " М:" + infant + " Д:" + children + ", Эконом"}
                                 onClick={() => setIsOpen(!isOpen)}
-                                onChange={() => console.log('as')}
+                                // onChange={() => console.log('as')}
                                 className="p-2 rounded border-4 border-red-600 qw1 w-full"
                                 type="text"
                                 name="from"

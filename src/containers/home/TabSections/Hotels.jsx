@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {BsArrowRightShort} from 'react-icons/bs';
 import {RiSendPlane2Line} from 'react-icons/ri';
 import hotel from '../../../api/projectApi/hotel';
@@ -9,21 +9,53 @@ import {useTranslation} from "react-i18next";
 import BestStates from "../BestStates";
 import AllStates from "../AllStates";
 import LastSection from "../LastSection";
+import {getHtplace} from "../../../constants/htplace";
 
 const RenderItem = ({
-                        e, adults, children, infant
+                        e, adults = 0, children = 0, infant = 0
                     }) => {
-    const hotelId = e?.inc
-    console.log(e)
+    const navigate = useNavigate()
+    const hotelId = e?.inc;
+    const [isReturn, setIsReturn] = useState({bool: true, arr: []})
     const [values, setValues] = useState({
         loading: false, data: [], open: false, tabIndex: 1
     });
+    const htplace = e.price.map(e => {
+        return getHtplace(e.htplace)
+    })
+    useEffect(() => {
+        let arr = []
+        htplace.map(r => {
+            try {
+                if (+r?.pcount >= (adults + children + infant)) {
+                    if ((+r?.adult) >= adults && (+r?.child) >= children && (+r?.infant) >= infant) {
+                        arr.push(r)
+                    }
+                }
+            } catch (e) {
+
+            }
+        })
+        if (arr.length > 0) {
+            setIsReturn({bool: true, arr})
+        } else {
+            setIsReturn({bool: false, arr: []})
+        }
+    }, [adults, children, infant])
+
     const handlePress = async () => {
         setValues({
             ...values, data: [], loading: false, open: !values.open
         })
     }
-    const navigate = useNavigate()
+    if (!(Array.isArray(e.price) && e.price.length > 0 && e.price[0].price > 0)) {
+        return null
+    }
+    if (!isReturn.bool) {
+        return null
+    }
+
+
     return (<div className={'bg-white p-2 gap-5 shadow border rounded-lg'}>
             <div onClick={handlePress} className="cursor-pointer flex gap-6"
                  key={`${hotelId}`}>
@@ -65,7 +97,18 @@ const RenderItem = ({
                                 {values.loading ? (<div className={"flex justify-center"}>
                                     <div className="lds-dual-ring"></div>
                                 </div>) : (<div className={'grid lg:grid-cols-2 grid-cols-1 gap-5'}>
-                                    {e.price?.map(e => {
+                                    {Array.isArray(e.price) && e.price.length > 0 && e.price?.map(e => {
+                                        let bool = false
+                                        try {
+                                            isReturn.arr?.map(r=>{
+                                                if (r.in===e.htplace){
+                                                    bool=true
+                                                }
+                                            })
+                                        } catch (e) {
+
+                                        }
+                                        if (!bool) return null
                                         return e.status !== "D" && (
                                             <div style={{width: "100%", minHeight: 200}}
                                                  className={"bg-red-400 text-white relative p-3 rounded-lg shadow"}>
@@ -131,7 +174,6 @@ function Hotels() {
     const handlePressFind = () => {
         hotel.getHotels(values.town)
             .then(r => {
-                console.log(r.data.result)
                 setHotels(Array.isArray(r.data) ? r.data : [])
             })
             .catch(e => {
@@ -203,7 +245,7 @@ function Hotels() {
                                 autoComplete={"off"}
                                 value={"В:" + adults + " М:" + infant + " Д:" + children + ", Эконом"}
                                 onClick={() => setIsOpen(!isOpen)}
-                                onChange={() => console.log('as')}
+                                // onChange={() => console.log('as')}
                                 className="p-2 rounded border-4 border-red-600 qw1 w-full"
                                 type="text"
                                 name="from"
@@ -288,9 +330,9 @@ function Hotels() {
                     return null;
                 }
                 try {
-                    return e.name.toLowerCase().includes(search.toLowerCase()) ? (<RenderItem e={e}/>) : ("")
+                    return e.name.toLowerCase().includes(search.toLowerCase()) ? (
+                        <RenderItem e={e} adults={adults} infant={infant} children={children}/>) : ("")
                 } catch (e) {
-                    console.log(e)
                 }
             })}
         </div>

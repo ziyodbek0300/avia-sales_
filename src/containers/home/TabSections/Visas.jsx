@@ -30,7 +30,6 @@ function VisasTab() {
         let pr1 = 0;
         // eslint-disable-next-line no-unused-vars
         let pr2 = 0;
-        console.log(+visaType)
         // eslint-disable-next-line array-callback-return
         VISA_PRICE2.map(a => {
             if (+a.id === +visaType) {
@@ -38,7 +37,6 @@ function VisasTab() {
                 pr2 = a.price.children;
             }
         })
-        console.log(((+adults * +pr1) + (+children * +pr2)))
         price = visaTypes === 0 ? VISA_PRICE[visaType] * countPassegers : ((+adults * +pr1) + (+children * +pr2));
 
         setVisas([...visas, {
@@ -127,7 +125,7 @@ function VisasTab() {
                                 autoComplete={"off"}
                                 value={"В:" + adults + " М:" + infant + " Д:" + children + ", Эконом"}
                                 onClick={() => setIsOpen(!isOpen)}
-                                onChange={() => console.log('as')}
+                                // onChange={() => console.log('as')}
                                 className="p-2 rounded border-4 qw1 border-red-600 w-full"
                                 type="text"
                                 name="from"
