@@ -11,6 +11,7 @@ import LastSection from "../LastSection";
 import { getHtplace } from "../../../constants/htplace";
 import moment from "moment";
 import { BiStar } from "react-icons/bi";
+import * as _ from "lodash";
 
 const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
   const navigate = useNavigate();
@@ -70,14 +71,12 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
 
   const getPrice = () => {
     try {
-      var now = moment(dates.date2).startOf("day"); //todays date
-      var end = moment(dates.date1).startOf("day"); // another date
+      var now = moment(dates.date2); //todays date
+      var end = moment(dates.date1); // another date
       var duration = moment.duration(now.diff(end));
       var days = duration.asDays();
-      console.log(dates.date2, dates.date1);
-      // console.log(Math.ceil(days));
       return (
-        e.price
+        _.orderBy(e.price, [(e) => +e.price], ["asc"])
           ?.map((e) => {
             let bool = false;
             try {
@@ -203,63 +202,65 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
                       <div className={"grid lg:grid-cols-2 grid-cols-1 gap-5"}>
                         {Array.isArray(e.price) &&
                           e.price.length > 0 &&
-                          e.price?.map((e) => {
-                            let bool = false;
-                            try {
-                              Array.isArray(isReturn.arr) &&
-                                isReturn.arr?.map((r) => {
-                                  if (r.in === e.htplace) {
-                                    bool = true;
-                                  }
-                                });
-                            } catch (e) {}
-                            if (!bool) return null;
-                            return (
-                              e.status !== "D" && (
-                                <div
-                                  style={{ width: "100%", minHeight: 200 }}
-                                  className={
-                                    "bg-red-400 text-white relative p-3 rounded-lg shadow"
-                                  }
-                                >
-                                  <input
-                                    name={"asd"}
-                                    className={
-                                      "absolute hidden h-full w-full top-0 left-0"
+                          _.orderBy(e.price, [(e) => +e.price], ["asc"])?.map(
+                            (e) => {
+                              let bool = false;
+                              try {
+                                Array.isArray(isReturn.arr) &&
+                                  isReturn.arr?.map((r) => {
+                                    if (r.in === e.htplace) {
+                                      bool = true;
                                     }
-                                    type="radio"
-                                  />
+                                  });
+                              } catch (e) {}
+                              if (!bool) return null;
+                              return (
+                                e.status !== "D" && (
                                   <div
+                                    style={{ width: "100%", minHeight: 200 }}
                                     className={
-                                      "flex flex-col justify-between h-full"
+                                      "bg-red-400 text-white relative p-3 rounded-lg shadow"
                                     }
                                   >
-                                    <div>
-                                      <h3>{e.name ? e.name : "Standart"}</h3>
-                                      <p className={"text-xl"}>
-                                        Price: ${Math.floor(e.price)}
-                                      </p>
-                                      <p>{e.dataa.name}</p>
-                                    </div>
-                                    <div className={"text-right"}>
-                                      <button
-                                        className={
-                                          "px-4 py-2 bg-white text-zinc-900 font-bold capitalize rounded"
-                                        }
-                                        onClick={() =>
-                                          navigate(
-                                            `/hotel/order/${hotelId}/${e.inc}?name=${e.name}&adult=${adults}&c=${children}&d=${infant}`
-                                          )
-                                        }
-                                      >
-                                        {t("order")}
-                                      </button>
+                                    <input
+                                      name={"asd"}
+                                      className={
+                                        "absolute hidden h-full w-full top-0 left-0"
+                                      }
+                                      type="radio"
+                                    />
+                                    <div
+                                      className={
+                                        "flex flex-col justify-between h-full"
+                                      }
+                                    >
+                                      <div>
+                                        <h3>{e.name ? e.name : "Standart"}</h3>
+                                        <p className={"text-xl"}>
+                                          Price: ${Math.floor(e.price)}
+                                        </p>
+                                        <p>{e.dataa.name}</p>
+                                      </div>
+                                      <div className={"text-right"}>
+                                        <button
+                                          className={
+                                            "px-4 py-2 bg-white text-zinc-900 font-bold capitalize rounded"
+                                          }
+                                          onClick={() =>
+                                            navigate(
+                                              `/hotel/order/${hotelId}/${e.inc}?name=${e.name}&adult=${adults}&c=${children}&d=${infant}`
+                                            )
+                                          }
+                                        >
+                                          {t("order")}
+                                        </button>
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
-                              )
-                            );
-                          })}
+                                )
+                              );
+                            }
+                          )}
                       </div>
                     )}
                   </div>

@@ -18,6 +18,7 @@ import moment from "moment";
 import { FaPlane } from "react-icons/fa";
 import { SiVisa } from "react-icons/si";
 import { FcDocument } from "react-icons/fc";
+import * as _ from "lodash";
 
 const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
   const navigate = useNavigate();
@@ -77,12 +78,13 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
 
   const getPrice = () => {
     try {
+      const filghtPrice = e.flights[0].price;
       var now = moment(dates.date2); //todays date
       var end = moment(dates.date1); // another date
       var duration = moment.duration(now.diff(end));
       var days = duration.asDays();
       return (
-        e.price
+        _.orderBy(e.price, [(e) => +e.price], ["asc"])
           ?.map((e) => {
             let bool = false;
             try {
@@ -95,7 +97,9 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
             } catch (e) {}
             if (bool) return e;
           })
-          .filter((e) => !!e)[0].price * Math.ceil(days)
+          .filter((e) => !!e)[0].price *
+          Math.ceil(days) +
+        (+adults + +children + +infant) * filghtPrice
       );
     } catch (e) {
       return 0;
@@ -159,7 +163,7 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
             Цена: $
             {Array.isArray(isReturn.arr) &&
               isReturn.arr.length > 0 &&
-              Math.floor(getPrice() + 300 + 100)}
+              Math.floor(getPrice() + 100)}
           </p>
         </div>
         {hotelsTownLists?.map((a) => {
@@ -208,63 +212,65 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
                       <div className={"grid lg:grid-cols-2 grid-cols-1 gap-5"}>
                         {Array.isArray(e.price) &&
                           e.price.length > 0 &&
-                          e.price?.map((e) => {
-                            let bool = false;
-                            try {
-                              Array.isArray(isReturn.arr) &&
-                                isReturn.arr?.map((r) => {
-                                  if (r.in === e.htplace) {
-                                    bool = true;
-                                  }
-                                });
-                            } catch (e) {}
-                            if (!bool) return null;
-                            return (
-                              e.status !== "D" && (
-                                <div
-                                  style={{ width: "100%", minHeight: 200 }}
-                                  className={
-                                    "bg-red-400 text-white relative p-3 rounded-lg shadow"
-                                  }
-                                >
-                                  <input
-                                    name={"asd"}
-                                    className={
-                                      "absolute hidden h-full w-full top-0 left-0"
+                          _.orderBy(e.price, [(e) => +e.price], ["asc"])?.map(
+                            (e) => {
+                              let bool = false;
+                              try {
+                                Array.isArray(isReturn.arr) &&
+                                  isReturn.arr?.map((r) => {
+                                    if (r.in === e.htplace) {
+                                      bool = true;
                                     }
-                                    type="radio"
-                                  />
+                                  });
+                              } catch (e) {}
+                              if (!bool) return null;
+                              return (
+                                e.status !== "D" && (
                                   <div
+                                    style={{ width: "100%", minHeight: 200 }}
                                     className={
-                                      "flex flex-col justify-between h-full"
+                                      "bg-red-400 text-white relative p-3 rounded-lg shadow"
                                     }
                                   >
-                                    <div>
-                                      <h3>{e.name ? e.name : "Standart"}</h3>
-                                      <p className={"text-xl"}>
-                                        Price: ${Math.floor(e.price)}
-                                      </p>
-                                      <p>{e.dataa.name}</p>
-                                    </div>
-                                    <div className={"text-right"}>
-                                      <button
-                                        className={
-                                          "px-4 py-2 bg-white text-zinc-900 font-bold capitalize rounded"
-                                        }
-                                        onClick={() =>
-                                          navigate(
-                                            `/hotel/order/${hotelId}/${e.inc}?name=${e.name}&adult=${adults}&c=${children}&d=${infant}`
-                                          )
-                                        }
-                                      >
-                                        {t("order")}
-                                      </button>
+                                    <input
+                                      name={"asd"}
+                                      className={
+                                        "absolute hidden h-full w-full top-0 left-0"
+                                      }
+                                      type="radio"
+                                    />
+                                    <div
+                                      className={
+                                        "flex flex-col justify-between h-full"
+                                      }
+                                    >
+                                      <div>
+                                        <h3>{e.name ? e.name : "Standart"}</h3>
+                                        <p className={"text-xl"}>
+                                          Price: ${Math.floor(e.price)}
+                                        </p>
+                                        <p>{e.dataa.name}</p>
+                                      </div>
+                                      <div className={"text-right"}>
+                                        <button
+                                          className={
+                                            "px-4 py-2 bg-white text-zinc-900 font-bold capitalize rounded"
+                                          }
+                                          onClick={() =>
+                                            navigate(
+                                              `/hotel/order/${hotelId}/${e.inc}?name=${e.name}&adult=${adults}&c=${children}&d=${infant}`
+                                            )
+                                          }
+                                        >
+                                          {t("order")}
+                                        </button>
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
-                              )
-                            );
-                          })}
+                                )
+                              );
+                            }
+                          )}
                       </div>
                     )}
                   </div>
