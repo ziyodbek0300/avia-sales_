@@ -6,6 +6,7 @@ import moment from "moment";
 import { useSelector } from "react-redux";
 import order from "../../api/projectApi/order";
 import { toast } from "react-toastify";
+import tourOrder from "../../api/projectApi/tourOrder";
 
 function useQuery() {
   const { search } = useLocation();
@@ -46,29 +47,15 @@ const HotelOrder = () => {
         endDate: moment(p.date3).toDate(),
       });
     });
-    let end = moment(
-      JSON.parse(localStorage.getItem("flight")).endTime
-    ).toDate();
-    let start = moment(
-      JSON.parse(localStorage.getItem("flight")).startTime
-    ).toDate();
 
     let obj = {
-      flightId: JSON.parse(localStorage.getItem("flight")).id,
+      ...JSON.parse(localStorage.getItem("tourPrice")),
       contactName: contactName,
       email: contactEmail,
       phone: contactPhone,
-      comment: comment,
-      partnerId: currentUser.id ? currentUser.id : null,
-      startDate: start,
-      endDate: end,
-      orderType: "asdasd",
-      price:
-        +JSON.parse(localStorage.getItem("flight")).price *
-        (+adults + +children),
       passagers: pass,
     };
-    order
+    tourOrder
       .addNew(obj)
       .then((response) => {
         console.log(response);
@@ -157,20 +144,18 @@ const HotelOrder = () => {
           >
             <p>
               {moment(
-                JSON.parse(localStorage.getItem("flight"))?.departureTime
+                JSON.parse(localStorage.getItem("tourPrice"))?.startDate
               ).format("MM:DD:YYYY HH:mm")}
               по Ташкентскому времени
             </p>
             <div className={"flex justify-center flex-col gap-3"}>
               <p>
                 <span className={"text-2xl text-red-400"}>
-                  {JSON.parse(localStorage.getItem("flight"))?.price *
-                    (+adults + +children)}
+                  {JSON.parse(localStorage.getItem("tourPrice")).price}
                   <sup>USD</sup>
                 </span>
                 <span>
-                  {JSON.parse(localStorage.getItem("flight"))?.price *
-                    (+adults + +children + +infants)}
+                  {JSON.parse(localStorage.getItem("tourPrice")).price}
                   <>USD</>
                 </span>
               </p>

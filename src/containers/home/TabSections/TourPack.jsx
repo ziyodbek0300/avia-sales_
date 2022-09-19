@@ -19,12 +19,32 @@ import { FaPlane } from "react-icons/fa";
 import { SiVisa } from "react-icons/si";
 import { FcDocument } from "react-icons/fc";
 import * as _ from "lodash";
+import { useSelector } from "react-redux";
 
 const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const hotelId = e?.inc;
+  const currentUser = useSelector((state) => state.user.currentUser);
   const [isReturn, setIsReturn] = useState({ bool: true, arr: [] });
+  const [data, setData] = useState({
+    contactName: "",
+    email: "",
+    phone: "",
+    comment: "",
+    startDate: "2022-08-25T10:31:02.751Z",
+    endDate: "2022-08-25T10:31:02.751Z",
+    price: null,
+    partnerId: currentUser?.id ? currentUser?.id : null,
+    hotelId: e?.inc,
+    regionId: e?.town,
+    mealId: e?.mealstop ? e.mealstop : "0",
+    roomId: "1",
+    serviceId: "1",
+    hotelPrice: 0,
+    transferPrice: 100,
+    flightId: e[0]?.id,
+  });
   const [values, setValues] = useState({
     loading: false,
     data: [],
@@ -76,13 +96,24 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
     return null;
   }
 
+  const filghtPrice = e.flights[0].price;
+  var now = moment(dates.date2); //todays date
+  var end = moment(dates.date1); // another date
+  var duration = moment.duration(now.diff(end));
+  var days = duration.asDays();
+  const getPriceHotel = (hotelPrice) => {
+    try {
+      return (
+        hotelPrice * Math.ceil(days) +
+        (+adults + +children + +infant) * filghtPrice
+      );
+    } catch (e) {
+      return 0;
+    }
+  };
+
   const getPrice = () => {
     try {
-      const filghtPrice = e.flights[0].price;
-      var now = moment(dates.date2); //todays date
-      var end = moment(dates.date1); // another date
-      var duration = moment.duration(now.diff(end));
-      var days = duration.asDays();
       return (
         _.orderBy(e.price, [(e) => +e.price], ["asc"])
           ?.map((e) => {
@@ -247,7 +278,10 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
                                       <div>
                                         <h3>{e.name ? e.name : "Standart"}</h3>
                                         <p className={"text-xl"}>
-                                          Price: ${Math.floor(e.price)}
+                                          Цена: $
+                                          {Math.floor(
+                                            getPriceHotel(e.price) + 100
+                                          )}
                                         </p>
                                         <p>{e.dataa.name}</p>
                                       </div>
@@ -256,11 +290,21 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
                                           className={
                                             "px-4 py-2 bg-white text-zinc-900 font-bold capitalize rounded"
                                           }
-                                          onClick={() =>
+                                          onClick={() => {
+                                            localStorage.setItem(
+                                              "tourPrice",
+                                              JSON.stringify({
+                                                ...data,
+                                                price: Math.floor(
+                                                  getPriceHotel(e.price) + 100
+                                                ),
+                                                roomId: e.inc,
+                                              })
+                                            );
                                             navigate(
-                                              `/hotel/order/${hotelId}/${e.inc}?name=${e.name}&adult=${adults}&c=${children}&d=${infant}`
-                                            )
-                                          }
+                                              `/tourPack/order/${hotelId}/${e.inc}?name=${e.name}&adult=${adults}&c=${children}&d=${infant}`
+                                            );
+                                          }}
                                         >
                                           {t("order")}
                                         </button>
@@ -660,6 +704,7 @@ function TourPack() {
           ) {
             return null;
           }
+          console.log("data", e);
           return (
             <RenderItem
               e={e}

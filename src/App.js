@@ -85,7 +85,10 @@ function App() {
                 element={<ExTourResult />}
               />
               <Route path="/excursion/:id" element={<ExcursionTour />} />
-              <Route path="hotel/order/:hotelId/:id" element={<HotelOrder />} />
+              <Route
+                path="tourPack/order/:hotelId/:id"
+                element={<HotelOrder />}
+              />
               <Route
                 path="/tour-packet/order/:hotelId/:roomId/:isGroup"
                 element={<HotelOrder />}
@@ -136,7 +139,10 @@ function App() {
                 path="/tour-packet/order/:hotelId/:roomId"
                 element={<HotelOrder />}
               />
-              <Route path="hotel/order/:hotelId/:id" element={<HotelOrder />} />
+              <Route
+                path="tourPack/order/:hotelId/:id"
+                element={<HotelOrder />}
+              />
               <Route path="/excursion/:id" element={<ExcursionTour />} />
               <Route path={"/"} element={<AdminNavbar />}>
                 <Route path={"/"} element={<Navigate to={"/users"} />} />
