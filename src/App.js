@@ -39,6 +39,7 @@ import FlightsTab from "./containers/home/TabSections/Flights";
 import ExTourResult from "./containers/details/ExTourResult";
 import ExTourList from "./containers/exTourList/ExTourList";
 import VisaResult from "./containers/details/VisaResult";
+import TourList from "./containers/tourpacks-list/TourPacksList";
 
 function App() {
   const dispatch = useDispatch();
@@ -93,6 +94,10 @@ function App() {
                 path="/tour-packet/order/:hotelId/:roomId/:isGroup"
                 element={<HotelOrder />}
               />
+              <Route
+                path="/tour-packet/order/:hotelId/:roomId/:isGroup"
+                element={<HotelOrder />}
+              />
               {users?.role === userRole.agent ? (
                 <>
                   <Route path={"/my"}>
@@ -140,6 +145,10 @@ function App() {
                 element={<HotelOrder />}
               />
               <Route
+                path="/tour-packet/order/:hotelId/:roomId"
+                element={<HotelOrder />}
+              />
+              <Route
                 path="tourPack/order/:hotelId/:id"
                 element={<HotelOrder />}
               />
@@ -159,6 +168,7 @@ function App() {
                 <Route path="/transfersList" element={<Transfers />} />
                 <Route path="flights" element={<Flights />} />
                 <Route path="/visasList" element={<Visas />} />
+                <Route path="/tour-package-order" element={<TourList />} />
                 <Route path="visaDetails/:id" element={<VisaDetails />} />
                 <Route path={"*"} element={<div>Not found</div>} />
               </Route>
