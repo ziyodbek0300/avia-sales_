@@ -52,6 +52,19 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
     }
   }, [adults, children, infant]);
 
+  var now = moment(dates.date2); //todays date
+  var end = moment(dates.date1); // another date
+  var duration = moment.duration(now.diff(end));
+  var days = duration.asDays();
+
+  const getPriceHotel = (hotelPrice) => {
+    try {
+      return hotelPrice * Math.ceil(days);
+    } catch (e) {
+      return 0;
+    }
+  };
+
   const handlePress = async () => {
     setValues({
       ...values,
@@ -71,10 +84,6 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
 
   const getPrice = () => {
     try {
-      var now = moment(dates.date2); //todays date
-      var end = moment(dates.date1); // another date
-      var duration = moment.duration(now.diff(end));
-      var days = duration.asDays();
       return (
         _.orderBy(e.price, [(e) => +e.price], ["asc"])
           ?.map((e) => {
@@ -112,10 +121,6 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
         />
         <div className={"flex flex-col justify-between"}>
           <div>
-            {/*<h1 className="text-2xl mb-3 font-bold block uppercase text-red-500">*/}
-            {/*  турпакет*/}
-            {/*</h1>*/}
-
             <h1 className="text-xl font-bold block">{e.name}</h1>
             <div className={"flex py-2"}>
               {new Array(
@@ -131,24 +136,6 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
                 })}
             </div>
           </div>
-          {/*<div className={"flex gap-2 items-center justify-start"}>*/}
-          {/*  <p className={"m-0 flex justify-center items-center gap-1"}>*/}
-          {/*    <FaPlane />*/}
-          {/*    Авиаперелёт*/}
-          {/*  </p>*/}
-          {/*  <p className={"m-0 flex justify-center items-center gap-1"}>*/}
-          {/*    <SiVisa />*/}
-          {/*    Виза*/}
-          {/*  </p>*/}
-          {/*  <p className={"m-0 flex justify-center items-center gap-1"}>*/}
-          {/*    <BiTransfer />*/}
-          {/*    Трансфер*/}
-          {/*  </p>*/}
-          {/*  <p className={"m-0 flex justify-center items-center gap-1"}>*/}
-          {/*    <FcDocument />*/}
-          {/*    Страховка*/}
-          {/*  </p>*/}
-          {/*</div>*/}
           <p className={"mt-auto text-2xl"}>
             Цена: $
             {Array.isArray(isReturn.arr) &&
@@ -237,7 +224,8 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
                                       <div>
                                         <h3>{e.name ? e.name : "Standart"}</h3>
                                         <p className={"text-xl"}>
-                                          Price: ${Math.floor(e.price)}
+                                          Price: $
+                                          {Math.floor(getPriceHotel(e.price))}
                                         </p>
                                         <p>{e.dataa.name}</p>
                                       </div>
