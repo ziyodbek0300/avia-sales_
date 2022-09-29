@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.b961fc60.css",
-    "main.js": "/static/js/main.c6ecb181.js",
+    "main.css": "/static/css/main.dcffcab0.css",
+    "main.js": "/static/js/main.89e2979d.js",
     "static/media/contract.pdf": "/static/media/contract.162627cdc9e6b36865b4.pdf",
     "static/media/qw.jpg": "/static/media/qw.28791e0934bc2c05afc1.jpg",
     "static/media/bg_2.jpg": "/static/media/bg_2.deabb8fbcdb51f0a4bb4.jpg",
@@ -26,11 +26,11 @@
     "static/media/uzbekistan-airways.jpg": "/static/media/uzbekistan-airways.3dacde6b74bf9401b8ee.jpg",
     "static/media/visa.jpg": "/static/media/visa.857a8a1141430989e8e6.jpg",
     "index.html": "/index.html",
-    "main.b961fc60.css.map": "/static/css/main.b961fc60.css.map",
-    "main.c6ecb181.js.map": "/static/js/main.c6ecb181.js.map"
+    "main.dcffcab0.css.map": "/static/css/main.dcffcab0.css.map",
+    "main.89e2979d.js.map": "/static/js/main.89e2979d.js.map"
   },
   "entrypoints": [
-    "static/css/main.b961fc60.css",
-    "static/js/main.c6ecb181.js"
+    "static/css/main.dcffcab0.css",
+    "static/js/main.89e2979d.js"
   ]
 }
