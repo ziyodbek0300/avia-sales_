@@ -20,8 +20,9 @@ import { SiVisa } from "react-icons/si";
 import { FcDocument } from "react-icons/fc";
 import * as _ from "lodash";
 import { useSelector } from "react-redux";
+import Sort from "../../../components/Sort";
 
-const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
+const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates,priceChange=()=>({}) }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const hotelId = e?.inc;
@@ -114,25 +115,26 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
 
   const getPrice = () => {
     try {
-      return (
-        _.orderBy(e.price, [(e) => +e.price], ["asc"])
-          ?.map((e) => {
-            let bool = false;
-            try {
-              Array.isArray(isReturn.arr) &&
-                isReturn.arr?.map((r) => {
-                  if (r.in === e.htplace) {
-                    bool = true;
-                  }
-                });
-            } catch (e) {}
-            if (bool) return e;
-          })
-          .filter((e) => !!e)[0].price *
-          Math.ceil(days) +
-        (+adults + +children + +infant) * filghtPrice
-      );
+      const price =_.orderBy(e.price, [(e) => +e.price], ["asc"])
+      ?.map((e) => {
+        let bool = false;
+        try {
+          Array.isArray(isReturn.arr) &&
+            isReturn.arr?.map((r) => {
+              if (r.in === e.htplace) {
+                bool = true;
+              }
+            });
+        } catch (e) {}
+        if (bool) return e;
+      })
+      .filter((e) => !!e)[0].price *
+      Math.ceil(days) +
+    (+adults + +children + +infant) * filghtPrice
+    priceChange(price)
+      return price;
     } catch (e) {
+      priceChange(0)
       return 0;
     }
   };
@@ -449,6 +451,9 @@ function TourPack() {
       }
     }
   };
+  
+  const [, updateState] = React.useState();
+const forceUpdate = React.useCallback(() => updateState({}), []);
 
   return (
     <>
@@ -693,6 +698,8 @@ function TourPack() {
         </div>
       </div>
       <div className="max-w-5xl mx-auto flex flex-col gap-3">
+        {/* {_.orderBy(hotels, [(e) => +e.sortField], ["asc"]).map((e) => { */}
+        <Sort>
         {hotels.map((e) => {
           if (
             !(
@@ -704,7 +711,10 @@ function TourPack() {
           ) {
             return null;
           }
-          console.log("data", e);
+          const priceChange = (price)=>{
+            // forceUpdate()
+            e.sortField = price
+          }
           return (
             <RenderItem
               e={e}
@@ -713,9 +723,11 @@ function TourPack() {
               adults={adults}
               isGroup={isGroup === 1}
               dates={values}
+              priceChange={priceChange}
             />
           );
         })}
+        </Sort>
       </div>
       <BestStates />
       <AllStates />

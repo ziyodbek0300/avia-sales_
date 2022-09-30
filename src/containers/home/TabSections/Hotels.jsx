@@ -12,10 +12,20 @@ import { getHtplace } from "../../../constants/htplace";
 import moment from "moment";
 import { BiStar } from "react-icons/bi";
 import * as _ from "lodash";
+import Sort from "../../../components/Sort";
 
-const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
+const RenderItem = ({
+  e,
+  adults = 0,
+  children = 0,
+  infant = 0,
+  dates,
+  priceChange = () => ({}),
+}) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+
   const hotelId = e?.inc;
   const [isReturn, setIsReturn] = useState({ bool: true, arr: [] });
   const [values, setValues] = useState({
@@ -24,11 +34,13 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
     open: false,
     tabIndex: 1,
   });
+
   const htplace =
-    Array.isArray(e.price) &&
-    e.price?.map((e) => {
-      return getHtplace(e.htplace);
+    Array.isArray(e?.price) &&
+    e?.price?.map((e) => {
+      return getHtplace(e?.htplace);
     });
+
   useEffect(() => {
     let arr = [];
     Array.isArray(htplace) &&
@@ -51,9 +63,9 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
       setIsReturn({ bool: false, arr: [] });
     }
   }, [adults, children, infant]);
-
-  var now = moment(dates.date2); //todays date
-  var end = moment(dates.date1); // another date
+  
+  var now = moment(dates?.date2); //todays date
+  var end = moment(dates?.date1); // another date
   var duration = moment.duration(now.diff(end));
   var days = duration.asDays();
 
@@ -84,7 +96,7 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
 
   const getPrice = () => {
     try {
-      return (
+      const price =
         _.orderBy(e.price, [(e) => +e.price], ["asc"])
           ?.map((e) => {
             let bool = false;
@@ -98,9 +110,11 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates }) => {
             } catch (e) {}
             if (bool) return e;
           })
-          .filter((e) => !!e)[0].price * Math.ceil(days)
-      );
+          .filter((e) => !!e)[0].price * Math.ceil(days);
+      priceChange(price);
+      return price;
     } catch (e) {
+      priceChange(0);
       return 0;
     }
   };
@@ -299,18 +313,26 @@ function Hotels() {
   const [infant, setInfant] = useState(0);
   const [children, setChildren] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [sortPrice, setSortPrice] = useState(0)
   const popupRef = useRef();
 
   const handlePressFind = () => {
     hotel
       .getHotels(values.town)
       .then((r) => {
+        console.log("response",r);
+        const response = r.data;
+
         setHotels(Array.isArray(r.data) ? r.data : []);
       })
       .catch((e) => {
         // setHotels([])
       });
   };
+
+  const onSortHotels = holtels => {
+    const sortedHotels = _.sortBy(hotels, [])
+  }
 
   const townRef = useRef();
 
@@ -322,6 +344,11 @@ function Hotels() {
     date1: null,
     date2: null,
   });
+
+  const [, updateState] = React.useState();
+const forceUpdate = React.useCallback(() => updateState({}), []);
+
+console.log("hotels", hotels);
 
   return (
     <>
@@ -539,31 +566,40 @@ function Hotels() {
         ) : (
           ""
         )}
-        {hotels.map((e) => {
-          if (
-            !(
-              e.status !== "D" &&
-              e.name !== "" &&
-              e.name?.toLowerCase() !== "unknown hotel" &&
-              e.name !== undefined
-            )
-          ) {
-            return null;
-          }
-          try {
-            return e.name.toLowerCase().includes(search.toLowerCase()) ? (
-              <RenderItem
-                e={e}
-                adults={adults}
-                infant={infant}
-                children={children}
-                dates={dates}
-              />
-            ) : (
-              ""
-            );
-          } catch (e) {}
-        })}
+        {hotels.length > 0 && (
+          <Sort hotels={hotels} setSearch={setSearch}>
+            {hotels.map((e) => {
+              if (
+                !(
+                  e.status !== "D" &&
+                  e.name !== "" &&
+                  e.name?.toLowerCase() !== "unknown hotel" &&
+                  e.name !== undefined
+                )
+              ) {
+                return null;
+              }
+              const priceChange = (price) => {
+                // forceUpdate()
+                e.sortField = price;
+            
+              };
+              try {
+                return e.name.toLowerCase().includes(search.toLowerCase()) && (
+                  <RenderItem
+                    e={e}
+                    adults={adults}
+                    infant={infant}
+                    children={children}
+                    dates={dates}
+                    priceChange={priceChange}
+                  />
+                );
+              } catch (e) {}
+            })}
+        </Sort>
+        )}
+        
       </div>
       <BestStates />
       <AllStates />
