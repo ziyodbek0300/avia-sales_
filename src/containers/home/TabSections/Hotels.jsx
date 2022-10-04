@@ -13,6 +13,8 @@ import moment from "moment";
 import { BiStar } from "react-icons/bi";
 import * as _ from "lodash";
 import Sort from "../../../components/Sort";
+import {populateHotels} from "../../../utils/hotels";
+import HotelCard from "../../../components/Hotel/HotelCard";
 
 const RenderItem = ({
   e,
@@ -141,9 +143,9 @@ const RenderItem = ({
                 isNaN(e.starCount?.slice(0, 1)) ? 1 : +e.starCount?.slice(0, 1)
               )
                 .fill("a")
-                ?.map((a) => {
+                ?.map((a, index) => {
                   return (
-                    <span className={"mx-1"}>
+                    <span className={"mx-1"} key={index}>
                       <BiStar color={"red"} />
                     </span>
                   );
@@ -160,7 +162,7 @@ const RenderItem = ({
         {hotelsTownLists?.map((a) => {
           return (
             a.id === e.town && (
-              <p className="text-sm block bg-red-500">{a.title}</p>
+              <p className="text-sm block bg-red-500" key={a.id}>{a.title}</p>
             )
           );
         })}
@@ -218,6 +220,7 @@ const RenderItem = ({
                               return (
                                 e.status !== "D" && (
                                   <div
+                                      key={e.inc}
                                     style={{ width: "100%", minHeight: 200 }}
                                     className={
                                       "bg-red-400 text-white relative p-3 rounded-lg shadow"
@@ -314,16 +317,25 @@ function Hotels() {
   const [children, setChildren] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [sortPrice, setSortPrice] = useState(0)
+  const [dates, setDates] = useState({
+    date1: null,
+    date2: null,
+  });
   const popupRef = useRef();
 
   const handlePressFind = () => {
     hotel
       .getHotels(values.town)
       .then((r) => {
-        console.log("response",r);
+
         const response = r.data;
 
-        setHotels(Array.isArray(r.data) ? r.data : []);
+        const filtered = populateHotels(response, dates, {infant, adults, children})
+            .filter((hotel) => hotel.sortField > 0);
+
+        setHotels(filtered);
+
+        //setHotels(Array.isArray(r.data) ? r.data : []);
       })
       .catch((e) => {
         // setHotels([])
@@ -340,15 +352,9 @@ function Hotels() {
     e.target.classList.contains("qw1") ? setIsOpen(true) : setIsOpen(false);
   };
 
-  const [dates, setDates] = useState({
-    date1: null,
-    date2: null,
-  });
-
   const [, updateState] = React.useState();
 const forceUpdate = React.useCallback(() => updateState({}), []);
 
-console.log("hotels", hotels);
 
   return (
     <>
@@ -566,39 +572,44 @@ console.log("hotels", hotels);
         ) : (
           ""
         )}
-        {hotels.length > 0 && (
-          <Sort hotels={hotels} setSearch={setSearch}>
-            {hotels.map((e) => {
-              if (
-                !(
-                  e.status !== "D" &&
-                  e.name !== "" &&
-                  e.name?.toLowerCase() !== "unknown hotel" &&
-                  e.name !== undefined
-                )
-              ) {
-                return null;
-              }
-              const priceChange = (price) => {
-                // forceUpdate()
-                e.sortField = price;
-            
-              };
-              try {
-                return e.name.toLowerCase().includes(search.toLowerCase()) && (
-                  <RenderItem
-                    e={e}
-                    adults={adults}
-                    infant={infant}
-                    children={children}
-                    dates={dates}
-                    priceChange={priceChange}
-                  />
-                );
-              } catch (e) {}
-            })}
-        </Sort>
-        )}
+        {/*{hotels.length > 0 && (*/}
+        {/*  <Sort hotels={hotels} setSearch={setSearch}>*/}
+        {/*    {hotels.map((e) => {*/}
+        {/*      if (*/}
+        {/*        !(*/}
+        {/*          e.status !== "D" &&*/}
+        {/*          e.name !== "" &&*/}
+        {/*          e.name?.toLowerCase() !== "unknown hotel" &&*/}
+        {/*          e.name !== undefined*/}
+        {/*        )*/}
+        {/*      ) {*/}
+        {/*        return null;*/}
+        {/*      }*/}
+
+        {/*      const priceChange = (price) => {*/}
+        {/*        // forceUpdate()*/}
+        {/*        // e.sortField = price;*/}
+        {/*    */}
+        {/*      };*/}
+
+        {/*      try {*/}
+        {/*        return e.name.toLowerCase().includes(search.toLowerCase()) && (*/}
+        {/*          <RenderItem*/}
+        {/*            e={e}*/}
+        {/*            key={e?.name}*/}
+        {/*            adults={adults}*/}
+        {/*            infant={infant}*/}
+        {/*            children={children}*/}
+        {/*            dates={dates}*/}
+        {/*            priceChange={priceChange}*/}
+        {/*          />*/}
+        {/*        );*/}
+        {/*      } catch (e) {}*/}
+        {/*    })}*/}
+        {/*  </Sort>*/}
+        {/*)}*/}
+
+        {hotels.length > 0 && hotels.map(hotel => <HotelCard hotel={hotel} key={hotel.inc}/> )}
         
       </div>
       <BestStates />
