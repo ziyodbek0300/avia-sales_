@@ -85,7 +85,7 @@ function FlightsTab() {
 
   return (
     <div>
-      <div className="header" onClick={handleClick}>
+      <div className="header exp" onClick={handleClick}>
         <div className="max-w-5xl mx-auto py-44">
           <div className="bg-blue-900 relative border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
             <div className="flex items-center gap-3">

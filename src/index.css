@@ -52,12 +52,15 @@ code {
 }
 
 .header {
-    -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 94%, 53% 94%, 50% 100%, 45% 94%, 0 94%);
-    clip-path: polygon(0% 0%, 100% 0%, 100% 94%, 53% 94%, 50% 100%, 45% 94%, 0 94%);
-    background-image: url("./static/images/bg_1-min.jpg");
+    background-image: url("./static/images/bgs/2.png");
     background-repeat: no-repeat;
     background-size: 100%;
-    background-position: 0% 100%;
+}
+
+.header.second {
+    background-image: url("./static/images/bgs/1.png") !important;
+    background-size: 100% !important;
+    background-position: bottom !important;
 }
 
 .header.qw {
@@ -74,7 +77,7 @@ code {
 }
 
 .second {
-    background-image: url("./static/images/bg_2.jpg");
+    background-image: url("./static/images/bgs/1.png");
     background-position: 20% 25% !important;
 }
 
@@ -97,17 +100,16 @@ code {
 .header.sixtrh {
     background-size: cover;
     background-position: 10% 60%;
-    background-image: url("./static/images/qwerty.jpg");
+    background-image: url("./static/images/bgs/6.png");
 }
 
 .header.third {
-    background-position: 10% 60% !important;
-    background-image: url("./static/images/bg_3.jpg");
+    background-image: url("./static/images/bgs/3.png");
 }
 
 .fourth {
-    background-position: center !important;
-    background-image: url("./static/images/bg_4.jpg") !important;
+    /*background-position:  !important;*/
+    background-image: url("./static/images/bgs/4.png") !important;
 }
 
 @media (min-width: 1700px) {
@@ -118,7 +120,7 @@ code {
 
 .fifth {
     background-position: center !important;
-    background-image: url("./static/images/qw.jpg") !important;
+    background-image: url("./static/images/bgs/5.png") !important;
 }
 
 .bg-example {

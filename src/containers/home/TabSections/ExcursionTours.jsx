@@ -21,7 +21,7 @@ function ExcursionTours() {
   return (
     <>
       <div className={"header third"}>
-        <div className="max-w-5xl mx-auto py-40">
+        <div className="max-w-5xl mx-auto pt-20">
           <div className={"flex justify-between gap-5"}>
             {exTour.map((a, c) => {
               return (

@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from 'js-cookie';
 
-export const MainApi = process.env.NODE_ENV === "production" ? "http://travelcontinent.uz/api" : "http://localhost:5000";
+export const MainApi = process.env.NODE_ENV === true ? "http://travelcontinent.uz/api" : "http://localhost:5100";
 
 const instance = axios.create({
     baseURL: `${MainApi}/`,
