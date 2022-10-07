@@ -1,21 +1,23 @@
 {
   "files": {
-    "main.css": "/static/css/main.b961fc60.css",
-    "main.js": "/static/js/main.60d96922.js",
+    "main.css": "/static/css/main.45baccf8.css",
+    "main.js": "/static/js/main.cd4a8e23.js",
     "static/media/contract.pdf": "/static/media/contract.162627cdc9e6b36865b4.pdf",
-    "static/media/qw.jpg": "/static/media/qw.28791e0934bc2c05afc1.jpg",
+    "static/media/4.png": "/static/media/4.d01d42685c9686c27a66.png",
+    "static/media/3.png": "/static/media/3.75d6ef467469b93f3b09.png",
+    "static/media/5.png": "/static/media/5.5a488eb04916f4028124.png",
+    "static/media/6.png": "/static/media/6.bf155a73046daddb9051.png",
+    "static/media/2.png": "/static/media/2.4111faf758c5d061139b.png",
+    "static/media/1.png": "/static/media/1.59715620f2cb083b4592.png",
     "static/media/bg_2.jpg": "/static/media/bg_2.deabb8fbcdb51f0a4bb4.jpg",
-    "static/media/qwerty.jpg": "/static/media/qwerty.6f6452578790a236b776.jpg",
     "static/media/6-min-min.jpg": "/static/media/6-min-min.6bd99dc7e73a20f57e90.jpg",
     "static/media/7.jpg": "/static/media/7.cb9ad945622f421e8638.jpg",
     "static/media/8.jpg": "/static/media/8.ecef5610e1ddc9583a19.jpg",
     "static/media/1.jpg": "/static/media/1.c7dfcc4e63e7873c772c.jpg",
-    "static/media/bg_3.jpg": "/static/media/bg_3.2b56fe2b55f060d449f3.jpg",
     "static/media/9.jpg": "/static/media/9.f596b03655c09c895825.jpg",
     "static/media/5.jpg": "/static/media/5.84a5fbff42b98ccd5142.jpg",
     "static/media/11-min.jpg": "/static/media/11-min.97723e4d36e8d963995f.jpg",
     "static/media/3.jpg": "/static/media/3.36f7838d385f7a7a6d22.jpg",
-    "static/media/bg_4.jpg": "/static/media/bg_4.5683c3185bee953f77f1.jpg",
     "static/media/bg_1-min.jpg": "/static/media/bg_1-min.3b5c3d9acccc37c0098a.jpg",
     "static/media/qr.png": "/static/media/qr.a210386f208edfb7bd60.png",
     "static/media/Idealist Sans.otf": "/static/media/Idealist Sans.bb07e5e25d859168a7ec.otf",
@@ -26,11 +28,11 @@
     "static/media/uzbekistan-airways.jpg": "/static/media/uzbekistan-airways.3dacde6b74bf9401b8ee.jpg",
     "static/media/visa.jpg": "/static/media/visa.857a8a1141430989e8e6.jpg",
     "index.html": "/index.html",
-    "main.b961fc60.css.map": "/static/css/main.b961fc60.css.map",
-    "main.60d96922.js.map": "/static/js/main.60d96922.js.map"
+    "main.45baccf8.css.map": "/static/css/main.45baccf8.css.map",
+    "main.cd4a8e23.js.map": "/static/js/main.cd4a8e23.js.map"
   },
   "entrypoints": [
-    "static/css/main.b961fc60.css",
-    "static/js/main.60d96922.js"
+    "static/css/main.45baccf8.css",
+    "static/js/main.cd4a8e23.js"
   ]
 }
