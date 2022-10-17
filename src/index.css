@@ -1,16 +1,26 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .input_placeholder{
+        @apply border-[#6C6C6C] placeholder:text-sm placeholder:text-[#6C6C6C]
+    }
+}
+
+
+
 @font-face {
     font-family: Idealist;
     src: url("./static/fonts/Idealist Sans.otf") string;
 }
 
 * {
-    font-family: "Idealist", sans-serif;
+    font-family: "Manrope", sans-serif;
     box-sizing: border-box !important;
 }
 
@@ -81,12 +91,6 @@ code {
     background-position: 20% 25% !important;
 }
 
-@media (max-width: 1400px) {
-    .second {
-        background-position: 25% 0% !important;
-    }
-}
-
 @media (min-width: 1700px) {
     .second {
         background-position: 25% 100% !important;
@@ -137,6 +141,36 @@ code {
     margin-right: 5px;
 }
 
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+.custom-file-input::before {
+    content: ' Upload contract';
+    display: inline-block;
+    outline: none;
+    white-space: nowrap;
+    cursor: pointer;
+    color: crimson;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.custom-file-input::after {
+    content: 'File has not uploaded';
+    display: inline-block;
+}
+
+/* input[type="date"]:not(.has-value):before{
+    content: attr(placeholder);
+  } */
+
+
+.css-1okebmr-indicatorSeparator{
+    visibility: hidden !important;
+    width: 0 !important;
+  }
+
 /* Chrome, Safari, Edge, Opera */
 input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button {
@@ -185,6 +219,7 @@ input[type=number] {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
@@ -192,3 +227,8 @@ input[type=number] {
 
 /*# sourceMappingURL=index.css.map */
 
+.bg-exam {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(6px);
+}
+/*# sourceMappingURL=index.css.map */

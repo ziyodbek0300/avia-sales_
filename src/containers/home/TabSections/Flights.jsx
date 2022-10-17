@@ -4,7 +4,7 @@ import { BsArrowRightShort } from "react-icons/bs";
 import { DatePicker } from "rsuite";
 import ReactSelect from "react-select";
 import { FaPlaneArrival, FaPlaneDeparture } from "react-icons/fa";
-import QanotSharq from "../../../static/images/qanot-sharq.jpg";
+import QanotSharq from "../../../static/images/qanot-sharq.png";
 import Moment from "moment";
 import { extendMoment } from "moment-range";
 import regions from "../../../api/projectApi/regions";
@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import BestStates from "../BestStates";
 import AllStates from "../AllStates";
 import LastSection from "../LastSection";
+import NavS from "../NavS";
 
 function FlightsTab() {
   const { t } = useTranslation();
@@ -36,7 +37,6 @@ function FlightsTab() {
   const [wd1, setWd1] = useState([]);
   const [obratno, setObratno] = useState(false);
   const popupRef = useRef();
-  const changeTransfer = useRef();
   const [isTransfer, setIsTransfer] = useState(false);
 
   const handleClick = (e) => {
@@ -85,46 +85,31 @@ function FlightsTab() {
 
   return (
     <div>
-      <div className="header exp" onClick={handleClick}>
-        <div className="max-w-5xl mx-auto py-44">
-          <div className="bg-blue-900 relative border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1">
-                <input
-                  type="checkbox"
-                  onChange={() => setObratno(!obratno)}
-                  value={obratno}
-                  className={
-                    "w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  }
-                  name="t1"
-                  id="t1"
-                />
-                <label
-                  htmlFor="t1"
-                  className={
-                    "ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                  }
-                >
-                  Обратно
-                </label>
-              </div>
-            </div>
+      <div className="header exp" style={{backgroundSize: "cover"}} onClick={handleClick}>
+        <NavS/>
+        <div className="max-w-5xl pb-5 mx-auto">
+          <div className={"text-center mb-10 mt-36 text-white"}>
+            <h1 className={"text-7xl mb-4 font-bold"}>Авиабилеты</h1>
+            <p className={"px-10"}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent.
+            </p>
+          </div>
+          <div className="bg-exam relative rounded-lg shadow-xl mb-36 text-white font-medium p-5">
             <div className="flex gap-2 items-center py-4 text-gray-600">
               <div className="w-full">
                 <label htmlFor="from" className="block text-white text-sm">
                   {t("toT")}
                 </label>
                 <ReactSelect
-                  onChange={(e) => {
-                    setFrom(() => e);
-                  }}
-                  style={{ border: "1px solid red" }}
-                  options={[
-                    { value: "", label: "- выбрать -" },
-                    ...regionsList,
-                  ]}
-                  placeholder="- выбрать -"
+                    onChange={(e) => {
+                      setFrom(() => e);
+                    }}
+                    style={{ borderRadius: "8px" }}
+                    options={[
+                      { value: "", label: "- выбрать -" },
+                      ...regionsList,
+                    ]}
+                    placeholder="- выбрать -"
                 />
               </div>
               <RiSendPlane2Line className="text-white w-10" />
@@ -133,15 +118,19 @@ function FlightsTab() {
                   {t("fromTo")}
                 </label>
                 <ReactSelect
-                  style={{ border: "1px solid red" }}
-                  onChange={(e) => {
-                    setTo(() => e);
-                  }}
-                  options={[
-                    { value: "", label: "- выбрать -" },
-                    ...regionsList,
-                  ]}
-                  placeholder="- выбрать -"
+                    style={{
+                        width: "100%",
+                        borderRadius: "8px",
+                        backgroundColor: "white",
+                    }}
+                    onChange={(e) => {
+                      setTo(() => e);
+                    }}
+                    options={[
+                      { value: "", label: "- выбрать -" },
+                      ...regionsList,
+                    ]}
+                    placeholder="- выбрать -"
                 />
               </div>
               <div className="w-full" onMouseEnter={() => getDays()}>
@@ -149,283 +138,323 @@ function FlightsTab() {
                   {t("to")}
                 </label>
                 <DatePicker
-                  disabledDate={(date) => {
-                    if (wd.length === 2) {
-                      return date.getDay() !== wd[0] && date.getDay() !== wd[1];
-                    } else if (wd.length === 1) {
-                      return date.getDay() !== wd[0];
-                    } else if (wd.length === 3) {
-                      return (
-                        date.getDay() !== wd[0] &&
-                        date.getDay() !== wd[1] &&
-                        date.getDay() !== wd[2]
-                      );
-                    } else if (wd.length === 4) {
-                      return (
-                        date.getDay() !== wd[0] &&
-                        date.getDay() !== wd[1] &&
-                        date.getDay() !== wd[2] &&
-                        date.getDay() !== wd[3]
-                      );
-                    } else if (wd.length === 5) {
-                      return (
-                        date.getDay() !== wd[0] &&
-                        date.getDay() !== wd[1] &&
-                        date.getDay() !== wd[2] &&
-                        date.getDay() !== wd[3] &&
-                        date.getDay() !== wd[4]
-                      );
-                    } else if (wd.length === 6) {
-                      return (
-                        date.getDay() !== wd[0] &&
-                        date.getDay() !== wd[1] &&
-                        date.getDay() !== wd[2] &&
-                        date.getDay() !== wd[3] &&
-                        date.getDay() !== wd[4] &&
-                        date.getDay() !== wd[5]
-                      );
-                    } else if (wd.length === 7) {
-                      return (
-                        date.getDay() !== wd[0] &&
-                        date.getDay() !== wd[1] &&
-                        date.getDay() !== wd[2] &&
-                        date.getDay() !== wd[3] &&
-                        date.getDay() !== wd[4] &&
-                        date.getDay() !== wd[5] &&
-                        date.getDay() !== wd[6]
-                      );
-                    }
-                  }}
-                  onChange={(e) => setDay1(new Date(e))}
-                  format="yyyy-MM-dd"
-                  style={{
-                    width: "100%",
-                    border: "4px solid rgb(220 38 38)",
-                    borderRadius: "4px",
-                    backgroundColor: "white",
-                  }}
-                />
-              </div>
-              {obratno ? (
-                <div className="w-full">
-                  <label htmlFor="from" className="block text-white text-sm">
-                    Обратно
-                  </label>
-                  <DatePicker
                     disabledDate={(date) => {
-                      if (wd1.length === 2) {
+                      if (wd.length === 2) {
+                        return date.getDay() !== wd[0] && date.getDay() !== wd[1];
+                      } else if (wd.length === 1) {
+                        return date.getDay() !== wd[0];
+                      } else if (wd.length === 3) {
                         return (
-                          date.getDay() !== wd1[0] && date.getDay() !== wd1[1]
+                            date.getDay() !== wd[0] &&
+                            date.getDay() !== wd[1] &&
+                            date.getDay() !== wd[2]
                         );
-                      } else if (wd1.length === 1) {
-                        return date.getDay() !== wd1[0];
-                      } else if (wd1.length === 3) {
+                      } else if (wd.length === 4) {
                         return (
-                          date.getDay() !== wd1[0] &&
-                          date.getDay() !== wd1[1] &&
-                          date.getDay() !== wd1[2]
+                            date.getDay() !== wd[0] &&
+                            date.getDay() !== wd[1] &&
+                            date.getDay() !== wd[2] &&
+                            date.getDay() !== wd[3]
                         );
-                      } else if (wd1.length === 4) {
+                      } else if (wd.length === 5) {
                         return (
-                          date.getDay() !== wd1[0] &&
-                          date.getDay() !== wd1[1] &&
-                          date.getDay() !== wd1[2] &&
-                          date.getDay() !== wd1[3]
+                            date.getDay() !== wd[0] &&
+                            date.getDay() !== wd[1] &&
+                            date.getDay() !== wd[2] &&
+                            date.getDay() !== wd[3] &&
+                            date.getDay() !== wd[4]
                         );
-                      } else if (wd1.length === 5) {
+                      } else if (wd.length === 6) {
                         return (
-                          date.getDay() !== wd1[0] &&
-                          date.getDay() !== wd1[1] &&
-                          date.getDay() !== wd1[2] &&
-                          date.getDay() !== wd1[3] &&
-                          date.getDay() !== wd1[4]
+                            date.getDay() !== wd[0] &&
+                            date.getDay() !== wd[1] &&
+                            date.getDay() !== wd[2] &&
+                            date.getDay() !== wd[3] &&
+                            date.getDay() !== wd[4] &&
+                            date.getDay() !== wd[5]
                         );
-                      } else if (wd1.length === 6) {
+                      } else if (wd.length === 7) {
                         return (
-                          date.getDay() !== wd1[0] &&
-                          date.getDay() !== wd1[1] &&
-                          date.getDay() !== wd1[2] &&
-                          date.getDay() !== wd1[3] &&
-                          date.getDay() !== wd1[4] &&
-                          date.getDay() !== wd1[5]
-                        );
-                      } else if (wd1.length === 7) {
-                        return (
-                          date.getDay() !== wd1[0] &&
-                          date.getDay() !== wd1[1] &&
-                          date.getDay() !== wd1[2] &&
-                          date.getDay() !== wd1[3] &&
-                          date.getDay() !== wd1[4] &&
-                          date.getDay() !== wd1[5] &&
-                          date.getDay() !== wd1[6]
+                            date.getDay() !== wd[0] &&
+                            date.getDay() !== wd[1] &&
+                            date.getDay() !== wd[2] &&
+                            date.getDay() !== wd[3] &&
+                            date.getDay() !== wd[4] &&
+                            date.getDay() !== wd[5] &&
+                            date.getDay() !== wd[6]
                         );
                       }
                     }}
+                    onChange={(e) => setDay1(new Date(e))}
                     format="yyyy-MM-dd"
-                    onChange={(e) => {
-                      setDay2(new Date(e));
-                    }}
                     style={{
                       width: "100%",
-                      border: "4px solid rgb(220 38 38)",
-                      borderRadius: "4px",
+                        overflow: "hidden",
+                      borderRadius: "8px",
                       backgroundColor: "white",
                     }}
-                  />
-                </div>
+                />
+              </div>
+              {obratno ? (
+                  <div className="w-full">
+                    <label htmlFor="from" className="block text-white text-sm">
+                      Обратно
+                    </label>
+                    <DatePicker
+                        disabledDate={(date) => {
+                          if (wd1.length === 2) {
+                            return (
+                                date.getDay() !== wd1[0] && date.getDay() !== wd1[1]
+                            );
+                          } else if (wd1.length === 1) {
+                            return date.getDay() !== wd1[0];
+                          } else if (wd1.length === 3) {
+                            return (
+                                date.getDay() !== wd1[0] &&
+                                date.getDay() !== wd1[1] &&
+                                date.getDay() !== wd1[2]
+                            );
+                          } else if (wd1.length === 4) {
+                            return (
+                                date.getDay() !== wd1[0] &&
+                                date.getDay() !== wd1[1] &&
+                                date.getDay() !== wd1[2] &&
+                                date.getDay() !== wd1[3]
+                            );
+                          } else if (wd1.length === 5) {
+                            return (
+                                date.getDay() !== wd1[0] &&
+                                date.getDay() !== wd1[1] &&
+                                date.getDay() !== wd1[2] &&
+                                date.getDay() !== wd1[3] &&
+                                date.getDay() !== wd1[4]
+                            );
+                          } else if (wd1.length === 6) {
+                            return (
+                                date.getDay() !== wd1[0] &&
+                                date.getDay() !== wd1[1] &&
+                                date.getDay() !== wd1[2] &&
+                                date.getDay() !== wd1[3] &&
+                                date.getDay() !== wd1[4] &&
+                                date.getDay() !== wd1[5]
+                            );
+                          } else if (wd1.length === 7) {
+                            return (
+                                date.getDay() !== wd1[0] &&
+                                date.getDay() !== wd1[1] &&
+                                date.getDay() !== wd1[2] &&
+                                date.getDay() !== wd1[3] &&
+                                date.getDay() !== wd1[4] &&
+                                date.getDay() !== wd1[5] &&
+                                date.getDay() !== wd1[6]
+                            );
+                          }
+                        }}
+                        format="yyyy-MM-dd"
+                        onChange={(e) => {
+                          setDay2(new Date(e));
+                        }}
+                        style={{
+                          width: "100%",
+                          border: "4px solid rgb(220 38 38)",
+                          borderRadius: "4px",
+                          backgroundColor: "white",
+                        }}
+                    />
+                  </div>
               ) : (
-                ""
+                  ""
               )}
               <div className="w-full relative">
                 <label htmlFor="from" className="block text-white text-sm">
                   {t("tourists")}
                 </label>
                 <input
-                  autoComplete={"off"}
-                  value={
-                    "В:" +
-                    adults +
-                    " Д:" +
-                    children +
-                    " М:" +
-                    infant +
-                    ", Эконом"
-                  }
-                  onClick={() => setIsOpen(!isOpen)}
-                  // onChange={() => console.log('as')}
-                  className="p-2 rounded border-4 border-red-600 qw1 w-full"
-                  type="text"
-                  name="from"
-                  placeholder="2, Эконом"
-                  id="from"
+                    autoComplete={"off"}
+                    value={
+                        "В:" +
+                        adults +
+                        " Д:" +
+                        children +
+                        " М:" +
+                        infant +
+                        ", Эконом"
+                    }
+                    onClick={() => setIsOpen(!isOpen)}
+                    // onChange={() => console.log('as')}
+                    className="p-2 rounded qw1 w-full"
+                    type="text"
+                    name="from"
+                    placeholder="2, Эконом"
+                    id="from"
                 />
                 {isOpen ? (
-                  <div
-                    ref={popupRef}
-                    className="absolute qw1 top-full -left-20"
-                  >
-                    <div className="bg-white qw1 rounded-lg p-1 tooltip-in relative mt-5 w-80 shadow">
-                      <div className="flex qw1 p-3">
-                        <div className="qw1 w-full">
-                          <p className={"qw1"}>
-                            Взрослые <br />
-                            Старше 12 лет
-                          </p>
+                    <div
+                        ref={popupRef}
+                        className="absolute qw1 top-full -left-20"
+                    >
+                      <div className="bg-white qw1 rounded-lg p-1 tooltip-in relative mt-5 w-80 shadow">
+                        <div className="flex qw1 p-3">
+                          <div className="qw1 w-full">
+                            <p className={"qw1"}>
+                              Взрослые <br />
+                              Старше 12 лет
+                            </p>
+                          </div>
+                          <div className="qw1 flex qw1 w-full">
+                            <button
+                                onClick={() => setAdults((prev) => (prev -= 1))}
+                                className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                            >
+                              -
+                            </button>
+                            <input
+                                type="number"
+                                value={adults}
+                                onInput={(e) => setAdults(+e.target.value)}
+                                className="qw1 border-0 text-center p-2 w-1/2 outline-none bg-transparent"
+                            />
+                            <button
+                                onClick={() => setAdults((prev) => (prev += 1))}
+                                className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                            >
+                              +
+                            </button>
+                          </div>
                         </div>
-                        <div className="qw1 flex qw1 w-full">
-                          <button
-                            onClick={() => setAdults((prev) => (prev -= 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            -
-                          </button>
-                          <input
-                            type="number"
-                            value={adults}
-                            onInput={(e) => setAdults(+e.target.value)}
-                            className="qw1 border-0 text-center p-2 w-1/2 outline-none bg-transparent"
-                          />
-                          <button
-                            onClick={() => setAdults((prev) => (prev += 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            +
-                          </button>
+                        <div className="qw1 flex p-3">
+                          <div className="qw1 w-full">
+                            <p className={"qw1"}>
+                              Дети <br />
+                              От 2 до 12 лет
+                            </p>
+                          </div>
+                          <div className="qw1 flex w-full">
+                            <button
+                                onClick={() => setChildren((prev) => (prev -= 1))}
+                                className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                            >
+                              -
+                            </button>
+                            <input
+                                type="number"
+                                value={children}
+                                onInput={(e) =>
+                                    setChildren((prev) => +e.target.value)
+                                }
+                                className="qw1 text-center border-0 p-2 w-1/2 outline-none bg-transparent"
+                            />
+                            <button
+                                onClick={() => setChildren((prev) => (prev += 1))}
+                                className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                            >
+                              +
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                      <div className="qw1 flex p-3">
-                        <div className="qw1 w-full">
-                          <p className={"qw1"}>
-                            Дети <br />
-                            От 2 до 12 лет
-                          </p>
-                        </div>
-                        <div className="qw1 flex w-full">
-                          <button
-                            onClick={() => setChildren((prev) => (prev -= 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            -
-                          </button>
-                          <input
-                            type="number"
-                            value={children}
-                            onInput={(e) =>
-                              setChildren((prev) => +e.target.value)
-                            }
-                            className="qw1 text-center border-0 p-2 w-1/2 outline-none bg-transparent"
-                          />
-                          <button
-                            onClick={() => setChildren((prev) => (prev += 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                      <div className="qw1 flex p-3">
-                        <div className="qw1 w-full">
-                          <p className={"qw1"}>
-                            Младенцы <br />
-                            До 2 лет{" "}
-                          </p>
-                        </div>
-                        <div className="qw1 flex w-full">
-                          <button
-                            onClick={() => setInfant((prev) => (prev -= 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            -
-                          </button>
-                          <input
-                            type="number"
-                            value={infant}
-                            onInput={(e) =>
-                              setInfant((prev) => +e.target.value)
-                            }
-                            className="qw1 text-center border-0 p-2 w-1/2 outline-none bg-transparent"
-                          />
-                          <button
-                            onClick={() => setInfant((prev) => (prev += 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            +
-                          </button>
+                        <div className="qw1 flex p-3">
+                          <div className="qw1 w-full">
+                            <p className={"qw1"}>
+                              Младенцы <br />
+                              До 2 лет{" "}
+                            </p>
+                          </div>
+                          <div className="qw1 flex w-full">
+                            <button
+                                onClick={() => setInfant((prev) => (prev -= 1))}
+                                className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                            >
+                              -
+                            </button>
+                            <input
+                                type="number"
+                                value={infant}
+                                onInput={(e) =>
+                                    setInfant((prev) => +e.target.value)
+                                }
+                                className="qw1 text-center border-0 p-2 w-1/2 outline-none bg-transparent"
+                            />
+                            <button
+                                onClick={() => setInfant((prev) => (prev += 1))}
+                                className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                            >
+                              +
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
                 ) : (
-                  ""
+                    ""
                 )}
               </div>
               <div className="w-full relative">
                 <input
-                  type="checkbox"
-                  className={"absolute top-0 right-0"}
-                  onChange={(e) => setIsTransfer(!isTransfer)}
+                    type="checkbox"
+                    className={"absolute top-0 right-0"}
+                    onChange={(e) => setIsTransfer(!isTransfer)}
                 />
                 <label htmlFor="from" className="block text-white text-sm">
                   {t("transfers")}
                 </label>
                 <select
-                  disabled={!isTransfer}
-                  name=""
-                  className="p-2 rounded border-4 border-red-600 w-full"
-                  id=""
+                    disabled={!isTransfer}
+                    name=""
+                    className="p-2 rounded w-full"
+                    id=""
                 >
                   <option value="">Групповой</option>
                   <option value="">Индивидуальный</option>
                 </select>
               </div>
             </div>
-            <div className="flex items-center justify-end">
+            <div className="flex w-full items-center justify-between">
+              <div className="flex items-center gap-1">
+                <input
+                    type="checkbox"
+                    onChange={() => setObratno(!obratno)}
+                    value={obratno}
+                    className={
+                      "w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    }
+                    name="t1"
+                    id="t1"
+                />
+                <label
+                    htmlFor="t1"
+                    className={
+                      "ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    }
+                >
+                  Обратно
+                </label>
+              </div>
               <button
-                onClick={showTickets}
-                className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-800 text-white text-sm"
+                  onClick={showTickets}
+                  className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-600 text-white text-sm"
               >
-                {t("nayti")} <BsArrowRightShort className="lh-0 text-2xl" />
+                {t("nayti")}
               </button>
+            </div>
+          </div>
+          <div className={"flex justify-center gap-4"}>
+            <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+              <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
+            </div>
+              <div className={"border border-white w-6 h-6 flex justify-center items-center rounded-full"}>
+                  <div className={"w-3 h-3 bg-white rounded-full"}></div>
+              </div>
+            <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+              <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
+            </div>
+            <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+              <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
+            </div>
+            <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+              <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
+            </div>
+            <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+              <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
             </div>
           </div>
         </div>

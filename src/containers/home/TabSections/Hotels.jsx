@@ -13,6 +13,9 @@ import moment from "moment";
 import { BiStar } from "react-icons/bi";
 import * as _ from "lodash";
 import Sort from "../../../components/Sort";
+import NavS from "../NavS";
+import ReactSelect from "react-select";
+import {DatePicker} from "rsuite";
 
 const RenderItem = ({
   e,
@@ -348,210 +351,236 @@ function Hotels() {
   const [, updateState] = React.useState();
 const forceUpdate = React.useCallback(() => updateState({}), []);
 
-console.log("hotels", hotels);
-
   return (
     <>
-      <div className={"header fourth"} onClick={handleClick}>
-        <div className="max-w-5xl mx-auto py-44">
-          <div className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
-            <div className="flex gap-2 items-center py-4 text-gray-600">
-              <div className="w-full">
-                <label htmlFor="from" className="block text-white text-sm">
-                  {t("fromTo")}
-                </label>
-                <select
-                  ref={townRef}
-                  className="p-2 rounded border-4 border-red-600 w-full"
-                  // type="text"
-                  name="from"
-                  placeholder="- выбрать -"
-                  id="from"
-                  onChange={(e) => {
-                    setValues({ ...values, town: e.target.value });
-                  }}
-                >
-                  <option value="">- выбрать -</option>
-                  {hotelsTownLists.map((e) => {
-                    return (
-                      <option key={e.id} value={e.id}>
-                        {e.title}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
-              <RiSendPlane2Line className="text-white w-10" />
-              <div className="w-full">
-                <label htmlFor="date" className="block text-white text-sm">
-                  {t("departure")}
-                </label>
-                <input
-                  type="date"
-                  className="p-2 rounded border-4 border-red-600 w-full"
-                  name="date"
-                  id="date"
-                  value={dates.date1}
-                  onChange={(e) =>
-                    setDates({
-                      ...dates,
-                      date1: moment(e.target.value).format("yyyy-MM-DD"),
-                    })
-                  }
-                />
-              </div>
-              <div className="w-full">
-                <label htmlFor="date" className="block text-white text-sm">
-                  {t("endDate")}
-                </label>
-                <input
-                  type="date"
-                  className="p-2 rounded border-4 border-red-600 w-full"
-                  name="date"
-                  id="date"
-                  value={dates.date2}
-                  onChange={(e) =>
-                    setDates({
-                      ...dates,
-                      date2: moment(e.target.value).format("yyyy-MM-DD"),
-                    })
-                  }
-                />
-              </div>
-              <div className="w-full relative">
-                <label htmlFor="date" className="block text-white text-sm">
-                  {t("gosti")}
-                </label>
-                <input
-                  autoComplete={"off"}
-                  value={
-                    "В:" +
-                    adults +
-                    " Д:" +
-                    children +
-                    " М:" +
-                    infant +
-                    ", Эконом"
-                  }
-                  onClick={() => setIsOpen(!isOpen)}
-                  // onChange={() => console.log('as')}
-                  className="p-2 rounded border-4 border-red-600 qw1 w-full"
-                  type="text"
-                  name="from"
-                  placeholder="2, Эконом"
-                  id="from"
-                />
-                {isOpen ? (
-                  <div
-                    ref={popupRef}
-                    className="absolute qw1 top-full -left-20"
+      <div className={"fourth pb-1"} style={{backgroundSize: "100% 100% !important"}} onClick={handleClick}>
+        <NavS/>
+          <div className="max-w-5xl pb-5 mx-auto">
+            <div className={"text-center mb-10 mt-36 text-white"}>
+              <h1 className={"text-7xl mb-4 font-bold"}>Отели</h1>
+              <p className={"px-10"}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent.
+              </p>
+            </div>
+            <div className="bg-exam relative rounded-lg shadow-xl mb-36 text-white font-medium p-5">
+              <div className="flex gap-2 items-center py-4 text-gray-600">
+                <div className="w-full">
+                  <label htmlFor="from" className="block text-white text-sm">
+                    {t("fromTo")}
+                  </label>
+                  <select
+                      ref={townRef}
+                      className="p-2 rounded border-4 border-red-600 w-full"
+                      // type="text"
+                      name="from"
+                      placeholder="- выбрать -"
+                      id="from"
+                      onChange={(e) => {
+                        setValues({ ...values, town: e.target.value });
+                      }}
                   >
-                    <div className="bg-white qw1 rounded-lg p-1 tooltip-in relative mt-5 w-80 shadow">
-                      <div className="flex qw1 p-3">
-                        <div className="qw1 w-full">
-                          <p className={"qw1"}>
-                            Взрослые <br />
-                            Старше 12 лет
-                          </p>
-                        </div>
-                        <div className="qw1 flex qw1 w-full">
-                          <button
-                            onClick={() => setAdults((prev) => (prev -= 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            -
-                          </button>
-                          <input
-                            type="number"
-                            value={adults}
-                            onInput={(e) => setAdults(+e.target.value)}
-                            className="qw1 border-0 text-center p-2 w-1/2 outline-none bg-transparent"
-                          />
-                          <button
-                            onClick={() => setAdults((prev) => (prev += 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            +
-                          </button>
+                    <option value="">- выбрать -</option>
+                    {hotelsTownLists.map((e) => {
+                      return (
+                          <option key={e.id} value={e.id}>
+                            {e.title}
+                          </option>
+                      );
+                    })}
+                  </select>
+                </div>
+                <RiSendPlane2Line className="text-white w-10" />
+                <div className="w-full">
+                  <label htmlFor="date" className="block text-white text-sm">
+                    {t("departure")}
+                  </label>
+                  <input
+                      type="date"
+                      className="p-2 rounded border-4 border-red-600 w-full"
+                      name="date"
+                      id="date"
+                      value={dates.date1}
+                      onChange={(e) =>
+                          setDates({
+                            ...dates,
+                            date1: moment(e.target.value).format("yyyy-MM-DD"),
+                          })
+                      }
+                  />
+                </div>
+                <div className="w-full">
+                  <label htmlFor="date" className="block text-white text-sm">
+                    {t("endDate")}
+                  </label>
+                  <input
+                      type="date"
+                      className="p-2 rounded border-4 border-red-600 w-full"
+                      name="date"
+                      id="date"
+                      value={dates.date2}
+                      onChange={(e) =>
+                          setDates({
+                            ...dates,
+                            date2: moment(e.target.value).format("yyyy-MM-DD"),
+                          })
+                      }
+                  />
+                </div>
+                <div className="w-full relative">
+                  <label htmlFor="date" className="block text-white text-sm">
+                    {t("gosti")}
+                  </label>
+                  <input
+                      autoComplete={"off"}
+                      value={
+                          "В:" +
+                          adults +
+                          " Д:" +
+                          children +
+                          " М:" +
+                          infant +
+                          ", Эконом"
+                      }
+                      onClick={() => setIsOpen(!isOpen)}
+                      // onChange={() => console.log('as')}
+                      className="p-2 rounded border-4 border-red-600 qw1 w-full"
+                      type="text"
+                      name="from"
+                      placeholder="2, Эконом"
+                      id="from"
+                  />
+                  {isOpen ? (
+                      <div
+                          ref={popupRef}
+                          className="absolute qw1 top-full -left-20"
+                      >
+                        <div className="bg-white qw1 rounded-lg p-1 tooltip-in relative mt-5 w-80 shadow">
+                          <div className="flex qw1 p-3">
+                            <div className="qw1 w-full">
+                              <p className={"qw1"}>
+                                Взрослые <br />
+                                Старше 12 лет
+                              </p>
+                            </div>
+                            <div className="qw1 flex qw1 w-full">
+                              <button
+                                  onClick={() => setAdults((prev) => (prev -= 1))}
+                                  className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                              >
+                                -
+                              </button>
+                              <input
+                                  type="number"
+                                  value={adults}
+                                  onInput={(e) => setAdults(+e.target.value)}
+                                  className="qw1 border-0 text-center p-2 w-1/2 outline-none bg-transparent"
+                              />
+                              <button
+                                  onClick={() => setAdults((prev) => (prev += 1))}
+                                  className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                              >
+                                +
+                              </button>
+                            </div>
+                          </div>
+                          <div className="qw1 flex p-3">
+                            <div className="qw1 w-full">
+                              <p className={"qw1"}>
+                                Дети <br />
+                                От 2 до 12 лет
+                              </p>
+                            </div>
+                            <div className="qw1 flex w-full">
+                              <button
+                                  onClick={() => setChildren((prev) => (prev -= 1))}
+                                  className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                              >
+                                -
+                              </button>
+                              <input
+                                  type="number"
+                                  value={children}
+                                  onInput={(e) =>
+                                      setChildren((prev) => +e.target.value)
+                                  }
+                                  className="qw1 text-center border-0 p-2 w-1/2 outline-none bg-transparent"
+                              />
+                              <button
+                                  onClick={() => setChildren((prev) => (prev += 1))}
+                                  className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                              >
+                                +
+                              </button>
+                            </div>
+                          </div>
+                          <div className="qw1 flex p-3">
+                            <div className="qw1 w-full">
+                              <p className={"qw1"}>
+                                Младенцы <br />
+                                До 2 лет{" "}
+                              </p>
+                            </div>
+                            <div className="qw1 flex w-full">
+                              <button
+                                  onClick={() => setInfant((prev) => (prev -= 1))}
+                                  className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                              >
+                                -
+                              </button>
+                              <input
+                                  type="number"
+                                  value={infant}
+                                  onInput={(e) =>
+                                      setInfant((prev) => +e.target.value)
+                                  }
+                                  className="qw1 text-center border-0 p-2 w-1/2 outline-none bg-transparent"
+                              />
+                              <button
+                                  onClick={() => setInfant((prev) => (prev += 1))}
+                                  className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                              >
+                                +
+                              </button>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      <div className="qw1 flex p-3">
-                        <div className="qw1 w-full">
-                          <p className={"qw1"}>
-                            Дети <br />
-                            От 2 до 12 лет
-                          </p>
-                        </div>
-                        <div className="qw1 flex w-full">
-                          <button
-                            onClick={() => setChildren((prev) => (prev -= 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            -
-                          </button>
-                          <input
-                            type="number"
-                            value={children}
-                            onInput={(e) =>
-                              setChildren((prev) => +e.target.value)
-                            }
-                            className="qw1 text-center border-0 p-2 w-1/2 outline-none bg-transparent"
-                          />
-                          <button
-                            onClick={() => setChildren((prev) => (prev += 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                      <div className="qw1 flex p-3">
-                        <div className="qw1 w-full">
-                          <p className={"qw1"}>
-                            Младенцы <br />
-                            До 2 лет{" "}
-                          </p>
-                        </div>
-                        <div className="qw1 flex w-full">
-                          <button
-                            onClick={() => setInfant((prev) => (prev -= 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            -
-                          </button>
-                          <input
-                            type="number"
-                            value={infant}
-                            onInput={(e) =>
-                              setInfant((prev) => +e.target.value)
-                            }
-                            className="qw1 text-center border-0 p-2 w-1/2 outline-none bg-transparent"
-                          />
-                          <button
-                            onClick={() => setInfant((prev) => (prev += 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  ""
-                )}
+                  ) : (
+                      ""
+                  )}
+                </div>
+              </div>
+              <div className="flex items-center justify-end">
+                <button
+                    onClick={handlePressFind}
+                    className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-500 text-white text-sm"
+                >
+                  {t("nayti")} <BsArrowRightShort className="lh-0 text-2xl" />
+                </button>
               </div>
             </div>
-            <div className="flex items-center justify-end">
-              <button
-                onClick={handlePressFind}
-                className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-500 text-white text-sm"
-              >
-                {t("nayti")} <BsArrowRightShort className="lh-0 text-2xl" />
-              </button>
+            <div className={"flex justify-center gap-4"}>
+              <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+                <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
+              </div>
+              <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+                <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
+              </div>
+              <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+                <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
+              </div>
+              <div className={"border border-white w-6 h-6 flex justify-center items-center rounded-full"}>
+                <div className={"w-3 h-3 bg-white rounded-full"}></div>
+              </div>
+              <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+                <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
+              </div>
+              <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+                <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
+              </div>
             </div>
           </div>
-        </div>
+
       </div>
       <div className="max-w-5xl mx-auto flex flex-col gap-3">
         {hotels?.length !== 0 ? (

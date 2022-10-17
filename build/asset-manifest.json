@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.45baccf8.css",
-    "main.js": "/static/js/main.cd4a8e23.js",
+    "main.css": "/static/css/main.3bc01bf7.css",
+    "main.js": "/static/js/main.41c483fa.js",
     "static/media/contract.pdf": "/static/media/contract.162627cdc9e6b36865b4.pdf",
     "static/media/4.png": "/static/media/4.d01d42685c9686c27a66.png",
     "static/media/3.png": "/static/media/3.75d6ef467469b93f3b09.png",
@@ -11,13 +11,11 @@
     "static/media/1.png": "/static/media/1.59715620f2cb083b4592.png",
     "static/media/bg_2.jpg": "/static/media/bg_2.deabb8fbcdb51f0a4bb4.jpg",
     "static/media/6-min-min.jpg": "/static/media/6-min-min.6bd99dc7e73a20f57e90.jpg",
-    "static/media/7.jpg": "/static/media/7.cb9ad945622f421e8638.jpg",
-    "static/media/8.jpg": "/static/media/8.ecef5610e1ddc9583a19.jpg",
     "static/media/1.jpg": "/static/media/1.c7dfcc4e63e7873c772c.jpg",
-    "static/media/9.jpg": "/static/media/9.f596b03655c09c895825.jpg",
+    "static/media/contactBg.png": "/static/media/contactBg.ff959aa4f939da6d3894.png",
     "static/media/5.jpg": "/static/media/5.84a5fbff42b98ccd5142.jpg",
-    "static/media/11-min.jpg": "/static/media/11-min.97723e4d36e8d963995f.jpg",
     "static/media/3.jpg": "/static/media/3.36f7838d385f7a7a6d22.jpg",
+    "static/media/makkah.png": "/static/media/makkah.ad9a7932f8f28c359a4d.png",
     "static/media/bg_1-min.jpg": "/static/media/bg_1-min.3b5c3d9acccc37c0098a.jpg",
     "static/media/qr.png": "/static/media/qr.a210386f208edfb7bd60.png",
     "static/media/Idealist Sans.otf": "/static/media/Idealist Sans.bb07e5e25d859168a7ec.otf",
@@ -27,12 +25,24 @@
     "static/media/master.jpg": "/static/media/master.e49046629e8b8bc4dd30.jpg",
     "static/media/uzbekistan-airways.jpg": "/static/media/uzbekistan-airways.3dacde6b74bf9401b8ee.jpg",
     "static/media/visa.jpg": "/static/media/visa.857a8a1141430989e8e6.jpg",
+    "static/media/qanot-sharq.png": "/static/media/qanot-sharq.bb244f48514f1bd118fb.png",
+    "static/media/calendar.svg": "/static/media/calendar.972210bb5cff729630761d923593c3e6.svg",
+    "static/media/star.svg": "/static/media/star.5b2985427441b01747c3f8a9e1125383.svg",
+    "static/media/phone.svg": "/static/media/phone.00d71adc270eec84da2a3363720d89fb.svg",
+    "static/media/uploadWhite.svg": "/static/media/uploadWhite.3af4419382a9fcbff9f6e34a90a169ec.svg",
+    "static/media/uploadRed.svg": "/static/media/uploadRed.9faec4ee7a42f4ab9574c4a1ef3a7eb3.svg",
+    "static/media/line.svg": "/static/media/line.4c73b713840589368c3aac78e47babaa.svg",
+    "static/media/warning.svg": "/static/media/warning.f8d684f72a16613649f6176bd11eac55.svg",
+    "static/media/locationRed.svg": "/static/media/locationRed.f70fcd50dc34ca2d30f7e47e95be6ec1.svg",
+    "static/media/location.svg": "/static/media/location.ec31ab5b1ec4804ea06429bd3cac8f79.svg",
+    "static/media/tick-circle.svg": "/static/media/tick-circle.6fadff414e77487ab3263c4c176bf8d1.svg",
+    "static/media/email.svg": "/static/media/email.690b59c2607b8b5720554d3f8288980d.svg",
     "index.html": "/index.html",
-    "main.45baccf8.css.map": "/static/css/main.45baccf8.css.map",
-    "main.cd4a8e23.js.map": "/static/js/main.cd4a8e23.js.map"
+    "main.3bc01bf7.css.map": "/static/css/main.3bc01bf7.css.map",
+    "main.41c483fa.js.map": "/static/js/main.41c483fa.js.map"
   },
   "entrypoints": [
-    "static/css/main.45baccf8.css",
-    "static/js/main.cd4a8e23.js"
+    "static/css/main.3bc01bf7.css",
+    "static/js/main.41c483fa.js"
   ]
 }

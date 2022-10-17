@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import BestStates from "../BestStates";
 import AllStates from "../AllStates";
 import LastSection from "../LastSection";
+import NavS from "../NavS";
 
 function TransfersTab() {
   const { t } = useTranslation();
@@ -78,9 +79,16 @@ function TransfersTab() {
   return (
     <>
       <div className={"header sixtrh pb-10"} onClick={handleClick}>
+        <NavS/>
         {/*<form >*/}
-        <div className="max-w-5xl mx-auto py-44">
-          <div className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
+        <div className="max-w-5xl mx-auto">
+          <div className={"text-center mb-10 mt-36 text-white"}>
+            <h1 className={"text-7xl mb-4 font-bold"}>Трансферы</h1>
+            <p className={"px-10"}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent.
+            </p>
+          </div>
+          <div className="bg-exam relative rounded-lg shadow-xl text-white font-medium p-5 mb-44">
             <div className="flex lg:flex-row flex-col gap-2 items-center py-4 text-gray-600">
               <div className="w-full">
                 <label htmlFor="from" className="block text-white text-sm">
@@ -116,7 +124,7 @@ function TransfersTab() {
                 <input
                   required
                   type="datetime-local"
-                  className="p-2 rounded border-4 border-red-600 w-full"
+                  className="p-2 rounded-xl w-full"
                   onChange={(e) => setData(e.target.value)}
                   name="date"
                   id="date"
@@ -140,7 +148,7 @@ function TransfersTab() {
                   }
                   onClick={() => setIsOpen(!isOpen)}
                   onChange={() => console.log("as")}
-                  className="p-2 rounded border-4 qw1 border-red-600 w-full"
+                  className="p-2 rounded-xl qw1 w-full"
                   type="text"
                   name="from"
                   placeholder="2, Эконом"
@@ -247,15 +255,35 @@ function TransfersTab() {
                   ""
                 )}
               </div>
-            </div>
-            <div className="flex items-center justify-end">
+            <div className={"w-full"}>
               <button
                 onClick={transfer}
                 type={"submit"}
-                className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-500 text-white text-sm"
+                className="cursor-pointer outline-none w-44 px-5 py-2 h-10 mt-4 rounded-lg bg-red-500 text-white text-sm"
               >
-                {t("nayti")} <BsArrowRightShort className="lh-0 text-2xl" />
+                {t("nayti")}
               </button>
+            </div>
+            </div>
+          </div>
+          <div className={"flex justify-center gap-4"}>
+            <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+              <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
+            </div>
+            <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+              <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
+            </div>
+            <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+              <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
+            </div>
+            <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+              <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
+            </div>
+            <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+               <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
+            </div>
+            <div className={"border border-white w-6 h-6 flex justify-center items-center rounded-full"}>
+               <div className={"w-3 h-3 bg-white rounded-full"}></div>
             </div>
           </div>
         </div>

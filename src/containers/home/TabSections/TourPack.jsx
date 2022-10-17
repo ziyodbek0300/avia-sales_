@@ -21,6 +21,7 @@ import { FcDocument } from "react-icons/fc";
 import * as _ from "lodash";
 import { useSelector } from "react-redux";
 import Sort from "../../../components/Sort";
+import NavS from "../NavS";
 
 const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates,priceChange=()=>({}) }) => {
   const navigate = useNavigate();
@@ -453,13 +454,20 @@ function TourPack() {
   };
   
   const [, updateState] = React.useState();
-const forceUpdate = React.useCallback(() => updateState({}), []);
+  const forceUpdate = React.useCallback(() => updateState({}), []);
 
   return (
     <>
-      <div className="header second" onClick={handleClick}>
-        <div className="max-w-5xl mx-auto py-52">
-          <div className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
+      <div className="second" onClick={handleClick} style={{backgroundSize: "100% 100%"}}>
+        <NavS />
+        <div className="max-w-5xl pb-5 mx-auto">
+          <div className={"text-center mb-10 mt-36 text-white"}>
+            <h1 className={"text-5xl mb-4 font-bold"}>Куда бы вам хотелось отправиться?</h1>
+            <p className={"px-10"}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent.
+            </p>
+          </div>
+          <div className="bg-exam relative rounded-lg shadow-xl mb-36 text-white font-medium p-5">
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1">
                 <input type="radio" name="t1" id="t1" />
@@ -472,16 +480,16 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
                   {t("toT")}
                 </label>
                 <ReactSelect
-                  style={{ border: "1px solid red" }}
-                  options={[
-                    { value: "", label: "- выбрать -" },
-                    ...regionsList,
-                  ]}
-                  placeholder="- выбрать -"
-                  value={from?.id}
-                  onChange={(newValue) => {
-                    setFrom(newValue);
-                  }}
+                    style={{ border: "1px solid red" }}
+                    options={[
+                      { value: "", label: "- выбрать -" },
+                      ...regionsList,
+                    ]}
+                    placeholder="- выбрать -"
+                    value={from?.id}
+                    onChange={(newValue) => {
+                      setFrom(newValue);
+                    }}
                 />
               </div>
               <RiSendPlane2Line className="text-white w-10" />
@@ -490,15 +498,15 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
                   {t("fromTo")}
                 </label>
                 <ReactSelect
-                  options={[
-                    { value: "", label: "- выбрать -" },
-                    ...regionsList,
-                  ]}
-                  placeholder="- выбрать -"
-                  value={to?.id}
-                  onChange={(newValue) => {
-                    setTo(newValue);
-                  }}
+                    options={[
+                      { value: "", label: "- выбрать -" },
+                      ...regionsList,
+                    ]}
+                    placeholder="- выбрать -"
+                    value={to?.id}
+                    onChange={(newValue) => {
+                      setTo(newValue);
+                    }}
                 />
               </div>
               <div className="w-full">
@@ -506,22 +514,21 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
                   {t("to")}
                 </label>
                 <DatePicker
-                  disabledDate={(date) =>
-                    date.getDay() === 1 ||
-                    date.getDay() === 2 ||
-                    date.getDay() === 4 ||
-                    date.getDay() === 5 ||
-                    date.getDay() === 6
-                  }
-                  format="yyyy-MM-dd"
-                  style={{
-                    width: "100%",
-                    border: "4px solid rgb(220 38 38)",
-                    borderRadius: "4px",
-                    backgroundColor: "white",
-                  }}
-                  value={values.date1}
-                  onChange={(e) => setValues({ ...values, date1: e })}
+                    disabledDate={(date) =>
+                        date.getDay() === 1 ||
+                        date.getDay() === 2 ||
+                        date.getDay() === 4 ||
+                        date.getDay() === 5 ||
+                        date.getDay() === 6
+                    }
+                    format="yyyy-MM-dd"
+                    style={{
+                      width: "100%",
+                      borderRadius: "8px",
+                      backgroundColor: "white",
+                    }}
+                    value={values.date1}
+                    onChange={(e) => setValues({ ...values, date1: e })}
                 />
               </div>
               <div className="w-full">
@@ -529,22 +536,21 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
                   {t("obratno")}
                 </label>
                 <DatePicker
-                  disabledDate={(date) =>
-                    date.getDay() === 0 ||
-                    date.getDay() === 1 ||
-                    date.getDay() === 4 ||
-                    date.getDay() === 5 ||
-                    date.getDay() === 3
-                  }
-                  format="yyyy-MM-dd"
-                  style={{
-                    width: "100%",
-                    border: "4px solid rgb(220 38 38)",
-                    borderRadius: "4px",
-                    backgroundColor: "white",
-                  }}
-                  value={values.date2}
-                  onChange={(e) => setValues({ ...values, date2: e })}
+                    disabledDate={(date) =>
+                        date.getDay() === 0 ||
+                        date.getDay() === 1 ||
+                        date.getDay() === 4 ||
+                        date.getDay() === 5 ||
+                        date.getDay() === 3
+                    }
+                    format="yyyy-MM-dd"
+                    style={{
+                      width: "100%",
+                      borderRadius: "8px",
+                      backgroundColor: "white",
+                    }}
+                    value={values.date2}
+                    onChange={(e) => setValues({ ...values, date2: e })}
                 />
               </div>
               <div className="w-full relative">
@@ -552,122 +558,122 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
                   {t("gosti")}
                 </label>
                 <input
-                  autoComplete={"off"}
-                  value={
-                    "В:" +
-                    adults +
-                    " Д:" +
-                    children +
-                    " М:" +
-                    infant +
-                    ", Эконом"
-                  }
-                  onClick={() => setIsOpen(!isOpen)}
-                  onChange={() => console.log("as")}
-                  className="p-2 rounded border-4 qw1 border-red-600 w-full"
-                  type="text"
-                  name="from"
-                  placeholder="2, Эконом"
-                  id="from"
+                    autoComplete={"off"}
+                    value={
+                        "В:" +
+                        adults +
+                        " Д:" +
+                        children +
+                        " М:" +
+                        infant +
+                        ", Эконом"
+                    }
+                    onClick={() => setIsOpen(!isOpen)}
+                    onChange={() => console.log("as")}
+                    className="p-2 rounded qw1 w-full"
+                    type="text"
+                    name="from"
+                    placeholder="2, Эконом"
+                    id="from"
                 />
                 {isOpen ? (
-                  <div
-                    ref={popupRef}
-                    className="absolute qw1 top-full -left-20"
-                  >
-                    <div className="bg-white qw1 rounded-lg p-1 tooltip-in relative mt-5 w-80 shadow">
-                      <div className="flex qw1 p-3">
-                        <div className="qw1 w-full">
-                          <p className={"qw1"}>
-                            Взрослые <br />
-                            Старше 12 лет
-                          </p>
+                    <div
+                        ref={popupRef}
+                        className="absolute qw1 top-full -left-20"
+                    >
+                      <div className="bg-white qw1 rounded-lg p-1 tooltip-in relative mt-5 w-80 shadow">
+                        <div className="flex qw1 p-3">
+                          <div className="qw1 w-full">
+                            <p className={"qw1"}>
+                              Взрослые <br />
+                              Старше 12 лет
+                            </p>
+                          </div>
+                          <div className="qw1 flex qw1 w-full">
+                            <button
+                                onClick={() => setAdults((prev) => (prev -= 1))}
+                                className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                            >
+                              -
+                            </button>
+                            <input
+                                type="number"
+                                value={adults}
+                                onInput={(e) => setAdults(+e.target.value)}
+                                className="qw1 border-0 text-center p-2 w-1/2 outline-none bg-transparent"
+                            />
+                            <button
+                                onClick={() => setAdults((prev) => (prev += 1))}
+                                className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                            >
+                              +
+                            </button>
+                          </div>
                         </div>
-                        <div className="qw1 flex qw1 w-full">
-                          <button
-                            onClick={() => setAdults((prev) => (prev -= 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            -
-                          </button>
-                          <input
-                            type="number"
-                            value={adults}
-                            onInput={(e) => setAdults(+e.target.value)}
-                            className="qw1 border-0 text-center p-2 w-1/2 outline-none bg-transparent"
-                          />
-                          <button
-                            onClick={() => setAdults((prev) => (prev += 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            +
-                          </button>
+                        <div className="qw1 flex p-3">
+                          <div className="qw1 w-full">
+                            <p className={"qw1"}>
+                              Дети <br />
+                              От 2 до 12 лет
+                            </p>
+                          </div>
+                          <div className="qw1 flex w-full">
+                            <button
+                                onClick={() => setChildren((prev) => (prev -= 1))}
+                                className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                            >
+                              -
+                            </button>
+                            <input
+                                type="number"
+                                value={children}
+                                onInput={(e) =>
+                                    setChildren((prev) => +e.target.value)
+                                }
+                                className="qw1 text-center border-0 p-2 w-1/2 outline-none bg-transparent"
+                            />
+                            <button
+                                onClick={() => setChildren((prev) => (prev += 1))}
+                                className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                            >
+                              +
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                      <div className="qw1 flex p-3">
-                        <div className="qw1 w-full">
-                          <p className={"qw1"}>
-                            Дети <br />
-                            От 2 до 12 лет
-                          </p>
-                        </div>
-                        <div className="qw1 flex w-full">
-                          <button
-                            onClick={() => setChildren((prev) => (prev -= 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            -
-                          </button>
-                          <input
-                            type="number"
-                            value={children}
-                            onInput={(e) =>
-                              setChildren((prev) => +e.target.value)
-                            }
-                            className="qw1 text-center border-0 p-2 w-1/2 outline-none bg-transparent"
-                          />
-                          <button
-                            onClick={() => setChildren((prev) => (prev += 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                      <div className="qw1 flex p-3">
-                        <div className="qw1 w-full">
-                          <p className={"qw1"}>
-                            Младенцы <br />
-                            До 2 лет{" "}
-                          </p>
-                        </div>
-                        <div className="qw1 flex w-full">
-                          <button
-                            onClick={() => setInfant((prev) => (prev -= 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            -
-                          </button>
-                          <input
-                            type="number"
-                            value={infant}
-                            onInput={(e) =>
-                              setInfant((prev) => +e.target.value)
-                            }
-                            className="qw1 text-center border-0 p-2 w-1/2 outline-none bg-transparent"
-                          />
-                          <button
-                            onClick={() => setInfant((prev) => (prev += 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            +
-                          </button>
+                        <div className="qw1 flex p-3">
+                          <div className="qw1 w-full">
+                            <p className={"qw1"}>
+                              Младенцы <br />
+                              До 2 лет{" "}
+                            </p>
+                          </div>
+                          <div className="qw1 flex w-full">
+                            <button
+                                onClick={() => setInfant((prev) => (prev -= 1))}
+                                className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                            >
+                              -
+                            </button>
+                            <input
+                                type="number"
+                                value={infant}
+                                onInput={(e) =>
+                                    setInfant((prev) => +e.target.value)
+                                }
+                                className="qw1 text-center border-0 p-2 w-1/2 outline-none bg-transparent"
+                            />
+                            <button
+                                onClick={() => setInfant((prev) => (prev += 1))}
+                                className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                            >
+                              +
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
                 ) : (
-                  ""
+                    ""
                 )}
               </div>
               <div className="w-full">
@@ -675,11 +681,11 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
                   {t("transfers")}
                 </label>
                 <select
-                  name=""
-                  className="p-2 rounded border-4 border-red-600 w-full"
-                  id=""
-                  value={isGroup}
-                  onChange={(e) => setIsGroup(e.target.value)}
+                    name=""
+                    className="p-2 rounded w-full"
+                    id=""
+                    value={isGroup}
+                    onChange={(e) => setIsGroup(e.target.value)}
                 >
                   <option value={1}>Групповой</option>
                   <option value={0}>Индивидуальный</option>
@@ -688,11 +694,31 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
             </div>
             <div className="flex items-center justify-end">
               <button
-                onClick={handleSearch}
-                className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-800 text-white text-sm"
+                  onClick={handleSearch}
+                  className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-600 text-white text-sm"
               >
-                {t("nayti")} <BsArrowRightShort className="lh-0 text-2xl" />
+                {t("nayti")}
               </button>
+            </div>
+          </div>
+          <div className={"flex justify-center gap-4"}>
+            <div className={"border border-white w-6 h-6 flex justify-center items-center rounded-full"}>
+              <div className={"w-3 h-3 bg-white rounded-full"}></div>
+            </div>
+            <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+              <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
+            </div>
+            <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+              <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
+            </div>
+            <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+              <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
+            </div>
+            <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+              <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
+            </div>
+            <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+              <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
             </div>
           </div>
         </div>

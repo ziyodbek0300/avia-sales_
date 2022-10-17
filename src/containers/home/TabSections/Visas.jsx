@@ -12,6 +12,9 @@ import { useTranslation } from "react-i18next";
 import BestStates from "../BestStates";
 import AllStates from "../AllStates";
 import LastSection from "../LastSection";
+import NavS from "../NavS";
+import hotelsTownLists from "../../../constants/hotelsTownLists";
+import moment from "moment/moment";
 
 function VisasTab() {
   const { t } = useTranslation();
@@ -75,28 +78,35 @@ function VisasTab() {
 
   return (
     <>
-      <div className={"header fifth"} onClick={handleClick}>
-        <div className="max-w-5xl mx-auto py-44">
-          <div className="bg-blue-900 border-4 border-red-600 rounded-lg shadow-xl text-white font-medium p-5">
+      <div className={"fifth pb-1"} style={{backgroundSize: "100% 100% !important"}} onClick={handleClick}>
+        <NavS/>
+        <div className="max-w-5xl pb-5 mx-auto">
+          <div className={"text-center mb-10 mt-36 text-white"}>
+            <h1 className={"text-7xl mb-4 font-bold"}>Визы</h1>
+            <p className={"px-10"}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent.
+            </p>
+          </div>
+          <div className="bg-exam relative rounded-lg shadow-xl mb-36 text-white font-medium p-5">
             <div className="flex gap-2 lg:flex-row flex-col items-center py-4 text-gray-600">
               <div className="w-full">
                 <label htmlFor="from" className="block text-white text-sm">
                   {t("strana")}
                 </label>
                 <select
-                  onChange={(e) => {
-                    setLocation(e.target.value);
-                    +e.target.value === 0 ? setVisaTypes(0) : setVisaTypes(1);
-                  }}
-                  className="p-2 rounded border-4 border-red-600 w-full"
-                  name="state_from"
-                  id="state_from"
-                  placeholder={"- выбрат -"}
+                    onChange={(e) => {
+                      setLocation(e.target.value);
+                      +e.target.value === 0 ? setVisaTypes(0) : setVisaTypes(1);
+                    }}
+                    className="p-2 rounded w-full"
+                    name="state_from"
+                    id="state_from"
+                    placeholder={"- выбрат -"}
                 >
                   {VISA_STATE.map((visa, index) => (
-                    <option key={visa} value={index}>
-                      {visa}
-                    </option>
+                      <option key={visa} value={index}>
+                        {visa}
+                      </option>
                   ))}
                 </select>
               </div>
@@ -106,27 +116,27 @@ function VisasTab() {
                   {t("typeVisa")}
                 </label>
                 <select
-                  onChange={(e) => setVisaType(e.target.value)}
-                  className="p-2 rounded border-4 border-red-600 w-full"
-                  name="state_from"
-                  placeholder={"- выбрат -"}
-                  id="state_from"
+                    onChange={(e) => setVisaType(e.target.value)}
+                    className="p-2 rounded w-full"
+                    name="state_from"
+                    placeholder={"- выбрат -"}
+                    id="state_from"
                 >
                   <option>-выбрать-</option>
                   {visaTypes === 0
-                    ? VISAS.map((visa, index) => {
+                      ? VISAS.map((visa, index) => {
                         if (index <= 2) {
                           return (
-                            <option key={visa} value={index}>
-                              {visa}
-                            </option>
+                              <option key={visa} value={index}>
+                                {visa}
+                              </option>
                           );
                         }
                       })
-                    : VISA_PRICE2.map((visa, index) => (
-                        <option key={index} value={visa.id}>
-                          {visa.name}
-                        </option>
+                      : VISA_PRICE2.map((visa, index) => (
+                          <option key={index} value={visa.id}>
+                            {visa.name}
+                          </option>
                       ))}
                 </select>
               </div>
@@ -138,12 +148,12 @@ function VisasTab() {
                   <div className="control-section">
                     <div className="daterangepicker-control-section">
                       <input
-                        required
-                        type="date"
-                        className="p-2 rounded border-4 border-red-600 w-full"
-                        onChange={(e) => setDate(e.target.value)}
-                        name="date"
-                        id="date"
+                          required
+                          type="date"
+                          className="p-2 rounded w-full"
+                          onChange={(e) => setDate(e.target.value)}
+                          name="date"
+                          id="date"
                       />
                     </div>
                   </div>
@@ -154,135 +164,156 @@ function VisasTab() {
                   {t("gosti")}
                 </label>
                 <input
-                  autoComplete={"off"}
-                  value={
-                    "В:" +
-                    adults +
-                    " Д:" +
-                    children +
-                    " М:" +
-                    infant +
-                    ", Эконом"
-                  }
-                  onClick={() => setIsOpen(!isOpen)}
-                  // onChange={() => console.log('as')}
-                  className="p-2 rounded border-4 qw1 border-red-600 w-full"
-                  type="text"
-                  name="from"
-                  placeholder="2, Эконом"
-                  id="sa"
+                    autoComplete={"off"}
+                    value={
+                        "В:" +
+                        adults +
+                        " Д:" +
+                        children +
+                        " М:" +
+                        infant +
+                        ", Эконом"
+                    }
+                    onClick={() => setIsOpen(!isOpen)}
+                    // onChange={() => console.log('as')}
+                    className="p-2 rounded qw1 w-full"
+                    type="text"
+                    name="from"
+                    placeholder="2, Эконом"
+                    id="sa"
                 />
                 {isOpen ? (
-                  <div
-                    ref={popupRef}
-                    className="absolute qw1 top-full -left-20"
-                  >
-                    <div className="bg-white qw1 rounded-lg p-1 tooltip-in relative mt-5 w-80 shadow">
-                      <div className="flex qw1 p-3">
-                        <div className="qw1 w-full">
-                          <p className={"qw1"}>
-                            Взрослые <br />
-                            Старше 12 лет
-                          </p>
+                    <div
+                        ref={popupRef}
+                        className="absolute qw1 top-full -left-20"
+                    >
+                      <div className="bg-white qw1 rounded-lg p-1 tooltip-in relative mt-5 w-80 shadow">
+                        <div className="flex qw1 p-3">
+                          <div className="qw1 w-full">
+                            <p className={"qw1"}>
+                              Взрослые <br />
+                              Старше 12 лет
+                            </p>
+                          </div>
+                          <div className="qw1 flex qw1 w-full">
+                            <button
+                                onClick={() => setAdults((prev) => (prev -= 1))}
+                                className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                            >
+                              -
+                            </button>
+                            <input
+                                type="number"
+                                value={adults}
+                                onInput={(e) => setAdults(+e.target.value)}
+                                className="qw1 border-0 text-center p-2 w-1/2 outline-none bg-transparent"
+                            />
+                            <button
+                                onClick={() => setAdults((prev) => (prev += 1))}
+                                className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                            >
+                              +
+                            </button>
+                          </div>
                         </div>
-                        <div className="qw1 flex qw1 w-full">
-                          <button
-                            onClick={() => setAdults((prev) => (prev -= 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            -
-                          </button>
-                          <input
-                            type="number"
-                            value={adults}
-                            onInput={(e) => setAdults(+e.target.value)}
-                            className="qw1 border-0 text-center p-2 w-1/2 outline-none bg-transparent"
-                          />
-                          <button
-                            onClick={() => setAdults((prev) => (prev += 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            +
-                          </button>
+                        <div className="qw1 flex p-3">
+                          <div className="qw1 w-full">
+                            <p className={"qw1"}>
+                              Дети <br />
+                              От 2 до 12 лет
+                            </p>
+                          </div>
+                          <div className="qw1 flex w-full">
+                            <button
+                                onClick={() => setChildren((prev) => (prev -= 1))}
+                                className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                            >
+                              -
+                            </button>
+                            <input
+                                type="number"
+                                value={children}
+                                onInput={(e) =>
+                                    setChildren((prev) => +e.target.value)
+                                }
+                                className="qw1 text-center border-0 p-2 w-1/2 outline-none bg-transparent"
+                            />
+                            <button
+                                onClick={() => setChildren((prev) => (prev += 1))}
+                                className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                            >
+                              +
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                      <div className="qw1 flex p-3">
-                        <div className="qw1 w-full">
-                          <p className={"qw1"}>
-                            Дети <br />
-                            От 2 до 12 лет
-                          </p>
-                        </div>
-                        <div className="qw1 flex w-full">
-                          <button
-                            onClick={() => setChildren((prev) => (prev -= 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            -
-                          </button>
-                          <input
-                            type="number"
-                            value={children}
-                            onInput={(e) =>
-                              setChildren((prev) => +e.target.value)
-                            }
-                            className="qw1 text-center border-0 p-2 w-1/2 outline-none bg-transparent"
-                          />
-                          <button
-                            onClick={() => setChildren((prev) => (prev += 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                      <div className="qw1 flex p-3">
-                        <div className="qw1 w-full">
-                          <p className={"qw1"}>
-                            Младенцы <br />
-                            До 2 лет{" "}
-                          </p>
-                        </div>
-                        <div className="qw1 flex w-full">
-                          <button
-                            onClick={() => setInfant((prev) => (prev -= 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            -
-                          </button>
-                          <input
-                            type="number"
-                            value={infant}
-                            onInput={(e) =>
-                              setInfant((prev) => +e.target.value)
-                            }
-                            className="qw1 text-center border-0 p-2 w-1/2 outline-none bg-transparent"
-                          />
-                          <button
-                            onClick={() => setInfant((prev) => (prev += 1))}
-                            className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
-                          >
-                            +
-                          </button>
+                        <div className="qw1 flex p-3">
+                          <div className="qw1 w-full">
+                            <p className={"qw1"}>
+                              Младенцы <br />
+                              До 2 лет{" "}
+                            </p>
+                          </div>
+                          <div className="qw1 flex w-full">
+                            <button
+                                onClick={() => setInfant((prev) => (prev -= 1))}
+                                className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                            >
+                              -
+                            </button>
+                            <input
+                                type="number"
+                                value={infant}
+                                onInput={(e) =>
+                                    setInfant((prev) => +e.target.value)
+                                }
+                                className="qw1 text-center border-0 p-2 w-1/2 outline-none bg-transparent"
+                            />
+                            <button
+                                onClick={() => setInfant((prev) => (prev += 1))}
+                                className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
+                            >
+                              +
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
                 ) : (
-                  ""
+                    ""
                 )}
               </div>
             </div>
             <div className="flex items-center justify-end">
               <button
-                onClick={visaFunc}
-                className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-500 text-white text-sm"
+                  onClick={visaFunc}
+                  className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-500 text-white text-sm"
               >
-                {t("nayti")} <BsArrowRightShort className="lh-0 text-2xl" />
+                {t("nayti")}
               </button>
             </div>
           </div>
+          <div className={"flex justify-center gap-4"}>
+            <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+              <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
+            </div>
+            <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+              <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
+            </div>
+            <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+              <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
+            </div>
+            <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+              <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
+            </div>
+            <div className={"border border-white w-6 h-6 flex justify-center items-center rounded-full"}>
+              <div className={"w-3 h-3 bg-white rounded-full"}></div>
+            </div>
+            <div className={"w-6 h-6 flex justify-center items-center rounded-full"}>
+              <div className={"w-3 h-3 bg-white/70 rounded-full"}></div>
+            </div>
+          </div>
         </div>
+
       </div>
       <div className={"max-w-5xl mx-auto py-3 mt-10"}>
         {visas.map((tr) => {
@@ -321,8 +352,8 @@ function VisasTab() {
           );
         })}
       </div>
-      <BestStates />
-      <AllStates />
+      {/*<BestStates />*/}
+      {/*<AllStates />*/}
       <LastSection />
     </>
   );

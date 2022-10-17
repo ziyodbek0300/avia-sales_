@@ -6,12 +6,13 @@ import moment from "moment";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import excursionTour from "../../api/projectApi/excursionTour";
+import warning from '../../static/images/warning.svg'
 
 function ExcursionDetail() {
   const { id } = useParams();
-  const [typeET] = useState(id.split("_")[0]);
-  const [costET] = useState(id.split("_")[1]);
-  const [adults] = useState(id.split("_")[2]);
+  const [typeET] = useState(1);
+  const [costET] = useState(2);
+  const [adults] = useState(3);
   const [contactName, setContactName] = useState("");
   const [contactPhone, setContactPhone] = useState("");
   const navigate = useNavigate();
@@ -66,58 +67,53 @@ function ExcursionDetail() {
   };
 
   return (
-    <div className={"max-w-5xl mx-auto lg:p-0 px-4"}>
-      <h3 className={"max-w-5xl mx-auto text-rose-400"}>⚠️Предупреждение</h3>
-      <p className={"text-xs max-w-5xl mx-auto mt-2 mb-8"}>
-        (мы оставляем за собой право сменить отель по какой либо причине)
-        ❗️Напоминаем,что тур является невозвратным.
-      </p>
-      <div className={"py-3"}>
-        <h3>Заказать экскурсионний тур ({typeET})</h3>
+    <div className={"max-w-5xl mx-auto lg:p-0"}>
+      <div className="flex items-center gap-3 px-5 py-4 mb-10 rounded-xl bg-rose-100">
+        <img src={warning} alt="warning" />
+        <div className="">
+          <p className={"text-2xl font-bold text-red-500"}>Предупреждение</p>
+          <p className={"text-base font-medium m-0"}>
+            (мы оставляем за собой право сменить отель по какой либо причине) Напоминаем,что тур является невозвратным.
+          </p>
+        </div>
       </div>
-      <div>
-        <div className={"mb-3"}>
-          <div className={"border border-red-300 rounded-lg p-5"}>
-            <div className={"border-b border-red-300 pb-5"}>
-              <h4>Контактная информация</h4>
-              <p className={"text-xs"}>
-                На почту мы отправим электронный билет, на телефон мы позвоним,
-                если будут изменения в рейсе или в случае других ситуаций
-              </p>
+      <div className={"py-3 text-center text-4xl text-black font-bold"}>
+        <p>Заказать экскурсионний тур <span className="text-red-600">(STANDART)</span> </p>
+      </div>
+      <div className={""}>
+        <div className={"rounded-lg p-5"}>
+          <div className={"pb-5"}>
+            <p className="text-2xl text-black font-bold py-2">Контактная информация</p>
+            <p className={"w-[50%]"}>
+              На почту мы отправим электронный билет, на телефон мы позвоним,
+              если будут изменения в рейсе или в случае других ситуаций
+            </p>
+          </div>
+          <div className={" w-[53%] flex justify-between lg:flex-row flex-col"}>
+            <div className={"py-3 w-full lg:pr-7"}>
+              <input
+                placeholder="Имя"
+                type="text"
+                onInput={(e) => setContactName(e.target.value)}
+                className={
+                  "outline-red-300 w-full border rounded-lg p-2 input_placeholder"
+                }
+              />
             </div>
-            <div className={"py-3 flex justify-between lg:flex-row flex-col"}>
-              <div className={"py-3 w-full lg:pr-10"}>
-                <label htmlFor="name" className={"w-full block"}>
-                  Имя
-                </label>
-                <input
-                  type="text"
-                  onInput={(e) => setContactName(e.target.value)}
-                  className={
-                    "border border-red-300 outline-red-300 w-full rounded-lg p-2"
-                  }
-                />
-              </div>
-              <div className={"py-3 w-full lg:pr-10"}>
-                <label htmlFor="phone" className={"w-full block"}>
-                  Телефон
-                </label>
-                <input
-                  type="text"
-                  onInput={(e) => setContactPhone(e.target.value)}
-                  className={
-                    "border border-red-300 outline-red-300 w-full rounded-lg p-2"
-                  }
-                />
-              </div>
+            <div className={"py-3 w-full lg:pr-7"}>
+              <input
+                placeholder="Телефон"
+                type="text"
+                onInput={(e) => setContactPhone(e.target.value)}
+                className={
+                  "outline-red-300 w-full border rounded-lg p-2 input_placeholder"
+                }
+              />
             </div>
           </div>
         </div>
-        <div className={"mb-3"}>
-          <div className={"border border-red-300 rounded-lg p-5"}>
-            <div className={"border-b border-red-300 pb-3"}>
-              <h4>Информация</h4>
-            </div>
+        <div className={"mb-3 border-b-2 border-b-red-500"}>
+          <div className={"rounded-lg p-5"}>
             {new Array(+adults).fill(null).map((a, index) => {
               return (
                 <FormExample
@@ -131,24 +127,19 @@ function ExcursionDetail() {
             })}
           </div>
         </div>
-        <div className={"border border-red-300 p-5 mb-3 rounded-lg"}>
-          <div
+        <div className={"flex w-full flex-col justify-start"}>
+          <div className="flex gap-4 items-center mt-7 mb-10">
+            <p style={{ fontSize: "24px", fontWeight: "bold" }} classname={""}>Итого:</p>
+            <p className={"text-4xl font-bold text-red-500 mb-1"}>{costET} $</p>
+          </div>
+          <button
+            onClick={saveOrder}
             className={
-              "flex justify-between lg:flex-row flex-col lg:flex-row flex-col gap-5  items-center"
+              "px-3 w-[30%] rounded-lg border-2 font-bold text-red-500 py-2 mb-10 border-red-500 hover:bg-red-500 transition-all hover:text-white"
             }
           >
-            <div className={"flex w-full justify-between"}>
-              <p className={"text-2xl"}>{costET} $</p>
-              <button
-                onClick={saveOrder}
-                className={
-                  "p-3 rounded-lg border border-red-300 border-red-500 hover:bg-red-500 transition-all hover:text-white"
-                }
-              >
-                Забронировать
-              </button>
-            </div>
-          </div>
+            Забронировать
+          </button>
         </div>
       </div>
     </div>
