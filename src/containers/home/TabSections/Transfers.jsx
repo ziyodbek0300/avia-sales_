@@ -81,9 +81,6 @@ function TransfersTab() {
         <div className="max-w-5xl mx-auto">
           <div className={"text-center mb-10 mt-36 text-white"}>
             <h1 className={"text-7xl mb-4 font-bold"}>Трансферы</h1>
-            <p className={"px-10"}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent.
-            </p>
           </div>
           <div className="bg-exam relative rounded-lg shadow-xl text-white font-medium p-5 mb-44">
             <div className="flex lg:flex-row flex-col gap-2 items-center py-4 text-gray-600">

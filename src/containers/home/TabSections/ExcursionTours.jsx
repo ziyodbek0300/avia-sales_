@@ -48,9 +48,6 @@ function ExcursionTours() {
         <div className="max-w-5xl mx-auto pt-36">
             <div className={"text-center mb-10 text-white"}>
                 <h1 className={"text-7xl mb-4 font-bold"}>Экскурсионные туры</h1>
-                <p className={"px-10"}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent.
-                </p>
             </div>
           <div className={"flex justify-between gap-5"}>
             {exTour.map((a, c) => {
