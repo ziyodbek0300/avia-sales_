@@ -5,17 +5,13 @@ import hotel from "../../../api/projectApi/hotel";
 import hotelsTownLists from "../../../constants/hotelsTownLists";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import BestStates from "../BestStates";
-import AllStates from "../AllStates";
-import LastSection from "../LastSection";
 import { getHtplace } from "../../../constants/htplace";
 import moment from "moment";
 import { BiStar } from "react-icons/bi";
 import * as _ from "lodash";
 import Sort from "../../../components/Sort";
 import NavS from "../NavS";
-import ReactSelect from "react-select";
-import {DatePicker} from "rsuite";
+import Contacts from "../../../components/contacts";
 
 const RenderItem = ({
   e,
@@ -333,9 +329,6 @@ function Hotels() {
       });
   };
 
-  const onSortHotels = holtels => {
-    const sortedHotels = _.sortBy(hotels, [])
-  }
 
   const townRef = useRef();
 
@@ -347,9 +340,6 @@ function Hotels() {
     date1: null,
     date2: null,
   });
-
-  const [, updateState] = React.useState();
-const forceUpdate = React.useCallback(() => updateState({}), []);
 
   return (
     <>
@@ -370,7 +360,7 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
                   </label>
                   <select
                       ref={townRef}
-                      className="p-2 rounded border-4 border-red-600 w-full"
+                      className="p-2 rounded w-full"
                       // type="text"
                       name="from"
                       placeholder="- выбрать -"
@@ -396,7 +386,7 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
                   </label>
                   <input
                       type="date"
-                      className="p-2 rounded border-4 border-red-600 w-full"
+                      className="p-2 rounded w-full"
                       name="date"
                       id="date"
                       value={dates.date1}
@@ -414,7 +404,7 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
                   </label>
                   <input
                       type="date"
-                      className="p-2 rounded border-4 border-red-600 w-full"
+                      className="p-2 rounded w-full"
                       name="date"
                       id="date"
                       value={dates.date2}
@@ -442,8 +432,7 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
                           ", Эконом"
                       }
                       onClick={() => setIsOpen(!isOpen)}
-                      // onChange={() => console.log('as')}
-                      className="p-2 rounded border-4 border-red-600 qw1 w-full"
+                      className="p-2 rounded qw1 w-full"
                       type="text"
                       name="from"
                       placeholder="2, Эконом"
@@ -555,7 +544,7 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
                     onClick={handlePressFind}
                     className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-500 text-white text-sm"
                 >
-                  {t("nayti")} <BsArrowRightShort className="lh-0 text-2xl" />
+                  {t("nayti")}
                 </button>
               </div>
             </div>
@@ -630,9 +619,7 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
         )}
         
       </div>
-      <BestStates />
-      <AllStates />
-      <LastSection />
+      <Contacts/>
     </>
   );
 }

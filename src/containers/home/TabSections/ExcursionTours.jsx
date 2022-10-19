@@ -14,6 +14,7 @@ import calendar from "../../../static/images/card_images/calendar.svg";
 import location from "../../../static/images/card_images/location.svg";
 import star from "../../../static/images/card_images/star.svg";
 import tick from "../../../static/images/card_images/tick-circle.svg";
+import Contacts from "../../../components/contacts";
 
 function ExcursionTours() {
   const { t } = useTranslation();
@@ -114,10 +115,7 @@ function ExcursionTours() {
           </div>
         </div>
       </div>
-
-      <BestStates />
-      <AllStates />
-      <LastSection />
+        <Contacts/>
     </>
   );
 }

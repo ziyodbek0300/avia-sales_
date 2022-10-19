@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import { BsArrowRightShort } from "react-icons/bs";
 import { RiSendPlane2Line } from "react-icons/ri";
 import {
   VISAS,
@@ -9,12 +8,8 @@ import {
 } from "../../../constants/visas";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import BestStates from "../BestStates";
-import AllStates from "../AllStates";
-import LastSection from "../LastSection";
 import NavS from "../NavS";
-import hotelsTownLists from "../../../constants/hotelsTownLists";
-import moment from "moment/moment";
+import Contacts from "../../../components/contacts";
 
 function VisasTab() {
   const { t } = useTranslation();
@@ -352,9 +347,7 @@ function VisasTab() {
           );
         })}
       </div>
-      {/*<BestStates />*/}
-      {/*<AllStates />*/}
-      <LastSection />
+      <Contacts/>
     </>
   );
 }

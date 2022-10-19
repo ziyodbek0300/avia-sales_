@@ -1,15 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import { BsArrowRightShort } from "react-icons/bs";
 import ReactSelect from "react-select";
 import hotelsTownLists from "../../../constants/hotelsTownLists";
 import regions from "../../../api/projectApi/regions";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import BestStates from "../BestStates";
-import AllStates from "../AllStates";
-import LastSection from "../LastSection";
 import NavS from "../NavS";
+import Contacts from "../../../components/contacts";
 
 function TransfersTab() {
   const { t } = useTranslation();
@@ -328,9 +325,7 @@ function TransfersTab() {
           );
         })}
       </div>
-      <BestStates />
-      <AllStates />
-      <LastSection />
+      <Contacts/>
     </>
   );
 }

@@ -16,6 +16,7 @@ import BestStates from "../BestStates";
 import AllStates from "../AllStates";
 import LastSection from "../LastSection";
 import NavS from "../NavS";
+import Contacts from "../../../components/contacts";
 
 function FlightsTab() {
   const { t } = useTranslation();
@@ -565,9 +566,7 @@ function FlightsTab() {
           })
         )}
       </div>
-      <BestStates />
-      <AllStates />
-      <LastSection />
+      <Contacts/>
     </div>
   );
 }

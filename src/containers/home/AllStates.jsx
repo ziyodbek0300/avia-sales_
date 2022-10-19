@@ -25,7 +25,7 @@ function AllStates() {
         return stars;
     }
     return (
-        <div className={"pb-5 max-w-5xl mx-auto mt-5 text-2xl"}>
+        <div className={"pb-5 max-w-5xl mx-auto mt-20 text-2xl"}>
             <div className='text-center'>
                 <p className='text-4xl font-bold mb-2'>Наши туры</p>
                 <img className='mx-auto' src={line} alt="line" />

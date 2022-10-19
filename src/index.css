@@ -41,7 +41,7 @@ code {
 /*main courses */
 .main-courses {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 10rem 10rem;
     grid-gap: 1rem;
 }
