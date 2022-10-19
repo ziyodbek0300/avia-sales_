@@ -1,6 +1,11 @@
 import React, {useEffect, useState} from "react"
 import {Box, Button, Modal, TextField, Typography, useMediaQuery, useTheme} from "@mui/material";
 import {userRole} from "../../constants/userRole";
+import AssignAdmin from "../autocomplete/AssignAdmin";
+import user from "../../api/projectApi/user";
+import {getAllUser} from "../../redux/user/actions";
+import {toast} from "react-toastify";
+import {useDispatch} from "react-redux";
 
 const style = {
     position: 'absolute',
@@ -16,18 +21,19 @@ const style = {
 };
 
 const UserModal = ({open, handleClose, type, values}) => {
+    // const dispac
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
     const [data, setData] = useState({
-        doc:'',
-        city:'',
-        nameCompany:'',
-        fullName:'',
-        phone:'',
-        email:'',
+        doc: '',
+        city: '',
+        nameCompany: '',
+        fullName: '',
+        phone: '',
+        email: '',
         ...values,
-        correctPassword:'',
-        password:'',
+        correctPassword: '',
+        password: '',
     })
 
     useEffect(() => {
@@ -35,12 +41,35 @@ const UserModal = ({open, handleClose, type, values}) => {
             setData(values)
         }
     }, [values])
+    const dispatch = useDispatch()
 
     const handlePressSubmit = () => {
-            console.log(data)
-        if (type==="create"){
+        if (type === "create") {
+            if (data.password === data.correctPassword) {
+                const a = data
+                delete a.correctPassword
+                user.add(a)
+                    .then(r => {
+                        toast("Success", {type: "info"})
+                        dispatch(getAllUser())
+                        handleClose()
+                    })
+                    .catch(e => {
+                        toast("Error", {type: "warning"})
+                    })
+            } else {
+                toast("Error", {type: "warning"})
+            }
         } else {
-
+            user.updateUser(data.id, data)
+                .then(r => {
+                    toast("Success", {type: "info"})
+                    dispatch(getAllUser())
+                    handleClose()
+                })
+                .catch(e => {
+                    toast("Error", {type: "warning"})
+                })
         }
     }
 
@@ -54,97 +83,75 @@ const UserModal = ({open, handleClose, type, values}) => {
             >
                 <Box sx={{...style, width: matches ? '50%' : "70%"}}>
                     <Typography fontSize={32}>
-                        {type === "create" ? `Create ${userRole.admin===data.role ? "Admin" : "Agent"}` : `Update ${userRole.admin===data.role ? "Admin" : "Agent"}`}
+                        {type === "create" ? `Create ${userRole.admin === data.role ? "Admin" : "Agent"}` : `Update ${userRole.admin === data.role ? "Admin" : "Agent"}`}
                     </Typography>
                     <Box style={{marginTop: 8}}>
-                        <Box style={{marginTop:4}}>
+                        <Box style={{marginTop: 4}}>
                             <TextField
-                                value={values.city}
+                                value={data.city}
                                 style={{width: "100%"}}
                                 variant={"outlined"}
                                 placeholder={"city"}
-                                // error={error.email}
-                                onChange={(event) => setData({...values, email: event.target.value})}
-                                // onFocus={() => setError({...error, email: false})}
+                                onChange={(event) => setData({...data, city: event.target.value})}
                             />
                         </Box>
-                        <Box style={{marginTop:4}}>
+                        <Box style={{marginTop: 4}}>
                             <TextField
-                                value={values.nameCompany}
+                                value={data.nameCompany}
                                 style={{width: "100%"}}
                                 variant={"outlined"}
                                 placeholder={"company name"}
-                                // error={error.email}
-                                onChange={(event) => setData({...values, email: event.target.value})}
-                                // onFocus={() => setError({...error, email: false})}
+                                onChange={(event) => setData({...data, nameCompany: event.target.value})}
                             />
                         </Box>
-                        <Box style={{marginTop:4}}>
+                        <Box style={{marginTop: 4}}>
                             <TextField
-                                value={values.fullName}
+                                value={data.fullName}
                                 style={{width: "100%"}}
                                 variant={"outlined"}
                                 placeholder={"full name"}
-                                // error={error.email}
-                                onChange={(event) => setData({...values, email: event.target.value})}
-                                // onFocus={() => setError({...error, email: false})}
+                                onChange={(event) => setData({...data, fullName: event.target.value})}
                             />
                         </Box>
-                        <Box style={{marginTop:4}}>
+                        <Box style={{marginTop: 4}}>
                             <TextField
-                                value={values.phone}
+                                value={data.phone}
                                 style={{width: "100%"}}
                                 variant={"outlined"}
                                 placeholder={"phone"}
-                                // error={error.email}
-                                onChange={(event) => setData({...values, email: event.target.value})}
-                                // onFocus={() => setError({...error, email: false})}
+                                onChange={(event) => setData({...data, phone: event.target.value})}
                             />
                         </Box>
-                        <Box style={{marginTop:4}}>
+                        <Box style={{marginTop: 4}}>
+                            <AssignAdmin value={data.adminId} setValue={(e) => setData({...data, adminId: e})}/>
+                        </Box>
+                        <Box style={{marginTop: 4}}>
                             <TextField
-                                value={values.email}
+                                value={data.email}
                                 style={{width: "100%"}}
                                 variant={"outlined"}
                                 placeholder={"email"}
-                                // error={error.email}
-                                onChange={(event) => setData({...values, email: event.target.value})}
-                                // onFocus={() => setError({...error, email: false})}
+                                onChange={(event) => setData({...data, email: event.target.value})}
                             />
                         </Box>
-                        <Box style={{marginTop:4}}>
+                        <Box style={{marginTop: 4}}>
                             <TextField
-                                value={values.email}
-                                style={{width: "100%"}}
-                                variant={"outlined"}
-                                placeholder={"email"}
-                                // error={error.email}
-                                onChange={(event) => setData({...values, email: event.target.value})}
-                                // onFocus={() => setError({...error, email: false})}
-                            />
-                        </Box>
-                        <Box style={{marginTop:4}}>
-                            <TextField
-                                value={values.password}
+                                value={data.password}
                                 style={{width: "100%"}}
                                 variant={"outlined"}
                                 type={"password"}
                                 placeholder={"password"}
-                                // error={error.email}
-                                onChange={(event) => setData({...values, email: event.target.value})}
-                                // onFocus={() => setError({...error, email: false})}
+                                onChange={(event) => setData({...data, password: event.target.value})}
                             />
                         </Box>
-                        <Box style={{marginTop:4}}>
+                        <Box style={{marginTop: 4}}>
                             <TextField
-                                value={values.correctPassword}
+                                value={data.correctPassword}
                                 style={{width: "100%"}}
                                 variant={"outlined"}
                                 type={"password"}
                                 placeholder={"reenter password"}
-                                // error={error.email}
-                                onChange={(event) => setData({...values, email: event.target.value})}
-                                // onFocus={() => setError({...error, email: false})}
+                                onChange={(event) => setData({...data, correctPassword: event.target.value})}
                             />
                         </Box>
                     </Box>
@@ -154,7 +161,7 @@ const UserModal = ({open, handleClose, type, values}) => {
                         variant={"outlined"}
                     >
                         <Typography>
-                            Save
+                            Сохранять
                         </Typography>
                     </Button>
                 </Box>

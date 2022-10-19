@@ -5,27 +5,24 @@ import {persistReducer, persistStore} from 'redux-persist';
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
 const persistConfig = {
-  key: 'root',
-  storage,
-  blacklist: ['timeSheet',"user"],
+    key: 'root',
+    storage,
+    blacklist: ['orders','user','flights']
 };
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-// const sagaMiddleware = createSagaMiddleware();
-
 export default () => {
-  let store = createStore(
-    persistedReducer,
-    composeEnhancers(
-      applyMiddleware(thunk),
-      // applyMiddleware(sagaMiddleware),
-      process.env.NODE_ENV === 'development' && window.devToolsExtension
-        ? window.devToolsExtension()
-        : f => f,
-    ),
-  );
-  let persistor = persistStore(store);
-  return {store, persistor};
+    let store = createStore(
+        persistedReducer,
+        composeEnhancers(
+            applyMiddleware(thunk),
+            process.env.NODE_ENV === 'development' && window.devToolsExtension
+                ? window.devToolsExtension()
+                : f => f,
+        ),
+    );
+    let persistor = persistStore(store);
+    return {store, persistor};
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.scss';
+import './index.css';
 import App from './App';
 import {BrowserRouter} from 'react-router-dom';
 import Store from './redux';
@@ -28,11 +28,11 @@ root.render(
     <React.StrictMode>
         <CookiesProvider>
             <Provider store={store}>
-                <PersistGate loading={null} persistor={persistor}>
+                {/*<PersistGate loading={null} persistor={persistor}>*/}
                     <BrowserRouter>
                         <App/>
                     </BrowserRouter>
-                </PersistGate>
+                {/*</PersistGate>*/}
             </Provider>
         </CookiesProvider>
     </React.StrictMode>
