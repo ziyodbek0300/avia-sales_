@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { RiSendPlane2Line } from "react-icons/ri";
-import { BsArrowRightShort } from "react-icons/bs";
 import { DatePicker } from "rsuite";
 import ReactSelect from "react-select";
 import { FaPlaneArrival, FaPlaneDeparture } from "react-icons/fa";
@@ -12,9 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllFlights } from "../../../redux/flights/actions";
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import BestStates from "../BestStates";
-import AllStates from "../AllStates";
-import LastSection from "../LastSection";
 import NavS from "../NavS";
 import Contacts from "../../../components/contacts";
 

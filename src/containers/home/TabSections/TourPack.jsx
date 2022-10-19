@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { RiSendPlane2Line } from "react-icons/ri";
-import { BsArrowRightShort } from "react-icons/bs";
 import { DatePicker } from "rsuite";
 import ReactSelect from "react-select";
 import regions from "../../../api/projectApi/regions";
@@ -29,7 +28,7 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates,priceChange
   const hotelId = e?.inc;
   const currentUser = useSelector((state) => state.user.currentUser);
   const [isReturn, setIsReturn] = useState({ bool: true, arr: [] });
-  const [data, setData] = useState({
+  const [data] = useState({
     contactName: "",
     email: "",
     phone: "",

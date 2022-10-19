@@ -65,7 +65,6 @@ function VisasTab() {
   };
 
   const order = (obj) => {
-    // console.log(obj)
     let tr_data = JSON.stringify(obj);
     localStorage.setItem("visa", tr_data);
     navigate(`/visaDetails/${adults + "_" + children + "_" + infant}`);
