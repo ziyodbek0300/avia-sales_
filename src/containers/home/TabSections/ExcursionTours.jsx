@@ -88,7 +88,7 @@ function ExcursionTours() {
                                     onInput={(e) => setCountP(e.target.value)}
                                     type="number"
                                     className={
-                                        "w-full text-white p-2 rounded-lg bg-transparent border-2"
+                                        "w-full text-black p-2 rounded-lg bg-transparent border-2"
                                     }
                                     id={"as"}
                                 />
