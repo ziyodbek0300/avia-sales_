@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { RiSendPlane2Line } from "react-icons/ri";
-import { BsArrowRightShort } from "react-icons/bs";
 import { DatePicker } from "rsuite";
 import ReactSelect from "react-select";
 import { FaPlaneArrival, FaPlaneDeparture } from "react-icons/fa";
@@ -12,10 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllFlights } from "../../../redux/flights/actions";
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import BestStates from "../BestStates";
-import AllStates from "../AllStates";
-import LastSection from "../LastSection";
 import NavS from "../NavS";
+import Contacts from "../../../components/contacts";
 
 function FlightsTab() {
   const { t } = useTranslation();
@@ -90,9 +87,6 @@ function FlightsTab() {
         <div className="max-w-5xl pb-5 mx-auto">
           <div className={"text-center mb-10 mt-36 text-white"}>
             <h1 className={"text-7xl mb-4 font-bold"}>Авиабилеты</h1>
-            <p className={"px-10"}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent.
-            </p>
           </div>
           <div className="bg-exam relative rounded-lg shadow-xl mb-36 text-white font-medium p-5">
             <div className="flex gap-2 items-center py-4 text-gray-600">
@@ -565,9 +559,7 @@ function FlightsTab() {
           })
         )}
       </div>
-      <BestStates />
-      <AllStates />
-      <LastSection />
+      <Contacts/>
     </div>
   );
 }

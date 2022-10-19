@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import { BsArrowRightShort } from "react-icons/bs";
 import { RiSendPlane2Line } from "react-icons/ri";
 import {
   VISAS,
@@ -9,12 +8,8 @@ import {
 } from "../../../constants/visas";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import BestStates from "../BestStates";
-import AllStates from "../AllStates";
-import LastSection from "../LastSection";
 import NavS from "../NavS";
-import hotelsTownLists from "../../../constants/hotelsTownLists";
-import moment from "moment/moment";
+import Contacts from "../../../components/contacts";
 
 function VisasTab() {
   const { t } = useTranslation();
@@ -70,7 +65,6 @@ function VisasTab() {
   };
 
   const order = (obj) => {
-    // console.log(obj)
     let tr_data = JSON.stringify(obj);
     localStorage.setItem("visa", tr_data);
     navigate(`/visaDetails/${adults + "_" + children + "_" + infant}`);
@@ -83,9 +77,6 @@ function VisasTab() {
         <div className="max-w-5xl pb-5 mx-auto">
           <div className={"text-center mb-10 mt-36 text-white"}>
             <h1 className={"text-7xl mb-4 font-bold"}>Визы</h1>
-            <p className={"px-10"}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent.
-            </p>
           </div>
           <div className="bg-exam relative rounded-lg shadow-xl mb-36 text-white font-medium p-5">
             <div className="flex gap-2 lg:flex-row flex-col items-center py-4 text-gray-600">
@@ -352,9 +343,7 @@ function VisasTab() {
           );
         })}
       </div>
-      {/*<BestStates />*/}
-      {/*<AllStates />*/}
-      <LastSection />
+      <Contacts/>
     </>
   );
 }

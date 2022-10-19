@@ -1,21 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import { BsArrowRightShort } from "react-icons/bs";
 import { RiSendPlane2Line } from "react-icons/ri";
 import hotel from "../../../api/projectApi/hotel";
 import hotelsTownLists from "../../../constants/hotelsTownLists";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import BestStates from "../BestStates";
-import AllStates from "../AllStates";
-import LastSection from "../LastSection";
 import { getHtplace } from "../../../constants/htplace";
 import moment from "moment";
 import { BiStar } from "react-icons/bi";
 import * as _ from "lodash";
 import Sort from "../../../components/Sort";
 import NavS from "../NavS";
-import ReactSelect from "react-select";
-import {DatePicker} from "rsuite";
+import Contacts from "../../../components/contacts";
 
 const RenderItem = ({
   e,
@@ -66,7 +61,7 @@ const RenderItem = ({
       setIsReturn({ bool: false, arr: [] });
     }
   }, [adults, children, infant]);
-  
+
   var now = moment(dates?.date2); //todays date
   var end = moment(dates?.date1); // another date
   var duration = moment.duration(now.diff(end));
@@ -333,9 +328,6 @@ function Hotels() {
       });
   };
 
-  const onSortHotels = holtels => {
-    const sortedHotels = _.sortBy(hotels, [])
-  }
 
   const townRef = useRef();
 
@@ -348,9 +340,6 @@ function Hotels() {
     date2: null,
   });
 
-  const [, updateState] = React.useState();
-const forceUpdate = React.useCallback(() => updateState({}), []);
-
   return (
     <>
       <div className={"fourth pb-1"} style={{backgroundSize: "100% 100% !important"}} onClick={handleClick}>
@@ -358,9 +347,6 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
           <div className="max-w-5xl pb-5 mx-auto">
             <div className={"text-center mb-10 mt-36 text-white"}>
               <h1 className={"text-7xl mb-4 font-bold"}>Отели</h1>
-              <p className={"px-10"}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent.
-              </p>
             </div>
             <div className="bg-exam relative rounded-lg shadow-xl mb-36 text-white font-medium p-5">
               <div className="flex gap-2 items-center py-4 text-gray-600">
@@ -370,7 +356,7 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
                   </label>
                   <select
                       ref={townRef}
-                      className="p-2 rounded border-4 border-red-600 w-full"
+                      className="p-2 rounded w-full"
                       // type="text"
                       name="from"
                       placeholder="- выбрать -"
@@ -396,7 +382,7 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
                   </label>
                   <input
                       type="date"
-                      className="p-2 rounded border-4 border-red-600 w-full"
+                      className="p-2 rounded w-full"
                       name="date"
                       id="date"
                       value={dates.date1}
@@ -414,7 +400,7 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
                   </label>
                   <input
                       type="date"
-                      className="p-2 rounded border-4 border-red-600 w-full"
+                      className="p-2 rounded w-full"
                       name="date"
                       id="date"
                       value={dates.date2}
@@ -442,8 +428,7 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
                           ", Эконом"
                       }
                       onClick={() => setIsOpen(!isOpen)}
-                      // onChange={() => console.log('as')}
-                      className="p-2 rounded border-4 border-red-600 qw1 w-full"
+                      className="p-2 rounded qw1 w-full"
                       type="text"
                       name="from"
                       placeholder="2, Эконом"
@@ -555,7 +540,7 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
                     onClick={handlePressFind}
                     className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-500 text-white text-sm"
                 >
-                  {t("nayti")} <BsArrowRightShort className="lh-0 text-2xl" />
+                  {t("nayti")}
                 </button>
               </div>
             </div>
@@ -611,7 +596,7 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
               const priceChange = (price) => {
                 // forceUpdate()
                 e.sortField = price;
-            
+
               };
               try {
                 return e.name.toLowerCase().includes(search.toLowerCase()) && (
@@ -628,11 +613,8 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
             })}
         </Sort>
         )}
-        
       </div>
-      <BestStates />
-      <AllStates />
-      <LastSection />
+      <Contacts/>
     </>
   );
 }

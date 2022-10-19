@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { RiSendPlane2Line } from "react-icons/ri";
-import { BsArrowRightShort } from "react-icons/bs";
 import { DatePicker } from "rsuite";
 import ReactSelect from "react-select";
 import regions from "../../../api/projectApi/regions";
@@ -29,7 +28,7 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates,priceChange
   const hotelId = e?.inc;
   const currentUser = useSelector((state) => state.user.currentUser);
   const [isReturn, setIsReturn] = useState({ bool: true, arr: [] });
-  const [data, setData] = useState({
+  const [data] = useState({
     contactName: "",
     email: "",
     phone: "",
@@ -452,7 +451,7 @@ function TourPack() {
       }
     }
   };
-  
+
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
 
@@ -463,9 +462,6 @@ function TourPack() {
         <div className="max-w-5xl pb-5 mx-auto">
           <div className={"text-center mb-10 mt-36 text-white"}>
             <h1 className={"text-5xl mb-4 font-bold"}>Куда бы вам хотелось отправиться?</h1>
-            <p className={"px-10"}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent.
-            </p>
           </div>
           <div className="bg-exam relative rounded-lg shadow-xl mb-36 text-white font-medium p-5">
             <div className="flex items-center gap-3">

@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.3bc01bf7.css",
-    "main.js": "/static/js/main.56b1c154.js",
+    "main.css": "/static/css/main.d2351f37.css",
+    "main.js": "/static/js/main.aa99f148.js",
     "static/media/contract.pdf": "/static/media/contract.162627cdc9e6b36865b4.pdf",
     "static/media/4.png": "/static/media/4.d01d42685c9686c27a66.png",
     "static/media/3.png": "/static/media/3.75d6ef467469b93f3b09.png",
@@ -10,14 +10,17 @@
     "static/media/2.png": "/static/media/2.4111faf758c5d061139b.png",
     "static/media/1.png": "/static/media/1.59715620f2cb083b4592.png",
     "static/media/bg_2.jpg": "/static/media/bg_2.deabb8fbcdb51f0a4bb4.jpg",
-    "static/media/6-min-min.jpg": "/static/media/6-min-min.6bd99dc7e73a20f57e90.jpg",
     "static/media/1.jpg": "/static/media/1.c7dfcc4e63e7873c772c.jpg",
     "static/media/contactBg.png": "/static/media/contactBg.ff959aa4f939da6d3894.png",
-    "static/media/5.jpg": "/static/media/5.84a5fbff42b98ccd5142.jpg",
-    "static/media/3.jpg": "/static/media/3.36f7838d385f7a7a6d22.jpg",
+    "static/media/0016.png": "/static/media/0016.718b75cc5ee78c6f5056.png",
+    "static/media/0011.png": "/static/media/0011.bf8c4e602a35b42416bd.png",
     "static/media/makkah.png": "/static/media/makkah.ad9a7932f8f28c359a4d.png",
     "static/media/bg_1-min.jpg": "/static/media/bg_1-min.3b5c3d9acccc37c0098a.jpg",
+    "static/media/0014.png": "/static/media/0014.c8a1be5d1727c9a1fd4b.png",
+    "static/media/0013.png": "/static/media/0013.c5b8111766981721f160.png",
     "static/media/qr.png": "/static/media/qr.a210386f208edfb7bd60.png",
+    "static/media/0015.png": "/static/media/0015.3a112c1be1606d300ccc.png",
+    "static/media/0012.png": "/static/media/0012.bd4719ed1858f2d3c987.png",
     "static/media/Idealist Sans.otf": "/static/media/Idealist Sans.bb07e5e25d859168a7ec.otf",
     "static/media/logo.png": "/static/media/logo.a4cb626f16c4632f5510.png",
     "static/media/air-arabia.jpg": "/static/media/air-arabia.f0c569258dd0bfca431a.jpg",
@@ -38,11 +41,11 @@
     "static/media/tick-circle.svg": "/static/media/tick-circle.6fadff414e77487ab3263c4c176bf8d1.svg",
     "static/media/email.svg": "/static/media/email.690b59c2607b8b5720554d3f8288980d.svg",
     "index.html": "/index.html",
-    "main.3bc01bf7.css.map": "/static/css/main.3bc01bf7.css.map",
-    "main.56b1c154.js.map": "/static/js/main.56b1c154.js.map"
+    "main.d2351f37.css.map": "/static/css/main.d2351f37.css.map",
+    "main.aa99f148.js.map": "/static/js/main.aa99f148.js.map"
   },
   "entrypoints": [
-    "static/css/main.3bc01bf7.css",
-    "static/js/main.56b1c154.js"
+    "static/css/main.d2351f37.css",
+    "static/js/main.aa99f148.js"
   ]
 }
