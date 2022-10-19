@@ -51,7 +51,7 @@ const getOne = async (req, res, next) => {
     try {
         prisma.hotels.findMany({where: {regionId: req.params.id}})
             .then(r => {
-                return res.status(200).send(r[0].jsonValue)
+                return res.status(200).send(r[0]?.jsonValue)
             })
             .catch(e => {
                 console.log(e)

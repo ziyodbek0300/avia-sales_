@@ -11,6 +11,7 @@ import * as _ from "lodash";
 import Sort from "../../../components/Sort";
 import NavS from "../NavS";
 import Contacts from "../../../components/contacts";
+import Star from "../../../static/images/star.svg";
 
 const RenderItem = ({
   e,
@@ -32,6 +33,7 @@ const RenderItem = ({
     open: false,
     tabIndex: 1,
   });
+  const [pr, setPr] = useState(0);
 
   const htplace =
     Array.isArray(e?.price) &&
@@ -124,14 +126,27 @@ const RenderItem = ({
         className="cursor-pointer flex gap-6"
         key={`${hotelId}`}
       >
-        <img
-          className="rounded"
-          width="200"
-          style={{ maxHeight: "200px" }}
-          src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${hotelId}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}
-          alt=""
-        />
-        <div className={"flex flex-col justify-between"}>
+        <div className={"max-w-[300px] overflow-auto relative"}>
+          <div className={"flex min-w-[300px]"}>
+            <div className={"min-w-[300px] rounded-xl overflow-hidden"}>
+              <img src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`} className="min-w-[300px]" />
+            </div>
+            <div className={"min-w-[300px] rounded-xl overflow-hidden"}>
+              <img src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=1&equilateral=1&width=200&height=200&stamp=72BE0B64`} className="min-w-[300px]" />
+            </div>
+            <div className={"min-w-[300px] rounded-xl overflow-hidden"}>
+              <img src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=2&equilateral=1&width=200&height=200&stamp=72BE0B64`} className="min-w-[300px]" />
+            </div>
+          </div>
+          <div className={"flex justify-center"}>
+            <div className={"flex gap-2 absolute bottom-3"}>
+              <div className={"w-4 h-4 bg-red-500 rounded-full"}></div>
+              <div className={"w-4 h-4 bg-gray-500 rounded-full"}></div>
+              <div className={"w-4 h-4 bg-gray-500 rounded-full"}></div>
+            </div>
+          </div>
+        </div>
+        <div className={"flex flex-col gap-7 justify-between"}>
           <div>
             <h1 className="text-xl font-bold block">{e.name}</h1>
             <div className={"flex py-2"}>
@@ -142,18 +157,92 @@ const RenderItem = ({
                 ?.map((a) => {
                   return (
                     <span className={"mx-1"}>
-                      <BiStar color={"red"} />
+                      <img src={Star} alt="star"/>
                     </span>
                   );
                 })}
             </div>
           </div>
-          <p className={"mt-auto text-2xl"}>
-            Цена: $
-            {Array.isArray(isReturn.arr) &&
-              isReturn.arr.length > 0 &&
-              Math.floor(getPrice())}
-          </p>
+          <>
+            <div className={"rounded"}>
+              <div>
+                <form>
+                  <div>
+                    {values.loading ? (
+                        <div className={"flex justify-center"}>
+                          <div className="lds-dual-ring"></div>
+                        </div>
+                    ) : (
+                        <div className={"flex flex-col gap-3"}>
+                          {Array.isArray(e.price) &&
+                              e.price.length > 0 &&
+                              _.orderBy(e.price, [(e) => +e.price], ["asc"])?.map(
+                                  (e) => {
+                                    let bool = false;
+                                    try {
+                                      Array.isArray(isReturn.arr) &&
+                                      isReturn.arr?.map((r) => {
+                                        if (r.in === e.htplace) {
+                                          bool = true;
+                                        }
+                                      });
+                                    } catch (e) {}
+                                    if (!bool) return null;
+                                    return (
+                                        e.status !== "D" && (
+                                            <div
+                                                style={{ width: "100%" }}
+                                                className={
+                                                  "relative flex gap-2 items-center"
+                                                }
+                                            >
+                                              <input
+                                                  name={"asd"}
+                                                  type="radio"
+                                                  onChange={() => setPr(e.price)}
+                                                  id={`${JSON.stringify(e)}`}
+                                              />
+                                              <label htmlFor={`${JSON.stringify(e)}`}>
+                                                <div className={"flex flex-col justify-between h-full"}>
+                                                  <div>
+                                                    <p className={"text-md p-0 m-0"}>{e.name ? e.name : "Standart"}</p>
+                                                    <p className={"m-0"}>{e.dataa.name}</p>
+                                                  </div>
+                                                  {/*<div className={"text-right"}>*/}
+                                                  {/*  <button*/}
+                                                  {/*      className={*/}
+                                                  {/*        "px-4 py-2 bg-white text-zinc-900 font-bold capitalize rounded"*/}
+                                                  {/*      }*/}
+                                                  {/*      onClick={() =>*/}
+                                                  {/*          navigate(*/}
+                                                  {/*              `/hotel/order/${hotelId}/${e.inc}?name=${e.name}&adult=${adults}&c=${children}&d=${infant}`*/}
+                                                  {/*          )*/}
+                                                  {/*      }*/}
+                                                  {/*  >*/}
+                                                  {/*    {t("order")}*/}
+                                                  {/*  </button>*/}
+                                                  {/*</div>*/}
+                                                </div>
+                                              </label>
+                                            </div>
+                                        )
+                                    );
+                                  }
+                              )}
+                        </div>
+                    )}
+                  </div>
+                </form>
+              </div>
+            </div>
+          </>
+          <p className={"mt-auto text-2xl text-red-600 font-bold"}>
+                  <span className={"text-xl text-black font-normal"}>Цена:</span> $
+                  {pr === 0 ? Array.isArray(isReturn.arr) &&
+                      isReturn.arr.length > 0 &&
+                      Math.floor(getPrice()) : Math.floor(pr) * Math.ceil(days)}<br/>
+
+                </p>
         </div>
         {hotelsTownLists?.map((a) => {
           return (
@@ -163,137 +252,6 @@ const RenderItem = ({
           );
         })}
       </div>
-
-      {values.open ? (
-        <>
-          <div className={"flex justify-between py-4"}>
-            <div
-              onClick={() => setValues({ ...values, tabIndex: 1 })}
-              className={
-                values.tabIndex === 1
-                  ? "active:opacity-80 cursor-pointer flex justify-center bg-red-500 w-full text-center rounded-lg p-2 text-white capitalize text-lg font-bold"
-                  : "flex cursor-pointer justify-center bg-gray-200 w-full text-center rounded-lg p-2 capitalize text-lg font-bold"
-              }
-            >
-              Фото
-            </div>
-            <div
-              onClick={() => setValues({ ...values, tabIndex: 0 })}
-              className={
-                values.tabIndex === 0
-                  ? "active:opacity-80 cursor-pointer flex justify-center bg-red-500 w-full text-center rounded-lg p-2 text-white capitalize text-lg font-bold"
-                  : "flex cursor-pointer justify-center bg-gray-200 w-full text-center rounded-lg p-2 capitalize text-lg font-bold"
-              }
-            >
-              Комната
-            </div>
-          </div>
-          <div className={"bg-gray-200 rounded p-5"}>
-            {values.tabIndex === 0 ? (
-              <div className={"mt-16"}>
-                <form action="">
-                  <div>
-                    {values.loading ? (
-                      <div className={"flex justify-center"}>
-                        <div className="lds-dual-ring"></div>
-                      </div>
-                    ) : (
-                      <div className={"grid lg:grid-cols-2 grid-cols-1 gap-5"}>
-                        {Array.isArray(e.price) &&
-                          e.price.length > 0 &&
-                          _.orderBy(e.price, [(e) => +e.price], ["asc"])?.map(
-                            (e) => {
-                              let bool = false;
-                              try {
-                                Array.isArray(isReturn.arr) &&
-                                  isReturn.arr?.map((r) => {
-                                    if (r.in === e.htplace) {
-                                      bool = true;
-                                    }
-                                  });
-                              } catch (e) {}
-                              if (!bool) return null;
-                              return (
-                                e.status !== "D" && (
-                                  <div
-                                    style={{ width: "100%", minHeight: 200 }}
-                                    className={
-                                      "bg-red-400 text-white relative p-3 rounded-lg shadow"
-                                    }
-                                  >
-                                    <input
-                                      name={"asd"}
-                                      className={
-                                        "absolute hidden h-full w-full top-0 left-0"
-                                      }
-                                      type="radio"
-                                    />
-                                    <div
-                                      className={
-                                        "flex flex-col justify-between h-full"
-                                      }
-                                    >
-                                      <div>
-                                        <h3>{e.name ? e.name : "Standart"}</h3>
-                                        <p className={"text-xl"}>
-                                          Price: $
-                                          {Math.floor(getPriceHotel(e.price))}
-                                        </p>
-                                        <p>{e.dataa.name}</p>
-                                      </div>
-                                      <div className={"text-right"}>
-                                        <button
-                                          className={
-                                            "px-4 py-2 bg-white text-zinc-900 font-bold capitalize rounded"
-                                          }
-                                          onClick={() =>
-                                            navigate(
-                                              `/hotel/order/${hotelId}/${e.inc}?name=${e.name}&adult=${adults}&c=${children}&d=${infant}`
-                                            )
-                                          }
-                                        >
-                                          {t("order")}
-                                        </button>
-                                      </div>
-                                    </div>
-                                  </div>
-                                )
-                              );
-                            }
-                          )}
-                      </div>
-                    )}
-                  </div>
-                </form>
-              </div>
-            ) : (
-              <div className={"flex gap-4"}>
-                <img
-                  className="rounded hover:shadow-md transition hover:shadow-red-300"
-                  width="150px"
-                  style={{ maxHeight: "150px", objectFit: "cover" }}
-                  src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}
-                  alt=""
-                />
-                <img
-                  className="rounded hover:shadow-md transition hover:shadow-red-300"
-                  width="150px"
-                  style={{ maxHeight: "150px", objectFit: "cover" }}
-                  src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=1&equilateral=1&width=200&height=200&stamp=72BE0B64`}
-                  alt=""
-                />
-                <img
-                  className="rounded hover:shadow-md transition hover:shadow-red-300"
-                  width="150px"
-                  style={{ maxHeight: "150px", objectFit: "cover" }}
-                  src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=2&equilateral=1&width=200&height=200&stamp=72BE0B64`}
-                  alt=""
-                />
-              </div>
-            )}
-          </div>
-        </>
-      ) : null}
     </div>
   );
 };
@@ -311,7 +269,6 @@ function Hotels() {
   const [infant, setInfant] = useState(0);
   const [children, setChildren] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
-  const [sortPrice, setSortPrice] = useState(0)
   const popupRef = useRef();
 
   const handlePressFind = () => {
@@ -319,8 +276,6 @@ function Hotels() {
       .getHotels(values.town)
       .then((r) => {
         console.log("response",r);
-        const response = r.data;
-
         setHotels(Array.isArray(r.data) ? r.data : []);
       })
       .catch((e) => {
