@@ -1,19 +1,17 @@
-import React, {useEffect, useRef, useState} from "react";
-import {BsArrowRightShort} from "react-icons/bs";
-import {RiSendPlane2Line} from "react-icons/ri";
+import React, { useEffect, useRef, useState } from "react";
+import { RiSendPlane2Line } from "react-icons/ri";
 import hotel from "../../../api/projectApi/hotel";
 import hotelsTownLists from "../../../constants/hotelsTownLists";
-import {useNavigate} from "react-router-dom";
-import {useTranslation} from "react-i18next";
-import BestStates from "../BestStates";
-import AllStates from "../AllStates";
-import LastSection from "../LastSection";
-import htplace, {getHtplace} from "../../../constants/htplace";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import htplace, { getHtplace } from "../../../constants/htplace";
 import moment from "moment";
-import {BiStar} from "react-icons/bi";
+import { BiStar } from "react-icons/bi";
 import * as _ from "lodash";
 import Sort from "../../../components/Sort";
 import NavS from "../NavS";
+import Contacts from "../../../components/contacts";
+import Star from "../../../static/images/star.svg";
 
 const RenderItem = ({
                         e,
@@ -24,17 +22,18 @@ const RenderItem = ({
                         priceChange = () => ({}),
                     }) => {
     const navigate = useNavigate();
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
 
     const hotelId = e?.inc;
-    const [isReturn, setIsReturn] = useState({bool: true, arr: []});
+    const [isReturn, setIsReturn] = useState({ bool: true, arr: [] });
     const [values, setValues] = useState({
         loading: false,
         data: [],
         open: false,
         tabIndex: 1,
     });
+    const [pr, setPr] = useState(0);
 
     const htplace =
         Array.isArray(e?.price) &&
@@ -56,13 +55,12 @@ const RenderItem = ({
                         arr.push(r);
                     }
                 }
-            } catch (e) {
-            }
+            } catch (e) {}
         });
         if (arr.length > 0) {
-            setIsReturn({bool: true, arr});
+            setIsReturn({ bool: true, arr });
         } else {
-            setIsReturn({bool: false, arr: []});
+            setIsReturn({ bool: false, arr: [] });
         }
     }, [adults, children, infant]);
 
@@ -109,8 +107,7 @@ const RenderItem = ({
                                     bool = true;
                                 }
                             });
-                        } catch (e) {
-                        }
+                        } catch (e) {}
                         if (bool) return e;
                     })
                     .filter((e) => !!e)[0].price * Math.ceil(days);
@@ -129,14 +126,27 @@ const RenderItem = ({
                 className="cursor-pointer flex gap-6"
                 key={`${hotelId}`}
             >
-                <img
-                    className="rounded"
-                    width="200"
-                    style={{maxHeight: "200px"}}
-                    src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${hotelId}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}
-                    alt=""
-                />
-                <div className={"flex flex-col justify-between"}>
+                <div className={"max-w-[300px] overflow-auto relative"}>
+                    <div className={"flex min-w-[300px]"}>
+                        <div className={"min-w-[300px] rounded-xl overflow-hidden"}>
+                            <img src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`} className="min-w-[300px]" />
+                        </div>
+                        <div className={"min-w-[300px] rounded-xl overflow-hidden"}>
+                            <img src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=1&equilateral=1&width=200&height=200&stamp=72BE0B64`} className="min-w-[300px]" />
+                        </div>
+                        <div className={"min-w-[300px] rounded-xl overflow-hidden"}>
+                            <img src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=2&equilateral=1&width=200&height=200&stamp=72BE0B64`} className="min-w-[300px]" />
+                        </div>
+                    </div>
+                    <div className={"flex justify-center"}>
+                        <div className={"flex gap-2 absolute bottom-3"}>
+                            <div className={"w-4 h-4 bg-red-500 rounded-full"}></div>
+                            <div className={"w-4 h-4 bg-gray-500 rounded-full"}></div>
+                            <div className={"w-4 h-4 bg-gray-500 rounded-full"}></div>
+                        </div>
+                    </div>
+                </div>
+                <div className={"flex flex-col gap-7 justify-between"}>
                     <div>
                         <h1 className="text-xl font-bold block">{e.name}</h1>
                         <div className={"flex py-2"}>
@@ -147,63 +157,23 @@ const RenderItem = ({
                                 ?.map((a) => {
                                     return (
                                         <span className={"mx-1"}>
-                      <BiStar color={"red"}/>
+                      <img src={Star} alt="star"/>
                     </span>
                                     );
                                 })}
                         </div>
                     </div>
-                    <p className={"mt-auto text-2xl"}>
-                        Цена: $
-                        {Array.isArray(isReturn.arr) &&
-                            isReturn.arr.length > 0 &&
-                            Math.floor(getPrice())}
-                    </p>
-                </div>
-                {hotelsTownLists?.map((a) => {
-                    return (
-                        a.id === e.town && (
-                            <p className="text-sm block bg-red-500">{a.title}</p>
-                        )
-                    );
-                })}
-            </div>
-
-            {values.open ? (
-                <>
-                    <div className={"flex justify-between py-4"}>
-                        <div
-                            onClick={() => setValues({...values, tabIndex: 1})}
-                            className={
-                                values.tabIndex === 1
-                                    ? "active:opacity-80 cursor-pointer flex justify-center bg-red-500 w-full text-center rounded-lg p-2 text-white capitalize text-lg font-bold"
-                                    : "flex cursor-pointer justify-center bg-gray-200 w-full text-center rounded-lg p-2 capitalize text-lg font-bold"
-                            }
-                        >
-                            Фото
-                        </div>
-                        <div
-                            onClick={() => setValues({...values, tabIndex: 0})}
-                            className={
-                                values.tabIndex === 0
-                                    ? "active:opacity-80 cursor-pointer flex justify-center bg-red-500 w-full text-center rounded-lg p-2 text-white capitalize text-lg font-bold"
-                                    : "flex cursor-pointer justify-center bg-gray-200 w-full text-center rounded-lg p-2 capitalize text-lg font-bold"
-                            }
-                        >
-                            Комната
-                        </div>
-                    </div>
-                    <div className={"bg-gray-200 rounded p-5"}>
-                        {values.tabIndex === 0 ? (
-                            <div className={"mt-16"}>
-                                <form action="">
+                    <>
+                        <div className={"rounded"}>
+                            <div>
+                                <form>
                                     <div>
                                         {values.loading ? (
                                             <div className={"flex justify-center"}>
                                                 <div className="lds-dual-ring"></div>
                                             </div>
                                         ) : (
-                                            <div className={"grid lg:grid-cols-2 grid-cols-1 gap-5"}>
+                                            <div className={"flex flex-col gap-3"}>
                                                 {Array.isArray(e.price) &&
                                                     e.price.length > 0 &&
                                                     _.orderBy(e.price, [(e) => +e.price], ["asc"])?.map(
@@ -216,52 +186,44 @@ const RenderItem = ({
                                                                         bool = true;
                                                                     }
                                                                 });
-                                                            } catch (e) {
-                                                            }
+                                                            } catch (e) {}
                                                             if (!bool) return null;
                                                             return (
                                                                 e.status !== "D" && (
                                                                     <div
-                                                                        style={{width: "100%", minHeight: 200}}
+                                                                        style={{ width: "100%" }}
                                                                         className={
-                                                                            "bg-red-400 text-white relative p-3 rounded-lg shadow"
+                                                                            "relative flex gap-2 items-center"
                                                                         }
                                                                     >
                                                                         <input
                                                                             name={"asd"}
-                                                                            className={
-                                                                                "absolute hidden h-full w-full top-0 left-0"
-                                                                            }
                                                                             type="radio"
+                                                                            onChange={() => setPr(e.price)}
+                                                                            id={`${JSON.stringify(e)}`}
                                                                         />
-                                                                        <div
-                                                                            className={
-                                                                                "flex flex-col justify-between h-full"
-                                                                            }
-                                                                        >
-                                                                            <div>
-                                                                                <h3>{e.name ? e.name : "Standart"}</h3>
-                                                                                <p className={"text-xl"}>
-                                                                                    Price: $
-                                                                                    {Math.floor(getPriceHotel(e.price))}
-                                                                                </p>
-                                                                                <p>{e.dataa.name}</p>
+                                                                        <label htmlFor={`${JSON.stringify(e)}`}>
+                                                                            <div className={"flex flex-col justify-between h-full"}>
+                                                                                <div>
+                                                                                    <p className={"text-md p-0 m-0"}>{e.name ? e.name : "Standart"}</p>
+                                                                                    <p className={"m-0"}>{e.dataa.name}</p>
+                                                                                </div>
+                                                                                {/*<div className={"text-right"}>*/}
+                                                                                {/*  <button*/}
+                                                                                {/*      className={*/}
+                                                                                {/*        "px-4 py-2 bg-white text-zinc-900 font-bold capitalize rounded"*/}
+                                                                                {/*      }*/}
+                                                                                {/*      onClick={() =>*/}
+                                                                                {/*          navigate(*/}
+                                                                                {/*              `/hotel/order/${hotelId}/${e.inc}?name=${e.name}&adult=${adults}&c=${children}&d=${infant}`*/}
+                                                                                {/*          )*/}
+                                                                                {/*      }*/}
+                                                                                {/*  >*/}
+                                                                                {/*    {t("order")}*/}
+                                                                                {/*  </button>*/}
+                                                                                {/*</div>*/}
                                                                             </div>
-                                                                            <div className={"text-right"}>
-                                                                                <button
-                                                                                    className={
-                                                                                        "px-4 py-2 bg-white text-zinc-900 font-bold capitalize rounded"
-                                                                                    }
-                                                                                    onClick={() =>
-                                                                                        navigate(
-                                                                                            `/hotel/order/${hotelId}/${e.inc}?name=${e.name}&adult=${adults}&c=${children}&d=${infant}`
-                                                                                        )
-                                                                                    }
-                                                                                >
-                                                                                    {t("order")}
-                                                                                </button>
-                                                                            </div>
-                                                                        </div>
+                                                                        </label>
                                                                     </div>
                                                                 )
                                                             );
@@ -272,40 +234,30 @@ const RenderItem = ({
                                     </div>
                                 </form>
                             </div>
-                        ) : (
-                            <div className={"flex gap-4"}>
-                                <img
-                                    className="rounded hover:shadow-md transition hover:shadow-red-300"
-                                    width="150px"
-                                    style={{maxHeight: "150px", objectFit: "cover"}}
-                                    src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}
-                                    alt=""
-                                />
-                                <img
-                                    className="rounded hover:shadow-md transition hover:shadow-red-300"
-                                    width="150px"
-                                    style={{maxHeight: "150px", objectFit: "cover"}}
-                                    src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=1&equilateral=1&width=200&height=200&stamp=72BE0B64`}
-                                    alt=""
-                                />
-                                <img
-                                    className="rounded hover:shadow-md transition hover:shadow-red-300"
-                                    width="150px"
-                                    style={{maxHeight: "150px", objectFit: "cover"}}
-                                    src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=2&equilateral=1&width=200&height=200&stamp=72BE0B64`}
-                                    alt=""
-                                />
-                            </div>
-                        )}
-                    </div>
-                </>
-            ) : null}
+                        </div>
+                    </>
+                    <p className={"mt-auto text-2xl text-red-600 font-bold"}>
+                        <span className={"text-xl text-black font-normal"}>Цена:</span> $
+                        {pr === 0 ? Array.isArray(isReturn.arr) &&
+                            isReturn.arr.length > 0 &&
+                            Math.floor(getPrice()) : Math.floor(pr) * Math.ceil(days)}<br/>
+
+                    </p>
+                </div>
+                {hotelsTownLists?.map((a) => {
+                    return (
+                        a.id === e.town && (
+                            <p className="text-sm block bg-red-500">{a.title}</p>
+                        )
+                    );
+                })}
+            </div>
         </div>
     );
 };
 
 function Hotels() {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const [hotels, setHotels] = useState([]);
     const [values, setValues] = useState({
         town: hotelsTownLists[0].id,
@@ -323,13 +275,14 @@ function Hotels() {
         hotel
             .getHotels(values.town)
             .then((r) => {
-                const response = r.data;
+                console.log("response",r);
                 setHotels(Array.isArray(r.data) ? r.data : []);
             })
             .catch((e) => {
                 // setHotels([])
             });
     };
+
 
     const townRef = useRef();
 
@@ -342,9 +295,6 @@ function Hotels() {
         date2: null,
     });
 
-    const [, updateState] = React.useState();
-    const forceUpdate = React.useCallback(() => updateState({}), []);
-
     return (
         <>
             <div className={"fourth pb-1"} style={{backgroundSize: "100% 100% !important"}} onClick={handleClick}>
@@ -352,11 +302,6 @@ function Hotels() {
                 <div className="max-w-5xl pb-5 mx-auto">
                     <div className={"text-center mb-10 mt-36 text-white"}>
                         <h1 className={"text-7xl mb-4 font-bold"}>Отели</h1>
-                        <p className={"px-10"}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna
-                            penatibus. Urna nunc et purus praesent. Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent.
-                        </p>
                     </div>
                     <div className="bg-exam relative rounded-lg shadow-xl mb-36 text-white font-medium p-5">
                         <div className="flex gap-2 items-center py-4 text-gray-600">
@@ -366,13 +311,13 @@ function Hotels() {
                                 </label>
                                 <select
                                     ref={townRef}
-                                    className="p-2 rounded border-4 border-red-600 w-full"
+                                    className="p-2 rounded w-full"
                                     // type="text"
                                     name="from"
                                     placeholder="- выбрать -"
                                     id="from"
                                     onChange={(e) => {
-                                        setValues({...values, town: e.target.value});
+                                        setValues({ ...values, town: e.target.value });
                                     }}
                                 >
                                     <option value="">- выбрать -</option>
@@ -385,14 +330,14 @@ function Hotels() {
                                     })}
                                 </select>
                             </div>
-                            <RiSendPlane2Line className="text-white w-10"/>
+                            <RiSendPlane2Line className="text-white w-10" />
                             <div className="w-full">
                                 <label htmlFor="date" className="block text-white text-sm">
                                     {t("departure")}
                                 </label>
                                 <input
                                     type="date"
-                                    className="p-2 rounded border-4 border-red-600 w-full"
+                                    className="p-2 rounded w-full"
                                     name="date"
                                     id="date"
                                     value={dates.date1}
@@ -410,7 +355,7 @@ function Hotels() {
                                 </label>
                                 <input
                                     type="date"
-                                    className="p-2 rounded border-4 border-red-600 w-full"
+                                    className="p-2 rounded w-full"
                                     name="date"
                                     id="date"
                                     value={dates.date2}
@@ -438,8 +383,7 @@ function Hotels() {
                                         ", Эконом"
                                     }
                                     onClick={() => setIsOpen(!isOpen)}
-                                    // onChange={() => console.log('as')}
-                                    className="p-2 rounded border-4 border-red-600 qw1 w-full"
+                                    className="p-2 rounded qw1 w-full"
                                     type="text"
                                     name="from"
                                     placeholder="2, Эконом"
@@ -450,12 +394,11 @@ function Hotels() {
                                         ref={popupRef}
                                         className="absolute qw1 top-full -left-20"
                                     >
-                                        <div
-                                            className="bg-white qw1 rounded-lg p-1 tooltip-in relative mt-5 w-80 shadow">
+                                        <div className="bg-white qw1 rounded-lg p-1 tooltip-in relative mt-5 w-80 shadow">
                                             <div className="flex qw1 p-3">
                                                 <div className="qw1 w-full">
                                                     <p className={"qw1"}>
-                                                        Взрослые <br/>
+                                                        Взрослые <br />
                                                         Старше 12 лет
                                                     </p>
                                                 </div>
@@ -483,7 +426,7 @@ function Hotels() {
                                             <div className="qw1 flex p-3">
                                                 <div className="qw1 w-full">
                                                     <p className={"qw1"}>
-                                                        Дети <br/>
+                                                        Дети <br />
                                                         От 2 до 12 лет
                                                     </p>
                                                 </div>
@@ -513,7 +456,7 @@ function Hotels() {
                                             <div className="qw1 flex p-3">
                                                 <div className="qw1 w-full">
                                                     <p className={"qw1"}>
-                                                        Младенцы <br/>
+                                                        Младенцы <br />
                                                         До 2 лет{" "}
                                                     </p>
                                                 </div>
@@ -552,7 +495,7 @@ function Hotels() {
                                 onClick={handlePressFind}
                                 className="cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg bg-red-500 text-white text-sm"
                             >
-                                {t("nayti")} <BsArrowRightShort className="lh-0 text-2xl"/>
+                                {t("nayti")}
                             </button>
                         </div>
                     </div>
@@ -648,7 +591,6 @@ function Hotels() {
                                         if (bool) return e;
                                     })
                                     .filter((e) => !!e)[0]?.price * Math.ceil(days);
-
                             try {
                                 return e.name.toLowerCase().includes(search.toLowerCase()) && (
                                     <RenderItem
@@ -660,16 +602,12 @@ function Hotels() {
                                         price={price}
                                     />
                                 );
-                            } catch (e) {
-                            }
+                            } catch (e) {}
                         })}
                     </Sort>
                 )}
-
             </div>
-            <BestStates/>
-            <AllStates/>
-            <LastSection/>
+            <Contacts/>
         </>
     );
 }

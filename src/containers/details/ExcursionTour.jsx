@@ -10,22 +10,22 @@ import warning from '../../static/images/warning.svg'
 
 function ExcursionDetail() {
   const { id } = useParams();
-  const [typeET] = useState(1);
-  const [costET] = useState(2);
-  const [adults] = useState(3);
+  const [typeET] = useState(id.split("_")[0]);
+  const [costET] = useState(id.split("_")[1]);
+  const [adults] = useState(id.split("_")[2]);
   const [contactName, setContactName] = useState("");
   const [contactPhone, setContactPhone] = useState("");
   const navigate = useNavigate();
   const [passagers, setPassagers] = useState(
-    new Array(+adults).fill({
-      first_name: "",
-      last_name: "",
-      from: "",
-      gender: "",
-      birthday: "",
-      sNum: "",
-      date3: "",
-    })
+      new Array(+adults).fill({
+        first_name: "",
+        last_name: "",
+        from: "",
+        gender: "",
+        birthday: "",
+        sNum: "",
+        date3: "",
+      })
   );
   const currentUser = useSelector((state) => state.user.currentUser);
 
@@ -78,7 +78,7 @@ function ExcursionDetail() {
         </div>
       </div>
       <div className={"py-3 text-center text-4xl text-black font-bold"}>
-        <p>Заказать экскурсионний тур <span className="text-red-600">(STANDART)</span> </p>
+        <h3>Заказать экскурсионний тур <span className="text-red-600">({typeET})</span></h3>
       </div>
       <div className={""}>
         <div className={"rounded-lg p-5"}>
@@ -115,6 +115,7 @@ function ExcursionDetail() {
         <div className={"mb-3 border-b-2 border-b-red-500"}>
           <div className={"rounded-lg p-5"}>
             {new Array(+adults).fill(null).map((a, index) => {
+              console.log("saassas")
               return (
                 <FormExample
                   type={"transfer"}
@@ -129,7 +130,7 @@ function ExcursionDetail() {
         </div>
         <div className={"flex w-full flex-col justify-start"}>
           <div className="flex gap-4 items-center mt-7 mb-10">
-            <p style={{ fontSize: "24px", fontWeight: "bold" }} classname={""}>Итого:</p>
+            <p style={{ fontSize: "24px", fontWeight: "bold" }} className={""}>Итого:</p>
             <p className={"text-4xl font-bold text-red-500 mb-1"}>{costET} $</p>
           </div>
           <button

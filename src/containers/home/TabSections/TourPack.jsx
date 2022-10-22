@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { RiSendPlane2Line } from "react-icons/ri";
-import { BsArrowRightShort } from "react-icons/bs";
 import { DatePicker } from "rsuite";
 import ReactSelect from "react-select";
 import regions from "../../../api/projectApi/regions";
@@ -22,6 +21,8 @@ import * as _ from "lodash";
 import { useSelector } from "react-redux";
 import Sort from "../../../components/Sort";
 import NavS from "../NavS";
+import Star from "../../../static/images/star.svg";
+import Tick from "../../../static/images/card_images/tick-circle.svg";
 
 const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates,priceChange=()=>({}) }) => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates,priceChange
   const hotelId = e?.inc;
   const currentUser = useSelector((state) => state.user.currentUser);
   const [isReturn, setIsReturn] = useState({ bool: true, arr: [] });
-  const [data, setData] = useState({
+  const [data] = useState({
     contactName: "",
     email: "",
     phone: "",
@@ -47,6 +48,8 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates,priceChange
     transferPrice: 100,
     flightId: e[0]?.id,
   });
+  const [pr, setPr] = useState(0);
+
   const [values, setValues] = useState({
     loading: false,
     data: [],
@@ -141,216 +144,362 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates,priceChange
   };
 
   return (
-    <div className={"bg-white p-2 gap-5 shadow border rounded-lg"}>
+    <div className={"bg-white gap-5 shadow border rounded-lg py-6"}>
       <div
-        onClick={handlePress}
-        className="cursor-pointer flex gap-6"
-        key={`${hotelId}`}
+          onClick={handlePress}
+          className="cursor-pointer flex gap-6"
+          key={`${hotelId}`}
       >
-        <img
-          className="rounded"
-          width="200"
-          style={{ maxHeight: "200px" }}
-          src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${hotelId}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}
-          alt=""
-        />
-        <div className={"flex flex-col justify-between"}>
-          <div>
-            <h1 className="text-2xl mb-3 font-bold block uppercase text-red-500">
-              турпакет
-            </h1>
-
-            <h2 className="text-lg font-bold block">{e.name}</h2>
-            <div className={"flex py-2"}>
-              {new Array(
-                isNaN(e.starCount?.slice(0, 1)) ? 1 : +e.starCount?.slice(0, 1)
-              )
-                .fill("a")
-                ?.map((a) => {
-                  return (
-                    <span className={"mx-1"}>
-                      <BiStar color={"red"} />
-                    </span>
-                  );
-                })}
+        <div className={"max-w-[450px] overflow-auto relative"}>
+          <div className={"flex min-w-[450px]"}>
+            <div className={"min-w-[450px] rounded-xl overflow-hidden"}>
+              <img src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`} className="min-w-[450px]" />
+            </div>
+            <div className={"min-w-[450px] rounded-xl overflow-hidden"}>
+              <img src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=1&equilateral=1&width=200&height=200&stamp=72BE0B64`} className="min-w-[450px]" />
+            </div>
+            <div className={"min-w-[450px] rounded-xl overflow-hidden"}>
+              <img src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=2&equilateral=1&width=200&height=200&stamp=72BE0B64`} className="min-w-[450px]" />
             </div>
           </div>
-          <div className={"flex gap-2 items-center justify-start"}>
-            <p className={"m-0 flex justify-center items-center gap-1"}>
-              <FaPlane />
+          <div className={"flex justify-center"}>
+            <div className={"flex gap-2 absolute bottom-3"}>
+              <div className={"w-4 h-4 bg-red-500 rounded-full"}></div>
+              <div className={"w-4 h-4 bg-gray-500 rounded-full"}></div>
+              <div className={"w-4 h-4 bg-gray-500 rounded-full"}></div>
+            </div>
+          </div>
+        </div>
+        <div className={"flex flex-col gap-5 justify-between"}>
+          <div>
+            <div className="my-3 font-bold block">
+              <span className={"bg-red-500 rounded uppercase text-white p-1"}>турпакет</span>
+            </div>
+            <h1 className="text-xl font-bold block">{e.name}</h1>
+            <div className={"flex py-2"}>
+              {new Array(
+                  isNaN(e.starCount?.slice(0, 1)) ? 1 : +e.starCount?.slice(0, 1)
+              )
+                  .fill("a")
+                  ?.map((a) => {
+                    return (
+                        <span className={"mx-1"}>
+                      <img src={Star} alt="star"/>
+                    </span>
+                    );
+                  })}
+            </div>
+          </div>
+          <div className={"flex flex-col gap-1"}>
+            <p className={"m-0 flex justify-start items-center gap-1"}>
+              <img src={Tick} alt=""/>
               Авиаперелёт
             </p>
-            <p className={"m-0 flex justify-center items-center gap-1"}>
-              <SiVisa />
+            <p className={"m-0 flex justify-start items-center gap-1"}>
+              <img src={Tick} alt=""/>
               Виза
             </p>
-            <p className={"m-0 flex justify-center items-center gap-1"}>
-              <BiTransfer />
+            <p className={"m-0 flex justify-start items-center gap-1"}>
+              <img src={Tick} alt=""/>
               Трансфер
             </p>
-            <p className={"m-0 flex justify-center items-center gap-1"}>
-              <FcDocument />
+            <p className={"m-0 flex justify-start items-center gap-1"}>
+              <img src={Tick} alt=""/>
               Страховка
             </p>
           </div>
-          <p className={"mt-auto text-2xl"}>
-            Цена: $
-            {Array.isArray(isReturn.arr) &&
-              isReturn.arr.length > 0 &&
-              Math.floor(getPrice() + 100)}
-          </p>
-        </div>
-        {hotelsTownLists?.map((a) => {
-          return (
-            a.id === e.town && (
-              <p className="text-sm block bg-red-500">{a.title}</p>
-            )
-          );
-        })}
-      </div>
-
-      {values.open ? (
-        <>
-          <div className={"flex justify-between py-4"}>
-            <div
-              onClick={() => setValues({ ...values, tabIndex: 1 })}
-              className={
-                values.tabIndex === 1
-                  ? "active:opacity-80 cursor-pointer flex justify-center bg-red-500 w-full text-center rounded-lg p-2 text-white capitalize text-lg font-bold"
-                  : "flex cursor-pointer justify-center bg-gray-200 w-full text-center rounded-lg p-2 capitalize text-lg font-bold"
-              }
-            >
-              Фото
-            </div>
-            <div
-              onClick={() => setValues({ ...values, tabIndex: 0 })}
-              className={
-                values.tabIndex === 0
-                  ? "active:opacity-80 cursor-pointer flex justify-center bg-red-500 w-full text-center rounded-lg p-2 text-white capitalize text-lg font-bold"
-                  : "flex cursor-pointer justify-center bg-gray-200 w-full text-center rounded-lg p-2 capitalize text-lg font-bold"
-              }
-            >
-              Комната
-            </div>
-          </div>
-          <div className={"bg-gray-200 rounded p-5"}>
-            {values.tabIndex === 0 ? (
-              <div className={"mt-16"}>
-                <form action="">
+          <>
+            <div className={"rounded"}>
+              <div>
+                <form>
                   <div>
                     {values.loading ? (
-                      <div className={"flex justify-center"}>
-                        <div className="lds-dual-ring"></div>
-                      </div>
+                        <div className={"flex justify-center"}>
+                          <div className="lds-dual-ring"></div>
+                        </div>
                     ) : (
-                      <div className={"grid lg:grid-cols-2 grid-cols-1 gap-5"}>
-                        {Array.isArray(e.price) &&
-                          e.price.length > 0 &&
-                          _.orderBy(e.price, [(e) => +e.price], ["asc"])?.map(
-                            (e) => {
-                              let bool = false;
-                              try {
-                                Array.isArray(isReturn.arr) &&
-                                  isReturn.arr?.map((r) => {
-                                    if (r.in === e.htplace) {
-                                      bool = true;
-                                    }
-                                  });
-                              } catch (e) {}
-                              if (!bool) return null;
-                              return (
-                                e.status !== "D" && (
-                                  <div
-                                    style={{ width: "100%", minHeight: 200 }}
-                                    className={
-                                      "bg-red-400 text-white relative p-3 rounded-lg shadow"
-                                    }
-                                  >
-                                    <input
-                                      name={"asd"}
-                                      className={
-                                        "absolute hidden h-full w-full top-0 left-0"
-                                      }
-                                      type="radio"
-                                    />
-                                    <div
-                                      className={
-                                        "flex flex-col justify-between h-full"
-                                      }
-                                    >
-                                      <div>
-                                        <h3>{e.name ? e.name : "Standart"}</h3>
-                                        <p className={"text-xl"}>
-                                          Цена: $
-                                          {Math.floor(
-                                            getPriceHotel(e.price) + 100
-                                          )}
-                                        </p>
-                                        <p>{e.dataa.name}</p>
-                                      </div>
-                                      <div className={"text-right"}>
-                                        <button
-                                          className={
-                                            "px-4 py-2 bg-white text-zinc-900 font-bold capitalize rounded"
-                                          }
-                                          onClick={() => {
-                                            localStorage.setItem(
-                                              "tourPrice",
-                                              JSON.stringify({
-                                                ...data,
-                                                price: Math.floor(
-                                                  getPriceHotel(e.price) + 100
-                                                ),
-                                                roomId: e.inc,
-                                              })
-                                            );
-                                            navigate(
-                                              `/tourPack/order/${hotelId}/${e.inc}?name=${e.name}&adult=${adults}&c=${children}&d=${infant}`
-                                            );
-                                          }}
-                                        >
-                                          {t("order")}
-                                        </button>
-                                      </div>
-                                    </div>
-                                  </div>
-                                )
-                              );
-                            }
-                          )}
-                      </div>
+                        <div className={"flex flex-col gap-3"}>
+                          {Array.isArray(e.price) &&
+                              e.price.length > 0 &&
+                              _.orderBy(e.price, [(e) => +e.price], ["asc"])?.map(
+                                  (e) => {
+                                    let bool = false;
+                                    try {
+                                      Array.isArray(isReturn.arr) &&
+                                      isReturn.arr?.map((r) => {
+                                        if (r.in === e.htplace) {
+                                          bool = true;
+                                        }
+                                      });
+                                    } catch (e) {}
+                                    if (!bool) return null;
+                                    return (
+                                        e.status !== "D" && (
+                                            <div
+                                                style={{ width: "100%" }}
+                                                className={
+                                                  "relative flex gap-2 items-center"
+                                                }
+                                            >
+                                              <input
+                                                  name={"asd"}
+                                                  type="radio"
+                                                  onChange={() => setPr(e.price)}
+                                                  id={`${JSON.stringify(e)}`}
+                                              />
+                                              <label htmlFor={`${JSON.stringify(e)}`}>
+                                                <div className={"flex flex-col justify-between h-full"}>
+                                                  <div>
+                                                    <p className={"text-md p-0 m-0"}>{e.name ? e.name : "Standart"}</p>
+                                                    <p className={"m-0"}>{e.dataa.name}</p>
+                                                  </div>
+                                                  {/*<div className={"text-right"}>*/}
+                                                  {/*  <button*/}
+                                                  {/*      className={*/}
+                                                  {/*        "px-4 py-2 bg-white text-zinc-900 font-bold capitalize rounded"*/}
+                                                  {/*      }*/}
+                                                  {/*      onClick={() =>*/}
+                                                  {/*          navigate(*/}
+                                                  {/*              `/hotel/order/${hotelId}/${e.inc}?name=${e.name}&adult=${adults}&c=${children}&d=${infant}`*/}
+                                                  {/*          )*/}
+                                                  {/*      }*/}
+                                                  {/*  >*/}
+                                                  {/*    {t("order")}*/}
+                                                  {/*  </button>*/}
+                                                  {/*</div>*/}
+                                                </div>
+                                              </label>
+                                            </div>
+                                        )
+                                    );
+                                  }
+                              )}
+                        </div>
                     )}
                   </div>
                 </form>
               </div>
-            ) : (
-              <div className={"flex gap-4"}>
-                <img
-                  className="rounded hover:shadow-md transition hover:shadow-red-300"
-                  width="150px"
-                  style={{ maxHeight: "150px", objectFit: "cover" }}
-                  src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}
-                  alt=""
-                />
-                <img
-                  className="rounded hover:shadow-md transition hover:shadow-red-300"
-                  width="150px"
-                  style={{ maxHeight: "150px", objectFit: "cover" }}
-                  src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=1&equilateral=1&width=200&height=200&stamp=72BE0B64`}
-                  alt=""
-                />
-                <img
-                  className="rounded hover:shadow-md transition hover:shadow-red-300"
-                  width="150px"
-                  style={{ maxHeight: "150px", objectFit: "cover" }}
-                  src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=2&equilateral=1&width=200&height=200&stamp=72BE0B64`}
-                  alt=""
-                />
-              </div>
-            )}
-          </div>
-        </>
-      ) : null}
+            </div>
+          </>
+          <p className={"mt-auto text-2xl text-red-600 font-bold"}>
+            <span className={"text-xl text-black font-normal"}>Цена:</span> $
+            {pr === 0 ? Array.isArray(isReturn.arr) &&
+                isReturn.arr.length > 0 &&
+                Math.floor(getPrice()) + 180  : Math.floor(pr) * Math.ceil(days) + 180}<br/>
+
+          </p>
+        <button onClick={() => {
+          localStorage.setItem(
+              "tourPrice",
+              JSON.stringify({
+                ...data,
+                price: Math.floor(
+                    getPriceHotel(e.price) + 100
+                ),
+                roomId: e.inc,
+              })
+          );
+          navigate(
+              `/tourPack/order/${hotelId}/${e.inc}?name=${e.name}&adult=${adults}&c=${children}&d=${infant}`
+          );
+        }} className={"bg-red-500 text-white w-40 py-2 font-bold"}>Бронировать</button>
+        </div>
+        {hotelsTownLists?.map((a) => {
+          return (
+              a.id === e.town && (
+                  <p className="text-sm block bg-red-500">{a.title}</p>
+              )
+          );
+        })}
+      </div>
+      {/*<div*/}
+      {/*  onClick={handlePress}*/}
+      {/*  className="cursor-pointer flex gap-6"*/}
+      {/*  key={`${hotelId}`}*/}
+      {/*>*/}
+      {/*  <img*/}
+      {/*    className="rounded"*/}
+      {/*    width="200"*/}
+      {/*    style={{ maxHeight: "200px" }}*/}
+      {/*    src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${hotelId}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}*/}
+      {/*    alt=""*/}
+      {/*  />*/}
+      {/*  <div className={"flex flex-col justify-between"}>*/}
+      {/*    <div>*/}
+
+      {/*      <h2 className="text-lg font-bold block">{e.name}</h2>*/}
+      {/*      <div className={"flex py-2"}>*/}
+      {/*        {new Array(*/}
+      {/*          isNaN(e.starCount?.slice(0, 1)) ? 1 : +e.starCount?.slice(0, 1)*/}
+      {/*        )*/}
+      {/*          .fill("a")*/}
+      {/*          ?.map((a) => {*/}
+      {/*            return (*/}
+      {/*              <span className={"mx-1"}>*/}
+      {/*                <BiStar color={"red"} />*/}
+      {/*              </span>*/}
+      {/*            );*/}
+      {/*          })}*/}
+      {/*      </div>*/}
+      {/*    </div>*/}
+      {/*    <p className={"mt-auto text-2xl"}>*/}
+      {/*      Цена: $*/}
+      {/*      {Array.isArray(isReturn.arr) &&*/}
+      {/*        isReturn.arr.length > 0 &&*/}
+      {/*        Math.floor(getPrice() + 100)}*/}
+      {/*    </p>*/}
+      {/*  </div>*/}
+      {/*  {hotelsTownLists?.map((a) => {*/}
+      {/*    return (*/}
+      {/*      a.id === e.town && (*/}
+      {/*        <p className="text-sm block bg-red-500">{a.title}</p>*/}
+      {/*      )*/}
+      {/*    );*/}
+      {/*  })}*/}
+      {/*</div>*/}
+
+      {/*{values.open ? (*/}
+      {/*  <>*/}
+      {/*    <div className={"flex justify-between py-4"}>*/}
+      {/*      <div*/}
+      {/*        onClick={() => setValues({ ...values, tabIndex: 1 })}*/}
+      {/*        className={*/}
+      {/*          values.tabIndex === 1*/}
+      {/*            ? "active:opacity-80 cursor-pointer flex justify-center bg-red-500 w-full text-center rounded-lg p-2 text-white capitalize text-lg font-bold"*/}
+      {/*            : "flex cursor-pointer justify-center bg-gray-200 w-full text-center rounded-lg p-2 capitalize text-lg font-bold"*/}
+      {/*        }*/}
+      {/*      >*/}
+      {/*        Фото*/}
+      {/*      </div>*/}
+      {/*      <div*/}
+      {/*        onClick={() => setValues({ ...values, tabIndex: 0 })}*/}
+      {/*        className={*/}
+      {/*          values.tabIndex === 0*/}
+      {/*            ? "active:opacity-80 cursor-pointer flex justify-center bg-red-500 w-full text-center rounded-lg p-2 text-white capitalize text-lg font-bold"*/}
+      {/*            : "flex cursor-pointer justify-center bg-gray-200 w-full text-center rounded-lg p-2 capitalize text-lg font-bold"*/}
+      {/*        }*/}
+      {/*      >*/}
+      {/*        Комната*/}
+      {/*      </div>*/}
+      {/*    </div>*/}
+      {/*    <div className={"bg-gray-200 rounded p-5"}>*/}
+      {/*      {values.tabIndex === 0 ? (*/}
+      {/*        <div className={"mt-16"}>*/}
+      {/*          <form action="">*/}
+      {/*            <div>*/}
+      {/*              {values.loading ? (*/}
+      {/*                <div className={"flex justify-center"}>*/}
+      {/*                  <div className="lds-dual-ring"></div>*/}
+      {/*                </div>*/}
+      {/*              ) : (*/}
+      {/*                <div className={"grid lg:grid-cols-2 grid-cols-1 gap-5"}>*/}
+      {/*                  {Array.isArray(e.price) &&*/}
+      {/*                    e.price.length > 0 &&*/}
+      {/*                    _.orderBy(e.price, [(e) => +e.price], ["asc"])?.map(*/}
+      {/*                      (e) => {*/}
+      {/*                        let bool = false;*/}
+      {/*                        try {*/}
+      {/*                          Array.isArray(isReturn.arr) &&*/}
+      {/*                            isReturn.arr?.map((r) => {*/}
+      {/*                              if (r.in === e.htplace) {*/}
+      {/*                                bool = true;*/}
+      {/*                              }*/}
+      {/*                            });*/}
+      {/*                        } catch (e) {}*/}
+      {/*                        if (!bool) return null;*/}
+      {/*                        return (*/}
+      {/*                          e.status !== "D" && (*/}
+      {/*                            <div*/}
+      {/*                              style={{ width: "100%", minHeight: 200 }}*/}
+      {/*                              className={*/}
+      {/*                                "bg-red-400 text-white relative p-3 rounded-lg shadow"*/}
+      {/*                              }*/}
+      {/*                            >*/}
+      {/*                              <input*/}
+      {/*                                name={"asd"}*/}
+      {/*                                className={*/}
+      {/*                                  "absolute hidden h-full w-full top-0 left-0"*/}
+      {/*                                }*/}
+      {/*                                type="radio"*/}
+      {/*                              />*/}
+      {/*                              <div*/}
+      {/*                                className={*/}
+      {/*                                  "flex flex-col justify-between h-full"*/}
+      {/*                                }*/}
+      {/*                              >*/}
+      {/*                                <div>*/}
+      {/*                                  <h3>{e.name ? e.name : "Standart"}</h3>*/}
+      {/*                                  <p className={"text-xl"}>*/}
+      {/*                                    Цена: $*/}
+      {/*                                    {Math.floor(*/}
+      {/*                                      getPriceHotel(e.price) + 100*/}
+      {/*                                    )}*/}
+      {/*                                  </p>*/}
+      {/*                                  <p>{e.dataa.name}</p>*/}
+      {/*                                </div>*/}
+      {/*                                <div className={"text-right"}>*/}
+      {/*                                  <button*/}
+      {/*                                    className={*/}
+      {/*                                      "px-4 py-2 bg-white text-zinc-900 font-bold capitalize rounded"*/}
+      {/*                                    }*/}
+      {/*                                    onClick={() => {*/}
+      {/*                                      localStorage.setItem(*/}
+      {/*                                        "tourPrice",*/}
+      {/*                                        JSON.stringify({*/}
+      {/*                                          ...data,*/}
+      {/*                                          price: Math.floor(*/}
+      {/*                                            getPriceHotel(e.price) + 100*/}
+      {/*                                          ),*/}
+      {/*                                          roomId: e.inc,*/}
+      {/*                                        })*/}
+      {/*                                      );*/}
+      {/*                                      navigate(*/}
+      {/*                                        `/tourPack/order/${hotelId}/${e.inc}?name=${e.name}&adult=${adults}&c=${children}&d=${infant}`*/}
+      {/*                                      );*/}
+      {/*                                    }}*/}
+      {/*                                  >*/}
+      {/*                                    {t("order")}*/}
+      {/*                                  </button>*/}
+      {/*                                </div>*/}
+      {/*                              </div>*/}
+      {/*                            </div>*/}
+      {/*                          )*/}
+      {/*                        );*/}
+      {/*                      }*/}
+      {/*                    )}*/}
+      {/*                </div>*/}
+      {/*              )}*/}
+      {/*            </div>*/}
+      {/*          </form>*/}
+      {/*        </div>*/}
+      {/*      ) : (*/}
+      {/*        <div className={"flex gap-4"}>*/}
+      {/*          <img*/}
+      {/*            className="rounded hover:shadow-md transition hover:shadow-red-300"*/}
+      {/*            width="150px"*/}
+      {/*            style={{ maxHeight: "150px", objectFit: "cover" }}*/}
+      {/*            src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}*/}
+      {/*            alt=""*/}
+      {/*          />*/}
+      {/*          <img*/}
+      {/*            className="rounded hover:shadow-md transition hover:shadow-red-300"*/}
+      {/*            width="150px"*/}
+      {/*            style={{ maxHeight: "150px", objectFit: "cover" }}*/}
+      {/*            src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=1&equilateral=1&width=200&height=200&stamp=72BE0B64`}*/}
+      {/*            alt=""*/}
+      {/*          />*/}
+      {/*          <img*/}
+      {/*            className="rounded hover:shadow-md transition hover:shadow-red-300"*/}
+      {/*            width="150px"*/}
+      {/*            style={{ maxHeight: "150px", objectFit: "cover" }}*/}
+      {/*            src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=2&equilateral=1&width=200&height=200&stamp=72BE0B64`}*/}
+      {/*            alt=""*/}
+      {/*          />*/}
+      {/*        </div>*/}
+      {/*      )}*/}
+      {/*    </div>*/}
+      {/*  </>*/}
+      {/*) : null}*/}
     </div>
   );
 };
@@ -460,9 +609,6 @@ function TourPack() {
         <div className="max-w-5xl pb-5 mx-auto">
           <div className={"text-center mb-10 mt-36 text-white"}>
             <h1 className={"text-5xl mb-4 font-bold"}>Куда бы вам хотелось отправиться?</h1>
-            <p className={"px-10"}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat auctor nulla ut magna penatibus. Urna nunc et purus praesent.
-            </p>
           </div>
           <div className="bg-exam relative rounded-lg shadow-xl mb-36 text-white font-medium p-5">
             <div className="flex items-center gap-3">
