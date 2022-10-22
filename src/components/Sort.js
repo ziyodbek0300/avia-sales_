@@ -1,5 +1,7 @@
-import React, { useEffect,useState } from "react";
+import React, {useEffect, useLayoutEffect, useState} from "react";
 import _ from "lodash";
+import moment from "moment";
+import {getHtplace} from "../constants/htplace";
 // import { useEffect,useState } from "react";
 
 // export const compare = (a, b) => {
@@ -23,7 +25,7 @@ const Sort = ({ children,hotels,setSearch }) => {
   // console.log(children);
   return _.orderBy(
     React.Children.toArray(children),
-    [(e) => e?.props?.e?.sortField],
+    [(e) => e?.props?.price],
     ["asc"]
   );
 };

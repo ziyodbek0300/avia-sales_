@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 import AllStates from "../AllStates";
 import BestStates from "../BestStates";
 import LastSection from "../LastSection";
-import { getHtplace } from "../../../constants/htplace";
+import htplace, { getHtplace } from "../../../constants/htplace";
 import { BiStar, BiTransfer } from "react-icons/bi";
 import moment from "moment";
 import { FaPlane } from "react-icons/fa";
@@ -452,9 +452,6 @@ function TourPack() {
       }
     }
   };
-  
-  const [, updateState] = React.useState();
-  const forceUpdate = React.useCallback(() => updateState({}), []);
 
   return (
     <>
@@ -737,10 +734,51 @@ function TourPack() {
           ) {
             return null;
           }
-          const priceChange = (price)=>{
-            // forceUpdate()
-            e.sortField = price
+
+          let isReturn = {bool: true, arr: []}
+          const setIsReturn = (e) => isReturn = e
+          let now = moment(values?.date2); //todays date
+          let end = moment(values?.date1); // another date
+          let duration = moment.duration(now.diff(end));
+          let days = duration.asDays();
+          let arr = [];
+          Array.isArray(htplace) &&
+          htplace?.map((r) => {
+            try {
+              if (+r?.pcount >= adults + children + infant) {
+                if (
+                    +r?.adult >= adults &&
+                    +r?.child >= children &&
+                    +r?.infant >= infant
+                ) {
+                  arr.push(r);
+                }
+              }
+            } catch (e) {
+            }
+          });
+          if (arr.length > 0) {
+            setIsReturn({bool: true, arr});
+          } else {
+            setIsReturn({bool: false, arr: []});
           }
+          const price =_.orderBy(e.price, [(e) => +e.price], ["asc"])
+                  ?.map((e) => {
+                    let bool = false;
+                    try {
+                      Array.isArray(isReturn.arr) &&
+                      isReturn.arr?.map((r) => {
+                        if (r.in === e.htplace) {
+                          bool = true;
+                        }
+                      });
+                    } catch (e) {}
+                    if (bool) return e;
+                  })
+                  .filter((e) => !!e)[0]?.price *
+              Math.ceil(days) +
+              (+adults + +children + +infant) * e.flights[0].price
+
           return (
             <RenderItem
               e={e}
@@ -749,7 +787,7 @@ function TourPack() {
               adults={adults}
               isGroup={isGroup === 1}
               dates={values}
-              priceChange={priceChange}
+              price={price}
             />
           );
         })}
