@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.a6c241c3.css",
-    "main.js": "/static/js/main.36663b35.js",
+    "main.css": "/static/css/main.d2b5f6d2.css",
+    "main.js": "/static/js/main.e1d3eecd.js",
     "static/media/contract.pdf": "/static/media/contract.162627cdc9e6b36865b4.pdf",
     "static/media/4.png": "/static/media/4.d01d42685c9686c27a66.png",
     "static/media/3.png": "/static/media/3.75d6ef467469b93f3b09.png",
@@ -38,14 +38,15 @@
     "static/media/warning.svg": "/static/media/warning.06e45290c136a7b58c645a55bcf93653.svg",
     "static/media/locationRed.svg": "/static/media/locationRed.42057d5b71fa190e1455a4397108b1e1.svg",
     "static/media/location.svg": "/static/media/location.b8f0f0e878f5a8e202e2e3c2fe46df80.svg",
+    "static/media/user.svg": "/static/media/user.b1b59f556214e1211123fb63200b8a0f.svg",
     "static/media/tick-circle.svg": "/static/media/tick-circle.daa4bd04f8ffe56c18f4c915b1adc858.svg",
     "index.html": "/index.html",
     "static/media/email.svg": "/static/media/email.ed3f07654caa4f9e42f01e51107f7d24.svg",
-    "main.a6c241c3.css.map": "/static/css/main.a6c241c3.css.map",
-    "main.36663b35.js.map": "/static/js/main.36663b35.js.map"
+    "main.d2b5f6d2.css.map": "/static/css/main.d2b5f6d2.css.map",
+    "main.e1d3eecd.js.map": "/static/js/main.e1d3eecd.js.map"
   },
   "entrypoints": [
-    "static/css/main.a6c241c3.css",
-    "static/js/main.36663b35.js"
+    "static/css/main.d2b5f6d2.css",
+    "static/js/main.e1d3eecd.js"
   ]
 }
