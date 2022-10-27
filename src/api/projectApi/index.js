@@ -13,7 +13,8 @@ instance.interceptors.request.use(
         config.meta.requestStartedAt = new Date().getTime();
         config.headers = {
             ...config.headers,
-            "Authorization": `Bearer ${Cookies.get("token")}`
+            "Authorization": `Bearer ${Cookies.get("token")}`,
+            "Content-Security-Policy": "upgrade-insecure-requests"
         };
         return config;
     },
