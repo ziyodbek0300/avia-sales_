@@ -1,12 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
-import { RiSendPlane2Line } from "react-icons/ri";
+import React, {useEffect, useRef, useState} from "react";
+import {RiSendPlane2Line} from "react-icons/ri";
 import hotel from "../../../api/projectApi/hotel";
 import hotelsTownLists from "../../../constants/hotelsTownLists";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import htplace, { getHtplace } from "../../../constants/htplace";
+// import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
+import htplace, {getHtplace} from "../../../constants/htplace";
 import moment from "moment";
-import { BiStar } from "react-icons/bi";
 import * as _ from "lodash";
 import Sort from "../../../components/Sort";
 import NavS from "../NavS";
@@ -21,12 +20,12 @@ const RenderItem = ({
                         dates,
                         priceChange = () => ({}),
                     }) => {
-    const navigate = useNavigate();
-    const { t } = useTranslation();
+    // const navigate = useNavigate();
+    // const {t} = useTranslation();
 
 
     const hotelId = e?.inc;
-    const [isReturn, setIsReturn] = useState({ bool: true, arr: [] });
+    const [isReturn, setIsReturn] = useState({bool: true, arr: []});
     const [values, setValues] = useState({
         loading: false,
         data: [],
@@ -55,27 +54,28 @@ const RenderItem = ({
                         arr.push(r);
                     }
                 }
-            } catch (e) {}
+            } catch (e) {
+            }
         });
         if (arr.length > 0) {
-            setIsReturn({ bool: true, arr });
+            setIsReturn({bool: true, arr});
         } else {
-            setIsReturn({ bool: false, arr: [] });
+            setIsReturn({bool: false, arr: []});
         }
     }, [adults, children, infant]);
 
-    var now = moment(dates?.date2); //todays date
-    var end = moment(dates?.date1); // another date
-    var duration = moment.duration(now.diff(end));
-    var days = duration.asDays();
+    let now = moment(dates?.date2); //today's date
+    let end = moment(dates?.date1); // another date
+    let duration = moment.duration(now.diff(end));
+    let days = duration.asDays();
 
-    const getPriceHotel = (hotelPrice) => {
-        try {
-            return hotelPrice * Math.ceil(days);
-        } catch (e) {
-            return 0;
-        }
-    };
+    // const getPriceHotel = (hotelPrice) => {
+    //     try {
+    //         return hotelPrice * Math.ceil(days);
+    //     } catch (e) {
+    //         return 0;
+    //     }
+    // };
 
     const handlePress = async () => {
         setValues({
@@ -107,7 +107,8 @@ const RenderItem = ({
                                     bool = true;
                                 }
                             });
-                        } catch (e) {}
+                        } catch (e) {
+                        }
                         if (bool) return e;
                     })
                     .filter((e) => !!e)[0].price * Math.ceil(days);
@@ -128,14 +129,20 @@ const RenderItem = ({
             >
                 <div className={"max-w-[300px] overflow-auto relative"}>
                     <div className={"flex min-w-[300px]"}>
-                        <div className={"min-w-[300px] rounded-xl overflow-hidden"}>
-                            <img src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`} className="min-w-[300px]" />
+                        <div className={"min-w-[300px] min-h-[300px] flex justify-center items-center rounded-xl overflow-hidden"}>
+                            <img
+                                src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}
+                                className="w-[250px] h-[250px] rounded-xl" alt={"example 2"}/>
                         </div>
-                        <div className={"min-w-[300px] rounded-xl overflow-hidden"}>
-                            <img src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=1&equilateral=1&width=200&height=200&stamp=72BE0B64`} className="min-w-[300px]" />
+                        <div className={"min-w-[300px] min-h-[300px] flex justify-center items-center rounded-xl overflow-hidden"}>
+                            <img
+                                src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=1&equilateral=1&width=200&height=200&stamp=72BE0B64`}
+                                className="w-[250px] h-[250px] rounded-xl" alt={"example 2"}/>
                         </div>
-                        <div className={"min-w-[300px] rounded-xl overflow-hidden"}>
-                            <img src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=2&equilateral=1&width=200&height=200&stamp=72BE0B64`} className="min-w-[300px]" />
+                        <div className={"min-w-[300px] min-h-[300px] flex justify-center items-center rounded-xl overflow-hidden"}>
+                            <img
+                                src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=2&equilateral=1&width=200&height=200&stamp=72BE0B64`}
+                                className="w-[250px] h-[250px] rounded-xl" alt={"example 2"}/>
                         </div>
                     </div>
                     <div className={"flex justify-center"}>
@@ -154,7 +161,7 @@ const RenderItem = ({
                                 isNaN(e.starCount?.slice(0, 1)) ? 1 : +e.starCount?.slice(0, 1)
                             )
                                 .fill("a")
-                                ?.map((a) => {
+                                ?.map(() => {
                                     return (
                                         <span className={"mx-1"}>
                       <img src={Star} alt="star"/>
@@ -186,12 +193,13 @@ const RenderItem = ({
                                                                         bool = true;
                                                                     }
                                                                 });
-                                                            } catch (e) {}
+                                                            } catch (e) {
+                                                            }
                                                             if (!bool) return null;
                                                             return (
                                                                 e.status !== "D" && (
                                                                     <div
-                                                                        style={{ width: "100%" }}
+                                                                        style={{width: "100%"}}
                                                                         className={
                                                                             "relative flex gap-2 items-center"
                                                                         }
@@ -203,7 +211,8 @@ const RenderItem = ({
                                                                             id={`${JSON.stringify(e)}`}
                                                                         />
                                                                         <label htmlFor={`${JSON.stringify(e)}`}>
-                                                                            <div className={"flex flex-col justify-between h-full"}>
+                                                                            <div
+                                                                                className={"flex flex-col justify-between h-full"}>
                                                                                 <div>
                                                                                     <p className={"text-md p-0 m-0"}>{e.name ? e.name : "Standart"}</p>
                                                                                     <p className={"m-0"}>{e.dataa.name}</p>
@@ -243,6 +252,7 @@ const RenderItem = ({
                             Math.floor(getPrice()) : Math.floor(pr) * Math.ceil(days)}<br/>
 
                     </p>
+                    <button className={"bg-red-500 hover:opacity-90 active:opacity-80 transition-all w-40 py-2 text-white rounded"}>Бронироват</button>
                 </div>
                 {hotelsTownLists?.map((a) => {
                     return (
@@ -257,7 +267,7 @@ const RenderItem = ({
 };
 
 function Hotels() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [hotels, setHotels] = useState([]);
     const [values, setValues] = useState({
         town: hotelsTownLists[0].id,
@@ -275,10 +285,10 @@ function Hotels() {
         hotel
             .getHotels(values.town)
             .then((r) => {
-                console.log("response",r);
+                console.log("response", r);
                 setHotels(Array.isArray(r.data) ? r.data : []);
             })
-            .catch((e) => {
+            .catch(() => {
                 // setHotels([])
             });
     };
@@ -317,7 +327,7 @@ function Hotels() {
                                     placeholder="- выбрать -"
                                     id="from"
                                     onChange={(e) => {
-                                        setValues({ ...values, town: e.target.value });
+                                        setValues({...values, town: e.target.value});
                                     }}
                                 >
                                     <option value="">- выбрать -</option>
@@ -330,7 +340,7 @@ function Hotels() {
                                     })}
                                 </select>
                             </div>
-                            <RiSendPlane2Line className="text-white w-10" />
+                            <RiSendPlane2Line className="text-white w-10"/>
                             <div className="w-full">
                                 <label htmlFor="date" className="block text-white text-sm">
                                     {t("departure")}
@@ -394,17 +404,18 @@ function Hotels() {
                                         ref={popupRef}
                                         className="absolute qw1 top-full -left-20"
                                     >
-                                        <div className="bg-white qw1 rounded-lg p-1 tooltip-in relative mt-5 w-80 shadow">
+                                        <div
+                                            className="bg-white qw1 rounded-lg p-1 tooltip-in relative mt-5 w-80 shadow">
                                             <div className="flex qw1 p-3">
                                                 <div className="qw1 w-full">
                                                     <p className={"qw1"}>
-                                                        Взрослые <br />
+                                                        Взрослые <br/>
                                                         Старше 12 лет
                                                     </p>
                                                 </div>
                                                 <div className="qw1 flex qw1 w-full">
                                                     <button
-                                                        onClick={() => setAdults((prev) => (prev -= 1))}
+                                                        onClick={() => setAdults((prev) => (prev - 1))}
                                                         className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
                                                     >
                                                         -
@@ -416,7 +427,7 @@ function Hotels() {
                                                         className="qw1 border-0 text-center p-2 w-1/2 outline-none bg-transparent"
                                                     />
                                                     <button
-                                                        onClick={() => setAdults((prev) => (prev += 1))}
+                                                        onClick={() => setAdults((prev) => (prev + 1))}
                                                         className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
                                                     >
                                                         +
@@ -426,13 +437,13 @@ function Hotels() {
                                             <div className="qw1 flex p-3">
                                                 <div className="qw1 w-full">
                                                     <p className={"qw1"}>
-                                                        Дети <br />
+                                                        Дети <br/>
                                                         От 2 до 12 лет
                                                     </p>
                                                 </div>
                                                 <div className="qw1 flex w-full">
                                                     <button
-                                                        onClick={() => setChildren((prev) => (prev -= 1))}
+                                                        onClick={() => setChildren((prev) => (prev - 1))}
                                                         className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
                                                     >
                                                         -
@@ -441,12 +452,12 @@ function Hotels() {
                                                         type="number"
                                                         value={children}
                                                         onInput={(e) =>
-                                                            setChildren((prev) => +e.target.value)
+                                                            setChildren(() => +e.target.value)
                                                         }
                                                         className="qw1 text-center border-0 p-2 w-1/2 outline-none bg-transparent"
                                                     />
                                                     <button
-                                                        onClick={() => setChildren((prev) => (prev += 1))}
+                                                        onClick={() => setChildren((prev) => (prev + 1))}
                                                         className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
                                                     >
                                                         +
@@ -456,13 +467,13 @@ function Hotels() {
                                             <div className="qw1 flex p-3">
                                                 <div className="qw1 w-full">
                                                     <p className={"qw1"}>
-                                                        Младенцы <br />
+                                                        Младенцы <br/>
                                                         До 2 лет{" "}
                                                     </p>
                                                 </div>
                                                 <div className="qw1 flex w-full">
                                                     <button
-                                                        onClick={() => setInfant((prev) => (prev -= 1))}
+                                                        onClick={() => setInfant((prev) => (prev - 1))}
                                                         className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
                                                     >
                                                         -
@@ -471,12 +482,12 @@ function Hotels() {
                                                         type="number"
                                                         value={infant}
                                                         onInput={(e) =>
-                                                            setInfant((prev) => +e.target.value)
+                                                            setInfant(() => +e.target.value)
                                                         }
                                                         className="qw1 text-center border-0 p-2 w-1/2 outline-none bg-transparent"
                                                     />
                                                     <button
-                                                        onClick={() => setInfant((prev) => (prev += 1))}
+                                                        onClick={() => setInfant((prev) => (prev + 1))}
                                                         className="qw1 w-1/2 border-2 border-red-500 active:bg-red-500 active:text-white text-xl transition-all px-2 rounded-xl"
                                                     >
                                                         +
@@ -524,13 +535,16 @@ function Hotels() {
             </div>
             <div className="max-w-5xl mx-auto flex flex-col gap-3">
                 {hotels?.length !== 0 ? (
-                    <div className={"flex justify-end"}>
-                        <input
-                            placeholder={"Search"}
-                            className={"border border-red-500 p-2 rounded"}
-                            type={"search"}
-                            onInput={(e) => setSearch(e.target.value)}
-                        />
+                    <div className={"flex justify-start bg-white shadow-md mt-5 border p-4 rounded"}>
+                        <div>
+                            <h2 className={"text-2xl mb-3"}>Доступные отели</h2>
+                            <input
+                                placeholder={"Search"}
+                                className={"border outline-red-500 p-2 w-64 rounded"}
+                                type={"search"}
+                                onInput={(e) => setSearch(e.target.value)}
+                            />
+                        </div>
                     </div>
                 ) : (
                     ""
@@ -550,7 +564,7 @@ function Hotels() {
                             ) {
                                 return null;
                             }
-                            let now = moment(dates?.date2); //todays date
+                            let now = moment(dates?.date2); //today's date
                             let end = moment(dates?.date1); // another date
                             let duration = moment.duration(now.diff(end));
                             let days = duration.asDays();
@@ -602,7 +616,8 @@ function Hotels() {
                                         price={price}
                                     />
                                 );
-                            } catch (e) {}
+                            } catch (e) {
+                            }
                         })}
                     </Sort>
                 )}

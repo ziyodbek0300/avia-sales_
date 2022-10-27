@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from 'js-cookie';
 
-export const MainApi = process.env.NODE_ENV === "production" ? "http://travelcontinent.uz/api" : "http://localhost:5001";
+export const MainApi = process.env.NODE_ENV === "production" ? "https://travelcontinent.uz/api" : "http://localhost:5001";
 
 const instance = axios.create({
     baseURL: `${MainApi}/`,
@@ -13,7 +13,8 @@ instance.interceptors.request.use(
         config.meta.requestStartedAt = new Date().getTime();
         config.headers = {
             ...config.headers,
-            "Authorization": `Bearer ${Cookies.get("token")}`
+            "Authorization": `Bearer ${Cookies.get("token")}`,
+            "Content-Security-Policy": "upgrade-insecure-requests"
         };
         return config;
     },
