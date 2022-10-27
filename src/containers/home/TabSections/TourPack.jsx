@@ -149,13 +149,13 @@ const RenderItem = ({ e, adults = 0, children = 0, infant = 0, dates,priceChange
         <div className={"max-w-[450px] overflow-auto relative"}>
           <div className={"flex min-w-[450px] h-full"}>
             <div className={"min-w-[450px] rounded-xl overflow-hidden flex justify-center items-center h-full"}>
-              <img src={"http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=" + e.inc + "&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64"} className="h-[250px] rounded-xl w-[250px]" />
+              <img src={"http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=" + e.inc + "&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64"} className="h-[250px] rounded-xl w-[250px]" alt={`image${e.inc}`} />
             </div>
             <div className={"min-w-[450px] rounded-xl overflow-hidden flex justify-center items-center h-full"}>
-              <img src={"http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=" + e.inc + "&id=1&equilateral=1&width=200&height=200&stamp=72BE0B64"} className="h-[250px] rounded-xl w-[250px]" />
+              <img src={"http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=" + e.inc + "&id=1&equilateral=1&width=200&height=200&stamp=72BE0B64"} className="h-[250px] rounded-xl w-[250px]" alt={`image${e.inc}`} />
             </div>
             <div className={"min-w-[450px] rounded-xl overflow-hidden flex justify-center items-center h-full"}>
-              <img src={"http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=" + e.inc + "&id=2&equilateral=1&width=200&height=200&stamp=72BE0B64"} className="h-[250px] rounded-xl w-[250px]" />
+              <img src={"http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=" + e.inc + "&id=2&equilateral=1&width=200&height=200&stamp=72BE0B64"} className="h-[250px] rounded-xl w-[250px]" alt={`image${e.inc}`} />
             </div>
           </div>
           <div className={"flex justify-center"}>
