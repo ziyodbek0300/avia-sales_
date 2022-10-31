@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.64d6cb9d.css",
-    "main.js": "/static/js/main.6a21ff8f.js",
+    "main.js": "/static/js/main.a982006a.js",
     "static/media/contract.pdf": "/static/media/contract.162627cdc9e6b36865b4.pdf",
     "static/media/4.png": "/static/media/4.d01d42685c9686c27a66.png",
     "static/media/3.png": "/static/media/3.75d6ef467469b93f3b09.png",
@@ -43,10 +43,10 @@
     "index.html": "/index.html",
     "static/media/email.svg": "/static/media/email.690b59c2607b8b5720554d3f8288980d.svg",
     "main.64d6cb9d.css.map": "/static/css/main.64d6cb9d.css.map",
-    "main.6a21ff8f.js.map": "/static/js/main.6a21ff8f.js.map"
+    "main.a982006a.js.map": "/static/js/main.a982006a.js.map"
   },
   "entrypoints": [
     "static/css/main.64d6cb9d.css",
-    "static/js/main.6a21ff8f.js"
+    "static/js/main.a982006a.js"
   ]
 }
