@@ -21,6 +21,17 @@ router.get('/', async function (req, res) {
     res.render('index', {title: 'express'});
 });
 
+router.get('/url', async function (req, res) {
+            res.status(200).redirect(req.body.url)
+    // Promise.all([axios.get(req.body.url)])
+    //     .then(r => {
+    //     })
+    //     .catch(e => {
+    //         res.status(404).send(ErrorSend(404, e, e.message))
+    //     })
+
+});
+
 router.post('/', async function (req, res) {
     Promise.all([axios.get("http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&form=http://samo.travel&type=currentstamp")])
         .then(r => {
@@ -185,7 +196,7 @@ router.post('/getHotels/:townId', async function (req, res) {
                                 return null;
                             }
                         })).catch(e => {
-
+                            console.log("asd123")
                         })
                         let response = a.map(r => r.data)
                         res.send(newData.map(e => {
