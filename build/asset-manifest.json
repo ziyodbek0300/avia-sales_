@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.64d6cb9d.css",
-    "main.js": "/static/js/main.0186b3c2.js",
+    "main.css": "/static/css/main.9a129c8a.css",
+    "main.js": "/static/js/main.42f61e07.js",
     "static/media/contract.pdf": "/static/media/contract.162627cdc9e6b36865b4.pdf",
     "static/media/4.png": "/static/media/4.d01d42685c9686c27a66.png",
     "static/media/3.png": "/static/media/3.75d6ef467469b93f3b09.png",
@@ -29,24 +29,24 @@
     "static/media/uzbekistan-airways.jpg": "/static/media/uzbekistan-airways.3dacde6b74bf9401b8ee.jpg",
     "static/media/visa.jpg": "/static/media/visa.857a8a1141430989e8e6.jpg",
     "static/media/qanot-sharq.png": "/static/media/qanot-sharq.bb244f48514f1bd118fb.png",
-    "static/media/calendar.svg": "/static/media/calendar.972210bb5cff729630761d923593c3e6.svg",
-    "static/media/star.svg": "/static/media/star.873903efef48a3b64f4ff7fb20e16ef5.svg",
-    "static/media/phone.svg": "/static/media/phone.00d71adc270eec84da2a3363720d89fb.svg",
-    "static/media/uploadWhite.svg": "/static/media/uploadWhite.3af4419382a9fcbff9f6e34a90a169ec.svg",
-    "static/media/uploadRed.svg": "/static/media/uploadRed.9faec4ee7a42f4ab9574c4a1ef3a7eb3.svg",
-    "static/media/line.svg": "/static/media/line.4c73b713840589368c3aac78e47babaa.svg",
-    "static/media/warning.svg": "/static/media/warning.f8d684f72a16613649f6176bd11eac55.svg",
-    "static/media/locationRed.svg": "/static/media/locationRed.f70fcd50dc34ca2d30f7e47e95be6ec1.svg",
-    "static/media/location.svg": "/static/media/location.ec31ab5b1ec4804ea06429bd3cac8f79.svg",
-    "static/media/user.svg": "/static/media/user.b1b59f556214e1211123fb63200b8a0f.svg",
-    "static/media/tick-circle.svg": "/static/media/tick-circle.6fadff414e77487ab3263c4c176bf8d1.svg",
+    "static/media/calendar.svg": "/static/media/calendar.7d65c1ee74be4d3390ce90cc552b077f.svg",
+    "static/media/star.svg": "/static/media/star.ac786c6aa77f395e823166906d1b315b.svg",
+    "static/media/phone.svg": "/static/media/phone.813f3df9872060e39d83878fe1a942c1.svg",
+    "static/media/uploadWhite.svg": "/static/media/uploadWhite.8d2e014fc723914cced72fb63b392e70.svg",
+    "static/media/uploadRed.svg": "/static/media/uploadRed.58e7f8533fc91a09321e485f713fbd2a.svg",
+    "static/media/line.svg": "/static/media/line.516d5cc844dcc2169006dc1e82481428.svg",
+    "static/media/warning.svg": "/static/media/warning.06e45290c136a7b58c645a55bcf93653.svg",
+    "static/media/locationRed.svg": "/static/media/locationRed.42057d5b71fa190e1455a4397108b1e1.svg",
+    "static/media/location.svg": "/static/media/location.b8f0f0e878f5a8e202e2e3c2fe46df80.svg",
+    "static/media/user.svg": "/static/media/user.117d167ec0ff9012e81a71a21cb244b2.svg",
+    "static/media/tick-circle.svg": "/static/media/tick-circle.daa4bd04f8ffe56c18f4c915b1adc858.svg",
     "index.html": "/index.html",
-    "static/media/email.svg": "/static/media/email.690b59c2607b8b5720554d3f8288980d.svg",
-    "main.64d6cb9d.css.map": "/static/css/main.64d6cb9d.css.map",
-    "main.0186b3c2.js.map": "/static/js/main.0186b3c2.js.map"
+    "static/media/email.svg": "/static/media/email.ed3f07654caa4f9e42f01e51107f7d24.svg",
+    "main.9a129c8a.css.map": "/static/css/main.9a129c8a.css.map",
+    "main.42f61e07.js.map": "/static/js/main.42f61e07.js.map"
   },
   "entrypoints": [
-    "static/css/main.64d6cb9d.css",
-    "static/js/main.0186b3c2.js"
+    "static/css/main.9a129c8a.css",
+    "static/js/main.42f61e07.js"
   ]
 }
