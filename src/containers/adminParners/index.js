@@ -50,7 +50,7 @@ const AdminPartners = () => {
 
     const agents = useSelector(sortAgents)
     return (
-        <div>
+        <div className={"w-full"}>
             <MuiTable
                 tableName={"Партнеры"}
                 rows={agents?.map(r => {
