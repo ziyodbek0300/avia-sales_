@@ -38,7 +38,7 @@ const getOne = async (req, res, next) => {
     prisma.hotelOrder
       .findUnique({
         where: { id: +req.params.id },
-        include: { flight: true, TourPackPassenger: true },
+        // include: { flight: true, TourPackPassenger: true },
       })
       .then((r) => {
         if (r) {

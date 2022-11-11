@@ -40,6 +40,7 @@ import ExTourResult from "./containers/details/ExTourResult";
 import ExTourList from "./containers/exTourList/ExTourList";
 import VisaResult from "./containers/details/VisaResult";
 import TourList from "./containers/tourpacks-list/TourPacksList";
+import TourResult from "./containers/details/TourResult";
 
 function App() {
   const dispatch = useDispatch();
@@ -81,6 +82,7 @@ function App() {
               <Route path="visaDetails/:id" element={<VisaDetails />} />
               <Route path="/details/result/:id" element={<FlightsResult />} />
               <Route path="/details/visaResult/:id" element={<VisaResult />} />
+              <Route path="/details/tourResult/:id" element={<TourResult />} />
               <Route
                 path="/details/exTourResult/:id"
                 element={<ExTourResult />}

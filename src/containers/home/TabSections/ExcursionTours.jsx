@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import exTour from "../../../constants/exTour";
 import {useNavigate} from "react-router-dom";
-// import { useTranslation } from "react-i18next";
 import {useSelector} from "react-redux";
 import NavS from "../NavS";
 import makkah from "../../../static/images/card_images/makkah.png";
@@ -70,10 +69,6 @@ function ExcursionTours() {
                                                 <img src={calendar} alt="line"/>
                                                 <p className='text-base font-medium'>21-11-2022</p>
                                             </div>
-                                            {/*<div className='flex items-center gap-2 mb-8'>*/}
-                                            {/*    <img src={location} alt="line" />*/}
-                                            {/*    <p className='text-base font-medium'>1 км из Харам</p>*/}
-                                            {/*</div>*/}
                                             <div>
                                                 {Write}
                                             </div>
