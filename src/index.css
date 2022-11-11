@@ -12,7 +12,27 @@
     }
 }
 
+@layer components {
+    .input_placeholder {
+        @apply border-[#6C6C6C] placeholder:text-sm placeholder:text-[#6C6C6C]
+    }
 
+    .sidebarTab {
+        @apply cursor-pointer outline-none p-3 font-bold flex gap-4 items-center rounded-lg my-3 text-[#6C6C6C]
+    }
+
+    /* .checkbox {
+        @apply ml-12 w-[18px] h-[18px] border-4 border-gray-400 rounded checked:text-white checked:border-red-600 appearance-none
+    } */
+
+    .th {
+        @apply text-sm font-medium py-4 whitespace-nowrap px-12
+    }
+
+    .table_data {
+        @apply text-sm text-gray-900 font-medium py-4 whitespace-nowrap px-6 translate-x-5
+    }
+}
 
 @font-face {
     font-family: Idealist;

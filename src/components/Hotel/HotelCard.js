@@ -9,7 +9,7 @@ export default function HotelCard({hotel}) {
                 className="rounded"
                 width="200"
                 style={{ maxHeight: "200px", marginRight: ".5rem" }}
-                src={`http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=${hotel.inc}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}
+                src={`https://travelcontinent.uz/image/b2b/hotelimages?samo_action=get&hotel=${hotel.inc}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}
                 alt=""
             />
             <div style={{marginRight: ".5rem"}}>{hotel.name}</div>

@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from 'js-cookie';
 
 // export const MainApi = "http://smartsys.intouch.ae";
-export const MainApi = "http://smartsys.intouch.ae";
+export const MainApi = "https://travelcontinent.uz/image";
 
 const instance = axios.create({
     baseURL: `${MainApi}/`,

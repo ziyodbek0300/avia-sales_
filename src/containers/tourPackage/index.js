@@ -63,7 +63,7 @@ const headCells = [
 ];
 const TourPackage = () => {
   return (
-    <div>
+    <div className={"w-full"}>
       <MuiTable
         tableName={"Турпакеты"}
         rows={[]?.map((r) => {

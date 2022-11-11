@@ -140,57 +140,47 @@ const RenderItem = ({e, adults = 0, children = 0, infant = 0, dates, priceChange
             return 0;
         }
     };
-
-    return (
-        <div className={"bg-white gap-5 shadow border rounded-lg py-6"}>
-            <div
-                onClick={handlePress}
-                className="cursor-pointer flex gap-6"
-                key={`${hotelId}`}
-            >
-                <div className={"max-w-[450px] overflow-auto relative"}>
-                    <div className={"flex min-w-[450px] h-full"}>
-                        <div
-                            className={"min-w-[450px] rounded-xl overflow-hidden flex justify-center items-center h-full"}>
-                            <img
-                                src={"http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=" + e.inc + "&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64"}
-                                className="h-[250px] rounded-xl w-[250px]" alt={`image${e.inc}`}/>
-                        </div>
-                        <div
-                            className={"min-w-[450px] rounded-xl overflow-hidden flex justify-center items-center h-full"}>
-                            <img
-                                src={"http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=" + e.inc + "&id=1&equilateral=1&width=200&height=200&stamp=72BE0B64"}
-                                className="h-[250px] rounded-xl w-[250px]" alt={`image${e.inc}`}/>
-                        </div>
-                        <div
-                            className={"min-w-[450px] rounded-xl overflow-hidden flex justify-center items-center h-full"}>
-                            <img
-                                src={"http://smartsys.intouch.ae/b2b/hotelimages?samo_action=get&hotel=" + e.inc + "&id=2&equilateral=1&width=200&height=200&stamp=72BE0B64"}
-                                className="h-[250px] rounded-xl w-[250px]" alt={`image${e.inc}`}/>
-                        </div>
-                    </div>
-                    <div className={"flex justify-center"}>
-                        <div className={"flex gap-2 absolute bottom-3"}>
-                            <div className={"w-4 h-4 bg-red-500 rounded-full"}></div>
-                            <div className={"w-4 h-4 bg-gray-500 rounded-full"}></div>
-                            <div className={"w-4 h-4 bg-gray-500 rounded-full"}></div>
-                        </div>
-                    </div>
-                </div>
-                <div className={"flex flex-col gap-5 justify-between"}>
-                    <div>
-                        <div className="my-3 font-bold block">
-                            <span className={"bg-red-500 rounded uppercase text-white p-1"}>турпакет</span>
-                        </div>
-                        <h1 className="text-xl font-bold block">{e.name}</h1>
-                        <div className={"flex py-2"}>
-                            {new Array(
-                                isNaN(e.starCount?.slice(0, 1)) ? 1 : +e.starCount?.slice(0, 1)
-                            )
-                                .fill("a")
-                                ?.map((a) => {
-                                    return (
-                                        <span className={"mx-1"}>
+  return (
+    <div className={"bg-white gap-5 shadow border rounded-lg py-6"}>
+      <div
+          onClick={handlePress}
+          className="cursor-pointer flex gap-6"
+          key={`${hotelId}`}
+      >
+        <div className={"max-w-[450px] overflow-auto relative"}>
+          <div className={"flex min-w-[450px] h-full"}>
+            <div className={"min-w-[450px] rounded-xl overflow-hidden flex justify-center items-center h-full"}>
+              <img src={"https://travelcontinent.uz/image/b2b/hotelimages?samo_action=get&hotel=" + e.inc + "&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64"} className="h-[250px] rounded-xl w-[250px]" alt={`image${e.inc}`} />
+            </div>
+            <div className={"min-w-[450px] rounded-xl overflow-hidden flex justify-center items-center h-full"}>
+              <img src={"https://travelcontinent.uz/image/b2b/hotelimages?samo_action=get&hotel=" + e.inc + "&id=1&equilateral=1&width=200&height=200&stamp=72BE0B64"} className="h-[250px] rounded-xl w-[250px]" alt={`image${e.inc}`} />
+            </div>
+            <div className={"min-w-[450px] rounded-xl overflow-hidden flex justify-center items-center h-full"}>
+              <img src={"https://travelcontinent.uz/image/b2b/hotelimages?samo_action=get&hotel=" + e.inc + "&id=2&equilateral=1&width=200&height=200&stamp=72BE0B64"} className="h-[250px] rounded-xl w-[250px]" alt={`image${e.inc}`} />
+            </div>
+          </div>
+          <div className={"flex justify-center"}>
+            <div className={"flex gap-2 absolute bottom-3"}>
+              <div className={"w-4 h-4 bg-red-500 rounded-full"}></div>
+              <div className={"w-4 h-4 bg-gray-500 rounded-full"}></div>
+              <div className={"w-4 h-4 bg-gray-500 rounded-full"}></div>
+            </div>
+          </div>
+        </div>
+        <div className={"flex flex-col gap-5 justify-between"}>
+          <div>
+            <div className="my-3 font-bold block">
+              <span className={"bg-red-500 rounded uppercase text-white p-1"}>турпакет</span>
+            </div>
+            <h1 className="text-xl font-bold block">{e.name}</h1>
+            <div className={"flex py-2"}>
+              {new Array(
+                  isNaN(e.starCount?.slice(0, 1)) ? 1 : +e.starCount?.slice(0, 1)
+              )
+                  .fill("a")
+                  ?.map((a) => {
+                    return (
+                        <span className={"mx-1"}>
                       <img src={Star} alt="star"/>
                     </span>
                                     );

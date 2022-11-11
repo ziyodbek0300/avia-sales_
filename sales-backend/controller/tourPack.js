@@ -18,7 +18,7 @@ const del = async (req, res, next) => {
       }
     }
     Promise.all([
-      prisma.hotelOrder.deleteMany({ where: { id: +req.params.id } }),
+      prisma.tourPacketOrder.deleteMany({ where: { id: +req.params.id } }),
     ])
       .then((r) => {
         if (r[0]?.count > 0) {
@@ -35,7 +35,7 @@ const del = async (req, res, next) => {
 
 const getOne = async (req, res, next) => {
   try {
-    prisma.hotelOrder
+    prisma.tourPacketOrder
       .findUnique({
         where: { id: +req.params.id },
         // include: { flight: true, TourPackPassenger: true },
@@ -62,7 +62,6 @@ const getAll = async (req, res, next) => {
         return res.status(200).send(Success(200, r, "ok"));
       })
       .catch((e) => {
-        console.log(e);
         return res
           .status(404)
           .send({ code: 404, error: e, message: e.message });
@@ -83,7 +82,6 @@ const getAllForAgent = async (req, res, next) => {
         return res.status(200).send(Success(200, r, "ok"));
       })
       .catch((e) => {
-        console.log(e);
         return res
           .status(404)
           .send({ code: 404, error: e, message: e.message });
@@ -161,7 +159,6 @@ const addNew = async (req, res, next) => {
       });
     res.status(200).send(Success(200, { order, passenger }, "ok"));
   } catch (e) {
-    console.log(e);
     res.status(500).send(ErrorSend(500, e, e.message));
   }
 };

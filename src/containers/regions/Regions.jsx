@@ -40,7 +40,7 @@ function Regions() {
         })
     }
 
-    return (<div>
+    return (<div className={"w-full"}>
         <div className="max-w-5xl m-auto p-5">
             <div className={"text-right py-3"}>
                 <button className={"p-2 border border-gray-400 text-white rounded bg-green-500 transition"}
