@@ -41,6 +41,7 @@ import ExTourList from "./containers/exTourList/ExTourList";
 import VisaResult from "./containers/details/VisaResult";
 import TourList from "./containers/tourpacks-list/TourPacksList";
 import TourResult from "./containers/details/TourResult";
+import HotelsOrder from "./containers/hotelOrderr";
 
 function App() {
   const dispatch = useDispatch();
@@ -91,6 +92,10 @@ function App() {
               <Route
                 path="tourPack/order/:hotelId/:id"
                 element={<HotelOrder />}
+              />
+              <Route
+                path="hotel/order/:hotelId/:id"
+                element={<HotelsOrder />}
               />
               <Route
                 path="/tour-packet/order/:hotelId/:roomId/:isGroup"

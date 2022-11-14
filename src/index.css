@@ -166,7 +166,7 @@ code {
 }
 
 .custom-file-input::before {
-    content: ' Upload contract';
+    content: 'Upload contract';
     display: inline-block;
     outline: none;
     white-space: nowrap;

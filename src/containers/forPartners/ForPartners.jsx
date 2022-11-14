@@ -1,12 +1,12 @@
-import React, { useRef } from 'react'
-import { useState } from 'react'
+import React, {useRef} from 'react'
+import {useState} from 'react'
 import user from '../../api/projectApi/user'
-import { userRole } from '../../constants/userRole'
+import {userRole} from '../../constants/userRole'
 import Contract from '../../static/docs/contract.pdf'
 import tick from "../../static/images/card_images/tick-circle.svg";
 import upload from '../../static/images/uploadRed.svg'
 import uploadWhite from '../../static/images/uploadWhite.svg'
-import { toast } from 'react-toastify'
+import {toast} from 'react-toastify'
 import Line from "../../static/images/card_images/line.svg";
 
 function ForPartners() {
@@ -17,7 +17,7 @@ function ForPartners() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const { target } = e;
+        const {target} = e;
         const formData = new FormData();
         formData.append('fullName', target[0].value);
         formData.append('city', target[1].value);
@@ -26,13 +26,13 @@ function ForPartners() {
         formData.append('email', target[4].value);
         formData.append('role', userRole.agent);
         if (isStable) {
-            formData.append('password', target[6].value);
+            formData.append('password', target[5].value);
         } else {
             alert("Password not match.")
         }
-        formData.append('doc', target[7].files[0]);
+        formData.append('doc', target[6].files[0]);
         user.register(formData).then(r => {
-            toast('User requested!\nAdminstator will connect with you!', { type: 'success' })
+            toast('User requested!\nAdminstator will connect with you!', {type: 'success'})
             e.target.reset()
         }).catch(e => console.log(e))
     }
@@ -49,77 +49,118 @@ function ForPartners() {
         }
     }
 
-    return (
-        <div className='max-w-4xl mx-auto py-8'>
+    const onButtonClick = () => {
+        // using JavaScript method to get PDF file
+        fetch(Contract).then(response => {
+            response.blob().then(blob => {
+                // Creating new object of PDF file
+                const fileURL = window.URL.createObjectURL(blob);
+                // Setting various property values
+                let alink = document.createElement('a');
+                alink.href = fileURL;
+                alink.download = Contract;
+                alink.click();
+            })
+        })
+    }
+
+    return (<div className='max-w-4xl mx-auto py-8'>
             <div>
                 <p className='text-4xl font-bold mb-[10px] text-black text-center'>Сотрудничество</p>
-                <img className='mx-auto mb-4' src={Line} alt="line" />
+                <img className='mx-auto mb-4' src={Line} alt="line"/>
                 <p className='text-gray-500 pb-7 w-[75%] mx-auto text-center'>
-                    Компания «Travelcontinent» приглашает к сотрудничеству авиакассы, туристические агентства и туроператоров. Предлагаем выгодные тарифы на авиабилеты, отели, туры, повышенную комиссию, технологические решения для туристической отрасли.
+                    Компания «Travelcontinent» приглашает к сотрудничеству авиакассы, туристические агентства и
+                    туроператоров. Предлагаем выгодные тарифы на авиабилеты, отели, туры, повышенную комиссию,
+                    технологические решения для туристической отрасли.
                 </p>
             </div>
-            <p className='font-medium pb-3 w-[38%]'>Просто заполните заявку и мы свяжемся с Вами для начала нашего сотрудничества!</p>
+            <p className='font-medium pb-3 w-[38%]'>Просто заполните заявку и мы свяжемся с Вами для начала нашего
+                сотрудничества!</p>
             <div className='flex gap-28 items-start'>
                 <div className='w-[38%]'>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
-                            <input name="full_name" required type="text" id='name' className='p-[11px] border border-[#6C6C6C] rounded-lg w-full focus:outline-none focus:border-red-400 placeholder:text-sm' placeholder='Full Name' />
+                            <input name="full_name" required type="text" id='name'
+                                   className='p-[11px] border border-[#6C6C6C] rounded-lg w-full focus:outline-none focus:border-red-400 placeholder:text-sm'
+                                   placeholder='ФИО'/>
                         </div>
                         <div className='flex items-center gap-3'>
                             <div className="mb-3">
-                                <input name="city" required type="text" list='cities' id='city' className='p-[11px] border border-[#6C6C6C] rounded-lg w-full focus:outline-none focus:border-red-400 placeholder:text-sm' placeholder="City" />
+                                <input name="city" required type="text" list='cities' id='city'
+                                       className='p-[11px] border border-[#6C6C6C] rounded-lg w-full focus:outline-none focus:border-red-400 placeholder:text-sm'
+                                       placeholder="Город"/>
                                 <datalist id='cities'>
-                                    <option value="Tashkent" />
-                                    <option value="Andijan" />
-                                    <option value="Samarkhand" />
+                                    <option value="Tashkent"/>
+                                    <option value="Andijan"/>
+                                    <option value="Samarkhand"/>
                                 </datalist>
                             </div>
                             <div className="mb-3">
-                                <input name="company" required type="text" id='company' className='p-[11px] border border-[#6C6C6C] rounded-lg w-full focus:outline-none focus:border-red-400 placeholder:text-sm' placeholder="Company Name" />
+                                <input name="company" required type="text" id='company'
+                                       className='p-[11px] border border-[#6C6C6C] rounded-lg w-full focus:outline-none focus:border-red-400 placeholder:text-sm'
+                                       placeholder="Название компании"/>
                             </div>
                         </div>
                         <div className="mb-3">
-                            <input name="email" required type="email" id='email' className='p-[11px] border border-[#6C6C6C] rounded-lg w-full focus:outline-none focus:border-red-400 placeholder:text-sm' placeholder="Email (for login)" />
+                            <input name="email" required type="email" id='email'
+                                   className='p-[11px] border border-[#6C6C6C] rounded-lg w-full focus:outline-none focus:border-red-400 placeholder:text-sm'
+                                   placeholder="Электронная почта (для входа)"/>
                         </div>
                         <div className="mb-3">
-                            <input ref={password1Ref} onChange={handlePassword2} name="password1" required type="password" id='password1' className='p-[11px] border border-[#6C6C6C] rounded-lg w-full focus:outline-none focus:border-red-400 placeholder:text-sm' placeholder="Password" />
+                            <input ref={password1Ref} onChange={handlePassword2} name="password1" required
+                                   type="password" id='password1'
+                                   className='p-[11px] border border-[#6C6C6C] rounded-lg w-full focus:outline-none focus:border-red-400 placeholder:text-sm'
+                                   placeholder="Пароль"/>
                         </div>
                         <div className="mb-3">
-                            <input ref={password2Ref} onChange={handlePassword2} name="password2" required type="password" id='password2' className='p-[11px] border border-[#6C6C6C] rounded-lg w-full focus:outline-none focus:border-red-400 placeholder:text-sm' placeholder="Confirm Password" />
-                            <div className='text-xs' ref={indicator} style={{ display: 'none' }}>Password not match</div>
+                            <input ref={password2Ref} onChange={handlePassword2} name="password2" required
+                                   type="password" id='password2'
+                                   className='p-[11px] border border-[#6C6C6C] rounded-lg w-full focus:outline-none focus:border-red-400 placeholder:text-sm'
+                                   placeholder="Подтвердить Пароль"/>
+                            <div className='text-xs' ref={indicator} style={{display: 'none'}}>Password not match</div>
                         </div>
                         <div className='flex gap-5 items-center'>
-                            <div className="w-[45%] mb-3 border border-red-400 rounded-lg flex  pl-2">
-                                <img src={upload} alt="uploader" />
-                                <input name="contract" required type="file" id='contract' className='custom-file-input  p-[7px] focus:outline-none focus:border-red-400' />
+                            <div className="w-[100%] mb-3 border border-red-400 rounded-lg flex  pl-2">
+                                <img src={upload} alt="uploader"/>
+                                <input name="contract" required type="file" id='contract'
+                                       className='p-[7px] focus:outline-none focus:border-red-400'/>
                             </div>
-                            <p className='text-sm text-gray-500 mb-2'>File has not uploaded</p>
                         </div>
                         <div>
-                            <button type='submit' className='p-2 w-full text-sm bg-red-500 text-white rounded-lg px-6 my-3'>Registration</button>
+                            <button type='submit'
+                                    className='p-2 w-full text-sm bg-red-500 text-white rounded-lg px-6 my-3'>Регистрация
+                            </button>
                         </div>
                     </form>
                 </div>
                 <div className=''>
                     <ul className=''>
                         <li className='mb-3 flex gap-2'>
-                            <img src={tick} alt="tick" />
-                            Online бронирование</li>
-                        <li className='mb-3  flex gap-2'><img src={tick} alt="tick" /> Размещение в разделе "Где купить"</li>
-                        <li className='mb-3  flex gap-2'><img src={tick} alt="tick" /> Доступ к заявкам с сайта</li>
-                        <li className='mb-3  flex gap-2'><img src={tick} alt="tick" /> Интуитивный интерфейс с гибкой системой фильтров поиска</li>
-                        <li className='mb-3  flex gap-2'><img src={tick} alt="tick" /> Отчёты по продажам в Личном кабинете</li>
-                        <li className='mb-3  flex gap-2'><img src={tick} alt="tick" /> Просто начать работать</li>
-                        <li className='mb-3  flex gap-2'><img src={tick} alt="tick" /> Высокий уровень безопасности</li>
+                            <img src={tick} alt="tick"/>
+                            Онлайн бронирование
+                        </li>
+                        <li className='mb-3  flex gap-2'><img src={tick} alt="tick"/> Размещение в разделе "Где купить"
+                        </li>
+                        <li className='mb-3  flex gap-2'><img src={tick} alt="tick"/> Доступ к заявкам с сайта</li>
+                        <li className='mb-3  flex gap-2'><img src={tick} alt="tick"/> Интуитивный интерфейс с гибкой
+                            системой фильтров поиска
+                        </li>
+                        <li className='mb-3  flex gap-2'><img src={tick} alt="tick"/> Отчёты по продажам в Личном
+                            кабинете
+                        </li>
+                        <li className='mb-3  flex gap-2'><img src={tick} alt="tick"/> Просто начать работать</li>
+                        <li className='mb-3  flex gap-2'><img src={tick} alt="tick"/> Высокий уровень безопасности</li>
                     </ul>
-                    <div className='flex justify-center items-center gap-2 py-[10px] bg-red-500 rounded-lg w-[55%] mt-5'>
-                        <img src={uploadWhite} alt="uploader" />
-                        <a href={Contract} download className='text-sm text-white'>Download Contract</a>
+                    <div onClick={onButtonClick} className='text-sm text-white'>
+                        <div
+                            className='flex justify-center items-center gap-2 py-[10px] bg-red-500 rounded-lg w-[55%] mt-5'>
+                            <img src={uploadWhite} alt="uploader"/>
+                            <a href={Contract} download className='text-sm text-white'>Скачать контракт</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    )
+        </div>)
 }
 
 export default ForPartners
@@ -189,4 +230,5 @@ export default ForPartners
                     </form>
                 </div>
             </div>
-        </div> */}
+        </div> */
+}

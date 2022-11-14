@@ -9,6 +9,7 @@ function TourResult() {
 
     useEffect(() => {
         tourOrder.getOne(id).then((res) => {
+            console.log(res)
             setData(res.data.result);
         }).catch(e=>console.log(e))
     }, [id]);
@@ -39,7 +40,7 @@ function TourResult() {
                             onChange={(e) => setData({ ...data, name: e.target.value })}
                             type="text"
                             className={"border-red-300 rounded border p-2"}
-                            value={data.name}
+                            value={data.contactName}
                         />
                     </div>
                 </div>

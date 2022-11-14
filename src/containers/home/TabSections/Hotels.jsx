@@ -11,6 +11,7 @@ import Sort from "../../../components/Sort";
 import NavS from "../NavS";
 import Contacts from "../../../components/contacts";
 import Star from "../../../static/images/star.svg";
+import {useNavigate} from "react-router-dom";
 
 const RenderItem = ({
                         e,
@@ -25,6 +26,7 @@ const RenderItem = ({
 
 
     const hotelId = e?.inc;
+    const navigate = useNavigate();
     const [isReturn, setIsReturn] = useState({bool: true, arr: []});
     const [values, setValues] = useState({
         loading: false,
@@ -120,6 +122,7 @@ const RenderItem = ({
         }
     };
 
+
     return (
         <div className={"bg-white p-2 gap-5 shadow border rounded-lg"}>
             <div
@@ -129,17 +132,20 @@ const RenderItem = ({
             >
                 <div className={"max-w-[300px] overflow-auto relative"}>
                     <div className={"flex min-w-[300px]"}>
-                        <div className={"min-w-[300px] min-h-[300px] flex justify-center items-center rounded-xl overflow-hidden"}>
+                        <div
+                            className={"min-w-[300px] min-h-[300px] flex justify-center items-center rounded-xl overflow-hidden"}>
                             <img
                                 src={`https://travelcontinent.uz/image/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64`}
                                 className="w-[250px] h-[250px] rounded-xl" alt={"example 2"}/>
                         </div>
-                        <div className={"min-w-[300px] min-h-[300px] flex justify-center items-center rounded-xl overflow-hidden"}>
+                        <div
+                            className={"min-w-[300px] min-h-[300px] flex justify-center items-center rounded-xl overflow-hidden"}>
                             <img
                                 src={`https://travelcontinent.uz/image/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=1&equilateral=1&width=200&height=200&stamp=72BE0B64`}
                                 className="w-[250px] h-[250px] rounded-xl" alt={"example 2"}/>
                         </div>
-                        <div className={"min-w-[300px] min-h-[300px] flex justify-center items-center rounded-xl overflow-hidden"}>
+                        <div
+                            className={"min-w-[300px] min-h-[300px] flex justify-center items-center rounded-xl overflow-hidden"}>
                             <img
                                 src={`https://travelcontinent.uz/image/b2b/hotelimages?samo_action=get&hotel=${e.inc}&id=2&equilateral=1&width=200&height=200&stamp=72BE0B64`}
                                 className="w-[250px] h-[250px] rounded-xl" alt={"example 2"}/>
@@ -252,7 +258,23 @@ const RenderItem = ({
                             Math.floor(getPrice()) : Math.floor(pr) * Math.ceil(days)}<br/>
 
                     </p>
-                    <button className={"bg-red-500 hover:opacity-90 active:opacity-80 transition-all w-40 py-2 text-white rounded"}>Бронироват</button>
+                    <button onClick={() => {
+                        localStorage.setItem(
+                            "tourPrice",
+                            JSON.stringify({
+                                ...values,
+                                price: pr === 0 ? Array.isArray(isReturn.arr) &&
+                                    isReturn.arr.length > 0 &&
+                                    Math.floor(getPrice()) + 180 : Math.floor(pr) * Math.ceil(days) + 180,
+                                roomId: e.inc,
+                            })
+                        );
+                        navigate(
+                            `/hotel/order/${hotelId}/${e.inc}?name=${e.name}&adult=${adults}&c=${children}&d=${infant}`
+                        )
+                    }}
+                            className={"bg-red-500 hover:opacity-90 active:opacity-80 transition-all w-40 py-2 text-white rounded"}>Бронироват
+                    </button>
                 </div>
                 {hotelsTownLists?.map((a) => {
                     return (
