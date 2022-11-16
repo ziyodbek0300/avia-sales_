@@ -59,15 +59,15 @@ function TableSidebar() {
                     <FiGrid className="text-2xl" />
                     Турпакети
                 </Tab>
-                <Tab
-                    onClick={() => navigate("/finance")}
-                    className={`sidebarTab ${route.pathname === "/finance" ? "bg-red-600 text-white" : ""
-                    }`}
-                    selectedClassName="bg-red-600"
-                >
-                    <GiCoins className="text-2xl" />
-                    Финансы
-                </Tab>
+                {/*<Tab*/}
+                {/*    onClick={() => navigate("/finance")}*/}
+                {/*    className={`sidebarTab ${route.pathname === "/finance" ? "bg-red-600 text-white" : ""*/}
+                {/*    }`}*/}
+                {/*    selectedClassName="bg-red-600"*/}
+                {/*>*/}
+                {/*    <GiCoins className="text-2xl" />*/}
+                {/*    Финансы*/}
+                {/*</Tab>*/}
                 <Tab
                     onClick={() => navigate("/partners")}
                     className={`sidebarTab ${route.pathname === "/partners" ? "bg-red-600 text-white" : ""

@@ -31,6 +31,7 @@ function FormExample({ setPassagers, passagers, index, type }) {
                         placeholder="Гражданство"
                         options={countries.map(cName => { return { value: cName, label: cName } })}
                         onChange={(e) => {
+                            console.log(passagers)
                             let a = passagers;
                             a[index].from = e.value
                             setPassagers(a)

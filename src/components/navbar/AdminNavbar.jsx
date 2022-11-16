@@ -20,6 +20,7 @@ import { useTranslation } from "react-i18next";
 import TableSidebar from "./TableSidebar";
 import TableNav from "./TableNav";
 import TableBody from "./TableBody";
+// import Logout from
 
 function AdminNavbar() {
   const { t } = useTranslation();
@@ -27,9 +28,11 @@ function AdminNavbar() {
   const route = useLocation();
   const dispatch = useDispatch();
   const handlePressLogout = () => {
-    Cookies.remove("token");
-    dispatch(logOut());
-    navigate("/");
+    if(window.confirm("Are you sure?")) {
+      Cookies.remove("token");
+      dispatch(logOut());
+      navigate("/");
+    }
   };
   return (
     <>
@@ -40,6 +43,10 @@ function AdminNavbar() {
         {/*  /!*<Outlet />*!/*/}
         {/*  /!*<TableBody />*!/*/}
         {/*</div>*/}
+        <div onClick={handlePressLogout} className={"fixed top-10 right-10 flex items-center gap-2 bg-red-100 p-2 rounded"}>
+          <AiOutlineLogout className={"text-red-500 text-4xl"}/>
+          Logout
+        </div>
       </div>
       {/*<TableAdmin /> */}
       {/*<div className={"flex flex-wrap mx-auto"}>*/}

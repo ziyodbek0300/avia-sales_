@@ -96,11 +96,11 @@ const LoginModal = () => {
                                 alignItems: "center",
                             }}
                         >
-                            <FaUser style={{width: 24, height: "100%"}}/>
+                            <FaUser style={{width: 24, height: "100%", color: "white"}}/>
                             &nbsp;
                         </Box>
                         <Box>
-                            <Box style={{display: "flex", flexDirection: "row"}}>
+                            <Box style={{display: "flex", flexDirection: "row", color: "white"}}>
                                 {/*{t('enter')}*/}
                                 <Typography fontSize={14}>{user?.fullName}</Typography>
                             </Box>
@@ -112,6 +112,7 @@ const LoginModal = () => {
                                     alignItems: "center",
                                     textAlign: "center",
                                     justifyContent: "center",
+                                    color: "white"
                                 }}
                             >
                                 <Typography fontSize={12}>{user.email}</Typography>
