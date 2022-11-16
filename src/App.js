@@ -42,6 +42,7 @@ import VisaResult from "./containers/details/VisaResult";
 import TourList from "./containers/tourpacks-list/TourPacksList";
 import TourResult from "./containers/details/TourResult";
 import HotelsOrder from "./containers/hotelOrderr";
+import HotelResult from "./containers/details/HotelResult";
 
 function App() {
   const dispatch = useDispatch();
@@ -84,6 +85,7 @@ function App() {
               <Route path="/details/result/:id" element={<FlightsResult />} />
               <Route path="/details/visaResult/:id" element={<VisaResult />} />
               <Route path="/details/tourResult/:id" element={<TourResult />} />
+              <Route path="/details/hotelResult/:id" element={<HotelResult />} />
               <Route
                 path="/details/exTourResult/:id"
                 element={<ExTourResult />}
