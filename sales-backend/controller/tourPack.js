@@ -38,6 +38,7 @@ const getOne = async (req, res, next) => {
     prisma.tourPacketOrder
       .findUnique({
         where: { id: +req.params.id },
+        include:{ flight: true, TourPackPassenger: true }
         // include: { flight: true, TourPackPassenger: true },
       })
       .then((r) => {
