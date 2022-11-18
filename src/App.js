@@ -99,6 +99,7 @@ function App() {
                 path="hotel/order/:hotelId/:id"
                 element={<HotelsOrder />}
               />
+              <Route path="/tour-package-order" element={<TourList />} />
               <Route
                 path="/tour-packet/order/:hotelId/:roomId/:isGroup"
                 element={<HotelOrder />}
@@ -145,6 +146,8 @@ function App() {
               <Route path="/transferDetails/result/:id" element={<Result />} />
               <Route path="/details/result/:id" element={<FlightsResult />} />
               <Route path="/details/visaResult/:id" element={<VisaResult />} />
+              <Route path="/details/tourResult/:id" element={<TourResult />} />
+              <Route path="/details/hotelResult/:id" element={<HotelResult />} />
               <Route
                 path="/details/exTourResult/:id"
                 element={<ExTourResult />}

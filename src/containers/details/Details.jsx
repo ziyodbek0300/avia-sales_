@@ -36,6 +36,7 @@ function Details() {
                 firtname: p.first_name,
                 nationality: p.from,
                 gender: p.gender,
+                filesLink: p.filesLink,
                 birthday: moment(p.birthday).toDate(),
                 passportNumber: p.sNum,
                 endDate: moment(p.date3).toDate()
@@ -69,6 +70,7 @@ function Details() {
             passagers: pass
         }
         order.addNew(obj).then(response => {
+            console.log(response, obj)
             toast("Забронирован");
             navigate(`/details/result/${response.data.result.order.id}`);
         }).catch(err => {
