@@ -4,12 +4,16 @@ import moment from "moment";
 import { GrEdit, GrTrash } from "react-icons/gr";
 import RegionModal from "../../components/modal/RegionModal";
 import tourOrder from "../../api/projectApi/tourOrder";
+import {useNavigate} from "react-router-dom";
 
 function TourList() {
   const [regions_list, setTourList] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    tourOrder.getAll().then((res) => setTourList(res.data.result));
+    tourOrder.getAll().then((res) => {
+      setTourList(res.data.result)
+    });
   }, []);
 
   const handleDelete = (id) => {
@@ -80,9 +84,10 @@ function TourList() {
               </tr>
             ) : (
               regions_list?.map((a) => {
+                console.log(a)
                 return (
-                  <tr key={a.id} className={"border border-red-200"}>
-                    <td className={"border border-red-200 p-2"}>{a.name}</td>
+                  <tr key={a.id} onClick={() => navigate(`/details/tourResult/${a.id}`)} className={"border border-red-200"}>
+                    <td className={"border border-red-200 p-2"}>{a.contactName}</td>
                     <td className={"border border-red-200 p-2"}>
                       {moment(a.createdAt).format("MMMM DD YYYY HH:mm")}
                     </td>

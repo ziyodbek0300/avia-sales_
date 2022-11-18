@@ -97,6 +97,10 @@ function FlightsResult() {
                                         <div className={"border-b border-gray-700 w-full border-dotted"}></div>
                                         <p className={"text-lg font-bold"}>{pass.passportNumber}</p>
                                     </div>
+                                    <div className={"flex items-end mb-3"}>
+                                        <img width={"200"} src={`https://travelcontinent.uz/api${pass.filesLink}`} alt="askjd"/>
+                                        <a href={`https://travelcontinent.uz/api${pass.filesLink}`} className={"ml-2"} target={'_'} download>Скачать</a>
+                                    </div>
                                 </div>
                             </div>
                         )

@@ -18,7 +18,9 @@ const RenderItem = ({
                         adults = 0,
                         children = 0,
                         infant = 0,
+                        townId = 1,
                         dates,
+                        roomId = 2,
                         priceChange = () => ({}),
                     }) => {
     // const navigate = useNavigate();
@@ -262,11 +264,13 @@ const RenderItem = ({
                         localStorage.setItem(
                             "tourPrice",
                             JSON.stringify({
+                                ...dates,
+                                town: townId,
                                 ...values,
                                 price: pr === 0 ? Array.isArray(isReturn.arr) &&
                                     isReturn.arr.length > 0 &&
                                     Math.floor(getPrice()) + 180 : Math.floor(pr) * Math.ceil(days) + 180,
-                                roomId: e.inc,
+                                roomId: roomId,
                             })
                         );
                         navigate(
@@ -635,7 +639,9 @@ function Hotels() {
                                         infant={infant}
                                         children={children}
                                         dates={dates}
+                                        townId={values.town}
                                         price={price}
+                                        roomId={e.inc}
                                     />
                                 );
                             } catch (e) {

@@ -43,6 +43,7 @@ function AllStates() {
                 {exTour.map((a, c) => {
                     return (
                         <div
+                            key={c}
                         >
                             <div
                                 style={{boxShadow: "2px 8px 40px rgba(108, 108, 108, 0.05)"}}
