@@ -3,6 +3,7 @@ import ReactSelect from "react-select";
 import {gender} from "../../constants/userRole";
 import countries from "../../constants/countries";
 import order from "../../api/projectApi/order";
+import upload from "../../static/images/uploadRed.svg";
 
 function FormExample({setPassagers, passagers, index, type}) {
     return (<div className={"max-w-5xl mx-auto pb-5"}>
@@ -91,18 +92,21 @@ function FormExample({setPassagers, passagers, index, type}) {
 
             </div>
             <div className={"py-3 w-[80%] lg:pr-7"}>
-                <label htmlFor={"attachment"}>Фото на паспорт</label>
-                <input required type="file" id={"attachment"}
-                       onChange={(e) => {
-                           let fData = new FormData();
-                           fData.append("file", e.target.files[0]);
-                           order.attach(fData).then(res => {
-                               let a = passagers
-                               a[index].filesLink = res.data.attach[0]
-                               setPassagers(a)
-                           })
-                       }}
-                       className={"border input_placeholder outline-red-300 w-full rounded-lg p-2"}/>
+                <label htmlFor={"attachment"} className={"text-red-500 mb-3 pb-2"}>Фото на паспорт</label>
+                <div className="w-[100%] bg-red-200 mb-3 border border-red-400 rounded-lg flex  pl-2">
+                    <img src={upload} alt="uploader"/>
+                    <input name="contract" required type="file" id={"attachment"}
+                           onChange={(e) => {
+                               let fData = new FormData();
+                               fData.append("file", e.target.files[0]);
+                               order.attach(fData).then(res => {
+                                   let a = passagers
+                                   a[index].filesLink = res.data.attach[0]
+                                   setPassagers(a)
+                               })
+                           }}
+                           className='p-[7px] bg-red-200 w-full rounded focus:outline-none focus:border-red-400'/>
+                </div>
             </div>
         </div>
     </div>);

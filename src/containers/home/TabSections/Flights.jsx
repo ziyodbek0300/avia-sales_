@@ -104,6 +104,7 @@ function FlightsTab() {
                                 onChange={(e) => {
                                     setFrom(() => e);
                                 }}
+                                value={from}
                                 style={{borderRadius: "8px"}}
                                 options={[{value: "", label: "- выбрать -"}, ...regionsList,]}
                                 placeholder="- выбрать -"
@@ -121,6 +122,7 @@ function FlightsTab() {
                                 onChange={(e) => {
                                     setTo(() => e);
                                 }}
+                                value={to}
                                 options={[{value: "", label: "- выбрать -"}, ...regionsList,]}
                                 placeholder="- выбрать -"
                             />
@@ -323,7 +325,11 @@ function FlightsTab() {
                         <div className="flex items-center gap-1">
                             <input
                                 type="checkbox"
-                                onChange={() => setObratno(!obratno)}
+                                onChange={() => {
+                                    setTo("")
+                                    setFrom("")
+                                    setObratno(!obratno)
+                                }}
                                 value={obratno}
                                 className={"w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"}
                                 name="t1"

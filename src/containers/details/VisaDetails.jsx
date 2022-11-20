@@ -47,6 +47,7 @@ function VisaDetails() {
         gender: p.gender,
         birthday: moment(p.birthday).toDate(),
         passportNumber: p.sNum,
+        filesLink: p.filesLink,
         endDate: moment(p.date3).toDate(),
       });
     });

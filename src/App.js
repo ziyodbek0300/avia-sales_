@@ -104,10 +104,6 @@ function App() {
                 path="/tour-packet/order/:hotelId/:roomId/:isGroup"
                 element={<HotelOrder />}
               />
-              <Route
-                path="/tour-packet/order/:hotelId/:roomId/:isGroup"
-                element={<HotelOrder />}
-              />
               {users?.role === userRole.agent ? (
                 <>
                   <Route path={"/my"}>
@@ -142,6 +138,10 @@ function App() {
               <Route
                 path="/transferDetails/:id"
                 element={<TransfersDetail />}
+              />
+              <Route
+                  path="hotel/order/:hotelId/:id"
+                  element={<HotelsOrder />}
               />
               <Route path="/transferDetails/result/:id" element={<Result />} />
               <Route path="/details/result/:id" element={<FlightsResult />} />

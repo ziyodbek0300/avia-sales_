@@ -11,7 +11,7 @@ import {useTranslation} from "react-i18next";
 
 
 const PartnerOrder = () => {
-    const {t} =useTranslation()
+    const {t} = useTranslation()
     const headCells = [
         {
             id: 'price',
@@ -63,12 +63,12 @@ const PartnerOrder = () => {
         },
     ]
     const dispatch = useDispatch()
+    const orders = useSelector(state => state.orders.order)
     useEffect(() => {
         dispatch(getAllOrder())
-    }, [])
+    }, [dispatch])
     const navigate = useNavigate()
 
-    const orders = useSelector(state => state.orders.order)
     return (
         <div>
             <MuiTable

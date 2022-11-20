@@ -9,7 +9,6 @@ function TourResult() {
 
     useEffect(() => {
         tourOrder.getOne(id).then((res) => {
-            console.log(res)
             setData(res.data.result);
         }).catch(e=>console.log(e))
     }, [id]);
@@ -87,7 +86,7 @@ function TourResult() {
                     </div>
                     <div>
                         <div className={""}>
-                            {data.VisaPassenger?.map((pass, index) => {
+                            {data.TourPackPassenger?.map((pass, index) => {
                                 return (
                                     <div key={pass.id}>
                                         <p className="text-2xl my-3">Пассажир {index + 1}</p>
@@ -151,6 +150,10 @@ function TourResult() {
                                                 <p className={"text-lg font-bold"}>
                                                     {pass.passportNumber}
                                                 </p>
+                                            </div>
+                                            <div className={"flex items-end gap-5 mb-3"}>
+                                                <img width={"200"} src={`https://travelcontinent.uz/api${pass.filesLink}`} alt="example"/>
+                                                <a href={`https://travelcontinent.uz/api${pass.filesLink}`} target={"_"} className={"bg-red-500 text-white py-2 px-4"}>Скачать</a>
                                             </div>
                                         </div>
                                     </div>

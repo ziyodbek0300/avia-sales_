@@ -7,8 +7,6 @@ const instance = axios.create({
     baseURL: `${MainApi}/`,
 });
 
-
-
 instance.interceptors.request.use(
     async (config) => {
         config.meta = config.meta || {};
