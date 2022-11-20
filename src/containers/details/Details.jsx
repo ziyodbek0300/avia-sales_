@@ -70,7 +70,6 @@ function Details() {
             passagers: pass
         }
         order.addNew(obj).then(response => {
-            console.log(response, obj)
             toast("Забронирован");
             navigate(`/details/result/${response.data.result.order.id}`);
         }).catch(err => {

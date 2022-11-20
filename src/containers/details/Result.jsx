@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import transfers from "../../api/projectApi/transfers";
 import { toast } from "react-toastify";
 import i18next from "i18next";
+import Pass from '../../static/images/passport.png';
 import moment from "moment";
 const t = i18next.t;
 
@@ -119,7 +120,7 @@ function Result() {
                               "border-b border-gray-700 w-full border-dotted"
                             }
                           ></div>
-                          <p className={"text-lg font-bold"}>{pass.firtname}</p>
+                          <p className={"text-lg font-bold text-right"}>{pass.firtname}</p>
                         </div>
                         <div className={"flex items-end mb-3"}>
                           <p>Фамилия</p>
@@ -128,7 +129,7 @@ function Result() {
                               "border-b border-gray-700 w-full border-dotted"
                             }
                           ></div>
-                          <p className={"text-lg font-bold"}>{pass.lastname}</p>
+                          <p className={"text-lg font-bold text-right"}>{pass.lastname}</p>
                         </div>
                         <div className={"flex items-end mb-3"}>
                           <p>Национальность</p>
@@ -137,7 +138,7 @@ function Result() {
                               "border-b border-gray-700 w-full border-dotted"
                             }
                           ></div>
-                          <p className={"text-lg font-bold"}>
+                          <p className={"text-lg font-bold text-right"}>
                             {pass.nationality}
                           </p>
                         </div>
@@ -148,7 +149,7 @@ function Result() {
                               "border-b border-gray-700 w-full border-dotted"
                             }
                           ></div>
-                          <p className={"text-lg font-bold"}>{pass.gender}</p>
+                          <p className={"text-lg font-bold text-right"}>{pass.gender}</p>
                         </div>
                         <div className={"flex items-end mb-3"}>
                           <p>День рождения</p>
@@ -157,7 +158,7 @@ function Result() {
                               "border-b border-gray-700 w-full border-dotted"
                             }
                           ></div>
-                          <p className={"text-lg font-bold"}>
+                          <p className={"text-lg font-bold text-right"}>
                             {moment(pass.birthday).format("DD-MM-YYYY HH:mm")}
                           </p>
                         </div>
@@ -168,12 +169,12 @@ function Result() {
                               "border-b border-gray-700 w-full border-dotted"
                             }
                           ></div>
-                          <p className={"text-lg font-bold"}>
+                          <p className={"text-lg font-bold text-right"}>
                             {pass.passportNumber}
                           </p>
                         </div>
                         <div className={"flex items-end gap-5 mb-3"}>
-                          <img width={"200"} src={`https://travelcontinent.uz/api${pass.filesLink}`} alt="example"/>
+                          <img width={"150"} src={Pass} alt="example"/>
                           <a href={`https://travelcontinent.uz/api${pass.filesLink}`} target={"_"} className={"bg-red-500 text-white py-2 px-4"}>Скачать</a>
                         </div>
                       </div>

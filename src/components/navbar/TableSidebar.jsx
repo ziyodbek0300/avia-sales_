@@ -1,36 +1,24 @@
 import * as React from "react";
-import { NavLink } from 'react-router-dom';
-import Logo from '../../static/images/logo.png'
 import PropTypes from "prop-types";
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import { Tab } from "react-tabs";
-import { GiAirplaneDeparture, GiCoins, GiTicket } from "react-icons/gi";
+import {Outlet, useNavigate, useLocation} from "react-router-dom";
+import {Tab} from "react-tabs";
+import Users from '../../static/images/vuesax/outline/profile-2user.svg';
+import Flight from '../../static/images/vuesax/bold/airplane.svg';
+import People from '../../static/images/vuesax/outline/people.svg';
+import Transfer from '../../static/images/vuesax/outline/car.svg';
+import Task from '../../static/images/vuesax/outline/task.svg';
+import Visa from '../../static/images/vuesax/outline/note.svg';
+import Regions from '../../static/images/vuesax/bold/vuesax/outline/map.svg';
+import Rays from '../../static/images/vuesax/outline/routing.svg';
+import ExTour from '../../static/images/vuesax/outline/map.svg';
 import {
     FiActivity,
-    FiAlertCircle,
-    FiAlertTriangle,
-    FiGrid,
-    FiLock,
-    FiUsers,
 } from "react-icons/fi";
-import {AiOutlineBuild, AiOutlineLogout} from "react-icons/ai";
-import { SignOut } from "../../containers/agentIndex/AgentPage/AgentPage";
-import { useDispatch } from "react-redux";
-import Cookies from "js-cookie";
-import { logOut } from "../../redux/user/actions";
-import { useTranslation } from "react-i18next";
-
 
 function TableSidebar() {
-    const { t } = useTranslation();
     const navigate = useNavigate();
     const route = useLocation();
-    const dispatch = useDispatch();
-    const handlePressLogout = () => {
-        Cookies.remove("token");
-        dispatch(logOut());
-        navigate("/");
-    };
+
     return (
         <>
             <div className={"flex flex-col w-[16%] bg-gray-200 py-4 px-10"}>
@@ -39,7 +27,7 @@ function TableSidebar() {
                     className={`sidebarTab ${route.pathname === "/users" ? "bg-red-600 text-white" : ""
                     }`}
                 >
-                    <FiUsers className="text-2xl" />
+                    <img src={Users} alt={"profile"} width={"30"}/>
                     Пользователи
                 </Tab>
                 <Tab
@@ -47,7 +35,7 @@ function TableSidebar() {
                     className={`sidebarTab ${route.pathname === "/avia-tickets" ? "bg-red-600 text-white" : ""
                     }`}
                 >
-                    <GiAirplaneDeparture className="text-2xl" />
+                    <img src={Flight} alt={"flight"} width={"30"}/>
                     Авиабилеты
                 </Tab>
                 <Tab
@@ -55,7 +43,7 @@ function TableSidebar() {
                     className={`sidebarTab ${route.pathname === "/hotel-orders" ? "bg-red-600 text-white" : ""
                     }`}
                 >
-                    <AiOutlineBuild className="text-2xl" />
+                    <FiActivity className={"text-3xl text-white"}/>
                     Отели
                 </Tab>
                 <Tab
@@ -64,7 +52,7 @@ function TableSidebar() {
                     }`}
                     selectedClassName="bg-red-600"
                 >
-                    <FiGrid className="text-2xl" />
+                    <img src={Task} alt={"people"} width={"30"}/>
                     Турпакети
                 </Tab>
                 {/*<Tab*/}
@@ -82,7 +70,7 @@ function TableSidebar() {
                     }`}
                     selectedClassName="bg-red-600"
                 >
-                    <FiGrid className="text-2xl" />
+                    <img src={People} alt={"people"} width={"30"}/>
                     Партнеры
                 </Tab>
                 <Tab
@@ -91,7 +79,7 @@ function TableSidebar() {
                     }`}
                     selectedClassName="bg-red-600"
                 >
-                    <FiLock className="text-2xl" />
+                    <img src={Regions} alt="region" width={"30"}/>
                     Региони
                 </Tab>
                 <Tab
@@ -100,7 +88,7 @@ function TableSidebar() {
                     }`}
                     selectedClassName="bg-red-600"
                 >
-                    <FiActivity className="text-2xl" />
+                    <img src={Rays} alt="reysi" width={30}/>
                     Рейсы
                 </Tab>
                 <Tab
@@ -109,7 +97,7 @@ function TableSidebar() {
                     }`}
                     selectedClassName="bg-red-600"
                 >
-                    <FiAlertCircle className="text-2xl" />
+                    <img src={Transfer} alt="cars" width={30}/>
                     Трансфери
                 </Tab>
                 <Tab
@@ -118,7 +106,7 @@ function TableSidebar() {
                     }`}
                     selectedClassName="bg-red-600"
                 >
-                    <FiAlertTriangle className="text-2xl" />
+                    <img src={Visa} alt="visa" width={30}/>
                     Визи
                 </Tab>
                 <Tab
@@ -127,11 +115,11 @@ function TableSidebar() {
                     }`}
                     selectedClassName="bg-red-600"
                 >
-                    <FiAlertTriangle className="text-2xl" />
+                    <img src={ExTour} alt="cars" width={30}/>
                     Экскурсионные туры
                 </Tab>
             </div>
-            <Outlet />
+            <Outlet/>
         </>
     );
 }
