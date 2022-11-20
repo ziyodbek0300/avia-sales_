@@ -43,6 +43,7 @@ import TourList from "./containers/tourpacks-list/TourPacksList";
 import TourResult from "./containers/details/TourResult";
 import HotelsOrder from "./containers/hotelOrderr";
 import HotelResult from "./containers/details/HotelResult";
+import HotelOrders from "./containers/hotel-orders/HotelOrders";
 
 function App() {
   const dispatch = useDispatch();
@@ -100,6 +101,7 @@ function App() {
                 element={<HotelsOrder />}
               />
               <Route path="/tour-package-order" element={<TourList />} />
+              <Route path="/hotel-orders" element={<HotelOrders />} />
               <Route
                 path="/tour-packet/order/:hotelId/:roomId/:isGroup"
                 element={<HotelOrder />}
@@ -181,6 +183,7 @@ function App() {
                 <Route path="flights" element={<Flights />} />
                 <Route path="/visasList" element={<Visas />} />
                 <Route path="/tour-package-order" element={<TourList />} />
+                <Route path="/hotel-orders" element={<HotelOrders />} />
                 <Route path="visaDetails/:id" element={<VisaDetails />} />
                 <Route path={"*"} element={<div>Not found</div>} />
               </Route>

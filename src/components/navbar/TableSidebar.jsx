@@ -13,7 +13,7 @@ import {
     FiLock,
     FiUsers,
 } from "react-icons/fi";
-import { AiOutlineLogout } from "react-icons/ai";
+import {AiOutlineBuild, AiOutlineLogout} from "react-icons/ai";
 import { SignOut } from "../../containers/agentIndex/AgentPage/AgentPage";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
@@ -36,7 +36,7 @@ function TableSidebar() {
             <div className={"flex flex-col w-[16%] bg-gray-200 py-4 px-10"}>
                 <Tab
                     onClick={() => navigate("/users")}
-                    className={`sidebarTab bg-red-600 text-white ${route.pathname === "/users" ? "bg-red-600 text-white" : ""
+                    className={`sidebarTab ${route.pathname === "/users" ? "bg-red-600 text-white" : ""
                     }`}
                 >
                     <FiUsers className="text-2xl" />
@@ -49,6 +49,14 @@ function TableSidebar() {
                 >
                     <GiAirplaneDeparture className="text-2xl" />
                     Авиабилеты
+                </Tab>
+                <Tab
+                    onClick={() => navigate("/hotel-orders")}
+                    className={`sidebarTab ${route.pathname === "/hotel-orders" ? "bg-red-600 text-white" : ""
+                    }`}
+                >
+                    <AiOutlineBuild className="text-2xl" />
+                    Отели
                 </Tab>
                 <Tab
                     onClick={() => navigate("/tour-package-order")}
