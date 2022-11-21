@@ -174,7 +174,7 @@ function Result() {
                           </p>
                         </div>
                         <div className={"flex items-end gap-5 mb-3"}>
-                          <img width={"150"} src={Pass} alt="example"/>
+                          <img width={"60"} src={Pass} alt="example"/>
                           <a href={`https://travelcontinent.uz/api${pass.filesLink}`} target={"_"} className={"bg-red-500 text-white py-2 px-4"}>Скачать</a>
                         </div>
                       </div>

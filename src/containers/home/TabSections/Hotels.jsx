@@ -12,6 +12,7 @@ import NavS from "../NavS";
 import Contacts from "../../../components/contacts";
 import Star from "../../../static/images/star.svg";
 import {useNavigate} from "react-router-dom";
+import GetMealName from "../../../constants/meals";
 
 const RenderItem = ({
                         e,
@@ -222,7 +223,7 @@ const RenderItem = ({
                                                                             <div
                                                                                 className={"flex flex-col justify-between h-full"}>
                                                                                 <div>
-                                                                                    <p className={"text-md p-0 m-0"}>{e.name ? e.name : "Standart"}</p>
+                                                                                    <p className={"text-md p-0 m-0"}>{e.name ? e.name : "Standart"} <span className={"text-red-500 ml-1"}>({GetMealName(e)})</span></p>
                                                                                     <p className={"m-0"}>{e.dataa.name}</p>
                                                                                 </div>
                                                                                 {/*<div className={"text-right"}>*/}

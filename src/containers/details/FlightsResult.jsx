@@ -99,7 +99,7 @@ function FlightsResult() {
                                         <p className={"text-lg text-right font-bold"}>{pass.passportNumber}</p>
                                     </div>
                                     <div className={"flex items-end mb-3"}>
-                                        <img width={"150"} src={Pass} alt="askjd"/>
+                                        <img width={"60"} src={Pass} alt="askjd"/>
                                         <a href={`https://travelcontinent.uz/api${pass.filesLink}`} className={"ml-2"} target={'_'} download>Скачать</a>
                                     </div>
                                 </div>
