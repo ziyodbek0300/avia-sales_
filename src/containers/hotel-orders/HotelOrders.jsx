@@ -13,7 +13,7 @@ function HotelOrders() {
 
   useEffect(() => {
     hotel.getAll().then((res) => {
-      setTourList(res.data.result)
+      setTourList(res.data.result?.reverse())
     });
   }, []);
 

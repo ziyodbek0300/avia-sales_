@@ -10,7 +10,7 @@ function ExTourList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    excursionTour.getAll().then((res) => setRegions(res.data.result));
+    excursionTour.getAll().then((res) => setRegions(res.data.result?.reverse()));
   }, []);
 
   const handleDelete = (id) => {
