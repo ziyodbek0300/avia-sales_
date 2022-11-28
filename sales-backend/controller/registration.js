@@ -13,7 +13,13 @@ const registrationUser = async (req, res, next) => {
             return res.status(404).send({code: 404, error: {}, message: "File not pdf"})
         }
         fs.rename(file1 + `/public/pdf/${file.filename}`, file1 + `/public/pdf/${file.filename}.pdf`, (e) => {
-            Promise.all([prisma.user.create({data:{...req.body, isChecked: false, doc: file.path + ".pdf"}})]).then(r => {
+            Promise.all([prisma.user.create({
+                data: {
+                    ...req.body,
+                    isChecked: false,
+                    doc: file.path + ".pdf"
+                }
+            })]).then(r => {
                 return res.status(200).send({code: 200, user: r[0]})
             }).catch(e => {
                 return res.status(404).send({code: 404, error: e, message: e.message})
@@ -24,11 +30,33 @@ const registrationUser = async (req, res, next) => {
     }
 }
 
+const attach = async (req, res, next) => {
+    try {
+        const files = req.files
+        let result = []
+        const types = [
+            {mime: "application/pdf", type: "pdf"},
+            {mime: "image/png", type: "png"},
+            {mime: "image/jpg", type: "jpg"},
+            {mime: "image/jpeg", type: "jpg"},
+        ]
+        await Promise.all(files.map(async (file, index) => {
+            const a = types.find(e => e.mime === file.mimetype)
+            fs.renameSync(file1 + `/public/pdf/${file.filename}`, file1 + `/public/pdf/${file.filename}.${a.type}`);
+            result = [...result, `/public/pdf/${file.filename}.${a.type}`]
+        }))
+        res.status(200).send({code: 200, attach: result})
+
+    } catch (e) {
+        return res.status(404).send({code: 404, error: e, message: e.message})
+    }
+}
+
 const loginUser = async (req, res) => {
     try {
         let {email, password} = req.body
-        prisma.user.findFirst({where: {AND:{email, password}}}).then(r => {
-            if (r){
+        prisma.user.findFirst({where: {AND: {email, password}}}).then(r => {
+            if (r) {
                 const token = jwt.sign({
                     User: r?.id,
                     email: r?.email,
@@ -49,5 +77,6 @@ const loginUser = async (req, res) => {
 
 module.exports = {
     registrationUser,
-    loginUser
+    loginUser,
+    attach
 }

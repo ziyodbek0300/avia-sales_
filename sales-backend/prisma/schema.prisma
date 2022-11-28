@@ -20,6 +20,7 @@ model TourPassenger {
   endDate        DateTime?
   tourPack       TourPack? @relation(fields: [tourPackId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   tourPackId     Int?
+  filesLink      String    @default("")
 }
 
 model TourPack {
@@ -112,6 +113,7 @@ model VisaPassenger {
   endDate        DateTime?
   visaId         Int
   Visa           Visa      @relation(fields: [visaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  filesLink      String    @default("")
 }
 
 model Visa {
@@ -142,6 +144,7 @@ model Passenger {
   endDate        DateTime
   Order          Order?   @relation(fields: [orderId], references: [id])
   orderId        Int?
+  filesLink      String   @default("")
 }
 
 model HotelPassenger {
@@ -157,6 +160,7 @@ model HotelPassenger {
   endDate        DateTime
   hotelOrder     HotelOrder? @relation(fields: [hotelOrderId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   hotelOrderId   Int?
+  filesLink      String      @default("")
 }
 
 model TransferPassenger {
@@ -172,6 +176,7 @@ model TransferPassenger {
   endDate        DateTime
   transfer       Transfer? @relation(fields: [transferId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   transferId     Int?
+  filesLink      String    @default("")
 }
 
 model ExcursionTourPassenger {
@@ -187,6 +192,7 @@ model ExcursionTourPassenger {
   endDate        DateTime
   ExcursionTour  ExcursionTour? @relation(fields: [tourId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   tourId         Int?
+  filesLink      String         @default("")
 }
 
 model ExcursionTour {
@@ -282,6 +288,7 @@ model TourPackPassenger {
   endDate         DateTime
   TourPacketOrder TourPacketOrder? @relation(fields: [tourPackId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   tourPackId      Int?
+  filesLink       String           @default("")
 }
 
 model TourPacketOrder {

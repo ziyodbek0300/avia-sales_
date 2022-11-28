@@ -6,11 +6,10 @@ import {BrowserRouter} from 'react-router-dom';
 import Store from './redux';
 import {initializeApp} from "firebase/app";
 import {Provider} from "react-redux";
-import {PersistGate} from "redux-persist/integration/react";
 import {CookiesProvider} from 'react-cookie';
 import "./lang"
 
-const {store, persistor} = Store();
+const {store} = Store();
 
 const firebaseConfig = {
     apiKey: "AIzaSyCh8iVwHAk4edTRMCTfsixFgQGgbxiQ__o",

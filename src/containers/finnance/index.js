@@ -31,7 +31,7 @@ const TourPackage = ()=>{
     const [data,setData] = useState([])
     useEffect(()=>{},[])
     return (
-        <div>
+        <div className={"w-full"}>
             <MuiTable
                 tableName={"Баланс: -302$"}
                 rows={[]?.map(r => {

@@ -17,6 +17,10 @@ import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import { logOut } from "../../redux/user/actions";
 import { useTranslation } from "react-i18next";
+import TableSidebar from "./TableSidebar";
+import TableNav from "./TableNav";
+import TableBody from "./TableBody";
+// import Logout from
 
 function AdminNavbar() {
   const { t } = useTranslation();
@@ -24,125 +28,139 @@ function AdminNavbar() {
   const route = useLocation();
   const dispatch = useDispatch();
   const handlePressLogout = () => {
-    Cookies.remove("token");
-    dispatch(logOut());
-    navigate("/");
+    if(window.confirm("Are you sure?")) {
+      Cookies.remove("token");
+      dispatch(logOut());
+      navigate("/");
+    }
   };
   return (
     <>
-      <div className={"flex flex-wrap mx-auto"}>
-        <div className="flex flex-wrap gap-2 mx-auto">
-          <Tab
-            onClick={() => navigate("/users")}
-            className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${
-              route.pathname === "/users" ? "bg-red-600" : ""
-            }`}
-          >
-            <FiUsers />
-            Пользователи
-          </Tab>
-          <Tab
-            onClick={() => navigate("/avia-tickets")}
-            className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${
-              route.pathname === "/avia-tickets" ? "bg-red-600" : ""
-            }`}
-          >
-            <GiAirplaneDeparture />
-            Авиабилеты
-          </Tab>
-          <Tab
-            onClick={() => navigate("/tour-package-order")}
-            className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${
-              route.pathname === "/tour-package-order" ? "bg-red-600" : ""
-            }`}
-            selectedClassName="bg-red-600"
-          >
-            <FiGrid />
-            Турпакети
-          </Tab>
-          <Tab
-            onClick={() => navigate("/finance")}
-            className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${
-              route.pathname === "/finance" ? "bg-red-600" : ""
-            }`}
-            selectedClassName="bg-red-600"
-          >
-            <GiCoins />
-            Финансы
-          </Tab>
-          <Tab
-            onClick={() => navigate("/partners")}
-            className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${
-              route.pathname === "/partners" ? "bg-red-600" : ""
-            }`}
-            selectedClassName="bg-red-600"
-          >
-            <FiGrid />
-            Партнеры
-          </Tab>
-          <Tab
-            onClick={() => navigate("/regions")}
-            className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${
-              route.pathname === "/regions" ? "bg-red-600" : ""
-            }`}
-            selectedClassName="bg-red-600"
-          >
-            <FiLock />
-            Региони
-          </Tab>
-          <Tab
-            onClick={() => navigate("/flights")}
-            className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${
-              route.pathname === "/flights" ? "bg-red-600" : ""
-            }`}
-            selectedClassName="bg-red-600"
-          >
-            <FiActivity />
-            Рейсы
-          </Tab>
-          <Tab
-            onClick={() => navigate("/transfersList")}
-            className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${
-              route.pathname === "/transfersList" ? "bg-red-600" : ""
-            }`}
-            selectedClassName="bg-red-600"
-          >
-            <FiAlertCircle />
-            Трансфери
-          </Tab>
-          <Tab
-            onClick={() => navigate("/visasList")}
-            className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${
-              route.pathname === "/visasList" ? "bg-red-600" : ""
-            }`}
-            selectedClassName="bg-red-600"
-          >
-            <FiAlertTriangle />
-            Визи
-          </Tab>
-          <Tab
-            onClick={() => navigate("/exTourList")}
-            className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${
-              route.pathname === "/exTourList" ? "bg-red-600" : ""
-            }`}
-            selectedClassName="bg-red-600"
-          >
-            <FiAlertTriangle />
-            Экскурсионные туры
-          </Tab>
-        </div>
-        <div className={"flex flex-1 justify-end my-4"}>
-          <div>
-            <SignOut onClick={handlePressLogout}>
-              <div className={"mx-2"}>
-                <AiOutlineLogout />
-              </div>
-              Выйти
-            </SignOut>
-          </div>
+      <div className='flex'>
+        <TableSidebar />
+        {/*<div className="w-full">*/}
+        {/*  /!*<TableNav />*!/*/}
+        {/*  /!*<Outlet />*!/*/}
+        {/*  /!*<TableBody />*!/*/}
+        {/*</div>*/}
+        <div onClick={handlePressLogout} className={"fixed top-10 right-10 flex items-center gap-2 bg-red-100 p-2 rounded"}>
+          <AiOutlineLogout className={"text-red-500 text-4xl"}/>
+          Logout
         </div>
       </div>
-      <Outlet />
+      {/*<TableAdmin /> */}
+      {/*<div className={"flex flex-wrap mx-auto"}>*/}
+      {/*  <div className="flex flex-wrap gap-2 mx-auto">*/}
+      {/*    <Tab*/}
+      {/*      onClick={() => navigate("/users")}*/}
+      {/*      className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${*/}
+      {/*        route.pathname === "/users" ? "bg-red-600" : ""*/}
+      {/*      }`}*/}
+      {/*    >*/}
+      {/*      <FiUsers />*/}
+      {/*      Пользователи*/}
+      {/*    </Tab>*/}
+      {/*    <Tab*/}
+      {/*      onClick={() => navigate("/avia-tickets")}*/}
+      {/*      className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${*/}
+      {/*        route.pathname === "/avia-tickets" ? "bg-red-600" : ""*/}
+      {/*      }`}*/}
+      {/*    >*/}
+      {/*      <GiAirplaneDeparture />*/}
+      {/*      Авиабилеты*/}
+      {/*    </Tab>*/}
+      {/*    <Tab*/}
+      {/*      onClick={() => navigate("/tour-package-order")}*/}
+      {/*      className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${*/}
+      {/*        route.pathname === "/tour-package-order" ? "bg-red-600" : ""*/}
+      {/*      }`}*/}
+      {/*      selectedClassName="bg-red-600"*/}
+      {/*    >*/}
+      {/*      <FiGrid />*/}
+      {/*      Турпакети*/}
+      {/*    </Tab>*/}
+      {/*    <Tab*/}
+      {/*      onClick={() => navigate("/finance")}*/}
+      {/*      className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${*/}
+      {/*        route.pathname === "/finance" ? "bg-red-600" : ""*/}
+      {/*      }`}*/}
+      {/*      selectedClassName="bg-red-600"*/}
+      {/*    >*/}
+      {/*      <GiCoins />*/}
+      {/*      Финансы*/}
+      {/*    </Tab>*/}
+      {/*    <Tab*/}
+      {/*      onClick={() => navigate("/partners")}*/}
+      {/*      className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${*/}
+      {/*        route.pathname === "/partners" ? "bg-red-600" : ""*/}
+      {/*      }`}*/}
+      {/*      selectedClassName="bg-red-600"*/}
+      {/*    >*/}
+      {/*      <FiGrid />*/}
+      {/*      Партнеры*/}
+      {/*    </Tab>*/}
+      {/*    <Tab*/}
+      {/*      onClick={() => navigate("/regions")}*/}
+      {/*      className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${*/}
+      {/*        route.pathname === "/regions" ? "bg-red-600" : ""*/}
+      {/*      }`}*/}
+      {/*      selectedClassName="bg-red-600"*/}
+      {/*    >*/}
+      {/*      <FiLock />*/}
+      {/*      Региони*/}
+      {/*    </Tab>*/}
+      {/*    <Tab*/}
+      {/*      onClick={() => navigate("/flights")}*/}
+      {/*      className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${*/}
+      {/*        route.pathname === "/flights" ? "bg-red-600" : ""*/}
+      {/*      }`}*/}
+      {/*      selectedClassName="bg-red-600"*/}
+      {/*    >*/}
+      {/*      <FiActivity />*/}
+      {/*      Рейсы*/}
+      {/*    </Tab>*/}
+      {/*    <Tab*/}
+      {/*      onClick={() => navigate("/transfersList")}*/}
+      {/*      className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${*/}
+      {/*        route.pathname === "/transfersList" ? "bg-red-600" : ""*/}
+      {/*      }`}*/}
+      {/*      selectedClassName="bg-red-600"*/}
+      {/*    >*/}
+      {/*      <FiAlertCircle />*/}
+      {/*      Трансфери*/}
+      {/*    </Tab>*/}
+      {/*    <Tab*/}
+      {/*      onClick={() => navigate("/visasList")}*/}
+      {/*      className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${*/}
+      {/*        route.pathname === "/visasList" ? "bg-red-600" : ""*/}
+      {/*      }`}*/}
+      {/*      selectedClassName="bg-red-600"*/}
+      {/*    >*/}
+      {/*      <FiAlertTriangle />*/}
+      {/*      Визи*/}
+      {/*    </Tab>*/}
+      {/*    <Tab*/}
+      {/*      onClick={() => navigate("/exTourList")}*/}
+      {/*      className={`cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm ${*/}
+      {/*        route.pathname === "/exTourList" ? "bg-red-600" : ""*/}
+      {/*      }`}*/}
+      {/*      selectedClassName="bg-red-600"*/}
+      {/*    >*/}
+      {/*      <FiAlertTriangle />*/}
+      {/*      Экскурсионные туры*/}
+      {/*    </Tab>*/}
+      {/*  </div>*/}
+      {/*  <div className={"flex flex-1 justify-end my-4"}>*/}
+      {/*    <div>*/}
+      {/*      <SignOut onClick={handlePressLogout}>*/}
+      {/*        <div className={"mx-2"}>*/}
+      {/*          <AiOutlineLogout />*/}
+      {/*        </div>*/}
+      {/*        Выйти*/}
+      {/*      </SignOut>*/}
+      {/*    </div>*/}
+      {/*  </div>*/}
+      {/*</div>*/}
     </>
   );
 }

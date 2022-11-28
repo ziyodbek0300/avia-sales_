@@ -5,12 +5,26 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="shortcut icon" href="./icon.png" type="image/x-icon">
+<!--    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">-->
     <title>Travelcontinent</title>
 </head>
 
 <body>
 <noscript>You need to enable JavaScript to run this app.</noscript>
 <div id="root"></div>
+<script>
+    const prevButton = document.getElementById('data-carousel-prev');
+    const nextButton = document.getElementById('data-carousel-next');
+    const carousel = document.getElementById('default-carousel');
+
+    prevButton.addEventListener('click', () => {
+        carousel.prev();
+    });
+
+    nextButton.addEventListener('click', () => {
+        carousel.next();
+    });
+</script>
 </body>
 
 </html>
