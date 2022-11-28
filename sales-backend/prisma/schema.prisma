@@ -35,6 +35,7 @@ model TourPack {
   hotelPrice    Float?
   flightPrice   Float?
   TourPassenger TourPassenger[]
+  status        Status          @default(NEW)
 }
 
 model User {
@@ -95,6 +96,7 @@ model Flight {
   returnEndTime   DateTime?
   regionId        Int?
   TourPacketOrder TourPacketOrder[]
+  status          Status            @default(NEW)
 }
 
 model VisaPassenger {
@@ -124,6 +126,7 @@ model Visa {
   price         Float
   passengers    Int[]
   VisaPassenger VisaPassenger[]
+  status        Status          @default(NEW)
 }
 
 model Passenger {
@@ -196,6 +199,7 @@ model ExcursionTour {
   passagersId Int[]
   total       Float                    @default(0)
   passagers   ExcursionTourPassenger[]
+  status      Status                   @default(NEW)
 }
 
 model Transfer {
@@ -211,6 +215,7 @@ model Transfer {
   name              String
   description       String              @default("")
   TransferPassenger TransferPassenger[]
+  status            Status              @default(NEW)
 }
 
 model Order {
@@ -231,6 +236,7 @@ model Order {
   partner     User?       @relation(fields: [partnerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   flight      Flight?     @relation(fields: [flightId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   passager    Passenger[]
+  status      Status      @default(NEW)
 }
 
 model HotelOrder {
@@ -252,6 +258,7 @@ model HotelOrder {
   endDate        DateTime
   HotelPassenger HotelPassenger[]
   regionId       String
+  status         Status           @default(NEW)
 }
 
 model Hotels {
@@ -300,6 +307,7 @@ model TourPacketOrder {
   endDate           DateTime
   regionId          String
   TourPackPassenger TourPackPassenger[]
+  status            Status              @default(NEW)
 }
 
 enum Role {
@@ -311,4 +319,10 @@ enum Role {
 enum Gender {
   MALE
   FEMALE
+}
+
+enum Status {
+  NEW
+  ACCEPT
+  CANCEL
 }
