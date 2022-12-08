@@ -30,7 +30,7 @@ app.use(
   bodyParser.urlencoded({
     limit: "100mb",
     extended: false,
-    parameterLimit: 50000,
+    parameterLimit: 500000,
   })
 );
 app.use(cookieParser());
