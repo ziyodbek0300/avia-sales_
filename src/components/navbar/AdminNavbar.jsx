@@ -36,13 +36,8 @@ function AdminNavbar() {
   };
   return (
     <>
-      <div className='flex'>
+      <div className='flex border-t-2 border-red-400'>
         <TableSidebar />
-        {/*<div className="w-full">*/}
-        {/*  /!*<TableNav />*!/*/}
-        {/*  /!*<Outlet />*!/*/}
-        {/*  /!*<TableBody />*!/*/}
-        {/*</div>*/}
         <div onClick={handlePressLogout} className={"fixed top-10 right-10 flex items-center gap-2 bg-red-100 p-2 rounded"}>
           <AiOutlineLogout className={"text-red-500 text-4xl"}/>
           Logout

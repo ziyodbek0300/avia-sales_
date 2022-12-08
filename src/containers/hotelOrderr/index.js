@@ -37,6 +37,7 @@ const HotelsOrder = () => {
             birthday: "",
             sNum: "",
             date3: "",
+            filesLink: ""
         }));
     const currentUser = useSelector((state) => state.user.currentUser);
 
@@ -44,12 +45,14 @@ const HotelsOrder = () => {
         setPassagers(data);
     };
 
+
     const saveOrder = () => {
         let pass = [];
         // eslint-disable-next-line array-callback-return
         passagers.map((p) => {
             pass.push({
                 lastname: p.last_name,
+                filesLink: p.filesLink,
                 firtname: p.first_name,
                 nationality: p.from,
                 gender: p.gender,
@@ -60,17 +63,27 @@ const HotelsOrder = () => {
         });
 
         let obj = {
-            ...JSON.parse(localStorage.getItem("tourPrice")),
+            comment: "Some comment",
+            startDate: new Date(JSON.parse(localStorage.getItem("tourPrice")).date1),
+            endDate: new Date(JSON.parse(localStorage.getItem("tourPrice")).date2),
+            price: JSON.parse(localStorage.getItem("tourPrice")).price,
+            partnerId: currentUser.id,
+            hotelId: "1",
+            regionId: JSON.parse(localStorage.getItem("tourPrice")).town,
+            mealId: "112",
+            roomId: JSON.parse(localStorage.getItem("tourPrice")).roomId,
+            serviceId: "1",
             contactName: contactName,
             email: contactEmail,
             phone: contactPhone,
             passagers: pass,
         };
+        console.log(obj)
         hotel
             .hotelOrder(obj)
             .then((response) => {
                 toast("Забронирован");
-                navigate(`/details/tourResult/${response.data.result?.order.id}`)
+                navigate(`/details/hotelResult/${response.data.result?.order.id}`)
             })
             .catch((err) => {
                 console.log(err);

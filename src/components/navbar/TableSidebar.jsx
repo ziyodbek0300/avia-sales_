@@ -1,54 +1,68 @@
 import * as React from "react";
-import { NavLink } from 'react-router-dom';
-import Logo from '../../static/images/logo.png'
 import PropTypes from "prop-types";
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import { Tab } from "react-tabs";
-import { GiAirplaneDeparture, GiCoins, GiTicket } from "react-icons/gi";
+import {Outlet, useNavigate, useLocation} from "react-router-dom";
+import {Tab} from "react-tabs";
+import Users from '../../static/images/vuesax/outline/profile-2user.svg';
+import UsersDark from '../../static/images/vuesax/outline/profile-2user-dark.svg';
+import Flight from '../../static/images/vuesax/bold/airplane.svg';
+import FlightDark from '../../static/images/vuesax/bold/airplane-dark.svg';
+import People from '../../static/images/vuesax/outline/people.svg';
+import PeopleDark from '../../static/images/vuesax/outline/people-dark.svg';
+import Transfer from '../../static/images/vuesax/outline/car.svg';
+import TransferDark from '../../static/images/vuesax/outline/car-dark.svg';
+import Task from '../../static/images/vuesax/outline/task.svg';
+import TaskDark from '../../static/images/vuesax/outline/task-dark.svg';
+import Visa from '../../static/images/vuesax/outline/note.svg';
+import VisaDark from '../../static/images/vuesax/outline/note-dark.svg';
+import Regions from '../../static/images/vuesax/bold/vuesax/outline/map.svg';
+import RegionsDark from '../../static/images/vuesax/bold/vuesax/outline/map-dark.svg';
+import Rays from '../../static/images/vuesax/outline/routing.svg';
+import RaysDark from '../../static/images/vuesax/outline/routing-dark.svg';
+import ExTour from '../../static/images/vuesax/outline/map.svg';
+import ExTourDark from '../../static/images/vuesax/outline/map-dark.svg';
 import {
     FiActivity,
-    FiAlertCircle,
-    FiAlertTriangle,
-    FiGrid,
-    FiLock,
-    FiUsers,
 } from "react-icons/fi";
-import { AiOutlineLogout } from "react-icons/ai";
-import { SignOut } from "../../containers/agentIndex/AgentPage/AgentPage";
-import { useDispatch } from "react-redux";
-import Cookies from "js-cookie";
-import { logOut } from "../../redux/user/actions";
-import { useTranslation } from "react-i18next";
-
 
 function TableSidebar() {
-    const { t } = useTranslation();
     const navigate = useNavigate();
     const route = useLocation();
-    const dispatch = useDispatch();
-    const handlePressLogout = () => {
-        Cookies.remove("token");
-        dispatch(logOut());
-        navigate("/");
-    };
+
     return (
         <>
-            <div className={"flex flex-col w-[16%] bg-gray-200 py-4 px-10"}>
+            <div className={"flex flex-col w-[16%] h-screen bg-gray-100 py-4 px-5"}>
                 <Tab
                     onClick={() => navigate("/users")}
-                    className={`sidebarTab bg-red-600 text-white ${route.pathname === "/users" ? "bg-red-600 text-white" : ""
+                    className={`sidebarTab ${route.pathname === "/users" ? "bg-red-600 text-white" : ""
                     }`}
                 >
-                    <FiUsers className="text-2xl" />
-                    Пользователи
+                    <img className={"icon-svg"} src={route.pathname === "/users" ? Users : UsersDark} alt={"profile"} width={"30"}/>
+                    <p style={{
+                        whiteSpace: 'nowrap', overflow: 'hidden',
+                        textOverflow: "ellipsis"
+                    }}>Пользователи</p>
                 </Tab>
                 <Tab
                     onClick={() => navigate("/avia-tickets")}
                     className={`sidebarTab ${route.pathname === "/avia-tickets" ? "bg-red-600 text-white" : ""
                     }`}
                 >
-                    <GiAirplaneDeparture className="text-2xl" />
-                    Авиабилеты
+                        <img className={"icon-svg"} src={route.pathname === "/avia-tickets" ? Flight : FlightDark} alt={"flight"} width={"30"}/>
+                    <p style={{
+                        whiteSpace: 'nowrap', overflow: 'hidden',
+                        textOverflow: "ellipsis"
+                    }}>Авиабилеты</p>
+                </Tab>
+                <Tab
+                    onClick={() => navigate("/hotel-orders")}
+                    className={`sidebarTab ${route.pathname === "/hotel-orders" ? "bg-red-600 text-white" : ""
+                    }`}
+                >
+                    <FiActivity className={"text-3xl text-dark hover:text-white"}/>
+                    <p style={{
+                        whiteSpace: 'nowrap', overflow: 'hidden',
+                        textOverflow: "ellipsis"
+                    }}>Отели</p>
                 </Tab>
                 <Tab
                     onClick={() => navigate("/tour-package-order")}
@@ -56,8 +70,11 @@ function TableSidebar() {
                     }`}
                     selectedClassName="bg-red-600"
                 >
-                    <FiGrid className="text-2xl" />
-                    Турпакети
+                    <img src={route.pathname === "/tour-package-order" ? Task : TaskDark} alt={"people"} width={"30"}/>
+                    <p style={{
+                        whiteSpace: 'nowrap', overflow: 'hidden',
+                        textOverflow: "ellipsis"
+                    }}>Турпакети</p>
                 </Tab>
                 {/*<Tab*/}
                 {/*    onClick={() => navigate("/finance")}*/}
@@ -74,17 +91,23 @@ function TableSidebar() {
                     }`}
                     selectedClassName="bg-red-600"
                 >
-                    <FiGrid className="text-2xl" />
-                    Партнеры
+                    <img src={route.pathname === "/partners" ? People : PeopleDark} alt={"people"} width={"30"}/>
+                    <p style={{
+                        whiteSpace: 'nowrap', overflow: 'hidden',
+                        textOverflow: "ellipsis"
+                    }}>Партнеры</p>
                 </Tab>
                 <Tab
                     onClick={() => navigate("/regions")}
-                    className={`sidebarTab ${route.pathname === "/regions" ? "bg-red-600 text-white" : " "
+                    className={`sidebarTab ${route.pathname === "/regions" ? "bg-red-600 text-white" : ""
                     }`}
                     selectedClassName="bg-red-600"
                 >
-                    <FiLock className="text-2xl" />
-                    Региони
+                    <img src={route.pathname === "/regions" ? Regions : RegionsDark} alt="region" width={"30"}/>
+                    <p style={{
+                        whiteSpace: 'nowrap', overflow: 'hidden',
+                        textOverflow: "ellipsis"
+                    }}>Региони</p>
                 </Tab>
                 <Tab
                     onClick={() => navigate("/flights")}
@@ -92,8 +115,11 @@ function TableSidebar() {
                     }`}
                     selectedClassName="bg-red-600"
                 >
-                    <FiActivity className="text-2xl" />
-                    Рейсы
+                    <img src={route.pathname === "/flights" ? Rays : RaysDark} alt="reysi" width={30}/>
+                    <p style={{
+                        whiteSpace: 'nowrap', overflow: 'hidden',
+                        textOverflow: "ellipsis"
+                    }}>Рейсы</p>
                 </Tab>
                 <Tab
                     onClick={() => navigate("/transfersList")}
@@ -101,8 +127,11 @@ function TableSidebar() {
                     }`}
                     selectedClassName="bg-red-600"
                 >
-                    <FiAlertCircle className="text-2xl" />
-                    Трансфери
+                    <img src={route.pathname === "/transfersList" ? Transfer : TransferDark} alt="cars" width={30}/>
+                    <p style={{
+                        whiteSpace: 'nowrap', overflow: 'hidden',
+                        textOverflow: "ellipsis"
+                    }}>Трансфери</p>
                 </Tab>
                 <Tab
                     onClick={() => navigate("/visasList")}
@@ -110,8 +139,11 @@ function TableSidebar() {
                     }`}
                     selectedClassName="bg-red-600"
                 >
-                    <FiAlertTriangle className="text-2xl" />
-                    Визи
+                    <img src={route.pathname === "/visasList" ? Visa : VisaDark} alt="visa" width={30}/>
+                    <p style={{
+                        whiteSpace: 'nowrap', overflow: 'hidden',
+                        textOverflow: "ellipsis"
+                    }}>Визи</p>
                 </Tab>
                 <Tab
                     onClick={() => navigate("/exTourList")}
@@ -119,11 +151,14 @@ function TableSidebar() {
                     }`}
                     selectedClassName="bg-red-600"
                 >
-                    <FiAlertTriangle className="text-2xl" />
-                    Экскурсионные туры
+                    <img src={route.pathname === "/exTourList" ? ExTour : ExTourDark} alt="cars" width={30}/>
+                    <p style={{
+                        whiteSpace: 'nowrap', overflow: 'hidden',
+                        textOverflow: "ellipsis"
+                    }}>Экскурсионные туры</p>
                 </Tab>
             </div>
-            <Outlet />
+            <Outlet/>
         </>
     );
 }

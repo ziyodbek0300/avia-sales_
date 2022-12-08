@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 function Visas() {
   const dispatch = useDispatch();
-  const selector = useSelector((state) => state.visas.visas);
+  const selector = useSelector((state) => state.visas.visas?.reverse());
   const navigate = useNavigate();
 
   useEffect(() => {

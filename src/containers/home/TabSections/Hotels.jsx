@@ -12,13 +12,16 @@ import NavS from "../NavS";
 import Contacts from "../../../components/contacts";
 import Star from "../../../static/images/star.svg";
 import {useNavigate} from "react-router-dom";
+import GetMealName from "../../../constants/meals";
 
 const RenderItem = ({
                         e,
                         adults = 0,
                         children = 0,
                         infant = 0,
+                        townId = 1,
                         dates,
+                        roomId = 2,
                         priceChange = () => ({}),
                     }) => {
     // const navigate = useNavigate();
@@ -220,7 +223,7 @@ const RenderItem = ({
                                                                             <div
                                                                                 className={"flex flex-col justify-between h-full"}>
                                                                                 <div>
-                                                                                    <p className={"text-md p-0 m-0"}>{e.name ? e.name : "Standart"}</p>
+                                                                                    <p className={"text-md p-0 m-0"}>{e.name ? e.name : "Standart"} <span className={"text-red-500 ml-1"}>({GetMealName(e)})</span></p>
                                                                                     <p className={"m-0"}>{e.dataa.name}</p>
                                                                                 </div>
                                                                                 {/*<div className={"text-right"}>*/}
@@ -262,11 +265,13 @@ const RenderItem = ({
                         localStorage.setItem(
                             "tourPrice",
                             JSON.stringify({
+                                ...dates,
+                                town: townId,
                                 ...values,
                                 price: pr === 0 ? Array.isArray(isReturn.arr) &&
                                     isReturn.arr.length > 0 &&
                                     Math.floor(getPrice()) + 180 : Math.floor(pr) * Math.ceil(days) + 180,
-                                roomId: e.inc,
+                                roomId: roomId,
                             })
                         );
                         navigate(
@@ -635,7 +640,9 @@ function Hotels() {
                                         infant={infant}
                                         children={children}
                                         dates={dates}
+                                        townId={values.town}
                                         price={price}
+                                        roomId={e.inc}
                                     />
                                 );
                             } catch (e) {

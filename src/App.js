@@ -42,6 +42,8 @@ import VisaResult from "./containers/details/VisaResult";
 import TourList from "./containers/tourpacks-list/TourPacksList";
 import TourResult from "./containers/details/TourResult";
 import HotelsOrder from "./containers/hotelOrderr";
+import HotelResult from "./containers/details/HotelResult";
+import HotelOrders from "./containers/hotel-orders/HotelOrders";
 
 function App() {
   const dispatch = useDispatch();
@@ -84,6 +86,7 @@ function App() {
               <Route path="/details/result/:id" element={<FlightsResult />} />
               <Route path="/details/visaResult/:id" element={<VisaResult />} />
               <Route path="/details/tourResult/:id" element={<TourResult />} />
+              <Route path="/details/hotelResult/:id" element={<HotelResult />} />
               <Route
                 path="/details/exTourResult/:id"
                 element={<ExTourResult />}
@@ -97,10 +100,8 @@ function App() {
                 path="hotel/order/:hotelId/:id"
                 element={<HotelsOrder />}
               />
-              <Route
-                path="/tour-packet/order/:hotelId/:roomId/:isGroup"
-                element={<HotelOrder />}
-              />
+              <Route path="/tour-package-order" element={<TourList />} />
+              <Route path="/hotel-orders" element={<HotelOrders />} />
               <Route
                 path="/tour-packet/order/:hotelId/:roomId/:isGroup"
                 element={<HotelOrder />}
@@ -140,9 +141,15 @@ function App() {
                 path="/transferDetails/:id"
                 element={<TransfersDetail />}
               />
+              <Route
+                  path="hotel/order/:hotelId/:id"
+                  element={<HotelsOrder />}
+              />
               <Route path="/transferDetails/result/:id" element={<Result />} />
               <Route path="/details/result/:id" element={<FlightsResult />} />
               <Route path="/details/visaResult/:id" element={<VisaResult />} />
+              <Route path="/details/tourResult/:id" element={<TourResult />} />
+              <Route path="/details/hotelResult/:id" element={<HotelResult />} />
               <Route
                 path="/details/exTourResult/:id"
                 element={<ExTourResult />}
@@ -176,6 +183,7 @@ function App() {
                 <Route path="flights" element={<Flights />} />
                 <Route path="/visasList" element={<Visas />} />
                 <Route path="/tour-package-order" element={<TourList />} />
+                <Route path="/hotel-orders" element={<HotelOrders />} />
                 <Route path="visaDetails/:id" element={<VisaDetails />} />
                 <Route path={"*"} element={<div>Not found</div>} />
               </Route>

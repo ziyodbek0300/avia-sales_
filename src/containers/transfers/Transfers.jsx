@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 function Transfers() {
   const dispatch = useDispatch();
-  const selector = useSelector((state) => state.transfers.transfers);
+  const selector = useSelector((state) => state.transfers.transfers?.reverse());
   const navigate = useNavigate();
 
   useEffect(() => {

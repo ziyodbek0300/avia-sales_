@@ -1,35 +1,39 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import ReactSelect from "react-select";
-import { gender } from "../../constants/userRole";
+import {gender} from "../../constants/userRole";
 import countries from "../../constants/countries";
+import order from "../../api/projectApi/order";
+import upload from "../../static/images/uploadRed.svg";
 
-function FormExample({ setPassagers, passagers, index, type }) {
+function FormExample({setPassagers, passagers, index, type}) {
     return (<div className={"max-w-5xl mx-auto pb-5"}>
         <div className='w-[80%]'>
             <p className={"text-2xl text-black font-bold"}>{type === "visa" ? "Владелец визы" : type === "transfer" ? "Человек" : "Пассажир"} {index + 1}</p>
             <div className={"pt-2 flex justify-between lg:flex-row flex-col"}>
                 <div className={"py-3 w-full lg:pr-7"}>
                     <input type="text" id={"surname"} placeholder="Фамилия"
-                        onInput={(e) => {
-                            let a = passagers;
-                            a[index].first_name = e.target.value
-                            setPassagers(a)
-                        }}
-                        className={"border  w-full rounded-lg p-2 input_placeholder"} />
+                           onInput={(e) => {
+                               let a = passagers;
+                               a[index].first_name = e.target.value
+                               setPassagers(a)
+                           }}
+                           className={"border  w-full rounded-lg p-2 input_placeholder"}/>
                 </div>
                 <div className={"py-3 w-full lg:pr-7"}>
                     <input type="text" id={"last_name"} placeholder="Имя"
-                        onInput={(e) => {
-                            let a = passagers;
-                            a[index].last_name = e.target.value
-                            setPassagers(a)
-                        }}
-                        className={"border outline-red-300 w-full rounded-lg p-2 input_placeholder"} />
+                           onInput={(e) => {
+                               let a = passagers;
+                               a[index].last_name = e.target.value
+                               setPassagers(a)
+                           }}
+                           className={"border outline-red-300 w-full rounded-lg p-2 input_placeholder"}/>
                 </div>
                 <div className={"py-3 w-full lg:pr-7"}>
                     <ReactSelect
                         placeholder="Гражданство"
-                        options={countries.map(cName => { return { value: cName, label: cName } })}
+                        options={countries.map(cName => {
+                            return {value: cName, label: cName}
+                        })}
                         onChange={(e) => {
                             console.log(passagers)
                             let a = passagers;
@@ -44,7 +48,7 @@ function FormExample({ setPassagers, passagers, index, type }) {
                 <div className={"py-3 w-[80%] lg:pr-7"}>
                     <ReactSelect
                         placeholder="Пол"
-                        options={[{ value: gender.male, label: "Мужской" }, {
+                        options={[{value: gender.male, label: "Мужской"}, {
                             value: gender.female, label: "Женский"
                         }]}
                         onChange={(e) => {
@@ -57,33 +61,51 @@ function FormExample({ setPassagers, passagers, index, type }) {
                 </div>
                 <div className={"py-3 w-[80%] lg:pr-7"}>
                     <input required type="date" id={"birthday"}
-                        placeholder="Дата рождение"
-                        onInput={(e) => {
-                            let a = passagers
-                            a[index].birthday = e.target.value
-                            setPassagers(a)
-                        }}
-                        className={"border input_placeholder outline-red-300 w-[100%] rounded-lg p-2"} />
+                           placeholder="Дата рождение"
+                           onInput={(e) => {
+                               let a = passagers
+                               a[index].birthday = e.target.value
+                               setPassagers(a)
+                           }}
+                           className={"border input_placeholder outline-red-300 w-[100%] rounded-lg p-2"}/>
                 </div>
                 <div className={"py-3 w-[80%] lg:pr-7"}>
                     <input required type="text" id={"sNum"}
-                        placeholder="Серия и № паспорта"
-                        onInput={(e) => {
-                            let a = passagers
-                            a[index].sNum = e.target.value
-                            setPassagers(a)
-                        }}
-                        className={"border input_placeholder outline-red-300 w-full rounded-lg p-2"} />
+                           placeholder="Серия и № паспорта"
+                           onInput={(e) => {
+                               let a = passagers
+                               a[index].sNum = e.target.value
+                               setPassagers(a)
+                           }}
+                           className={"border input_placeholder outline-red-300 w-full rounded-lg p-2"}/>
                 </div>
                 <div className={"py-3 w-[80%] lg:pr-7"}>
                     <input required type="date" id={"date3"}
-                        placeholder="Срок действия"
-                        onInput={(e) => {
-                            let a = passagers
-                            a[index].date3 = e.target.value
-                            setPassagers(a)
-                        }}
-                        className={"border input_placeholder outline-red-300 w-full rounded-lg p-2"} />
+                           placeholder="Срок действия"
+                           onInput={(e) => {
+                               let a = passagers
+                               a[index].date3 = e.target.value
+                               setPassagers(a)
+                           }}
+                           className={"border input_placeholder outline-red-300 w-full rounded-lg p-2"}/>
+                </div>
+
+            </div>
+            <div className={"py-3 w-[80%] lg:pr-7"}>
+                <label htmlFor={"attachment"} className={"text-red-500 mb-3 pb-2"}>Фото на паспорт</label>
+                <div className="w-[100%] bg-red-200 mb-3 border border-red-400 rounded-lg flex  pl-2">
+                    <img src={upload} alt="uploader"/>
+                    <input name="contract" required type="file" id={"attachment"}
+                           onChange={(e) => {
+                               let fData = new FormData();
+                               fData.append("file", e.target.files[0]);
+                               order.attach(fData).then(res => {
+                                   let a = passagers
+                                   a[index].filesLink = res.data.attach[0]
+                                   setPassagers(a)
+                               })
+                           }}
+                           className='p-[7px] bg-red-200 w-full rounded focus:outline-none focus:border-red-400'/>
                 </div>
             </div>
         </div>

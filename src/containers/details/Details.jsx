@@ -36,6 +36,7 @@ function Details() {
                 firtname: p.first_name,
                 nationality: p.from,
                 gender: p.gender,
+                filesLink: p.filesLink,
                 birthday: moment(p.birthday).toDate(),
                 passportNumber: p.sNum,
                 endDate: moment(p.date3).toDate()

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
+import Pass from '../../static/images/passport.png';
 import order from "../../api/projectApi/order";
 import moment from "moment";
 
@@ -70,32 +71,36 @@ function FlightsResult() {
                                     <div className={"flex items-end mb-3"}>
                                         <p>Имя</p>
                                         <div className={"border-b border-gray-700 w-full border-dotted"}></div>
-                                        <p className={"text-lg font-bold"}>{pass.firtname}</p>
+                                        <p className={"text-lg text-right font-bold"}>{pass.firtname}</p>
                                     </div>
                                     <div className={"flex items-end mb-3"}>
                                         <p>Фамилия</p>
                                         <div className={"border-b border-gray-700 w-full border-dotted"}></div>
-                                        <p className={"text-lg font-bold"}>{pass.lastname}</p>
+                                        <p className={"text-lg text-right font-bold"}>{pass.lastname}</p>
                                     </div>
                                     <div className={"flex items-end mb-3"}>
                                         <p>Национальность</p>
                                         <div className={"border-b border-gray-700 w-full border-dotted"}></div>
-                                        <p className={"text-lg font-bold"}>{pass.nationality}</p>
+                                        <p className={"text-lg text-right font-bold"}>{pass.nationality}</p>
                                     </div>
                                     <div className={"flex items-end mb-3"}>
                                         <p>Пол</p>
                                         <div className={"border-b border-gray-700 w-full border-dotted"}></div>
-                                        <p className={"text-lg font-bold"}>{pass.gender}</p>
+                                        <p className={"text-lg text-right font-bold"}>{pass.gender}</p>
                                     </div>
                                     <div className={"flex items-end mb-3"}>
                                         <p>День рождения</p>
                                         <div className={"border-b border-gray-700 w-full border-dotted"}></div>
-                                        <p className={"text-lg font-bold"}>{moment(pass.birthday).format("DD-MM-YYYY HH:mm")}</p>
+                                        <p className={"text-lg text-right font-bold"}>{moment(pass.birthday).format("DD-MM-YYYY HH:mm")}</p>
                                     </div>
                                     <div className={"flex items-end mb-3"}>
                                         <p>Номер паспорта</p>
                                         <div className={"border-b border-gray-700 w-full border-dotted"}></div>
-                                        <p className={"text-lg font-bold"}>{pass.passportNumber}</p>
+                                        <p className={"text-lg text-right font-bold"}>{pass.passportNumber}</p>
+                                    </div>
+                                    <div className={"flex items-end mb-3"}>
+                                        <img width={"60"} src={Pass} alt="askjd"/>
+                                        <a href={`https://travelcontinent.uz/api${pass.filesLink}`} className={"ml-2"} target={'_'} download>Скачать</a>
                                     </div>
                                 </div>
                             </div>
