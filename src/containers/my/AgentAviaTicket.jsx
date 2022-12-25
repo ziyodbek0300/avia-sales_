@@ -62,7 +62,7 @@ const AgentAviaTicket = ({agentId}) => {
     const dispatch = useDispatch()
     const userId = useSelector(state => state.user?.currentUser?.id)
     useEffect(() => {
-        dispatch(getAllOrderForAgent(agentId||userId))
+        dispatch(getAllOrderForAgent(agentId || userId))
     }, [])
     const navigate = useNavigate()
 
@@ -103,8 +103,9 @@ const AgentAviaTicket = ({agentId}) => {
                     }
                 })}
                 headCells={headCells}
-                onClickRow={() => {
-                    navigate(`/partners/orders/asasdad`)
+                onClickRow={(r) => {
+                    // console.log(r);
+                    navigate(`/flights/orders/${r.id}`)
                 }}
             />
         </div>
