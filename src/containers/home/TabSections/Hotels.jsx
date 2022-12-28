@@ -196,9 +196,9 @@ const RenderItem = ({
                                                                 });
                                                             } catch (e) {
                                                             }
-                                                            if (!bool) return null;
+                                                            // if (!bool) return null;
                                                             return (
-                                                                e.status !== "D" && (
+                                                                // e.status !== "D" && (
                                                                     <div
                                                                         style={{width: "100%"}}
                                                                         className={
@@ -238,7 +238,7 @@ const RenderItem = ({
                                                                             </div>
                                                                         </label>
                                                                     </div>
-                                                                )
+                                                                // )
                                                             );
                                                         }
                                                     )}
