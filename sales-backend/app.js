@@ -25,12 +25,12 @@ app.set("view engine", "html");
 app.use(logger("dev"));
 app.use(cors());
 app.use(auth);
-app.use(bodyParser.json({ limit: "100mb" }));
+app.use(bodyParser.json({ limit: "200mb" }));
 app.use(
   bodyParser.urlencoded({
-    limit: "100mb",
+    limit: "200mb",
     extended: false,
-    parameterLimit: 50000,
+    parameterLimit: 500000,
   })
 );
 app.use(cookieParser());

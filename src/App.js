@@ -108,8 +108,7 @@ function App() {
               />
               {users?.role === userRole.agent ? (
                 <>
-                  <Route path={"/my"}>
-                    <Route index element={<AgentIndex />} />
+                  <Route path={"/my"} element={<AgentIndex/>}>
                     <Route path="about-us" element={<About />} />
                     <Route path="where-are-we" element={<Where />} />
                     <Route path="for-partners" element={<ForPartners />} />
