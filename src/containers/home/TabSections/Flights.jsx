@@ -13,6 +13,7 @@ import {NavLink} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import NavS from "../NavS";
 import Contacts from "../../../components/contacts";
+import {getAdminPrice, getAgentPrice, getUserPrice} from "../../../utils/prices";
 
 function FlightsTab() {
     const {t} = useTranslation();
@@ -86,6 +87,8 @@ function FlightsTab() {
             }
         });
     };
+
+    const currentUser = useSelector(state => state.user.currentUser);
 
     return (<div>
         <div className="header exp" style={{backgroundSize: "cover"}} onClick={handleClick}>
@@ -447,9 +450,13 @@ function FlightsTab() {
                             className={"border-l p-3 flex justify-center items-center w-60"}
                         >
                             {!isTransfer ? (<p className={"text-2xl font-bold text-red-500"}>
-                                {a.total}$
+                                {currentUser.role === "agent"
+                                    ? getAgentPrice(a.total) : currentUser.role === "admin"
+                                        ? getAdminPrice(a.total) : getUserPrice(a.total)}$
                             </p>) : (<p className={"text-2xl font-bold text-red-500"}>
-                                {a.total + price}$
+                                {currentUser.role === "agent"
+                                    ? getAgentPrice(a.total + price) : currentUser.role === "admin"
+                                        ? getAdminPrice(a.total + price) : getUserPrice(a.total + price)}$
                             </p>)}
                         </div>
                     </div>
