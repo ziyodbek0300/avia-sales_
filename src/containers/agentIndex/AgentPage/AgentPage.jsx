@@ -242,50 +242,50 @@ function AgentPage({id}) {
         <div className='lg:max-w-5xl mx-auto lg:px-0 px-8'>
             <Tabs>
                 <TabList className='flex flex-wrap'>
-                    <div className='flex flex-wrap gap-2 max-w-5xl mx-auto'>
-                        <Tab
-                            className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm'
-                            selectedClassName='bg-red-600'>
-                            <GiAirplaneDeparture/>
-                            Авиабилеты
-                        </Tab>
-                        <Tab
-                            className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm'
-                            selectedClassName='bg-red-600'>
-                            <FiGrid/>
-                            {t('tourPack')}
-                        </Tab>
-                        <Tab
-                            className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm'
-                            selectedClassName='bg-red-600'>
-                            <GiCoins/>
-                            Финансы
-                        </Tab>
-                    </div>
-                    {
-                        role === userRole.agent && (
-                            <div className={"flex flex-1 justify-end my-4"}>
-                                <div>
-                                    <SignOut onClick={handlePressLogout}>
-                                        <div className={"mx-2"}>
-                                            <AiOutlineLogout/>
-                                        </div>
-                                        Log out
-                                    </SignOut>
-                                </div>
-                            </div>
-                        )
-                    }
+                    {/*<div className='flex flex-wrap gap-2 max-w-5xl mx-auto'>*/}
+                    {/*    <Tab*/}
+                    {/*        className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm'*/}
+                    {/*        selectedClassName='bg-red-600'>*/}
+                    {/*        <GiAirplaneDeparture/>*/}
+                    {/*        Авиабилеты*/}
+                    {/*    </Tab>*/}
+                    {/*    <Tab*/}
+                    {/*        className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm'*/}
+                    {/*        selectedClassName='bg-red-600'>*/}
+                    {/*        <FiGrid/>*/}
+                    {/*        {t('tourPack')}*/}
+                    {/*    </Tab>*/}
+                    {/*    <Tab*/}
+                    {/*        className='cursor-pointer outline-none px-4 py-2 font-bold flex gap-2 items-center rounded-lg my-4 bg-red-400 text-white text-sm'*/}
+                    {/*        selectedClassName='bg-red-600'>*/}
+                    {/*        <GiCoins/>*/}
+                    {/*        Финансы*/}
+                    {/*    </Tab>*/}
+                    {/*</div>*/}
+                    {/*{*/}
+                    {/*    role === userRole.agent && (*/}
+                    {/*        <div className={"flex flex-1 justify-end my-4"}>*/}
+                    {/*            <div>*/}
+                    {/*                <SignOut onClick={handlePressLogout}>*/}
+                    {/*                    <div className={"mx-2"}>*/}
+                    {/*                        <AiOutlineLogout/>*/}
+                    {/*                    </div>*/}
+                    {/*                    Log out*/}
+                    {/*                </SignOut>*/}
+                    {/*            </div>*/}
+                    {/*        </div>*/}
+                    {/*    )*/}
+                    {/*}*/}
                 </TabList>
-                <TabPanel className={"min-h-full"}>
-                    <AgentAviaTicket agentId={id}/>
-                </TabPanel>
-                <TabPanel>
-                    <AgentAviaTicket agentId={id}/>
-                </TabPanel>
-                <TabPanel>
-                    <AgentAviaTicket agentId={id}/>
-                </TabPanel>
+                {/*<TabPanel className={"min-h-full"}>*/}
+                {/*    <AgentAviaTicket agentId={id}/>*/}
+                {/*</TabPanel>*/}
+                {/*<TabPanel>*/}
+                {/*    <AgentAviaTicket agentId={id}/>*/}
+                {/*</TabPanel>*/}
+                {/*<TabPanel>*/}
+                {/*    <AgentAviaTicket agentId={id}/>*/}
+                {/*</TabPanel>*/}
             </Tabs>
         </div>
     )

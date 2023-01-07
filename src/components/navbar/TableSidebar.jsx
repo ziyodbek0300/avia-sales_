@@ -158,7 +158,7 @@ function TableSidebar() {
                     }}>Экскурсионные туры</p>
                 </Tab>
             </div>
-            <Outlet/>
+                <Outlet/>
         </>
     );
 }

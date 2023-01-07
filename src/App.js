@@ -44,6 +44,12 @@ import TourResult from "./containers/details/TourResult";
 import HotelsOrder from "./containers/hotelOrderr";
 import HotelResult from "./containers/details/HotelResult";
 import HotelOrders from "./containers/hotel-orders/HotelOrders";
+import AgentAviaTicket from "./containers/my/AgentAviaTicket";
+import AgentHotelOrders from "./containers/agentIndex/AgentHotelOrders";
+import AgentTourList from "./containers/agentIndex/AgentTourPackOrders";
+import AgentTranfers from "./containers/agentIndex/AgentTranfers";
+import AgentVisas from "./containers/agentIndex/AgentVisas";
+import AgentExTourList from "./containers/agentIndex/AgentExcursionList";
 
 function App() {
   const dispatch = useDispatch();
@@ -108,10 +114,15 @@ function App() {
               />
               {users?.role === userRole.agent ? (
                 <>
-                  <Route path={"/my"} element={<AgentIndex/>}>
-                    <Route path="about-us" element={<About />} />
-                    <Route path="where-are-we" element={<Where />} />
-                    <Route path="for-partners" element={<ForPartners />} />
+                  <Route path={"my"} element={<AgentIndex/>}>
+                    <Route index element={<AgentAviaTicket />} />
+                    <Route path={'agentHotels'} element={<AgentHotelOrders />} />
+                    <Route path={'agentTourPackOrders'} element={<AgentTourList />} />
+                    <Route path={'agentTransfersList'} element={<AgentTranfers />} />
+                    <Route path={'agentVisas'} element={<AgentVisas />} />
+                    <Route path={'agentExTours'} element={<AgentExTourList />} />
+                    {/*<Route path="where-are-we" element={<Where />} />*/}
+                    {/*<Route path="for-partners" element={<ForPartners />} />*/}
                   </Route>
                 </>
               ) : null}
