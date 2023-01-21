@@ -15,6 +15,7 @@ function TransfersDetail() {
   const [contactName, setContactName] = useState("");
   const [contactPhone, setContactPhone] = useState("");
   const [comment] = useState("");
+  const currentUser = useSelector(state => state.user.currentUser);
   const [passagers, setPassagers] = useState(
     new Array(+adults + +children + +infants).fill({
       first_name: "",
@@ -61,6 +62,7 @@ function TransfersDetail() {
       name: contactName,
       description: comment,
       passengers: pass,
+      partnerId: currentUser.id
     };
     transfers
       .addNew(obj)

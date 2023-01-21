@@ -55,6 +55,7 @@ function ExcursionDetail() {
       contactName: contactName,
       passagers: pass,
       total: currentUser ? +costET : +costET + 100,
+      partnerId: currentUser.id
     };
     excursionTour
       .addNew(obj)

@@ -59,7 +59,7 @@ function TransfersTab() {
                 transferTo: city.label,
                 time: moment(data).toDate(),
                 passengers: countPassegers,
-                price: price,
+                price: user.role === "admin" ? getAdminPrice(price) : user.role === "agent" ? getAgentPrice(price) : getUserPrice(price),
                 phone: "",
                 name: "",
             },
@@ -67,6 +67,7 @@ function TransfersTab() {
     };
 
     const order = (obj) => {
+        obj = {...obj, price: user.role === "admin" ? getAdminPrice(obj.price) : user.role === "agent" ? getAgentPrice(obj.price) : getUserPrice(obj.price)}
         let tr_data = JSON.stringify(obj);
         localStorage.setItem("transfer", tr_data);
         navigate(`/transferDetails/${adults + "_" + children + "_" + infant}`);

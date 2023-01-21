@@ -63,6 +63,7 @@ function VisaDetails() {
       price: JSON.parse(localStorage.getItem("visa")).price,
       phone: contactPhone,
       name: contactName,
+      partnerId: currentUser.id
     };
     visas
       .addNew(obj)

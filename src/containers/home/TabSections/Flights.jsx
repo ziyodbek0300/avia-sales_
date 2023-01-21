@@ -396,7 +396,11 @@ function FlightsTab() {
                 let aaa = Math.floor(totalTimeInMin / 60) + ":" + (totalTimeInMin % 60);
                 return (<NavLink
                     onClick={() => localStorage.setItem("flight", JSON.stringify({
-                        ...a, total: !isTransfer ? a.total : a.total + price,
+                        ...a, total: !isTransfer ? currentUser.role === "agent"
+                            ? getAgentPrice(a.total) : currentUser.role === "admin"
+                                ? getAdminPrice(a.total) : getUserPrice(a.total) : currentUser.role === "agent"
+                            ? getAgentPrice(a.total + price) : currentUser.role === "admin"
+                                ? getAdminPrice(a.total + price) : getUserPrice(a.total + price),
                     }))}
                     to={`/details/${adults + "_" + children + "_" + infant}`}
                     key={b}
