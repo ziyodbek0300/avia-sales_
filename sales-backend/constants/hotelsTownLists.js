@@ -1,15 +1,61 @@
 const hotelsTownLists = [
-    {id: 5, title: "Dubai", ltitle: "Dubai"},
-    {id: 37, title: "Abu Dhabi", ltitle: "Abu Dhabi"},
-    {id: 36, title: "Sharjah", ltitle: "Sharjah"},
-    {id: 32, title: "Ajman", ltitle: "Ajman"},
-    {id: 104, title: "Al Ain", ltitle: "Al Ain"},
-    {id: 35, title: "Ras Al Khaimah", ltitle: "Ras Al Khaimah"},
-    {id: 33, title: "Fujairah", ltitle: "Fujairah"},
-    {id: 70, title: "Umm Al Quwain", ltitle: "Umm Al Quwain"},
+    {
+        id: 5, title: "Dubai", ltitle: "Dubai",
+        ids: [
+            43,
+            28,
+            139,
+            102,
+            31,
+            49,
+            107,
+            52,
+            51,
+            134,
+            108,
+            132,
+            136,
+            34,
+            29,
+            103,
+            142,
+            30,
+            53,
+            140,
+            147,
+            50,
+            148,
+            105,
+            169,
+            174,
+            186,
+            205,
+            124,
+            211,
+            212,
+            214,
+            215,
+            216,
+            217,
+            218,
+        ]
+    },
+    {
+        id: 37, title: "Abu Dhabi", ltitle: "Abu Dhabi",
+        ids: [
+            39,
+            37
+        ]
+    },
+    {id: 36, title: "Sharjah", ltitle: "Sharjah", ids: []},
+    {id: 32, title: "Ajman", ltitle: "Ajman", ids: [32]},
+    {id: 104, title: "Al Ain", ltitle: "Al Ain", ids: [104]},
+    {id: 35, title: "Ras Al Khaimah", ltitle: "Ras Al Khaimah", ids: []},
+    {id: 33, title: "Fujairah", ltitle: "Fujairah", ids: [33]},
+    {id: 70, title: "Umm Al Quwain", ltitle: "Umm Al Quwain", ids: []},
 ]
 
-const htplace =  [
+const htplace = [
     {
         "in": "-2147483647",
         "status": "",
@@ -10901,4 +10947,4 @@ const htplace =  [
     // }
 ]
 
-module.exports = {hotelsTownLists,htplace}
+module.exports = {hotelsTownLists, htplace}

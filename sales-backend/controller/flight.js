@@ -2,17 +2,7 @@ const {Success, ErrorSend} = require("../service/SuccessAndError");
 const userRole = require("../constants/userRole");
 const {PrismaClient} = require("@prisma/client")
 const axios = require("axios");
-// const qs = require("qs");
-// const {parseString} = require("xml2js");
-// const starConst = require("../constants/starConst");
-// const sprice = require("../constants/sprice");
-// const hprice = require("../constants/hprice");
-// const roomNames = require("../constants/room");
-// const _ = require("lodash");
-// const htplace = require("../constants/hotelsTownLists");
 const prisma = new PrismaClient()
-
-
 const searchTour = async (req, res, next) => {
     Promise.all([
         axios.get(`http://localhost:${process.env.PORT}/hotel/getOne/${req.query.regionId}`),

@@ -146,6 +146,25 @@ const addNew = async (req, res, next) => {
     }
 }
 
+const getAllOrder = async (req, res, next) => {
+    try {
+        Promise.all([
+            prisma.order.findMany({ where: { partnerId: +req.params.id } }),
+        ])
+            .then((r) => {
+                if (r[0]?.count > 0) {
+                    return res.status(200).send(Success(200, true, "ok"));
+                } else {
+                    return res.status(404).send(ErrorSend(404, {}, "not found"));
+                }
+            })
+            .catch((e) => {
+                return res.status(404).send(ErrorSend(404, e, e.message));
+            });
+    } catch (e) {}
+};
+
 module.exports = {
-    getAll, getOne, del, update, addNew, getAllForAgent
+    getAll, getOne, del, update, addNew, getAllForAgent,
+    getAllOrder
 }

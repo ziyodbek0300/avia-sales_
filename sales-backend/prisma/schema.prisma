@@ -129,6 +129,7 @@ model Visa {
   passengers    Int[]
   VisaPassenger VisaPassenger[]
   status        Status          @default(NEW)
+  partnerId     Int?
 }
 
 model Passenger {
@@ -206,6 +207,7 @@ model ExcursionTour {
   total       Float                    @default(0)
   passagers   ExcursionTourPassenger[]
   status      Status                   @default(NEW)
+  partnerId         Int?
 }
 
 model Transfer {
@@ -222,6 +224,7 @@ model Transfer {
   description       String              @default("")
   TransferPassenger TransferPassenger[]
   status            Status              @default(NEW)
+  partnerId         Int?
 }
 
 model Order {
