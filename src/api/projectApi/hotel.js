@@ -6,5 +6,5 @@ export default {
     hotelOrder: (hotelData) => axios.post("/hotel-order/addNew", hotelData),
     getOne: (hotelData) => axios.get("/hotel-order/getOne/" + hotelData),
     getAll: () => axios.get("/hotel-order/getAll/"),
-    getAllForAgent: (id) => axios.get(`/hotel-order/getAll/${id}`),
+    getAllForAgent: (id) => axios.get(`/hotel-order/all/${id}`),
 }

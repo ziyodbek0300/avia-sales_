@@ -78,7 +78,7 @@ const HotelsOrder = () => {
             phone: contactPhone,
             passagers: pass,
         };
-        console.log(obj)
+
         hotel
             .hotelOrder(obj)
             .then((response) => {

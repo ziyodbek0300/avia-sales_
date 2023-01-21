@@ -13,7 +13,7 @@ import LastSection from "../LastSection";
 import htplace, {getHtplace} from "../../../constants/htplace";
 import moment from "moment";
 import * as _ from "lodash";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Sort from "../../../components/Sort";
 import NavS from "../NavS";
 import Star from "../../../static/images/star.svg";
@@ -21,6 +21,8 @@ import Tick from "../../../static/images/card_images/tick-circle.svg";
 import getMealName from "../../../constants/meals";
 import GetMealName from "../../../constants/meals";
 import {getAdminPrice, getAgentPrice, getUserPrice} from "../../../utils/prices";
+import flights from "../../../api/projectApi/flights";
+import {getAllFlights} from "../../../redux/flights/actions";
 
 const RenderItem = ({e, adults = 0, children = 0, infant = 0, dates, priceChange = () => ({})}) => {
     const navigate = useNavigate();
@@ -329,7 +331,7 @@ function TourPack() {
     const [adults, setAdults] = useState(1);
     const [infant, setInfant] = useState(0);
     const [children, setChildren] = useState(0);
-    const flights = useSelector((state) => state.flights.flights);
+    const flightsL = useSelector((state) => state.flights.flights);
     const [isOpen, setIsOpen] = useState(false);
     const [regionsList, setRegionsList] = useState([]);
     const [flightsList, setFlightsList] = useState([]);
@@ -337,6 +339,7 @@ function TourPack() {
     const [wd1, setWd1] = useState([]);
     const [isGroup, setIsGroup] = useState(1);
     const [hotels, setHotels] = useState([]);
+    const [regs, setRegs] = useState([]);
 
     const [values, setValues] = useState({
         oldRegionId: null,
@@ -346,6 +349,7 @@ function TourPack() {
         date1: null,
         date2: null,
     });
+    const dispatch = useDispatch();
     const popupRef = useRef();
 
     const handleClick = (e) => {
@@ -376,6 +380,16 @@ function TourPack() {
             });
         });
         setFlightsList(all);
+    }, []);
+
+    useEffect(() => {
+        regions.getAllRegions().then((res) => {
+            setRegs(res.data.result);
+            setRegionsList(res.data.result.map((r) => {
+                return {value: r.id, label: r.name};
+            }));
+        });
+        dispatch(getAllFlights());
     }, []);
 
     const handleSearch = () => {
@@ -424,8 +438,9 @@ function TourPack() {
     };
 
     const getWeekDays = () => {
+        console.log(flightsL)
         // eslint-disable-next-line array-callback-return
-        flights.map((reg) => {
+        flightsL.map((reg) => {
             if (reg.fromName === from.label && reg.toName === to.label) {
                 setWd(() => reg.weekDays);
             } else if (reg.fromName === to.label && reg.toName === from.label) {
@@ -479,8 +494,8 @@ function TourPack() {
                                     ]}
                                     placeholder="- выбрать -"
                                     value={to?.id}
-                                    onChange={(newValue) => {
-                                        setTo(newValue);
+                                    onChange={(e) => {
+                                        setTo(() => e);
                                     }}
                                 />
                             </div>

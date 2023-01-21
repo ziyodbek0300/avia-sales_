@@ -14,6 +14,7 @@ function Transfers() {
 
     useEffect(() => {
         dispatch(getAllTransfersForAgent(userId));
+        console.log(selector)
     }, [dispatch]);
 
     return (
