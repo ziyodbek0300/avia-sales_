@@ -385,9 +385,6 @@ function TourPack() {
     useEffect(() => {
         regions.getAllRegions().then((res) => {
             setRegs(res.data.result);
-            setRegionsList(res.data.result.map((r) => {
-                return {value: r.id, label: r.name};
-            }));
         });
         dispatch(getAllFlights());
     }, []);
@@ -408,6 +405,7 @@ function TourPack() {
                 values.date2 &&
                 values.date1 < values.date2
             ) {
+                console.log(from.value, to.value, to.regionId)
                 flights
                     .search(from.value, to.value, to.regionId)
                     .then((r) => {
@@ -495,7 +493,7 @@ function TourPack() {
                                     placeholder="- выбрать -"
                                     value={to?.id}
                                     onChange={(e) => {
-                                        setTo(() => e);
+                                        setTo( e);
                                     }}
                                 />
                             </div>
