@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c5c05bc3-8c4a-4a9e-beea-ba8e4c0ee56a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/sales-backend/controller/agent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sales-backend/routes/agent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sales-backend/constants/room.js" beforeDir="false" afterPath="$PROJECT_DIR$/sales-backend/constants/room.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/home/TabSections/Hotels.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/home/TabSections/Hotels.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sales-backend/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/sales-backend/app.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +31,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Projects/avia-sales_",
+    "last_opened_file_path": "C:/Projects/avia-sales_/sales-backend/routes",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -39,6 +40,12 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Projects\avia-sales_\sales-backend\routes" />
+      <recent name="C:\Projects\avia-sales_\sales-backend\controller" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -50,7 +57,8 @@
       <workItem from="1668969876269" duration="653000" />
       <workItem from="1669660456646" duration="7698000" />
       <workItem from="1670498115014" duration="2681000" />
-      <workItem from="1672153678243" duration="5278000" />
+      <workItem from="1672153678243" duration="5693000" />
+      <workItem from="1674300624538" duration="581000" />
     </task>
     <servers />
   </component>

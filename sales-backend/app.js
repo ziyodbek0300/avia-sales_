@@ -18,6 +18,7 @@ const visa = require("./routes/visa");
 const tour = require("./routes/tour");
 const hotelOrder = require("./routes/hotelOrder");
 const tourPack = require("./routes/tourPack");
+const agent = require("./routes/agent");
 const auth = require("./service/auth");
 const app = express();
 
@@ -50,5 +51,6 @@ app.use("/hotel", hotel);
 app.use("/tour", tour);
 app.use("/hotel-order", hotelOrder);
 app.use("/tour-packet-order", tourPack);
+app.use("/agent", agent);
 
 module.exports = app;
