@@ -19,7 +19,7 @@ const searchTour = async (req, res, next) => {
             }))
         })
         .catch(e => {
-            console.log(e)
+            // console.log(e)
             res.status(404).send(ErrorSend(404, e, e.message))
         })
 }
@@ -57,7 +57,7 @@ const getOne = async (req, res, next) => {
                 return res.status(200).send(Success(200, r, "ok"))
             })
             .catch(e => {
-                console.log(e)
+                // console.log(e)
                 return res.status(404).send(ErrorSend(404, e, e.message))
             })
     } catch (e) {

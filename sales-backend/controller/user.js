@@ -20,7 +20,7 @@ const addAdmin = async (req, res, next) => {
                 isChecked: true
             }
         }).then(r => {
-            console.log(r)
+            // console.log(r)
             res.status(200).send(Success(200, r, "ok"))
         }).catch(e => {
             res.status(404).send(ErrorSend(404, e, e.message))
@@ -150,7 +150,7 @@ const addNew = async (req, res, next) => {
             }
         }
         prisma.user.create({data: {...req.body, isChecked: true}}).then(r => {
-            console.log(r)
+            // console.log(r)
             res.status(200).send(Success(200, r, "ok"))
         }).catch(e => {
             res.status(404).send(ErrorSend(404, e, e.message))

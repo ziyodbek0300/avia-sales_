@@ -16,6 +16,7 @@ const sprice = require("../constants/sprice");
 const hprice = require("../constants/hprice");
 const roomNames = require("../constants/room");
 const {hotelsTownLists} = require("../constants/hotelsTownLists");
+const {unionBy} = require("lodash");
 // const {hotelsTownLists} = require("../constants/hotelsTownLists")
 
 router.get('/', async function (req, res) {
@@ -45,33 +46,54 @@ router.post('/', async function (req, res) {
         })
 });
 
+async function sleep(millis) {
+    return new Promise(resolve => setTimeout(resolve, millis));
+}
+
 // cron.schedule("0 0 */1 * * *", function () {
-// cron.schedule("* */1 * * * *", function () {
-//     console.log("running a task every 10 second");
-//     hotelsTownLists.map(async (e, index) => {
-//         const hotel = await prisma.hotels.findUnique({where: {regionId:e.id+""}})
-//         console.log(hotel)
-//         // let result = []
-//         // Promise.all(e.ids.map(async item => {
-//         //     try {
-//         //         return await axios.post(`http://localhost:${process.env.PORT}/getHotels/${item}`)
-//         //     } catch (e) {
-//         //         return []
-//         //     }
-//         // }))
-//         //     .then(res => {
-//         //         result = res.map(r => {
-//         //             result.push(...r)
-//         //         })
-//         //     })
-//         //
-//         // if (!hotel) {
-//         //     await prisma.hotels.create({data: {regionId: +e.id, jsonValue: result}})
-//         // } else {
-//         //     await prisma.hotels.update({where: {regionId: +e.id}, data: {regionId: +e.id, jsonValue: result}})
-//         // }
-//     })
-// });
+cron.schedule("*/15 * * * *", async function () {
+    const hotels = await prisma.hotels.findMany({})
+    hotelsTownLists.map(async (e, index) => {
+        const hotel = hotels.find(hotel => hotel.regionId == e.id)
+        let result = []
+        await Promise.all(e.ids.map(async (item,index) => {
+            try {
+                await sleep(index*500)
+                const a = await axios.post(`http://localhost:${process.env.PORT}/getHotels/${item}`)
+                return a.data
+            } catch (e) {
+                return []
+            }
+        }))
+            .then(res => {
+                res.map(r => {
+                    if (Array.isArray(r)) {
+                        result = [...result, ...r]
+                    }
+                })
+            })
+
+        // console.log(result)
+        try {
+            if (!hotel) {
+                console.log(result)
+                await prisma.hotels.create({data: {id: hotel?.id, jsonValue: result, regionId: `${e.id}`}})
+            } else {
+                console.log(unionBy([...hotel.jsonValue, ...result], (e) => e.inc))
+                await prisma.hotels.update({
+                    where: {id: hotel?.id},
+                    data: {
+                        id: hotel?.id,
+                        regionId: `${e.id}`,
+                        jsonValue: unionBy([...hotel.jsonValue, ...result], (e) => e.inc)
+                    }
+                })
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    })
+});
 
 router.get('/getHotels/:townId', async function (req, res) {
     try {
@@ -84,21 +106,15 @@ router.get('/getHotels/:townId', async function (req, res) {
 })
 
 router.post('/getHotels/:townId', async function (req, res) {
-    console.log("as")
-    Promise.all([
-        axios.post(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=auth`,
-            qs.stringify({
-                login: "ContinenTashtXML",
-                passwordDigest: "DfuUuLNhnl13Uu%2FSkJuQYZ9%2B9cr6vmlZ3W9vjPAywgRY7c9elyMp9GHRmwsN%2FPKzCyhacrhHM9Po2JLV1gHgRQ%3D%3D"
-            }),
-            {headers: {'content-type': 'application/x-www-form-urlencoded'}}),
-    ])
+    // console.log("as")
+    Promise.all([axios.post(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=auth`, qs.stringify({
+        login: "ContinenTashtXML",
+        passwordDigest: "DfuUuLNhnl13Uu%2FSkJuQYZ9%2B9cr6vmlZ3W9vjPAywgRY7c9elyMp9GHRmwsN%2FPKzCyhacrhHM9Po2JLV1gHgRQ%3D%3D"
+    }), {headers: {'content-type': 'application/x-www-form-urlencoded'}}),])
         .then(r => {
             parseString(r[0].data, function (err, result) {
                 const token = result.Response.Data[0].Result[0]['$'].partner_token
-                Promise.all([
-                    axios.get(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&partner_token=${token}&form=http://samo.travel&type=hotel&town=${req.params.townId}`),
-                ])
+                Promise.all([axios.get(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&partner_token=${token}&form=http://samo.travel&type=hotel&town=${req.params.townId}`),])
                     .then(async r => {
                         let newData = []
                         parseString(r[0].data, function (err, result) {
@@ -130,9 +146,7 @@ router.post('/getHotels/:townId', async function (req, res) {
                                         }
                                     }
                                     return {
-                                        ...item,
-                                        starCount: a,
-                                        // dataa: name,
+                                        ...item, starCount: a, // dataa: name,
                                         sprice: sprice1
                                     }
                                 })
@@ -144,15 +158,13 @@ router.post('/getHotels/:townId', async function (req, res) {
                                         return h.hotel === r.inc
                                     }).map(r => {
                                         let name = {
-                                            name: "",
-                                            lname: ""
+                                            name: "", lname: ""
                                         };
                                         for (let i = 0; i < roomNames.length; i++) {
                                             let a = roomNames[i]
                                             if (a.inc === r.room) {
                                                 name = {
-                                                    name: a.name,
-                                                    lname: a.lname,
+                                                    name: a.name, lname: a.lname,
                                                 }
                                                 break;
                                             }
@@ -165,8 +177,7 @@ router.post('/getHotels/:townId', async function (req, res) {
                                         return e.room
                                     }).map(r => {
                                         let name = {
-                                            name: "",
-                                            lname: ""
+                                            name: "", lname: ""
                                         };
                                         let l1 = htplace.length
                                         let l2 = sprice.length
@@ -194,8 +205,7 @@ router.post('/getHotels/:townId', async function (req, res) {
                                         return r
                                     })
                                     return {
-                                        ...r,
-                                        dataa: changedData
+                                        ...r, dataa: changedData
                                     }
                                 })
                             // let a  =Pr
@@ -207,7 +217,7 @@ router.post('/getHotels/:townId', async function (req, res) {
                                 return null;
                             }
                         })).catch(e => {
-                            console.log("asd123")
+                            // console.log("asd123")
                         })
                         let response = a.map(r => r.data)
                         res.send(newData.map(e => {
@@ -220,8 +230,7 @@ router.post('/getHotels/:townId', async function (req, res) {
                                 }
                             }
                             return {
-                                ...e,
-                                price: pricee
+                                ...e, price: pricee
                             }
                         }))
                     })
@@ -236,25 +245,18 @@ router.post('/getHotels/:townId', async function (req, res) {
 });
 
 router.post('/getHotelsPrice/:townId', async function (req, res) {
-    Promise.all([
-        axios.post(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=auth`,
-            qs.stringify({
-                login: "ContinenTashtXML",
-                passwordDigest: "DfuUuLNhnl13Uu%2FSkJuQYZ9%2B9cr6vmlZ3W9vjPAywgRY7c9elyMp9GHRmwsN%2FPKzCyhacrhHM9Po2JLV1gHgRQ%3D%3D"
-            }),
-            {
-                headers: {
-                    'content-type': 'application/x-www-form-urlencoded'
-                }
-            }
-        ),
-    ])
+    Promise.all([axios.post(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=auth`, qs.stringify({
+        login: "ContinenTashtXML",
+        passwordDigest: "DfuUuLNhnl13Uu%2FSkJuQYZ9%2B9cr6vmlZ3W9vjPAywgRY7c9elyMp9GHRmwsN%2FPKzCyhacrhHM9Po2JLV1gHgRQ%3D%3D"
+    }), {
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded'
+        }
+    }),])
         .then(r => {
             parseString(r[0].data, function (err, result) {
                 const token = result.Response.Data[0].Result[0]['$'].partner_token
-                Promise.all([
-                    axios.get(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&partner_token=${token}&form=http://samo.travel&type=hotelsalepr&state=${req.params.townId}`),
-                ])
+                Promise.all([axios.get(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&partner_token=${token}&form=http://samo.travel&type=hotelsalepr&state=${req.params.townId}`),])
                     .then(res1 => {
                         parseString(res1[0].data, function (err, result) {
                             res.send(result)
@@ -291,30 +293,18 @@ router.post('/getHotelsPrice/:townId', async function (req, res) {
 
 
 router.post('/getPrice/:hotelId', async function (req, res) {
-    Promise.all([
-        axios.post(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=auth`,
-            qs.stringify({
-                login: "ContinenTashtXML",
-                passwordDigest: "DfuUuLNhnl13Uu%2FSkJuQYZ9%2B9cr6vmlZ3W9vjPAywgRY7c9elyMp9GHRmwsN%2FPKzCyhacrhHM9Po2JLV1gHgRQ%3D%3D"
-            }),
-            {
-                headers: {
-                    'content-type': 'application/x-www-form-urlencoded'
-                }
-            }
-        ),
-    ])
+    Promise.all([axios.post(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=auth`, qs.stringify({
+        login: "ContinenTashtXML",
+        passwordDigest: "DfuUuLNhnl13Uu%2FSkJuQYZ9%2B9cr6vmlZ3W9vjPAywgRY7c9elyMp9GHRmwsN%2FPKzCyhacrhHM9Po2JLV1gHgRQ%3D%3D"
+    }), {
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded'
+        }
+    }),])
         .then(r => {
             parseString(r[0].data, function (err, result) {
                 const token = result.Response.Data[0].Result[0]['$'].partner_token
-                Promise.all([
-                    axios.get(
-                        `http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&partner_token=${token}&form=http://samo.travel&type=hotelsalepr&hotel=${req.params.hotelId}`
-                    ),
-                    axios.get(
-                        `http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&partner_token=${token}&form=http://samo.travel&type=room&hotel=${req.params.hotelId}`
-                    ),
-                    // axios.get(
+                Promise.all([axios.get(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&partner_token=${token}&form=http://samo.travel&type=hotelsalepr&hotel=${req.params.hotelId}`), axios.get(`http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&partner_token=${token}&form=http://samo.travel&type=room&hotel=${req.params.hotelId}`), // axios.get(
                     //     `http://smartsys.intouch.ae/incoming/export/default.php?samo_action=reference&partner_token=${token}&form=http://samo.travel&type=htplace&hotel=${req.params.hotelId}`
                     // )
                 ])
@@ -329,15 +319,13 @@ router.post('/getPrice/:hotelId', async function (req, res) {
                                 }).map(r => r['$'])
                                 newData.map(r => {
                                     let name = {
-                                        name: "",
-                                        lname: ""
+                                        name: "", lname: ""
                                     };
                                     for (let i = 0; i < newData1.length; i++) {
                                         let a = newData1[i]
                                         if (a.inc === r.room) {
                                             name = {
-                                                name: a.name,
-                                                lname: a.lname,
+                                                name: a.name, lname: a.lname,
                                             }
                                             break;
                                         }
@@ -355,8 +343,7 @@ router.post('/getPrice/:hotelId', async function (req, res) {
                                 //     }).map(r => r['$'])
                                 changedData.map(r => {
                                     let name = {
-                                        name: "",
-                                        lname: ""
+                                        name: "", lname: ""
                                     };
                                     let l1 = htplace.length
                                     let l2 = sprice.length

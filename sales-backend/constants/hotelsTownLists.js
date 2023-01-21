@@ -47,12 +47,12 @@ const hotelsTownLists = [
             37
         ]
     },
-    {id: 36, title: "Sharjah", ltitle: "Sharjah", ids: []},
+    {id: 36, title: "Sharjah", ltitle: "Sharjah", ids: [36]},
     {id: 32, title: "Ajman", ltitle: "Ajman", ids: [32]},
     {id: 104, title: "Al Ain", ltitle: "Al Ain", ids: [104]},
-    {id: 35, title: "Ras Al Khaimah", ltitle: "Ras Al Khaimah", ids: []},
+    {id: 35, title: "Ras Al Khaimah", ltitle: "Ras Al Khaimah", ids: [35]},
     {id: 33, title: "Fujairah", ltitle: "Fujairah", ids: [33]},
-    {id: 70, title: "Umm Al Quwain", ltitle: "Umm Al Quwain", ids: []},
+    {id: 70, title: "Umm Al Quwain", ltitle: "Umm Al Quwain", ids: [70]},
 ]
 
 const htplace = [

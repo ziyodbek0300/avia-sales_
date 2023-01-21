@@ -23,7 +23,7 @@ const auth = require("./service/auth");
 const app = express();
 
 app.set("view engine", "html");
-app.use(logger("dev"));
+// app.use(logger("dev"));
 app.use(cors());
 app.use(auth);
 app.use(bodyParser.json({ limit: "200mb" }));
