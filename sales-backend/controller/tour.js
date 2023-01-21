@@ -61,39 +61,8 @@ const getAll = async (req, res, next) => {
     }
 }
 
-const getAllForAgent = async (req, res, next) => {
-    try {
-        // if (!req.user || req.user.role !== userRole.client || req.user.role === userRole.agent) {
-        //     if (req.user && req.user.role === userRole.agent) {
-        //         return res.status(404).send(ErrorSend(404, {}, "no user"))
-        //         // return next()
-        //     } else {
-        //         return res.status(401).send(ErrorSend(401, {}, "no user"))
-        //     }
-        // }
-        prisma.excursionTour.findMany({where: {partnerId: +req.params.id}})
-            .then(r => {
-                return res.status(200).send(Success(200, r, "ok"))
-            })
-            .catch(e => {
-                console.log(e)
-                return res.status(404).send({code: 404, error: e, message: e.message})
-            })
-    } catch (e) {
-        return res.status(505).send({code: 505, error: e, message: e.message})
-    }
-}
-
-
 const update = async (req, res, next) => {
     try {
-        // if (!req.user || req.user.role === userRole.client || req.user.role === userRole.agent) {
-        //     if (req.user && req.user.role === userRole.agent) {
-        //         return res.status(404).send(ErrorSend(404, {}, "no user"))
-        //     } else {
-        //         return res.status(404).send(ErrorSend(404, {}, "no user"))
-        //     }
-        // }
         prisma.excursionTour.update({where: {id: +req.params.id}, data: req.body}).then(r => {
             res.status(200).send(Success(200, r, "ok"))
         }).catch(e => {
@@ -145,6 +114,25 @@ const addNew = async (req, res, next) => {
         res.status(500).send(ErrorSend(500, e, e.message))
     }
 }
+
+
+const getAllForAgent = async (req, res, next) => {
+    try {
+        prisma.excursionTour
+            .findMany({where: {partnerId: +req.params.id}})
+            .then((r) => {
+                return res.status(200).send(Success(200, r, "ok"));
+            })
+            .catch((e) => {
+                console.log(e);
+                return res
+                    .status(404)
+                    .send({code: 404, error: e, message: e.message});
+            });
+    } catch (e) {
+        return res.status(505).send({code: 505, error: e, message: e.message});
+    }
+};
 
 module.exports = {
     getAll, getOne, del, update, addNew, getAllForAgent

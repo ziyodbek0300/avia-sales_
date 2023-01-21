@@ -23,7 +23,7 @@ router.get('/', async function (req, res) {
 });
 
 router.get('/url', async function (req, res) {
-            res.status(200).redirect(req.body.url)
+    res.status(200).redirect(req.body.url)
     // Promise.all([axios.get(req.body.url)])
     //     .then(r => {
     //     })
@@ -46,20 +46,30 @@ router.post('/', async function (req, res) {
 });
 
 // cron.schedule("0 0 */1 * * *", function () {
+// cron.schedule("* */1 * * * *", function () {
 //     console.log("running a task every 10 second");
 //     hotelsTownLists.map(async (e, index) => {
-//         const hotel = await prisma.hotels.findUnique({where: {regionId: e.id}})
-//         setTimeout(async () => {
-//             axios.post(`http://localhost:${process.env.PORT}/getHotels/${e.id}`).then(async r => {
-//                 if (!hotel) {
-//                     await prisma.hotels.create({data: {regionId: e.id, jsonValue: r.data}})
-//                 } else {
-//                     await prisma.hotels.update({where: {regionId: e.id}, data: {regionId: e.id, jsonValue: r.data}})
-//                 }
-//             }).catch(e => {
-//                 console.log(e)
-//             })
-//         }, (index + 1) * 60000)
+//         const hotel = await prisma.hotels.findUnique({where: {regionId:e.id+""}})
+//         console.log(hotel)
+//         // let result = []
+//         // Promise.all(e.ids.map(async item => {
+//         //     try {
+//         //         return await axios.post(`http://localhost:${process.env.PORT}/getHotels/${item}`)
+//         //     } catch (e) {
+//         //         return []
+//         //     }
+//         // }))
+//         //     .then(res => {
+//         //         result = res.map(r => {
+//         //             result.push(...r)
+//         //         })
+//         //     })
+//         //
+//         // if (!hotel) {
+//         //     await prisma.hotels.create({data: {regionId: +e.id, jsonValue: result}})
+//         // } else {
+//         //     await prisma.hotels.update({where: {regionId: +e.id}, data: {regionId: +e.id, jsonValue: result}})
+//         // }
 //     })
 // });
 

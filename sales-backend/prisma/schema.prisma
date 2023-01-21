@@ -207,6 +207,7 @@ model ExcursionTour {
   total       Float                    @default(0)
   passagers   ExcursionTourPassenger[]
   status      Status                   @default(NEW)
+  partnerId         Int?
 }
 
 model Transfer {
