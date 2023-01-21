@@ -10,11 +10,14 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import NavS from "../NavS";
 import Contacts from "../../../components/contacts";
+import {useSelector} from "react-redux";
+import {getAdminPrice, getAgentPrice, getUserPrice} from "../../../utils/prices";
 
 function VisasTab() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [adults, setAdults] = useState(1);
+  const user = useSelector((state) => state.user.currentUser);
   const [infant, setInfant] = useState(0);
   const [children, setChildren] = useState(0);
   const [visaType, setVisaType] = useState(0);
@@ -328,7 +331,9 @@ function VisasTab() {
               </div>
               <div className={"text-center"}>
                 <p className={"text-xl"}>
-                  <span className={"font-bold"}>Price:</span> {tr.price}$
+                  <span className={"font-bold"}>Price:</span> {user.role === "agent"
+                    ? getAgentPrice(tr.price) : user.role === "admin"
+                        ? getAdminPrice(tr.price) : getUserPrice(tr.price)}$
                 </p>
                 <button
                   onClick={() => order(tr)}

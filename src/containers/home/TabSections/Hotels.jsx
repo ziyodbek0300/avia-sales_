@@ -74,14 +74,6 @@ const RenderItem = ({
     let duration = moment.duration(now.diff(end));
     let days = duration.asDays();
 
-    // const getPriceHotel = (hotelPrice) => {
-    //     try {
-    //         return hotelPrice * Math.ceil(days);
-    //     } catch (e) {
-    //         return 0;
-    //     }
-    // };
-
     const handlePress = async () => {
         setValues({
             ...values,
@@ -173,8 +165,8 @@ const RenderItem = ({
                                 ?.map(() => {
                                     return (
                                         <span className={"mx-1"}>
-                      <img src={Star} alt="star"/>
-                    </span>
+                                          <img src={Star} alt="star"/>
+                                        </span>
                                     );
                                 })}
                         </div>
@@ -223,7 +215,10 @@ const RenderItem = ({
                                                                             <div
                                                                                 className={"flex flex-col justify-between h-full"}>
                                                                                 <div>
-                                                                                    <p className={"text-md p-0 m-0"}>{e.name ? e.name : "Standart"} <span className={"text-red-500 ml-1"}>({GetMealName(e)})</span></p>
+                                                                                    <p className={"text-md p-0 m-0"}>{e.name ? e.name : "Standart"}
+                                                                                        <span
+                                                                                            className={"text-red-500 ml-1"}>({GetMealName(e)})</span>
+                                                                                    </p>
                                                                                     <p className={"m-0"}>{e.dataa.name}</p>
                                                                                 </div>
                                                                                 {/*<div className={"text-right"}>*/}
@@ -331,6 +326,7 @@ function Hotels() {
         date1: null,
         date2: null,
     });
+    const [foods, setFoods] = useState("");
 
     return (
         <>
@@ -562,7 +558,7 @@ function Hotels() {
             </div>
             <div className="max-w-5xl mx-auto flex flex-col gap-3">
                 {hotels?.length !== 0 ? (
-                    <div className={"flex justify-start bg-white shadow-md mt-5 border p-4 rounded"}>
+                    <div className={"flex justify-start items-end gap-4 bg-white shadow-md mt-5 border p-4 rounded"}>
                         <div>
                             <h2 className={"text-2xl mb-3"}>Доступные отели</h2>
                             <input
@@ -572,6 +568,33 @@ function Hotels() {
                                 onInput={(e) => setSearch(e.target.value)}
                             />
                         </div>
+                        <select name="sortByMeal" onChange={(e) => {
+                            setFoods(e.target.value);
+                        }} className={"h-9 p-2 px-5 border outline-red-500 rounded"} id="sortByMeal">
+                            <option value="">Любое</option>
+                            <option value="19">AI - Dine Around</option>
+                            <option value="18">AI - Gold</option>
+                            <option value="52">AI - Plus</option>
+                            <option value="53">AI - Premium Mirage</option>
+                            <option value="45">AI - Ultra Soft</option>
+                            <option value="3">BB</option>
+                            <option value="38">FB - Deluxe</option>
+                            <option value="35">FB - Dine Around</option>
+                            <option value="14">FB - Plus</option>
+                            <option value="39">FB - Premium</option>
+                            <option value="51">FB - Premium Dine Around</option>
+                            <option value="6">FB</option>
+                            <option value="36">HB - Deluxe</option>
+                            <option value="23">HB - Dine Around</option>
+                            <option value="10">HB - Dinner</option>
+                            <option value="9">HB - Lunch</option>
+                            <option value="8">HB - Plus</option>
+                            <option value="31">HB - Premium</option>
+                            <option value="33">HB - Premium Dine Around</option>
+                            <option value="4">HB</option>
+                            <option value="49">HB Plus - Dinner</option>
+                            <option value="7">RO</option>
+                        </select>
                     </div>
                 ) : (
                     ""

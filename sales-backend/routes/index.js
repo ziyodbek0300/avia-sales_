@@ -15,6 +15,7 @@ const htplace = require("../constants/hotelsTownLists");
 const sprice = require("../constants/sprice");
 const hprice = require("../constants/hprice");
 const roomNames = require("../constants/room");
+const {hotelsTownLists} = require("../constants/hotelsTownLists");
 // const {hotelsTownLists} = require("../constants/hotelsTownLists")
 
 router.get('/', async function (req, res) {

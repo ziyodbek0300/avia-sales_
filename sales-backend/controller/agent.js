@@ -9,7 +9,7 @@ const getAllAgents = async (req, res, next) => {
                 include:{
                     passager:true
                 }
-            }
+            },
             }})])
             .then(r => {
                 return res.status(200).send(Success(200, r, "ok"))

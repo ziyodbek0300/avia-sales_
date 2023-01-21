@@ -3,7 +3,6 @@ import {RiSendPlane2Line} from "react-icons/ri";
 import {DatePicker} from "rsuite";
 import ReactSelect from "react-select";
 import regions from "../../../api/projectApi/regions";
-import flights from "../../../api/projectApi/flights";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 import hotelsTownLists from "../../../constants/hotelsTownLists";
@@ -21,6 +20,7 @@ import Star from "../../../static/images/star.svg";
 import Tick from "../../../static/images/card_images/tick-circle.svg";
 import getMealName from "../../../constants/meals";
 import GetMealName from "../../../constants/meals";
+import {getAdminPrice, getAgentPrice, getUserPrice} from "../../../utils/prices";
 
 const RenderItem = ({e, adults = 0, children = 0, infant = 0, dates, priceChange = () => ({})}) => {
     const navigate = useNavigate();
@@ -133,56 +133,66 @@ const RenderItem = ({e, adults = 0, children = 0, infant = 0, dates, priceChange
                         if (bool) return e;
                     })
                     .filter((e) => !!e)[0].price *
-                Math.ceil(days) +
-                (+adults + +children + +infant) * filghtPrice
-            priceChange(price)
+                Math.floor(days) +
+                ((+adults + +children + +infant) * (filghtPrice * 2))
+            console.log(Math.floor(days))
+            priceChange(price);
             return price;
         } catch (e) {
             priceChange(0)
             return 0;
         }
     };
-  return (
-    <div className={"bg-white gap-5 shadow border rounded-lg py-6"}>
-      <div
-          onClick={handlePress}
-          className="cursor-pointer flex gap-6"
-          key={`${hotelId}`}
-      >
-        <div className={"max-w-[450px] overflow-auto relative"}>
-          <div className={"flex min-w-[450px] h-full"}>
-            <div className={"min-w-[450px] rounded-xl overflow-hidden flex justify-center items-center h-full"}>
-              <img src={"https://travelcontinent.uz/image/b2b/hotelimages?samo_action=get&hotel=" + e.inc + "&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64"} className="h-[250px] rounded-xl w-[250px]" alt={`image${e.inc}`} />
-            </div>
-            <div className={"min-w-[450px] rounded-xl overflow-hidden flex justify-center items-center h-full"}>
-              <img src={"https://travelcontinent.uz/image/b2b/hotelimages?samo_action=get&hotel=" + e.inc + "&id=1&equilateral=1&width=200&height=200&stamp=72BE0B64"} className="h-[250px] rounded-xl w-[250px]" alt={`image${e.inc}`} />
-            </div>
-            <div className={"min-w-[450px] rounded-xl overflow-hidden flex justify-center items-center h-full"}>
-              <img src={"https://travelcontinent.uz/image/b2b/hotelimages?samo_action=get&hotel=" + e.inc + "&id=2&equilateral=1&width=200&height=200&stamp=72BE0B64"} className="h-[250px] rounded-xl w-[250px]" alt={`image${e.inc}`} />
-            </div>
-          </div>
-          <div className={"flex justify-center"}>
-            <div className={"flex gap-2 absolute bottom-3"}>
-              <div className={"w-4 h-4 bg-red-500 rounded-full"}></div>
-              <div className={"w-4 h-4 bg-gray-500 rounded-full"}></div>
-              <div className={"w-4 h-4 bg-gray-500 rounded-full"}></div>
-            </div>
-          </div>
-        </div>
-        <div className={"flex flex-col gap-5 justify-between"}>
-          <div>
-            <div className="my-3 font-bold block">
-              <span className={"bg-red-500 rounded uppercase text-white p-1"}>турпакет</span>
-            </div>
-            <h1 className="text-xl font-bold block">{e.name}</h1>
-            <div className={"flex py-2"}>
-              {new Array(
-                  isNaN(e.starCount?.slice(0, 1)) ? 1 : +e.starCount?.slice(0, 1)
-              )
-                  .fill("a")
-                  ?.map((a) => {
-                    return (
-                        <span className={"mx-1"}>
+    return (
+        <div className={"bg-white gap-5 shadow border rounded-lg py-6"}>
+            <div
+                onClick={handlePress}
+                className="cursor-pointer flex gap-6"
+                key={`${hotelId}`}
+            >
+                <div className={"max-w-[450px] overflow-auto relative"}>
+                    <div className={"flex min-w-[450px] h-full"}>
+                        <div
+                            className={"min-w-[450px] rounded-xl overflow-hidden flex justify-center items-center h-full"}>
+                            <img
+                                src={"https://travelcontinent.uz/image/b2b/hotelimages?samo_action=get&hotel=" + e.inc + "&id=0&equilateral=1&width=200&height=200&stamp=72BE0B64"}
+                                className="h-[250px] rounded-xl w-[250px]" alt={`image${e.inc}`}/>
+                        </div>
+                        <div
+                            className={"min-w-[450px] rounded-xl overflow-hidden flex justify-center items-center h-full"}>
+                            <img
+                                src={"https://travelcontinent.uz/image/b2b/hotelimages?samo_action=get&hotel=" + e.inc + "&id=1&equilateral=1&width=200&height=200&stamp=72BE0B64"}
+                                className="h-[250px] rounded-xl w-[250px]" alt={`image${e.inc}`}/>
+                        </div>
+                        <div
+                            className={"min-w-[450px] rounded-xl overflow-hidden flex justify-center items-center h-full"}>
+                            <img
+                                src={"https://travelcontinent.uz/image/b2b/hotelimages?samo_action=get&hotel=" + e.inc + "&id=2&equilateral=1&width=200&height=200&stamp=72BE0B64"}
+                                className="h-[250px] rounded-xl w-[250px]" alt={`image${e.inc}`}/>
+                        </div>
+                    </div>
+                    <div className={"flex justify-center"}>
+                        <div className={"flex gap-2 absolute bottom-3"}>
+                            <div className={"w-4 h-4 bg-red-500 rounded-full"}></div>
+                            <div className={"w-4 h-4 bg-gray-500 rounded-full"}></div>
+                            <div className={"w-4 h-4 bg-gray-500 rounded-full"}></div>
+                        </div>
+                    </div>
+                </div>
+                <div className={"flex flex-col gap-5 justify-between"}>
+                    <div>
+                        <div className="my-3 font-bold block">
+                            <span className={"bg-red-500 rounded uppercase text-white p-1"}>турпакет</span>
+                        </div>
+                        <h1 className="text-xl font-bold block">{e.name}</h1>
+                        <div className={"flex py-2"}>
+                            {new Array(
+                                isNaN(e.starCount?.slice(0, 1)) ? 1 : +e.starCount?.slice(0, 1)
+                            )
+                                .fill("a")
+                                ?.map((a) => {
+                                    return (
+                                        <span className={"mx-1"}>
                       <img src={Star} alt="star"/>
                     </span>
                                     );
@@ -232,46 +242,32 @@ const RenderItem = ({e, adults = 0, children = 0, infant = 0, dates, priceChange
                                                                 });
                                                             } catch (e) {
                                                             }
-                                                            if (!bool) return null;
                                                             return (
-                                                                e.status !== "D" && (
-                                                                    <div
-                                                                        style={{width: "100%"}}
-                                                                        className={
-                                                                            "relative flex gap-2 items-center"
-                                                                        }
-                                                                    >
-                                                                        <input
-                                                                            name={"asd"}
-                                                                            type="radio"
-                                                                            onChange={() => setPr(e.price)}
-                                                                            id={`${JSON.stringify(e)}`}
-                                                                        />
-                                                                        <label htmlFor={`${JSON.stringify(e)}`}>
-                                                                            <div
-                                                                                className={"flex flex-col justify-between h-full"}>
-                                                                                <div>
-                                                                                    <p className={"text-md p-0 m-0"}>{e.name ? e.name : "Standart"} <span className={"text-red-500 ml-1"}>({GetMealName(e)})</span></p>
-                                                                                    <p className={"m-0"}>{e.dataa.name}</p>
-                                                                                </div>
-                                                                                {/*<div className={"text-right"}>*/}
-                                                                                {/*  <button*/}
-                                                                                {/*      className={*/}
-                                                                                {/*        "px-4 py-2 bg-white text-zinc-900 font-bold capitalize rounded"*/}
-                                                                                {/*      }*/}
-                                                                                {/*      onClick={() =>*/}
-                                                                                {/*          navigate(*/}
-                                                                                {/*              `/hotel/order/${hotelId}/${e.inc}?name=${e.name}&adult=${adults}&c=${children}&d=${infant}`*/}
-                                                                                {/*          )*/}
-                                                                                {/*      }*/}
-                                                                                {/*  >*/}
-                                                                                {/*    {t("order")}*/}
-                                                                                {/*  </button>*/}
-                                                                                {/*</div>*/}
+                                                                <div
+                                                                    style={{width: "100%"}}
+                                                                    className={
+                                                                        "relative flex gap-2 items-center"
+                                                                    }
+                                                                >
+                                                                    <input
+                                                                        name={"asd"}
+                                                                        type="radio"
+                                                                        onChange={() => setPr(e.price)}
+                                                                        id={`${JSON.stringify(e)}`}
+                                                                    />
+                                                                    <label htmlFor={`${JSON.stringify(e)}`}>
+                                                                        <div
+                                                                            className={"flex flex-col justify-between h-full"}>
+                                                                            <div>
+                                                                                <p className={"text-md p-0 m-0"}>{e.name ? e.name : "Standart"}
+                                                                                    <span
+                                                                                        className={"text-red-500 ml-1"}>({GetMealName(e)})</span>
+                                                                                </p>
+                                                                                <p className={"m-0"}>{e.dataa.name}</p>
                                                                             </div>
-                                                                        </label>
-                                                                    </div>
-                                                                )
+                                                                        </div>
+                                                                    </label>
+                                                                </div>
                                                             );
                                                         }
                                                     )}
@@ -284,9 +280,13 @@ const RenderItem = ({e, adults = 0, children = 0, infant = 0, dates, priceChange
                     </>
                     <p className={"mt-auto text-2xl text-red-600 font-bold"}>
                         <span className={"text-xl text-black font-normal"}>Цена:</span> $
-                        {pr === 0 ? Array.isArray(isReturn.arr) &&
+                        {currentUser?.role === "agent" ? getAgentPrice((pr === 0 ? Array.isArray(isReturn.arr) &&
                             isReturn.arr.length > 0 &&
-                            Math.floor(getPrice()) + 180 : Math.floor(pr) * Math.ceil(days) + 180}<br/>
+                            Math.floor(getPrice()) + 180 : Math.floor(pr) * Math.ceil(days) + 180)) : currentUser?.role === "admin" ? getAdminPrice((pr === 0 ? Array.isArray(isReturn.arr) &&
+                            isReturn.arr.length > 0 &&
+                            Math.floor(getPrice()) + 180 : Math.floor(pr) * Math.ceil(days) + 180)) : getUserPrice((pr === 0 ? Array.isArray(isReturn.arr) &&
+                            isReturn.arr.length > 0 &&
+                            Math.floor(getPrice()) + 180 : Math.floor(pr) * Math.ceil(days) + 180))}<br/>
 
                     </p>
                     <button onClick={() => {
@@ -294,9 +294,13 @@ const RenderItem = ({e, adults = 0, children = 0, infant = 0, dates, priceChange
                             "tourPrice",
                             JSON.stringify({
                                 ...data,
-                                price: pr === 0 ? Array.isArray(isReturn.arr) &&
+                                price: currentUser?.role === "agent" ? getAgentPrice((pr === 0 ? Array.isArray(isReturn.arr) &&
                                     isReturn.arr.length > 0 &&
-                                    Math.floor(getPrice()) + 180 : Math.floor(pr) * Math.ceil(days) + 180,
+                                    Math.floor(getPrice()) + 180 : Math.floor(pr) * Math.ceil(days) + 180)) : currentUser?.role === "admin" ? getAdminPrice((pr === 0 ? Array.isArray(isReturn.arr) &&
+                                    isReturn.arr.length > 0 &&
+                                    Math.floor(getPrice()) + 180 : Math.floor(pr) * Math.ceil(days) + 180)) : getUserPrice((pr === 0 ? Array.isArray(isReturn.arr) &&
+                                    isReturn.arr.length > 0 &&
+                                    Math.floor(getPrice()) + 180 : Math.floor(pr) * Math.ceil(days) + 180)),
                                 roomId: e.inc,
                             })
                         );
@@ -325,9 +329,12 @@ function TourPack() {
     const [adults, setAdults] = useState(1);
     const [infant, setInfant] = useState(0);
     const [children, setChildren] = useState(0);
+    const flights = useSelector((state) => state.flights.flights);
     const [isOpen, setIsOpen] = useState(false);
     const [regionsList, setRegionsList] = useState([]);
     const [flightsList, setFlightsList] = useState([]);
+    const [wd, setWd] = useState([]);
+    const [wd1, setWd1] = useState([]);
     const [isGroup, setIsGroup] = useState(1);
     const [hotels, setHotels] = useState([]);
 
@@ -416,6 +423,17 @@ function TourPack() {
         }
     };
 
+    const getWeekDays = () => {
+        // eslint-disable-next-line array-callback-return
+        flights.map((reg) => {
+            if (reg.fromName === from.label && reg.toName === to.label) {
+                setWd(() => reg.weekDays);
+            } else if (reg.fromName === to.label && reg.toName === from.label) {
+                setWd1(() => reg.weekDays);
+            }
+        });
+    };
+
     return (
         <>
             <div className="second" onClick={handleClick} style={{backgroundSize: "100% 100%"}}>
@@ -466,18 +484,28 @@ function TourPack() {
                                     }}
                                 />
                             </div>
-                            <div className="w-full">
+                            <div className="w-full" onMouseEnter={() => getWeekDays()}>
                                 <label htmlFor="from" className="block text-white text-sm">
                                     {t("to")}
                                 </label>
                                 <DatePicker
-                                    disabledDate={(date) =>
-                                        date.getDay() === 1 ||
-                                        date.getDay() === 2 ||
-                                        date.getDay() === 4 ||
-                                        date.getDay() === 5 ||
-                                        date.getDay() === 6
-                                    }
+                                    disabledDate={(date) => {
+                                        if (wd.length === 2) {
+                                            return date.getDay() !== wd[0] && date.getDay() !== wd[1];
+                                        } else if (wd.length === 1) {
+                                            return date.getDay() !== wd[0];
+                                        } else if (wd.length === 3) {
+                                            return (date.getDay() !== wd[0] && date.getDay() !== wd[1] && date.getDay() !== wd[2]);
+                                        } else if (wd.length === 4) {
+                                            return (date.getDay() !== wd[0] && date.getDay() !== wd[1] && date.getDay() !== wd[2] && date.getDay() !== wd[3]);
+                                        } else if (wd.length === 5) {
+                                            return (date.getDay() !== wd[0] && date.getDay() !== wd[1] && date.getDay() !== wd[2] && date.getDay() !== wd[3] && date.getDay() !== wd[4]);
+                                        } else if (wd.length === 6) {
+                                            return (date.getDay() !== wd[0] && date.getDay() !== wd[1] && date.getDay() !== wd[2] && date.getDay() !== wd[3] && date.getDay() !== wd[4] && date.getDay() !== wd[5]);
+                                        } else if (wd.length === 7) {
+                                            return (date.getDay() !== wd[0] && date.getDay() !== wd[1] && date.getDay() !== wd[2] && date.getDay() !== wd[3] && date.getDay() !== wd[4] && date.getDay() !== wd[5] && date.getDay() !== wd[6]);
+                                        }
+                                    }}
                                     format="yyyy-MM-dd"
                                     style={{
                                         width: "100%",
@@ -493,13 +521,23 @@ function TourPack() {
                                     {t("obratno")}
                                 </label>
                                 <DatePicker
-                                    disabledDate={(date) =>
-                                        date.getDay() === 0 ||
-                                        date.getDay() === 1 ||
-                                        date.getDay() === 4 ||
-                                        date.getDay() === 5 ||
-                                        date.getDay() === 3
-                                    }
+                                    disabledDate={(date) => {
+                                        if (wd1.length === 2) {
+                                            return (date.getDay() !== wd1[0] && date.getDay() !== wd1[1]);
+                                        } else if (wd1.length === 1) {
+                                            return date.getDay() !== wd1[0];
+                                        } else if (wd1.length === 3) {
+                                            return (date.getDay() !== wd1[0] && date.getDay() !== wd1[1] && date.getDay() !== wd1[2]);
+                                        } else if (wd1.length === 4) {
+                                            return (date.getDay() !== wd1[0] && date.getDay() !== wd1[1] && date.getDay() !== wd1[2] && date.getDay() !== wd1[3]);
+                                        } else if (wd1.length === 5) {
+                                            return (date.getDay() !== wd1[0] && date.getDay() !== wd1[1] && date.getDay() !== wd1[2] && date.getDay() !== wd1[3] && date.getDay() !== wd1[4]);
+                                        } else if (wd1.length === 6) {
+                                            return (date.getDay() !== wd1[0] && date.getDay() !== wd1[1] && date.getDay() !== wd1[2] && date.getDay() !== wd1[3] && date.getDay() !== wd1[4] && date.getDay() !== wd1[5]);
+                                        } else if (wd1.length === 7) {
+                                            return (date.getDay() !== wd1[0] && date.getDay() !== wd1[1] && date.getDay() !== wd1[2] && date.getDay() !== wd1[3] && date.getDay() !== wd1[4] && date.getDay() !== wd1[5] && date.getDay() !== wd1[6]);
+                                        }
+                                    }}
                                     format="yyyy-MM-dd"
                                     style={{
                                         width: "100%",
