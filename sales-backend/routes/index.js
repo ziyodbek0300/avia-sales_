@@ -79,14 +79,13 @@ cron.schedule("*/5 * * * *", async function () {
                 await prisma.hotels.create({data: {id: hotel?.id, jsonValue: result, regionId: `${e.id}`}})
                 await sleep(10000)
             } else {
-                // const result1 = reverse(uniqBy(reverse([...hotel.jsonValue, ...result]), 'inc'));
-                console.log(result)
+                const result1 = reverse(uniqBy(reverse([...hotel.jsonValue, ...result]), 'inc'));
                 await prisma.hotels.update({
                     where: {id: hotel?.id},
                     data: {
                         id: hotel?.id,
                         regionId: `${e.id}`,
-                        jsonValue:  result
+                        jsonValue:  result1
                     }
                 })
                 await sleep(10000)
