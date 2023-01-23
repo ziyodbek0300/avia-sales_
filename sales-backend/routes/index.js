@@ -51,7 +51,7 @@ async function sleep(millis) {
 }
 
 // cron.schedule("0 0 */1 * * *", function () {
-cron.schedule("*/15 * * * *", async function () {
+cron.schedule("*/10 * * * *", async function () {
     const hotels = await prisma.hotels.findMany({})
     hotelsTownLists.map(async (e, index) => {
         const hotel = hotels.find(hotel => hotel.regionId == e.id)
@@ -73,13 +73,11 @@ cron.schedule("*/15 * * * *", async function () {
                 })
             })
 
-        // console.log(result)
         try {
             if (!hotel) {
-                console.log(result)
                 await prisma.hotels.create({data: {id: hotel?.id, jsonValue: result, regionId: `${e.id}`}})
+                await sleep(10000)
             } else {
-                console.log(unionBy([...hotel.jsonValue, ...result], (e) => e.inc))
                 await prisma.hotels.update({
                     where: {id: hotel?.id},
                     data: {
@@ -88,9 +86,9 @@ cron.schedule("*/15 * * * *", async function () {
                         jsonValue: unionBy([...hotel.jsonValue, ...result], (e) => e.inc)
                     }
                 })
+                await sleep(10000)
             }
         } catch (e) {
-            console.log(e)
         }
     })
 });
