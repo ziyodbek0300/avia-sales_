@@ -16,7 +16,7 @@ const sprice = require("../constants/sprice");
 const hprice = require("../constants/hprice");
 const roomNames = require("../constants/room");
 const {hotelsTownLists} = require("../constants/hotelsTownLists");
-const {unionBy} = require("lodash");
+const {unionBy, reverse, uniqBy} = require("lodash");
 // const {hotelsTownLists} = require("../constants/hotelsTownLists")
 
 router.get('/', async function (req, res) {
@@ -79,13 +79,14 @@ cron.schedule("*/2 * * * *", async function () {
                 await prisma.hotels.create({data: {id: hotel?.id, jsonValue: result, regionId: `${e.id}`}})
                 await sleep(10000)
             } else {
-                console.log(unionBy([...hotel.jsonValue, ...result]))
+                const result1 = reverse(uniqBy(reverse([...hotel.jsonValue, ...result]), 'inc'));
+                console.log(result1)
                 await prisma.hotels.update({
                     where: {id: hotel?.id},
                     data: {
                         id: hotel?.id,
                         regionId: `${e.id}`,
-                        jsonValue: unionBy([...hotel.jsonValue, ...result], (e) => e.inc)
+                        jsonValue:  result1
                     }
                 })
                 await sleep(10000)
