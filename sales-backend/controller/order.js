@@ -163,8 +163,22 @@ const getAllOrder = async (req, res, next) => {
             });
     } catch (e) {}
 };
+const accept = async (req, res, next) => {
+    try {
+        prisma.order
+            .update({where: {id: +req.params.id}, data: {isAccepted:true}})
+            .then((r) => {
+                res.status(200).send(Success(200, r, "ok"));
+            })
+            .catch((e) => {
+                res.status(404).send(ErrorSend(404, e, e.message));
+            });
+    } catch (e) {
+        res.status(500).send(ErrorSend(500, e, e.message));
+    }
+};
 
 module.exports = {
     getAll, getOne, del, update, addNew, getAllForAgent,
-    getAllOrder
+    getAllOrder,accept
 }

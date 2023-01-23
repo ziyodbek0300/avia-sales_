@@ -138,13 +138,7 @@ const update = async (req, res, next) => {
 
 const addNew = async (req, res, next) => {
     try {
-        // if (!req.user || req.user.role === userRole.client || req.user.role === userRole.agent) {
-        //     if (req.user && req.user.role === userRole.agent) {
-        //         return res.status(404).send(ErrorSend(404, {}, "no user"))
-        //     } else {
-        //         return res.status(404).send(ErrorSend(404, {}, "no user"))
-        //     }
-        // }
+
         const orderBody = req.body;
         const passagers = orderBody?.passagers;
         delete orderBody?.passagers;
@@ -183,6 +177,23 @@ const addNew = async (req, res, next) => {
     }
 };
 
+
+const accept = async (req, res, next) => {
+    try {
+        prisma.hotelOrder
+            .update({where: {id: +req.params.id}, data: {isAccepted:true}})
+            .then((r) => {
+                res.status(200).send(Success(200, r, "ok"));
+            })
+            .catch((e) => {
+                res.status(404).send(ErrorSend(404, e, e.message));
+            });
+    } catch (e) {
+        res.status(500).send(ErrorSend(500, e, e.message));
+    }
+};
+
+
 module.exports = {
     getAll,
     getOne,
@@ -190,5 +201,6 @@ module.exports = {
     update,
     addNew,
     getAllForAgent,
-    getAllOrder
+    getAllOrder,
+    accept
 };
